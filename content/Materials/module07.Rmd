@@ -1,0 +1,96 @@
+Title: Module 7 – Inference and simulation
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-07 00:00
+Tags: class notes
+Slug: module07-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 7]{.card-downloads-format}][reading07]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 7 -- Who busts the Mythbusters?]{.card-downloads-format}][mini-homework07]
+
+*   [`r icon_pencil` &nbsp; [Homework 3 -- National Survey of Family Growth]{.card-downloads-format}][homework03]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Videos]{.h2}
+
+**Inference and simulation - 01 - Gender discrimination case study**
+
+```{r inference-and-simulations-01-gender-discrimination-case-study, echo = FALSE}
+vembedr::embed_youtube(id = "EL9bbzblRq8", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Inference and simulation - 02 - A hypothesis test as a court trial**
+
+```{r inference-and-simulations-02-a-hypothesis-test-as-a-court-trial, echo = FALSE}
+vembedr::embed_youtube(id = "LzsLhuxYiMs", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Inference and simulation - 03 - A manual simulation of the gender discrimination experiment**
+
+```{r inference-and-simulations-03-a-manual-simulation-of-the-gender-discrimination-experiment, echo = FALSE}
+vembedr::embed_youtube(id = "hjVjAzuMRDM", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Inference and simulation - 04 - Simulating the gender discrimination experiment in R**
+
+```{r inference-and-simulations-04-simulating-the-gender-discrimination-experiment-in-r, echo = FALSE}
+vembedr::embed_youtube(id = "8wQ-uU611vI", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - Gender discrimination case study]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - A hypothesis test as a court trial]{.card-downloads-format}][slides-02]
+
+*   [`r icon_pdf` &nbsp; [03 - A manual simulation of the gender discrimination experiment]{.card-downloads-format}][slides-03]
+
+*   [`r icon_pdf` &nbsp; [04 - Simulating the gender discrimination experiment in R]{.card-downloads-format}][slides-04]
+
+*   [`r icon_pdf` &nbsp; [05 - One-sided hypothesis tests using infer]{.card-downloads-format}][slides-05]
+
+*   [`r icon_pdf` &nbsp; [06 - Two-sided hypothesis tests using infer]{.card-downloads-format}][slides-06]
+
+*   [`r icon_pdf` &nbsp; [07 - Variability of estimates and confidence intervals]{.card-downloads-format}][slides-07]
+
+*   [`r icon_pdf` &nbsp; [08 - Simulating the confidence interval]{.card-downloads-format}][slides-08]
+
+*   [`r icon_pdf` &nbsp; [09 - Effect size]{.card-downloads-format}][slides-09]
+:::
+
+[slides-01]:          https://drive.google.com/file/d/1du9nvutPgGqmhIk8IwGTTDbtg7MFTNWY 
+[slides-02]:          https://drive.google.com/file/d/1k9upa_hsq7-jUFwdqCFAq6bpenHKaytT
+[slides-03]:          https://drive.google.com/file/d/1c3ikTCXhWEeT5pkuSPVxDjzz3x1BdQhp
+[slides-04]:          https://drive.google.com/file/d/1N7tV39N7mocfWuxWhetPIxfWCc_um4lT
+[slides-05]:          https://drive.google.com/file/d/1SUewphETMnIvzhbXoKK5mXQXhRxpLxhv
+[slides-06]:          https://drive.google.com/file/d/1K8UbNKFCYUmOD73xmpxe2NdZ8pMIzmns
+[slides-07]:          https://drive.google.com/file/d/1-drQTqeRPJOBSuJHX9HWtpof_g0OO1gh 
+[slides-08]:          https://drive.google.com/file/d/19IpyKCWJhFiaO3bndDip3DnAewyZZ5Ea
+[slides-09]:          https://drive.google.com/file/d/1IjnRZ9Q-wSlWyUDoJ6flyxZidThAdXE5
+[reading07]:          /assignments/reading07/
+[homework03]:         /assignments/homework-3/
+[mini-homework07]:    /assignments/minihw07-who-busts-the-mythbusters/

@@ -1,0 +1,310 @@
+Title: Homework 1
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-03 00:00
+Tags: homework
+Slug: homework-1
+Summary: Your first major assignment is a set of exercises based around a single dataset called <span class="monospace">rail_trail</span>, which will provide you with practice in creating visualizations using R and <code>ggplot2</code>.
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, eval = TRUE, fig.width = 5,
+  fig.asp = 0.618, out.width = "70%", dpi = 120,
+  fig.align = "center", cache = TRUE, dev = "svg"
+)
+icon_html5 <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_square <- '<i class="far fa-square" data=fa=transform="grow-8"></i>&nbsp;'
+```
+
+## Instructions
+
+The first part of this page explains how homework assignments will be handled and evaluated, since they are completed in groups.
+The questions for Homework 1 start further down, [click this link to skip to that part of the page](#the-rail-trail-dataset). 
+
+### Overview
+
+As a group, solve the homework problems and write your answers in the R Markdown file [homework_1.Rmd]{.monospace}.
+Grades for the group submissions will, in addition to correctness, be based on document formatting, visualization quality, writing quality, and code style.
+**This means that your group submission is to be written in the style of a exploratory data report, meaning:**
+
+*   Each exercise must be written up using full sentences such that it is clear what question is being answered.
+
+*   There needs to be plain text above each code block explaining what you are doing, and the code blocks should be organized.
+
+*   The R Markdown file **must** knit without error and generate a PDF file, and the final PDF output must look nice, clean, and be easy to read.
+
+### Participation
+
+Credit for group participation will be determined using the following sources:
+
+1.  A [CONTRIBUTIONS.md]{.monospace} file distributed with your group repository
+
+2.  Commit history on GitHub
+
+3.  Discussion history in your group's private Slack channel
+
+**Each group will need to fill out the [CONTRIBUTIONS.md]{.monospace} file as part of their submission.**
+This file is where where each group member lists what he or she contributed to the final submission.
+Read the section **[Fill out the [CONTRIBUTIONS.md]{.monospace} file](#fill-out-the-contributions.md-file)** for more details on how this works.
+
+#### Google Docs
+
+If your group used an external document to coordinate and organize your work, such as a Google Doc, then that can also count as evidence of participation, **provided that there is a visible writing history and it is possible to identify which student is responsible for each edit.**
+This will require you to share the relevant file with the instructor with full privileges on the document so that it's possible to review the document's editing history.
+Please note that anonymous edits to Google Docs documents cannot be used as participation evidence, since there is no way to verify the account responsible for the added content.
+Also, for similar reasons, offline documents traded back and forth via email cannot be accepted as evidence of participation.
+
+### How to answer the questions as a group
+
+The following is a checklist you may follow to help you get started with answering the questions as a group:
+
+::: {.no-bullets}
+*   `r icon_square` Read through all the problems individually.
+    Then, as a group, discuss what will be needed to fully answer each question.
+
+*   `r icon_square` As a group, decide how you will split up writing responsibilities.
+    A typical way to do this is to have each group member be responsible for writing out the full answer to a certain number of questions.
+
+*   `r icon_square` **(Important)** Before you start, make a copy of [homework_1.Rmd]{.monospace} and **rename the copied file** to include your last name.
+    For example, if your last name is Smith, then your file copy should be renamed to [homework_1_smith.Rmd]{.monospace}.
+
+*   `r icon_square` Commit and push your copied file to GitHub.
+
+*   `r icon_square` Draft your contributions in **your** file.
+    For example, if my last name was Smith and I agreed to write-up the answers to questions 4, 5, and 6, then I would open up [homework_1_smith.Rmd]{.monospace} and put my answers there.
+    When I'm done, I would save my file, then commit and push my work to GitHub.
+:::
+
+### How to edit and merge your answers into the group submission
+
+While you will be writing your answers in separate files, eventually the group will need to merge in everyone's answers into the main [homework_1.Rmd]{.monospace} document. The following checklist may help with this:
+
+*   `r icon_square` Select an editor to be in charge of merging everyone's answers into the final document [homework_1.Rmd]{.monospace}. Because the editor needs to prepare the document for submission, it is reasonable if he or she contributes slightly less in terms of answering the questions (for example, if everyone else answers three questions, it would be okay if the editor answers two).
+
+*   `r icon_square` The editor should ensure that everyone has committed and pushed their answers to GitHub so they can copy and paste in each contribution.
+
+*   `r icon_square` The editor needs to make sure that the final submission reads like a coherent document and that the writing style and code style are uniform across all the answers. In other words, it should read like a single person answered all the questions, not a group of four people.
+
+*   `r icon_square` The editor will be in charge of of committing and pushing the final R Markdown file to GitHub, knitting to PDF, and uploading the PDF file on Blackboard.
+
+### Fill out the [CONTRIBUTIONS.md]{.monospace} file
+
+After everything is written up and ready for submission, the last thing the group will need to do is fill out the [CONTRIBUTIONS.md]{.monospace} file.
+By default, the file looks like this:
+
+``` markdown
+# Contributions to group submission
+
+## Editor: FirstName LastName Member 1
+
+*   Questions answered:
+
+## FirstName LastName Member 2
+
+*   Questions answered:
+
+## FirstName LastName Member 3
+
+*   Questions answered:
+
+## FirstName LastName Member 4
+
+*   Questions answered:
+```
+
+At a minimum, you must remove the [FirstName LastName Member]{.monospace} entries in the template and fill in the names of the people in your group, indicate which group member served as the editor, and state which questions were written up by each member.
+
+Additional information beyond this **should** be supplied, such as indicating when a group member helped another group member edit an answer or gave helpful comments in a Slack discussion. For example, one group member's contribution list may read as follows:
+
+``` markdown
+## Jane Smith
+
+*   Questions answered: 4, 5, 6
+*   Helped with editing on answers 8 and 9
+*   Collaborated with group member Jack Williams on answering question 10
+*   Pointed out spelling errors and suggested fixes to the document layout in the merged group document
+```
+
+### Working with a GitHub repository as a group
+
+You will likely encounter some issues while working in a group-based GitHub repository.
+In particular, you might find that when you click *"Push"* in the **Git** tab of RStudio, that it doesn't seem to work and instead you get an annoying error message! This will happen when another member of your group has uploaded work before you did.
+While this can be irritating to deal with, this is actually a good thing, as it is GitHub's way of protecting your files from accidential overwrites and deletions.
+
+So what should you do to keep things running smoothly?
+First, **always** work in your own file, never in another person's file.
+If you are not the editor, then you should not edit [homework_1.Rmd]{.monospace} either!
+Also, do not remove or rename any files that are not your own.
+Finally, when you are getting ready to work, following the procedure below should help keep the error messages to a minimum:
+
+1.  When you start working, you should begin by going to the **Git** tab and clicking *"Pull"* (notice this is not the same as *"Push"*).
+    This will synchronize any new changes that your group may have made into your files.
+
+2.  Work on your file as normal.
+    When you have completed your work, save your file.
+
+3.  Now we want to commit.
+    **But first**, go to the **Git** tab and click *"Pull"* one more time to check for any other changes.
+    Then, still in the **Git** tab, click the checkmark next to your updated file, type a message in the messagebox, and click the **Commit** button.
+
+4.  If the updated file is no longer in the list of files in the **Git** tab, then your commit was successful.
+
+5.  Click *"Push"* to upload your changed file.
+
+#### If the above advice doesn't work...
+
+If, even after following the advice below, you still encounter error messages when Pulling from and Pushing to GitHub, contact the course instructor for help.
+
+### How to submit
+
+The editor should follow the steps below to submit the homework for his/her group.
+
+1.  Make sure that everyone has committed and pushed their R Markdown files so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view all the completed files on the GitHub website.
+
+2.  Knit your group's R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *Homework 1* posting on Blackboard.
+
+## The rail trail dataset
+
+```{r mass-central-logo, out.width = "300px", echo = FALSE}
+knitr::include_graphics("img/mass-central-logo.jpg")
+```
+
+For this homework assignment, you will be working though a set of visualization problems based on the [rail_trail]{.monospace} dataset.
+The [rail_trail]{.monospace} dataset was collected by the Pioneer Valley Planning Commission (PVPC) and counts the number of people that walked through a sensor on a *rail trail* during a ninety day period.
+[A *rail trail* is a retired or abandoned railway that was converted into a walking trail][rail-trail-wiki].
+The data was collected from April 5, 2005 to November 15, 2005 using a laser sensor placed at a location north of Chestnut Street in Florence, MA.
+
+```{r florence-ma-chestnut, out.width = "50%", echo = FALSE}
+knitr::include_graphics("img/florence-chestnut-street-rail-trail.png")
+```
+
+The dataset contains the following variables:
+
+| Variable                  | Description                                                             |
+| :------------             | :---------------------------------------------------------------------- |
+| [hightemp]{.monospace}    | daily high temperature (in degrees Fahrenheit)                          |
+| [lowtemp]{.monospace}     | daily low temperature (in degrees Fahrenheit)                           |
+| [avgtemp]{.monospace}     | average of daily low and daily high temperature (in degrees Fahrenheit) |
+| [season]{.monospace}      | indicates whether the season was Spring, Summer, or Fall                |
+| [cloudcover]{.monospace}  | measure of cloud cover (in oktas)                                       |
+| [precip]{.monospace}      | measure of precipitation (in inches)                                    |
+| [volume]{.monospace}      | estimated number of trail users that day (number of breaks recorded)    |
+| [weekday]{.monospace}     | indicator of whether the day was a non-holiday weekday                  |
+
+## How to describe your visualizations
+
+When describing the contents of a visualization, follow the ideas discussed in these resources:
+
+*   [*Describing univariate and bivariate data*][describing-univariate-bivariate-data]
+
+*   [*Data visualization - Examining numerical data* slides][examining-numerical-data]
+
+## Questions
+
+@describe-dataset.
+    In the [rail_trail]{.monospace} dataset, how many rows are there?
+    How many columns?
+    Which variables in the dataset are continuous/numerical and which are categorical?
+
+@volume-histogram.
+    Create a histogram of the variable `volume` using the following code:
+    
+    ```r
+    ggplot(data = rail_trail) +
+      geom_histogram(mapping = aes(x = volume))
+    ```
+    
+    Describe the *shape* and *center* of the distribution.
+    Afterward, try adjusting the size of the histogram bins by adding the `binwidth` input.
+    To start with, use `binwidth = 21`.
+    If you need help with where to place `binwidth`, read the documentation by running `?geom_histogram` in your *Console* window.
+    Then, find a binwidth that's too narrow and another one that's too wide to produce a meaningful histogram.
+    
+@density-plot.
+    Choosing a proper bin width for a histogram can be tricky, and for that reason it's preferable to use visualizations that avoid using bin widths when possible.
+    An easy-to-use alternative to the histogram is `geom_density`, which creates a **density plot**.
+    Use `geom_density` to create a density plot of the variable `volume`.
+
+@remaining-histograms.
+    Create a density plot for each of the remaining numerical variables, and describe the *shape* and *center* of each distribution.
+    Are there any distributions that are similar in *shape* to each other?
+
+@scatter-plots.
+    Use `geom_point()` to create a scatterplot that plots `weekday` versus `season`.
+    Why is this plot not useful?
+
+@mosaic-plots.
+    Create a `geom_count()` plot (an alternative to a mosaic plot) using the same variables you considered in question @scatter-plots:
+    
+    ```r
+    ggplot(data = rail_trail) +
+      geom_count(mapping = aes(x = season, y = weekday))
+    ```
+    
+    Which circle in the plot takes up the most area?
+    Explain the meaning of the different size circles in the plot and what information it contains that is missing in the previous scatter plot.
+    
+@bar-chart.
+    Run `?geom_bar` in the *Console* window and read the documentation for `geom_bar()`, and then look at the entry for it on the [ggplot2 cheatsheet][ggplot2-cheatsheet]
+    Use `geom_bar()` to reproduce the following bar chart:
+
+    ```{r seasons-bar-chart, echo = FALSE}
+    knitr::include_graphics("img/seasons-bar-chart-1.svg")
+    ```
+    
+    After reproducing the plot, explain what the height of each bar means.
+    
+@bar-chart-position.
+    Starting from the code snippet you deduced in question @bar-chart, create two more bar charts:
+
+    *   Create a bar chart by supplying the input `position = "dodge"` to `geom_bar()`
+
+    *   Create a bar chart by supplying the input `position = "fill"` to `geom_bar()`.
+    
+    After creating the visualizations, describe the feature that `position` controls.
+    
+@precip-bar-chart.
+    Create a bar chart that maps its aesthetic `aes()` to `precip > 0`.
+    Interpret what this bar chart means.
+    
+@vol-vs-hightemp.
+    Create a scatter plot of `volume` versus `hightemp` using `geom_point()`.
+    Describe any trends that you see.
+    
+@facet-vs-color-aes.
+    Take the code snippet you wrote for question @vol-vs-hightemp and map the `weekday` variable to `color`.
+    Then create a second plot where, instead of mapping `weekday` to `color`, you *facet* over `weekday` using either `facet_wrap()` or `facet_grid()`.
+    Discuss the advantages and disadvantages to faceting instead of mapping to the `color` aesthetic.
+    How might the balance change if you had a larger dataset?
+    
+@using-smooth.
+    Take the code snippet that you wrote down in question @facet-vs-color-aes that faceted over `weekday` and create a model for each facet panel using `geom_smooth()`.
+    Discuss the trends in the number of rail trail users that `geom_smooth()` picks up.
+    
+@smooth-se-option.
+    Copy the code snippet you deduced in question @using-smooth and use the input `se = FALSE` for `geom_smooth()`.
+    What does the `se` input option for `geom_smooth()` control?
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [RMarkdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [RMarkdown reference][rmarkdown-reference]
+
+[rail-trail-wiki]:                      https://wikipedia.org/wiki/Rail_trail
+[ggplot2-cheatsheet]:                   https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:                   https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:                  https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:                 https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[examining-numerical-data]:             https://drive.google.com/file/d/1KiY4qavGUf3gMQF5rg1cR5HzmaI9i0dQ
+[describing-univariate-bivariate-data]: http://book.cds101.com/describing-numerical-data.html

@@ -1,0 +1,153 @@
+Title: Module 4 – Data transformation
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-04 00:00
+Tags: class notes
+Slug: module04-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 4]{.card-downloads-format}][reading04]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Module exercises]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_laptop` &nbsp; [Module 4 exercises]{.card-downloads-format}][module04-exercises]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 4 -- Flights of New York]{.card-downloads-format}][mini-homework04]
+
+*   [`r icon_pencil` &nbsp; [Homework 2 -- Titanic]{.card-downloads-format}][homework02]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Videos]{.h2}
+
+**Data transformation - 01 - What is data wrangling?**
+
+```{r data-transformation-01-what-is-data-wrangling, echo = FALSE}
+vembedr::embed_youtube(id = "j8tKN7Iw5dw", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 02 - The presidential dataset**
+
+```{r data-visualization-02-the-presidential-dataset, echo = FALSE}
+vembedr::embed_youtube(id = "wP6xGaTdfVc", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 03 - The select function**
+
+```{r data-visualization-03-the-select-function, echo = FALSE}
+vembedr::embed_youtube(id = "bfmMYUOWnls", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 04 - The pipe operator**
+
+```{r data-visualization-04-the-pipe-operator, echo = FALSE}
+vembedr::embed_youtube(id = "SdrBENv3F-s", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 05 - The arrange function**
+
+```{r data-visualization-05-the-arrange-function, echo = FALSE}
+vembedr::embed_youtube(id = "9Hnz8KEBCUc", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 06 - The slice function**
+
+```{r data-visualization-06-the-slice-function, echo = FALSE}
+vembedr::embed_youtube(id = "m3lvPn8oP2E", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 07 - Boolean logic**
+
+```{r data-visualization-07-boolean-logic, echo = FALSE}
+vembedr::embed_youtube(id = "_nVGIkzf8fg", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 08 - The filter function**
+
+```{r data-visualization-08-the-filter-function, echo = FALSE}
+vembedr::embed_youtube(id = "BnscboiLaUM", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 09 - The mutate function**
+
+```{r data-transformation-09-the-mutate-function, echo = FALSE}
+vembedr::embed_youtube(id = "1YuxbvsaErk", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 10 - The group\_by and summarize functions**
+
+```{r data-visualization-10-the-group-by-and-summarize-functions, echo = FALSE}
+vembedr::embed_youtube(id = "5UOC4b2_G8s", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**Data transformation - 11 - Other helpful dplyr verbs**
+
+```{r data-visualization-11-other-helpful-dplyr-verbs, echo = FALSE}
+vembedr::embed_youtube(id = "ZTL_tP70-zo", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - What is data wrangling?]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - The [presidential]{.monospace} dataset]{.card-downloads-format}][slides-02]
+
+*   [`r icon_pdf` &nbsp; [03 - The [select]{.monospace} function]{.card-downloads-format}][slides-03]
+
+*   [`r icon_pdf` &nbsp; [04 - The pipe [%>%]{.monospace} operator]{.card-downloads-format}][slides-04]
+
+*   [`r icon_pdf` &nbsp; [05 - The [arrange]{.monospace} function]{.card-downloads-format}][slides-05]
+
+*   [`r icon_pdf` &nbsp; [06 - The [slice]{.monospace} function]{.card-downloads-format}][slides-06]
+
+*   [`r icon_pdf` &nbsp; [07 - Boolean logic]{.card-downloads-format}][slides-07]
+
+*   [`r icon_pdf` &nbsp; [08 - The [filter]{.monospace} function]{.card-downloads-format}][slides-08]
+
+*   [`r icon_pdf` &nbsp; [09 - The [mutate]{.monospace} function]{.card-downloads-format}][slides-09]
+
+*   [`r icon_pdf` &nbsp; [10 - The [group\_by]{.monospace} and [summarize]{.monospace} functions]{.card-downloads-format}][slides-10]
+
+*   [`r icon_pdf` &nbsp; [11 - Other helpful dplyr verbs]{.card-downloads-format}][slides-11]
+:::
+
+[slides-01]:          https://drive.google.com/file/d/1LssVpGMhlblGewJtwO3NgdSZO-FF0uQQ
+[slides-02]:          https://drive.google.com/file/d/11uJtI_mdbw8Z8LWUExKzXLyVKtQTZ5NS
+[slides-03]:          https://drive.google.com/file/d/1DtuT-rtWs-i6MzWiYtX4HUvlqpIlZfUm
+[slides-04]:          https://drive.google.com/file/d/1SCd5J-w1Z9E6vmT2LbmaeDZaE8pDA2p4
+[slides-05]:          https://drive.google.com/file/d/1yrnIiFINXI1nA8IFRnPhbLZVdU5MVcXn
+[slides-06]:          https://drive.google.com/file/d/18Dcyy6m8Bn1Rhgrrbxf_3OFSh4iQfrWR
+[slides-07]:          https://drive.google.com/file/d/1j8y2iLJSiiH7B-NmA6T-Qf9-Mlyb3m1x
+[slides-08]:          https://drive.google.com/file/d/1bs6q7_PNEqKa6FLYfPY65kwkZtRQ8QKB
+[slides-09]:          https://drive.google.com/file/d/155Z3Zs3AUjg6We5IotAexY_bdpFGDDvA
+[slides-10]:          https://drive.google.com/file/d/1myTkhZPrLjylP5mtvkARZrk7GFhxzR5H
+[slides-11]:          https://drive.google.com/file/d/1mjcislhv3o_KUbTlSsw8pT6aar4uqSYZ
+[reading04]:          /assignments/reading04/
+[homework02]:         /assignments/homework-2/
+[mini-homework04]:    /assignments/minihw04-flights-of-new-york/
+[module04-exercises]: /assignments/module04-exercises/

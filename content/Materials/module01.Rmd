@@ -1,0 +1,87 @@
+Title: Module 1 – What are the computational and data sciences?
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-01 00:00
+Tags: class notes
+Slug: module01-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 1]{.card-downloads-format}][reading01]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Module exercises]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_laptop` &nbsp; [Module 1 exercises]{.card-downloads-format}][module-exercises]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 1]{.card-downloads-format}][mini-homework01]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Videos]{.h2}
+
+**01 - What are the computational and data sciences - Science**
+
+```{r what-are-comput-data-sci-02-science, echo = FALSE}
+vembedr::embed_youtube(id = "fxLFfuW4eag", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**02 - What are the computational and data sciences - Data Overview**
+
+```{r what-are-comput-data-sci-03-data-overview, echo = FALSE}
+vembedr::embed_youtube(id = "t7iEMTkfY6g", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**03 - What are the computational and data sciences - Data Sampling**
+
+```{r what-are-comput-data-sci-04-data-sampling, echo = FALSE}
+vembedr::embed_youtube(id = "kGlrYxTDGh8", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**04 - What are the computational and data sciences - Computation**
+
+```{r what-are-comput-data-sci-05-computation, echo = FALSE}
+vembedr::embed_youtube(id = "7mhehSq959k", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - Science]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - Data overview]{.card-downloads-format}][slides-02]
+
+*   [`r icon_pdf` &nbsp; [03 - Data sampling]{.card-downloads-format}][slides-03]
+
+*   [`r icon_pdf` &nbsp; [04 - Computation]{.card-downloads-format}][slides-04]
+:::
+
+[slides-01]:        https://drive.google.com/file/d/1X2Aq6xBlv7mE4QjSF1WNigtw_xhudggE
+[slides-02]:        https://drive.google.com/file/d/1Q9aNKZRnjzY-fUoEICQ0eg2bxMoMkgRU
+[slides-03]:        https://drive.google.com/file/d/1qInq4DXzYsHjmnw2lVu_ffVrAUuzN5ko
+[slides-04]:        https://drive.google.com/file/d/1HAZiWrMGi8KUC1aStF7Gt-9nphjhfAs8
+[reading01]:        /assignments/reading01/
+[mini-homework01]:  /assignments/minihw01-can-twitter-predict-election-results/
+[module-exercises]: /assignments/module01-exercises/

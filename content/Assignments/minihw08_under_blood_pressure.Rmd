@@ -1,0 +1,269 @@
+Title: Under (blood) pressure
+Author: Dr. Glasbrenner
+Date: 2019-01-08 00:00
+Tags: mini-assignment
+Slug: minihw08-under-blood-pressure
+Summary: A mini-homework for practicing how to build and analyze linear regression models.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 8"
+```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named [pressure.Rmd]{.monospace}.
+This mini-homework will guide you through the process of building and analyzing linear regression models.
+Read the [About the dataset](#about-the-dataset) section to get some background information on the dataset that you'll be working with.
+Each of the below [exercises](#exercises) are to be completed in the provided spaces within your starter file [pressure.Rmd]{.monospace}.
+Then, when you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## About the dataset
+
+The dataset[^data-source] we are using in this mini-homework comes from a study conducted by anthropologists to determine the long-term effects of a change in environment on blood pressure.
+They measured the blood pressure of individuals who had migrated from a pre-modern environment high in the Andes mountains of Peru into the mainstream of Peruvian society at a much lower altitude.
+The motivation for looking at blood pressure for this group of individuals comes from a prior study in Africa, which suggested that migration from a simpler society to a more technologically complex one might increase blood pressure at first, but that the blood pressure would tend to decrease back to normal over time.
+The anthropologists recorded systolic blood pressure measurements as it is often a more sensitive indicator compared to diastolic measurements, as well as each participant's height, weight, and a number of other characteristics.
+All these data are for males over 21 who were born at a high altitude and whose parents were born at a high altitude.
+
+Using this collected data, we aim to answer the research question,
+
+> All else kept equal, does the amount of time spent in an urban environment affect the blood pressure of individuals that recently migrated from a pre-modern society?
+
+You might wonder if the features in the [infer]{.monospace} package would be sufficient to address this question.
+The [infer]{.monospace} package could be used to determine whether or not time spent in an urban environment has any effect at all, such that we could conclude "yes it does" or "no it doesn't."
+What it won't let us do is predict the blood pressure of another individual that did not participate in the study or help to quantify how **much** of an effect time spent in an urban environment has relative to the other measurements taken during the study.
+If we want to predict things based on what we see in the dataset and analyze the relative importance of different variables, we will need to build a model.
+There are many types of models out there, and for this mini-homework we will focus on building a *linear regression model* for this dataset.
+
+The dataset [blood\_pressure]{.monospace} contains 9 variables and 39 rows,
+
+| Variable              | Description             |
+| --------              | ----------------------- |
+| [Systol]{.monospace}  | systolic blood pressure |
+| [Age]{.monospace}     | age                     |
+| [Years]{.monospace}   | years in urban area     |
+| [Weight]{.monospace}  | weight (kg)             |
+| [Height]{.monospace}  | height (mm)             |
+| [Chin]{.monospace}    | chin skinfold           |
+| [Forearm]{.monospace} | forearm skinfold        |
+| [Calf]{.monospace}    | calf skinfold           |
+| [Pulse]{.monospace}   | resting pulse rate      |
+
+## Exercises
+
+@visualize-systol-correlations.
+    As always, we begin by creating visualizations to help familiarize ourselves with the dataset.
+    Since we are interested in how the variable [Systol]{.monospace} is affected by the other variables in the dataset, let's use `facet_wrap()` to create a sequence of scatter plots that will show us which variables correlate with [Systol]{.monospace}.
+    Fill in the ellipses [...]{.monospace} in the following template to create the visualization,
+    
+    ```r
+    blood_pressure %>%
+      gather(..., key = "variable", value = "value") %>%
+      ggplot() +
+      geom_point(mapping = aes(x = ..., y = ...)) +
+      facet_wrap(~ ..., scales = "free_x")
+    ```
+    
+    The missing input in `gather()` should grab all the columns in the range [Age]{.monospace} through [Pulse]{.monospace}.
+    In the plot, fill in the missing inputs so that the **vertical axis** is [Systol]{.monospace}, the **horizontal axis** is the value of the other variable, and the faceting is done over the different variable names.
+    
+@interpret-systol-correlations.
+    Does the [Years]{.monospace} variable have a positive or negative correlation with [Systol]{.monospace}?
+    Are there any other variables that follow a similar trend with respect to [Systol]{.monospace}?
+    Which variables show a moderate to strong *positive* correlation with [Systol]{.monospace}?
+    
+    :::{.callout .primary}
+    [Reminder]{.h4}
+    
+    The [Years]{.monospace} variable is the number of years that an individual has lived in an urban environment.
+    :::
+    
+@urban-frac-life-bmi-features.
+    A common preprocessing step in model building is to combine or transform some of the variables to create additional columns that may improve the accuracy of a model.
+    Our research question asks whether the length of time spent living in an urban environment correlates with decreased blood pressure over time. 
+    To figure this out, we could just look at [Years]{.monospace}, but it may be that any trends in the [Years]{.monospace} variable are confounded by the overall age of the individual.
+    Account for the effect of age by using `mutate()` to create a new column by computing the ratio $\text{urban\_frac\_life}=\dfrac{\text{Years}}{\text{Age}}$.
+    Assign the resulting data frame with these two new columns to [blood_pressure_updated]{.monospace}.
+    
+@model-summary.
+    We're now ready to create our first linear regression model using the `lm()` function!
+    Try the following as an example, which builds a linear regression model of [Systol]{.monospace} using [urban\_frac\_life]{.monospace} as the explanatory variable,
+    
+    ```r
+    systol_urban_frac_model <- lm(Systol ~ urban_frac_life, data = blood_pressure_updated)
+    ```
+    
+    After building the model, use the following two convenience functions from the [broom]{.monospace} package to get a basic overview of the model.
+    To get a data frame summarizing the model parameters, use the `tidy()` function,
+    
+    ```r
+    systol_urban_frac_model %>%
+      tidy()
+    ```
+    
+    The values under the [estimate]{.monospace} column give us the intercept and slope of our linear model (remember $y=mx+b$?).
+    Additional information about the model, such as the model’s $R^{2}$ paramter, can be obtained using the `glance()` function:
+    
+    ```r
+    systol_urban_frac_model %>%
+      glance()
+    ```
+    
+    The $R^{2}$ value represents the proportion of variability in the response variable that is explained by the explanatory variable.
+    If $R^{2}$ is close to 1, that means that the model is doing an excellent job capturing the variability of the response variable.
+    If it is close to 0, then it is doing a poor job capturing the variability of the response variable.
+    
+    ::: {.callout .primary}
+    [Reminder]{.h4}
+    
+    Notice that we are using the same formula syntax in `lm()` to specify the model as we used in the `specify()` function from the [infer]{.monospace} package.
+    Remember, the response variable goes on the left side of the tilde [~]{.monospace} and the explanatory variable goes on the right side.
+    :::
+    
+@get-pred-and-resid.
+    After building a model, we would like to know what it predicts and how accurate the predictions are.
+    One way to capture the accuracy of the predictions is to calculate the **residuals**, which tell us how far off any given prediction is from the true value.
+    The [modelr]{.monospace} package, which is part of the [tidyverse]{.monospace}, provides us with functions for adding model predictions and residuals to our data frame.
+    To do this for our model [Systol ~ urban\_frac\_life]{.monospace}, we pipe our dataset into two functions, `add_predictions()` and `add_residuals()`, which each take the model `systol_urban_frac_model` that we built earlier as input,
+    
+    ```r
+    systol_urban_frac_df <- blood_pressure_updated %>%
+      add_predictions(systol_urban_frac_model) %>%
+      add_residuals(systol_urban_frac_model)
+    ```
+    
+    The predictions are added under a new column called [pred]{.monospace} and the residuals are added under a new column called [resid]{.monospace}.
+    
+@visualize-model-line.
+    Now that we've made our predictions and calculated the residuals, let's create some visualizations to investigate how well our model performs.
+    First, let's plot the model fit on top of the [Systol]{.monospace} versus [urban\_frac\_life]{.monospace} scatter plot.
+    To create this visualization, we will need the slope and intercept we printed out in Exercise @model-summary, which should be filled in the template code below,
+    
+    ```r
+    ggplot(systol_urban_frac_df) +
+      geom_point(mapping = aes(x = ..., y = ...)) +
+      geom_abline(slope = ..., intercept = ...)
+    ```
+    
+    As before, you will need to fill in the ellipses [...]{.monospace} to create the plot.
+    
+@observed-and-resid-vs-pred.
+    The one problem with the plot in Exercise @visualize-model-line is that it can only be made when your model has a single explanatory variable.
+    If you create a model with two or more explanatory variables, you will need a different type of plot to visualize the predictive power of your model.
+    One such plot is the *observed versus predicted plot*, which is created as follows,
+    
+    ```r
+    ggplot(systol_urban_frac_df) +
+      geom_point(aes(pred, Systol)) +
+      geom_abline(
+        slope = 1,
+        intercept = 0,
+        color = "red",
+        size = 1
+      )
+    ```
+    
+    Alternatively, you can use a *residual versus predicted plot*,
+    
+    ```r
+    ggplot(systol_urban_frac_df) +
+      geom_point(aes(pred, resid)) +
+      geom_ref_line(h = 0)
+    ```
+    
+    Make both of these plots in your R Markdown file.
+    
+@residuals-hist.
+    It is also important to inspect the residuals to see what the prediction error is like.
+    It is typical to visualize the residuals using a histogram to get a sense of their center, shape, and overall spread.
+    Create a histogram of the [resid]{.monospace} column in [systol\_urban\_frac\_df]{.monospace}, making sure you choose an appropriate bin width for the distribution.
+    What is the shape and center of the residuals?
+    
+@linearity-constant-variability.
+    How do we know if a linear regression model is reliable?
+    In general, three conditions must be met in order for a linear model built using `lm()` to be reliable:
+
+    1.  **Linearity:** The relationship between the explanatory variable and the response variable must be linear
+    
+    2.  **Nearly normal residuals:** The residuals should be nearly normal (i.e. follow a bell curve shape)
+    
+    3.  **Constant variability:** The variability of the points around the model line should be roughly constant
+
+    The first and third conditions, **linearity** and **constant variability**, can be determined from the plots created in Exercise @observed-and-resid-vs-pred.
+    Look at your *observed versus predicted* and *residual versus predicted* plots again.
+    If the points in either plot appear to follow a non-linear (curved) trend, then that’s a tell-tale sign that the condition for linearity has been violated.
+    Similarly, in the *residual versus predicted* plot, if the residual spread seems to meaningfully increase or decrease as the predicted value changes then the constant variability condition has been violated.
+    Interpret the plots and conclude whether or not the relationship between [Systol]{.monospace} and [urban\_frac\_life]{.monospace} is linear or non-linear and whether constant variability is violated.
+    
+@qq-plot-residuals.
+    The histogram we created in Exercise @residuals-hist can give us a basic idea of whether the second condition, **nearly normal residuals**, is violated, but we should have a more precise method for figuring this out.
+    A useful method for determining if the residuals are nearly normal is to build a Q-Q plot using `geom_qq()`, which creates a plot that shows us precisely where the distribution of residuals deviates from normality.
+    To create the Q-Q plot of the residuals, run the following code,
+    
+    ```r
+    ggplot(data = systol_urban_frac_df) +
+      geom_qq(mapping = aes(sample = resid)) +
+      geom_qq_line(mapping = aes(sample = resid))
+    ```
+    
+    Generally, if we have a nearly normal distribution then most of the residuals will stay close to the reference line on the Q-Q plot.
+    Regions where the residual distribution deviates from the normal distribution's bell curve shape will show up as points that diverge from the reference line. 
+    Based on what you see in the visualization, conclude whether or not the residuals are nearly normal.
+    
+@weight-model.
+    Create and fit a second linear model for [Systol]{.monospace} using the [Weight]{.monospace} variable and name it [systol\_weight\_model]{.monospace}.
+    Does this new model seem to predict [Systol]{.monospace} better than [urban\_frac\_life]{.monospace}?
+    Determine this by comparing the $R^{2}$ values (obtained using `glance()`) for the two models.
+    Then, create an *observed versus predicted* plot, a *residual versus predicted* plot, and a Q-Q residual plot for this new model.
+    Should we conclude that this new model is reliable?
+    Why or why not?
+    
+@combined-model.
+    Now let's see what happens when we build a multivariate model.
+    Build a model for [Systol]{.monospace} that uses [urban\_frac\_life]{.monospace} and [Weight]{.monospace} at the same time,
+    
+    ```r
+    systol_combo_model <- lm(Systol ~ urban_frac_life + Weight, data = blood_pressure_updated)
+    ```
+    
+    Create a *residual versus predicted* plot and a Q-Q residual plot for this model.
+    Should we conclude that this new model is reliable?
+    Also inspect the $R^{2}$ value for this new model.
+    Does this seem to perform better than the single-variable models?
+
+## How to submit
+
+To submit your mini-homework, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [dplyr cheatsheet][data-transformation-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+[^data-source]: Peruvian blood pressure dataset and description sources:
+  <https://newonlinecourses.science.psu.edu/stat501/node/299/>,
+  <https://www2.stat.duke.edu/courses/Fall98/sta113/proj/datasets.html>.
+
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf

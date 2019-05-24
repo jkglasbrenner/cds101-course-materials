@@ -1,0 +1,35 @@
+Title: Reading 8
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-08 00:00
+Tags: reading
+Slug: reading08
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_link <- '<i class="fa fa-link"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-4"></i>&nbsp;'
+```
+
+`r icon_book` [R for Data Science]{.h3}
+
+`r icon_link` Book URL: <http://r4ds.had.co.nz>
+
+**Chapter 23: Model basics**
+
+*   Full chapter: <https://r4ds.had.co.nz/model-basics.html>
+
+`r icon_book` [Introductory Statistics with Randomization and Simulation]{.h3}
+
+`r icon_link` [Click here][isrs-book] to download the textbook.
+
+**Chapter 5: Introduction to linear regression**
+
+*   Introduction
+
+*   Section 5.1
+
+*   Section 5.4, read subsection 5.4.1 only
+
+[isrs-book]: https://drive.google.com/file/d/1qCW5nnrPRde6OQatY1P6Y3l8KWv02sf4

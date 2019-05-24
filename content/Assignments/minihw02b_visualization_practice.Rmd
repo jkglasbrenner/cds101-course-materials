@@ -1,0 +1,62 @@
+Title: Visualization practice
+Author: Dr. Glasbrenner
+Date: 2019-01-02 00:01
+Tags: mini-assignment
+Slug: minihw02b-visualization-practice
+Summary: A mini-homework to practice using RStudio to run code blocks in RMarkdown files and to create visualizations using ggplot2.
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+icon_html5 <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 2b"
+```
+
+::: {.no-bullets}
+*   [`r icon_html5` Offline, HTML-rendered copy of worksheet (code blocks left unevaluated)][visualization-practice-no-code-preview-html]
+:::
+
+## Instructions
+
+::: {.callout .secondary}
+[First-time RStudio Server configuration]{.h4}
+
+**Very important!** If this is the first homework assignment that you're completing with RStudio Server, you first will need to follow **all** the directions provided at the link below.
+This must be done **before** you start completing homeworks using RStudio Server.
+**You only need to do this once.**
+
+:::: {.no-bullets}
+*   [`r icon_github` &nbsp; [RStudio Server Configuration repository]{.card-downloads-format}][rstudio-configuration] 
+::::
+:::
+
+Obtain the GitHub repository you will use to complete the mini-assignment, which contains a starter file named [visualization\_practice.Rmd]{.monospace}.
+The demos and exercises you will be completing are written inside [visualization\_practice.Rmd]{.monospace}, complete them within the indicated spaces.
+When you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## How to submit
+
+To submit your assignment, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this assignment:
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [RMarkdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [RMarkdown reference][rmarkdown-reference]
+
+[rstudio-cheatsheet]:                          https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:                         https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:                        https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[rstudio-configuration]:                       https://github.com/jkglasbrenner/rstudio-server-initial-configuration
+[visualization-practice-no-code-preview-html]: /doc/minihw02b_visualization_practice_no_code_preview.html

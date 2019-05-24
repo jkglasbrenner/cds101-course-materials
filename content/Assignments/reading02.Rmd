@@ -1,0 +1,61 @@
+Title: Reading 2
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-02 00:00
+Tags: reading
+Slug: reading02
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_link <- '<i class="fa fa-link"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-4"></i>&nbsp;'
+```
+
+`r icon_book` [Introduction to computational and data sciences supplemental book]{.h3}
+
+`r icon_link` Book URL: <http://book.cds101.com>
+
+**Chapter 2: GitHub**
+
+*   Section 2.1 -- Getting started: <http://book.cds101.com/getting-started.html>
+
+*   Section 2.2 -- Navigating the GitHub site: <http://book.cds101.com/navigating-the-github-site.html>
+
+*   Section 2.3 -- Repositories: <http://book.cds101.com/repositories.html>
+
+`r icon_book` [R for Data Science]{.h3}
+
+`r icon_link` Book URL: <http://r4ds.had.co.nz>
+
+**Chapter 27: R Markdown**
+
+*   Full chapter: <http://r4ds.had.co.nz/r-markdown.html>
+
+`r icon_book` [R Markdown: The Definitive Guide]{.h3}
+
+`r icon_link` Book URL: <https://bookdown.org/yihui/rmarkdown>
+
+**Chapter 2: Basics**
+
+*   Introduction: <https://bookdown.org/yihui/rmarkdown/basics.html>
+
+*   Section 2.2 -- Compile an R Markdown document: <https://bookdown.org/yihui/rmarkdown/compile.html>
+
+*   Section 2.5 -- Markdown syntax: <https://bookdown.org/yihui/rmarkdown/markdown-syntax.html>
+
+`r icon_book` [Introduction to Data Science: Data Analysis and Prediction Algorithms with R]{.h3}
+
+`r icon_link` Book URL: <https://rafalab.github.io/dsbook/>
+
+**Chapter 77: RStudio**
+
+*   Section 77.1 -- The panes: <https://rafalab.github.io/dsbook/rstudio.html#the-panes>
+
+*   Section 77.2 -- Key bindings: <https://rafalab.github.io/dsbook/rstudio.html#key-bindings>
+
+*   Section 77.5 -- Global options: <https://rafalab.github.io/dsbook/rstudio.html#global-options>
+
+*   Section 77.6 -- Keeping organized with RStudio projects: <https://rafalab.github.io/dsbook/rstudio.html#keeping-organized-with-rstudio-projects>
+
+*   Section 77.7 -- Using Git and GitHub in RStudio: <https://rafalab.github.io/dsbook/rstudio.html#using-git-and-github-in-rstudio>

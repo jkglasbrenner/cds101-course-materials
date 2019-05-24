@@ -1,0 +1,31 @@
+Title: Module 4 exercises
+Author: Dr. Glasbrenner
+Date: 2019-01-04 00:00
+Tags: module-exercise
+Slug: module04-exercises
+Summary: For this module exercise, you will follow along with the examples from the Module 4 lecture videos in an R Markdown file.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Module 4 exercises"
+```
+
+## Instructions
+
+For this module exercise, you will acquire the [[dplyr]{.monospace} demo starter files][github-classroom] and follow along with the examples from the [Module 4 lecture videos][module-lectures].
+Fill in the code blocks in the R Markdown file [dplyr\_demo.Rmd]{.monospace} to match what you see in the examples from the videos.
+You will receive credit towards your **module exercises** grade if you complete the demos, push your completed R Markdown file to GitHub, and upload a knitted PDF of your completed R Markdown file to Blackboard.
+
+## How to submit
+
+To submit your module exercises, follow the two steps below.
+Your exercises will be reviewed for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+[module-lectures]: /materials/module04-materials/

@@ -1,0 +1,318 @@
+Title: Homework 3
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-07 00:00
+Tags: homework
+Slug: homework-3
+Summary: For your third major homework assignment, you will use statistical inference to answer a question about the National Survey of Family Growth, Cycle 6 dataset published by the National Center for Health Statistics.
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, eval = TRUE, fig.width = 5,
+  fig.asp = 0.618, out.width = "70%", dpi = 120,
+  fig.align = "center", cache = TRUE, dev = "svg"
+)
+icon_html5 <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_square <- '<i class="far fa-square" data=fa=transform="grow-8"></i>&nbsp;'
+```
+
+## Instructions
+
+The first part of this page explains how homework assignments will be handled and evaluated, since they are completed in groups.
+The questions for Homework 3 start further down, [click this link to skip to that part of the page](#the-national-survey-of-family-growth-dataset).
+
+### Overview
+
+As a group, solve the homework problems and write your answers in the R Markdown file [homework_3.Rmd]{.monospace}.
+Grades for the group submissions will, in addition to correctness, be based on document formatting, visualization quality, writing quality, and code style.
+**This means that your group submission is to be written in the style of a exploratory data report, meaning:**
+
+*   Each exercise must be written up using full sentences such that it is clear what question is being answered.
+
+*   There needs to be plain text above each code block explaining what you are doing, and the code blocks should be organized.
+
+*   The R Markdown file **must** knit without error and generate a PDF file, and the final PDF output must look nice, clean, and be easy to read.
+
+### Participation
+
+Credit for group participation will be determined using the following sources:
+
+1.  A [CONTRIBUTIONS.md]{.monospace} file distributed with your group repository
+
+2.  Commit history on GitHub
+
+3.  Discussion history in your group's private Slack channel
+
+**Each group will need to fill out the [CONTRIBUTIONS.md]{.monospace} file as part of their submission.**
+This file is where where each group member lists what he or she contributed to the final submission.
+Read the section **[Fill out the [CONTRIBUTIONS.md]{.monospace} file](#fill-out-the-contributions.md-file)** for more details on how this works.
+
+#### Google Docs
+
+If your group used an external document to coordinate and organize your work, such as a Google Doc, then that can also count as evidence of participation, **provided that there is a visible writing history and it is possible to identify which student is responsible for each edit.**
+This will require you to share the relevant file with the instructor with full privileges on the document so that it's possible to review the document's editing history.
+Please note that anonymous edits to Google Docs documents cannot be used as participation evidence, since there is no way to verify the account responsible for the added content.
+Also, for similar reasons, offline documents traded back and forth via email cannot be accepted as evidence of participation.
+
+### How to answer the questions as a group
+
+The following is a checklist you may follow to help you get started with answering the questions as a group:
+
+::: {.no-bullets}
+*   `r icon_square` Read through all the problems individually.
+    Then, as a group, discuss what will be needed to fully answer each question.
+
+*   `r icon_square` As a group, decide how you will split up writing responsibilities.
+    A typical way to do this is to have each group member be responsible for writing out the full answer to a certain number of questions.
+
+*   `r icon_square` **(Important)** Before you start, make a copy of [homework_3.Rmd]{.monospace} and **rename the copied file** to include your last name.
+    For example, if your last name is Smith, then your file copy should be renamed to [homework_3_smith.Rmd]{.monospace}.
+
+*   `r icon_square` Commit and push your copied file to GitHub.
+
+*   `r icon_square` Draft your contributions in **your** file.
+    For example, if my last name was Smith and I agreed to write-up the answers to questions 4, 5, and 6, then I would open up [homework_3_smith.Rmd]{.monospace} and put my answers there.
+    When I'm done, I would save my file, then commit and push my work to GitHub.
+:::
+
+### How to edit and merge your answers into the group submission
+
+While you will be writing your answers in separate files, eventually the group will need to merge in everyone's answers into the main [homework_3.Rmd]{.monospace} document. The following checklist may help with this:
+
+*   `r icon_square` Select an editor to be in charge of merging everyone's answers into the final document [homework_3.Rmd]{.monospace}. Because the editor needs to prepare the document for submission, it is reasonable if he or she contributes slightly less in terms of answering the questions (for example, if everyone else answers three questions, it would be okay if the editor answers two).
+
+*   `r icon_square` The editor should ensure that everyone has committed and pushed their answers to GitHub so they can copy and paste in each contribution.
+
+*   `r icon_square` The editor needs to make sure that the final submission reads like a coherent document and that the writing style and code style are uniform across all the answers. In other words, it should read like a single person answered all the questions, not a group of four people.
+
+*   `r icon_square` The editor will be in charge of of committing and pushing the final R Markdown file to GitHub, knitting to PDF, and uploading the PDF file on Blackboard.
+
+### Fill out the [CONTRIBUTIONS.md]{.monospace} file
+
+After everything is written up and ready for submission, the last thing the group will need to do is fill out the [CONTRIBUTIONS.md]{.monospace} file.
+By default, the file looks like this:
+
+``` markdown
+# Contributions to group submission
+
+## Editor: FirstName LastName Member 1
+
+*   Questions answered:
+
+## FirstName LastName Member 2
+
+*   Questions answered:
+
+## FirstName LastName Member 3
+
+*   Questions answered:
+
+## FirstName LastName Member 4
+
+*   Questions answered:
+```
+
+At a minimum, you must remove the [FirstName LastName Member]{.monospace} entries in the template and fill in the names of the people in your group, indicate which group member served as the editor, and state which questions were written up by each member.
+
+Additional information beyond this **should** be supplied, such as indicating when a group member helped another group member edit an answer or gave helpful comments in a Slack discussion. For example, one group member's contribution list may read as follows:
+
+``` markdown
+## Jane Smith
+
+*   Questions answered: 4, 5, 6
+*   Helped with editing on answers 8 and 9
+*   Collaborated with group member Jack Williams on answering question 10
+*   Pointed out spelling errors and suggested fixes to the document layout in the merged group document
+```
+
+### Working with a GitHub repository as a group
+
+You will likely encounter some issues while working in a group-based GitHub repository.
+In particular, you might find that when you click *"Push"* in the **Git** tab of RStudio, that it doesn't seem to work and instead you get an annoying error message! This will happen when another member of your group has uploaded work before you did.
+While this can be irritating to deal with, this is actually a good thing, as it is GitHub's way of protecting your files from accidential overwrites and deletions.
+
+So what should you do to keep things running smoothly?
+First, **always** work in your own file, never in another person's file.
+If you are not the editor, then you should not edit [homework_3.Rmd]{.monospace} either!
+Also, do not remove or rename any files that are not your own.
+Finally, when you are getting ready to work, following the procedure below should help keep the error messages to a minimum:
+
+1.  When you start working, you should begin by going to the **Git** tab and clicking *"Pull"* (notice this is not the same as *"Push"*).
+    This will synchronize any new changes that your group may have made into your files.
+
+2.  Work on your file as normal.
+    When you have completed your work, save your file.
+
+3.  Now we want to commit.
+    **But first**, go to the **Git** tab and click *"Pull"* one more time to check for any other changes.
+    Then, still in the **Git** tab, click the checkmark next to your updated file, type a message in the messagebox, and click the **Commit** button.
+
+4.  If the updated file is no longer in the list of files in the **Git** tab, then your commit was successful.
+
+5.  Click *"Push"* to upload your changed file.
+
+#### If the above advice doesn't work...
+
+If, even after following the advice below, you still encounter error messages when Pulling from and Pushing to GitHub, contact the course instructor for help.
+
+### How to submit
+
+The editor should follow the steps below to submit the homework for his/her group.
+
+1.  Make sure that everyone has committed and pushed their R Markdown files so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view all the completed files on the GitHub website.
+
+2.  Knit your group's R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *Homework 3* posting on Blackboard.
+
+
+## The National Survey of Family Growth dataset
+
+For this dataset, you will be working with the *National Survey of Family Growth, Cycle 6* dataset published by the National Center for Health Statistics.
+Your analysis will revolve around answering the following question,
+
+> Do first born children either arrive early or late when compared with non-first-borns?
+
+The questions in this assignment will guide you through the process of answering this question using statistical inference.
+
+The dataset contains 244 variables collected from 13,593 women.
+We only require a few variables to answer the above question, which are listed below.
+Complete descriptions of all the variables can be found in the [NSFG Cycle 6: Female Pregnancy File Codebook][nsfg-cycle-6].
+
+| Variable               | Description                                                                                                                                     |
+| ---------              | ---------------------------------------------------------------------------------------                                                         |
+| [caseid]{.monospace}   | integer ID of the respondent                                                                                                                    |
+| [prglngth]{.monospace} | integer duration of the pregnancy in weeks                                                                                                      |
+| [outcome]{.monospace}  | integer code for the outcome of the pregnancy, with a 1 indicating a live birth                                                                 |
+| [birthord]{.monospace} | serial number for live births; the code for a respondent's first child is 1, and so on. For outcomes other than live birth, this field is blank |
+
+## Questions
+
+@.  
+    Addressing the question *"do first born children either arrive early or late when compared with non-first-borns?"* means that we should only consider live births in the dataset.
+    Filter the dataset so that it only contains outcomes with live births and assign this result to the variable [live\_births]{.monospace}.
+    
+    Next, we need to label all births in [live\_births]{.monospace} as either "first" or "other" so that we can easily find the children that are first borns and the ones that are not. 
+    There are a couple of different ways that you can label the births:
+    
+    *   Split the dataset into two parts, a [first\_births]{.monospace} dataset and an [other\_births]{.monospace} dataset.
+        Do this by applying a filter to extract the first births, then use `mutate()` to create a new column called [birth\_order]{.monospace} that labels these rows as "first".
+        Then repeat this process, except apply a filter to extract all other births and label those as "other" in [birth\_order]{.monospace}.
+        To recombine the datasets into one, use `bind_rows()`.
+        
+    *   Use `if_else()` with `mutate()` to create the [birth\_order]{.monospace} column and the "first" and "other" labels.
+        You can also try using `case_when()` instead of `if_else()` to accomplish this.
+        If you do it this way, you won't need to use `bind_rows()`.
+        
+    After labeling the births, remove the extraneous variables from the data frame leaving just the [prglngth]{.monospace} and [birth\_order]{.monospace} columns.
+    Assign the resulting data frame to a variable named [pregnancy\_length]{.monospace}.
+    
+@.  
+    Take the [pregnancy\_length]{.monospace} dataset and plot a probability mass function (PMF) histogram of the pregnancy length in weeks that shows "first" births and "other" births on the same plot.
+    Choose a reasonable binwidth for the histogram and add `coord_cartesian(xlim = combine(27, 46))` to your plot so that the window focuses where most of the data is.
+    **After creating the plot, describe the shape, center, and spread of the two distributions**.
+    Based on the visualization, do you think the data looks like it supports the statement that "first born children either arrive early or arrive late when compared with non-first-borns"?
+    
+@.  
+    Group the variable [prglngth]{.monospace} into "first" and "other" births and compute the summary statistics (mean, median, standard deviation, inter-quartile range, minimum, maximum) for each group.
+    How do the different summary statistics compare between the two distributions?
+    Does it look like there may be a notable difference between the two distributions?
+    Explain.
+    
+@.  
+    Plot the cumulative distribution functions (CDFs) of the pregnancy lengths for "first" and "other" births.
+    The CDF for both distributions should be on the same figure so that we can directly compare them (**hint:** they should be two different colors and partially transparent).
+    How do the distributions compare?
+    Does it look like there is there a meaningful difference between the two distributions?
+
+@.  
+    If we want to determine whether or not the difference between two distributions is statistically significant, we need to run a hypothesis test.
+    Formalize your analysis by writing down the null hypothesis for the question of whether first babies arrive early or arrive late when compared with non-first-borns.
+    It should be clear from how you write your null hypothesis whether you're conducting a **one-sided** or **two-sided** hypothesis test.
+    You should also restate what the **observed value** is (this will be a number you compute using the data in [prglngth]{.monospace}) that you will be comparing against the null distribution.
+    
+@.  
+    Use a simulation to generate the null distribution so that you can perform the hypothesis test.
+    Do this using the functions provided in the [infer]{.monospace} package, `specify()`, `hypothesize()`, `generate()`, and `calculate()`.
+    To collect enough statistics, you should set the simulation to repeat 10,000 times.
+    
+    Once you've obtained the null distribution, get the *p*-value for your hypothesis test using `get_p_value()`.
+    Assuming a significance level of $\alpha = 0.05$, state whether we can we reject the null hypothesis.
+    
+    Finally, visualize the simulated null distribution using `visualize()` and the meaning of the *p*-value using `shade_p_value()`.
+    
+@.  
+    Use a bootstrap simulation to calculate the 95% confidence interval for your **observed value**.
+    Do this using the following functions from the [infer]{.monospace} package, `specify()`, ``generate()`, and `calculate()`.
+    To collect enough statistics, you should set the bootstrap simulation to repeat 10,000 times.
+    
+    Once you've obtained the bootstrap distribution, use `get_confidence_interval()` to find the upper and lower bounds of the 95% confidence interval.
+    Does the value corresponding to the null result fall within the range of the 95% confidence interval?
+    
+    Finally, visualize the bootstrap distribution using `visualize()` and show the 95% confidence interval using `shade_confidence_interval()`.
+    
+@.  
+    In addition to hypothesis tests and confidence intervals, we should also consider the **effect size**, which measures the relative difference between two distributions.
+    The effect size helps us better know how important a given result actually is, not just whether or not we can reject the null hypothesis.
+    One measure of the effect size is called [Cohen's *d*][wiki-cohens-d] (https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d), which we will use to compute the effect size between the pregnancy lengths for "first" and "other" births.
+    The different ranges of *d* can be interpreted using the following table:
+    
+    | Effect size | d    |
+    | ----------- | ---- |
+    | Very small  | 0.01 |
+    | Small       | 0.20 |
+    | Medium      | 0.50 |
+    | Large       | 0.80 |
+    | Very large  | 1.20 |
+    | Huge        | 2.00 |
+    
+    The following set of functions should also be preloaded for you: `cohens_d_bootstrap()`, `bootstrap_report()`, and `plot_ci()`.
+    These functions will use bootstrap simulations to compute the confidence interval for the Cohen's *d* parameter.
+    Run the bootstrap simulation as follows (you can just copy and paste this code):
+    
+    ```r
+    cohens_d_bootstrap(data = pregnancy_length, model = prglngth ~ birth_order)
+    ```
+    
+    **Be sure to assign the results to a variable**, for example `bootstrap_results`.
+    
+    To print a report for the bootstrap simulation, run:
+    
+    ```r
+    bootstrap_report(bootstrap_results)
+    ```
+    
+    To visualize the bootstrap distribution and confidence interval, run:
+    
+    ```r
+    plot_ci(bootstrap_results)
+    ```
+    
+    Using the provided table, report how large the effect size is for the difference in pregnancy lengths for "first" and "other" births.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this assignment:
+
+*   [Data transformation cheatsheet][data-transformation-cheatsheet]
+
+*   [Data import cheatsheet][data-import-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [RMarkdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [RMarkdown reference][rmarkdown-reference]
+
+[nsfg-cycle-6]:                   http://www.icpsr.umich.edu/nsfg6/Controller?displayPage=codeBook&fileCode=PREG&section=&subSec=
+[wiki-cohens-d]:                  https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]:         https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf

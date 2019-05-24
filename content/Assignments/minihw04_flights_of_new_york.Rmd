@@ -1,0 +1,255 @@
+Title: Flights of New York
+Author: Dr. Glasbrenner
+Date: 2019-01-04 00:00
+Tags: mini-assignment
+Slug: minihw04-flights-of-new-york
+Summary: A mini-homework for practicing how to manipulate datasets using the dplyr library.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 4"
+```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named [flights\_of\_new\_york.Rmd]{.monospace}.
+This mini-homework will help you become more familiar with manipulating datasets using R by guiding you through some examples.
+Read the [About the dataset](#about-the-dataset) section to get some background information on the dataset that you'll be working with.
+Each of the below [exercises](#exercises) are to be completed in the provided spaces within your starter file [flights\_of\_new\_york.Rmd]{.monospace}.
+Then, when you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## About the dataset
+
+The dataset we are working with in this mini-homework is the [flights]{.monospace} dataset that is loaded via the [nycflights13]{.monospace} R package.
+This dataset contains on-time data for all flights that departed from a New York City airport (airport codes: JFK, LGA, EWR) in 2013.
+
+## Exercises
+
+Start working on these exercises **after** you have successfully cloned your repository into RStudio Server.
+
+@view-table.
+    As always, you should inspect a new dataset to become more familiar with what it contains.
+    To do this in RStudio, type the following command **in your *Console* window** (not in the R Markdown file):
+
+    ```r
+    View(flights)
+    ```
+
+    Since the [flights]{.monospace} dataset is loaded as an R package via the `library(nycflights13)` in your setup code block, additional documentation is available.
+    To read more about the dataset, type the following command **in your *Console* window**:
+
+    ```r
+    ?flights
+    ```
+
+    Use these resources to answer these initial questions.
+
+    1.  How many rows and columns does this dataset have?
+
+    2.  What does a single row in this dataset represent?
+
+    3.  What is the difference between the information contained in the [dep\_time]{.monospace} and [sched\_dep\_time]{.monospace} columns?
+
+    4.  Which columns contain information about dates and times?
+
+    5.  Airplanes are reused across many different flights.
+        Which columns would be helpful to use in identifying individual airplanes?
+
+@select-column.
+    Let's start with the `select()` function.
+    The `select()` function *selects* columns from a dataset, which is useful when you're working with a dataset that contains dozens of variables.
+    Try running the following code:
+
+    ```r
+    flights %>%
+      select(year, month)
+    ```
+
+    Based on the output, explain what happens when you run this command.
+
+    ::: {.callout .primary}
+    [What does [%>%]{.monospace} mean?]{.h4}
+
+    The strange looking symbol [%>%]{.monospace} is called the **pipe**, and it is a handy way to pass a dataset through a chain of commands.
+    :::
+
+@more-selecting.
+    There are multiple ways to specify columns with the `select()` command.
+    To demonstrate this, copy the code you wrote in **Exercise @select-column** and replace `select(year, month)` with `select(year:day)`.
+    What does the colon [:]{.monospace} do?
+
+@sorting-data.
+    The sort operation is a common and indispensible operation for organizing data, and the function from [dplyr]{.monospace} that allows us to sort is called `arrange()`.
+    `arrange()` sorts columns with textual data ([chr]{.monospace} data type) into alphabetical order and sorts numerical data into numerical order.
+
+    Try running the following code:
+
+    ```r
+    flights %>%
+      arrange(month, day)
+    ```
+
+    Based on the output, does it look like both the [month]{.monospace} and [day]{.monospace} columns were sorted?
+    Which column was sorted first?
+    What happens if you reverse the order you specify the columns in `arrange()`?
+
+    ::: {.callout .secondary}
+    [Important!]{.h4}
+
+    Confusion about the function to use for sorting data frames frequently comes up later in the course.
+    Students often find that there is a function named `sort()` in R as well.
+    However, it will give you errors if you try to use it the same way we use `arrange()`.
+    For the purposes of this course, **always use `arrange()` and pretend `sort()` doesn't exist**.
+    :::
+
+@descending-sort.
+    By default, `arrange()` will sort data in ascending order.
+    The function `desc()` can be used to sort in descending order.
+    For example, to sort by months in reverse order, we would use `arrange(desc(month))`
+    Let's use it to answer a simple question about the dataset: what flight experienced the longest departure delay?
+    Identify the column that gives information about flight departure delays, and then use `arrange()` in combination with `desc()` to sort the [flights]{.monospace} dataset to find the flight with the longest departure delay.
+
+@mutate-dataset.
+    Let's now try an example that uses the `mutate()` function, which is a little more complex.
+    `mutate()` lets us **transform** a dataset by applying the same operation to each row in the dataset and appending the results as a *new* column.
+    More simply, this is how you can add, subtract, multiply, and divide different two or more columns against each other.
+    As an example, run the following command to calculate the average speed for each flight in miles per hour:
+
+    ```r
+    flights %>%
+      mutate(
+        average_speed = distance / (air_time * 60)
+      )
+    ```
+
+    Where does the new column you just computed show up in the dataset and what is the name of this new column?
+    What part of the code is controlling the name of the new column?
+
+@mutate-times.
+    We are not limited to only one input at a time in `mutate()`.
+    As long as we separate each input by a comma, we can put as many inputs as we want in the `mutate()` function!
+    As an example, let's take the `dep_time` column, which gives the clock time as an integer (for example, 11:00am is 1100) and separate it into an hours column and minutes column:
+
+    ```r
+    flights %>%
+      mutate(
+        dep_time_hour = dep_time %/% 100,
+        dep_time_minute = dep_time %% 100
+      )
+    ```
+
+    Next, copy and paste this code into a new code block, add a second comma, and then add a third line.
+    **Have this third line use the `dep_time_hour` and `dep_time_minute` columns to compute the number of minutes since midnight.**
+    Name this third column `dep_time_minutes_midnight`.
+
+    ::: {.callout .primary}
+    [What do [%/%]{.monospace} and [%%]{.monospace} mean?]{.h4}
+
+    The operators [%/%]{.monospace} and [%%]{.monospace} let you do **modular arithmetic.**
+    The symbol [%/%]{.monospace} means *integer division* and [%%]{.monospace} means *remainder*.
+    As a quick example, you might remember learning about proper and improper fractions in math class.
+    $\dfrac{9}{4}$ is an example of an improper fraction.
+    To convert it into a proper fraction, first we need to figure out how many times 4 goes into 9.
+    We can easily compute this with integer division:
+
+    ```{r integer-division-example, comment = "#"}
+    9 %/% 4
+    ```
+
+    We also need to know the remainder, or how much is left over after dividing 4 into 9.
+
+    ```{r remainder-example, comment = "#"}
+    9 %% 4
+    ```
+
+    So the proper fraction representation of $\dfrac{9}{4}$ is $2 \frac{1}{4}$.
+    :::
+
+@filtering-data.
+    Next we consider the `filter()` function, which provides a ruled-based way to keep a subset of rows and remove the rest.
+    Here we just consider rules that are simple comparisons, which involve the symbols:
+
+    *   [>]{.monospace}: greater than
+    *   [>=]{.monospace}: greater than or equal to
+    *   [<]{.monospace}: less than
+    *   [<=]{.monospace}: less than or equal to
+    *   [!=]{.monospace}: not equal
+    *   [==]{.monospace}: equal
+
+    Give `filter()` a try by running the following two code blocks:
+
+    ```r
+    flights %>%
+      filter(
+        arr_delay < 0
+      )
+    ```
+
+    ```r
+    flights %>%
+      filter(
+        carrier == "UA"
+      )
+    ```
+
+    After running the above code, figure out how to combine the two examples in one `filter()` function (**hint:** it resembles what you did with `mutate()`).
+    This will tell you all the flights operated by United Airlines (UA) that arrived early.
+
+@data-aggregation.
+    It is common to want to summarize the information contained within a dataset, such as computing sums and averages, or counting how many data points belong to different groups.
+    This is called data aggregation, as it **aggregates** many data points together and uses them to compute a cetain quantity.
+    We perform data aggregation in R by using the commands `group_by()` and `summarize()`, which frequently show up as a pair.
+
+    The `group_by()` command is applied to one or more columns, and allows you create groups that share common values in a column of categorical data.
+    The `summarize()` command can then be used to compute quantities like averages **within** those groups.
+    It will help to see an example.
+    Run the following code, which calculates the mean (average) arrival delay for each airline carrier:
+
+    ```r
+    flights %>%
+      group_by(carrier) %>%
+      summarize(
+        average_arr_delay = mean(arr_delay, na.rm = TRUE)
+      )
+    ```
+
+    Which airline carrier had the longest arrival delays on average?
+    Which airline carrier had the shortest arrival delays on average?
+
+## How to submit
+
+To submit your mini-homework, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [dplyr cheatsheet][data-transformation-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [RMarkdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [RMarkdown reference][rmarkdown-reference]
+
+## Credits
+
+**[nycflights13]{.monospace} data set source:** Hadley Wickham. 2018. *nycflights13*: Flights that Departed NYC in 2013. <https://cran.r-project.org/web/packages/nycflights13/index.html>
+
+The example in Exercise @mutate-dataset and the example and question of Exercise @mutate-times sourced from [Chapter 5 of *R for Data Science* by Garrett Grolemund and Hadley Wickham](https://r4ds.had.co.nz/transform.html), used under [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/).
+
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf

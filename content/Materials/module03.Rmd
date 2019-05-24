@@ -1,0 +1,81 @@
+Title: Module 3 – Data visualization
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-03 00:00
+Tags: class notes
+Slug: module03-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 3]{.card-downloads-format}][reading03]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 3 -- Visualization by example]{.card-downloads-format}][mini-homework03]
+
+*   [`r icon_pencil` &nbsp; [Homework 1 -- Rail trail (coming soon)]{.card-downloads-format}][homework01]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Videos]{.h2}
+
+**01 - Data visualization as communication**
+
+```{r data-visualization-01-communication, echo = FALSE}
+vembedr::embed_youtube(id = "W5Fnc4U3sS4", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**02 - Examining numerical data**
+
+```{r data-visualization-02-examining-numerical-data, echo = FALSE}
+vembedr::embed_youtube(id = "Dtveq_kYlKQ", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**03 - Describing visualizations**
+
+```{r data-visualization-03-describing, echo = FALSE}
+vembedr::embed_youtube(id = "HVFek-6iz-M", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**04 - Data visualization with ggplot2**
+
+```{r data-visualization-04-data-visualization-with-ggplot2, echo = FALSE}
+vembedr::embed_youtube(id = "pmjM0mz_1Es", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - Data visualization as communication]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - Examining numerical data]{.card-downloads-format}][slides-02]
+
+*   [`r icon_pdf` &nbsp; [03 - Describing visualizations]{.card-downloads-format}][slides-03]
+
+*   [`r icon_pdf` &nbsp; [04 - Data visualization with ggplot2]{.card-downloads-format}][slides-04]
+:::
+
+[slides-01]:        https://drive.google.com/file/d/1VK_vXEHBK5U35rfgetwon07A7YLpaj_H
+[slides-02]:        https://drive.google.com/file/d/1VK_vXEHBK5U35rfgetwon07A7YLpaj_H
+[slides-03]:        https://drive.google.com/file/d/1zVbreifnXfsTiPiTNnQoacOPvtwG-aLN
+[slides-04]:        https://drive.google.com/file/d/1iOh3_7T7hhCO3IWkSoXCT1xqQUUHc0hw
+[reading03]:        /assignments/reading03/
+[homework01]:       /assignments/homework-1/
+[mini-homework03]:  /assignments/minihw03-visualization-by-example/

@@ -1,0 +1,291 @@
+Title: Tidy Gradebook
+Author: Dr. Glasbrenner
+Date: 2019-01-05 00:00
+Tags: mini-assignment
+Slug: minihw05-tidy-gradebook
+Summary: A mini-homework for practicing how to reshape datasets using the tidyr library.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 5"
+```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named [tidy\_gradebook.Rmd]{.monospace}.
+This mini-homework will help you become more familiar with reshaping datasets using R by guiding you through some examples.
+Read the [About the dataset](#about-the-dataset) section to get some background information on the dataset that you'll be working with.
+Each of the below [exercises](#exercises) are to be completed in the provided spaces within your starter file [tidy\_gradebook.Rmd]{.monospace}.
+Then, when you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## About the dataset
+
+The dataset we are working with in this mini-homework is the [gradebook]{.monospace} dataset, a synthetic spreadsheet of student grades for a fictitious course.
+The gradebook data does not fulfill the tidy data principles, but illustrates a way that an instructor might implement his or her gradebook in spreadsheet software.
+**Load the dataset by running the setup block at the top of your R Markdown file,** then inspect the dataset by running `View(gradebook)` in the *Console* window.
+
+This dataset breaks all 3 of the tidy data rules:
+
+1.  Each variable must have its own column.
+    *   *The student names, assignment categories, assignment names, and grades are the variables in the dataset.*
+        *Each individual student should not be considered a separate variable.*
+
+2.  Each observation must have its own row.
+    *   *A single observation in this dataset should be a single grade given to a student for a specific assignment.*
+        *Instead of one grade per row, there are multiple grades per row.*
+
+3.  Each value must have its own cell.
+    *   *The student names can be split out into first and last name columns instead of keeping it as a full name.*
+
+The student names were generated using the site: http://listofrandomnames.com.
+Any similarity to real names is coincidental.
+
+## Exercises
+
+Our main goal in the exercises below will be to use the [tidyr]{.monospace} functions to reshape the dataset so that it fulfills the tidy data principles.
+Afterwards, we will analyze the dataset.
+
+@gather-gradebook.
+    To fulfill the tidy data principles, we need to use the `gather()` function to convert the student columns into rows so that each row contains a single grade.
+    A template code block for doing this is provided below,
+
+    ```r
+    gradebook_long <- gradebook %>%
+      gather(
+        <students>,
+        key = "<key>",
+        value = "<value>"
+      )
+    ```
+
+    To get the code to work, you need to replace [\<students\>]{.monospace} with a list of the student names (don't forget to also remove the angular brackets [\<\>]{.monospace} when filling in your answer).
+    Then, [\<key\>]{.monospace} and [\<value\>]{.monospace} need to be replaced so that the new column containing the student names is called [Name]{.monospace} and the new column containing the assignment grades is called [Grades]{.monospace}.
+
+    ::: {.callout .primary}
+    **[Hints]{.h4}**
+
+    *   Refer to section 12.3.1 of the *R for Data Science* textbook for additional clues on how to use the `gather()` function: <https://r4ds.had.co.nz/tidy-data.html#gathering>
+
+    *   The names for the student columns contain spaces, so you will need to use backticks when specifying them, for example [\`Jermaine Gautreau\`]{.monospace}.
+
+    *   You shouldn't need to list all the student names manually.
+        Section 5.4 of *R for Data Science* contains a hint for how you can specify a range of column names: <https://r4ds.had.co.nz/transform.html#select>
+    :::
+
+@separate-gradebook.
+    The [Name]{.monospace} column that we created in exercise @gather-gradebook technically contains two values per cell, i.e. each student's first name *and* last name.
+    We can fix this by using the `separate()` function to split the column into two columns.
+    A template code block for doing this is provided below,
+
+    ```r
+    tidy_gradebook <- gradebook_long %>%
+      separate(
+        col = <column to separate>,
+        into = combine("<name for first column>", "<name for second column>"),
+        sep = "<separator>"
+      )
+    ```
+
+    To get the code to work, you need to replace [\<column to separate\>]{.monospace} with the name of the column that you wish to split into two columns (like before, don't forget to also remove the angular brackets [\<\>]{.monospace} when filling in your answer).
+    Then, [\<name for first column\>]{.monospace} and [\<name for second column\>]{.monospace} need to be replaced so that the new column of first names is called [First Name]{.monospace} and the new column of last names is called [Last Name]{.monospace}.
+    Finally, [\<separator\>]{.monospace} needs to be replaced with whatever symbol/letter/etc that separates the first and last name of each student.
+
+    After you've obtained your tidy gradebook, take a look at the first several rows using the following code block:
+
+    ```r
+    tidy_gradebook %>%
+      head()
+    ```
+
+@blackboard-style-gradebook.
+    The data frame we obtain in exercise @separate-gradebook fulfills the tidy data principles, but it does not resemble how gradebooks are presented.
+    For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment.
+    To represent our gradebook in this format, we need to use the `separate()` function to convert the rows of the [Assignment]{.monospace} column into their own columns.
+    Let's do that now for the sake of practice.
+
+    The first thing we need to do is drop the [Category]{.monospace} column, which is typically stored as metadata and not visible in gradebooks.
+    **Replace the ellipses [...]{.monospace} in the code template below so that the [Category]{.monospace} column is removed and all the other information remains.**
+
+    ```r
+    gradebook_no_categories <- tidy_gradebook %>%
+      select(...)
+    ```
+
+    Now we are ready to use `separate()` to convert the rows in the [Assignment]{.monospace} column into multiple columns.
+    A template code block for doing this is provided below,
+
+    ```r
+    blackboard_gradebook <- gradebook_no_categories %>%
+      spread(
+        key = <key>,
+        value = <value>
+      )
+    ```
+
+    To get the code to work, you need to replace [\<key\>]{.monospace} with the name of the column that contains the **names** of the columns you will be creating (this means it must be a column containing categorical data).
+    Then, [\<value\>]{.monospace} will be replaced with the name of the column that contains the values (the grades) that are to be placed under each of the columns.
+
+    After you've obtained your "Blackboard-style" gradebook, take a look at the first several rows using the following code block:
+
+    ```r
+    blackboard_gradebook %>%
+      head()
+    ```
+
+@homework-5-distribution.
+    Now that we have a tidy gradebook, let's look at the grade distribution for one of the homework assignments, *Homework 5*.
+    First, you will need to need to filter the dataset so that it only contains entries for Homework 5.
+    A template code block for doing this is provided below,
+
+    ```r
+    homework5_grades <- tidy_gradebook %>%
+      filter(...)
+    ```
+
+    Replace the ellipses [...]{.monospace} so that [homework5\_grades]{.monospace} only contains rows with grades for *Homework 5*.
+    
+    **After you successfully filter the dataset, create a histogram of the grades stored in [homework5\_grades]{.monospace}.**
+    The histogram should have a binwidth of 10 and be centered around 0 (use [center = 0]{.monospace}).
+    You should be familiar with creating histograms by now, so no template for this one!
+
+@final-grade-weights.
+    Having a tidy dataset makes computing the final grade for each student in the course straightforward.
+    Let's assume that the category weights are the following:
+
+    | Category     | Weight |
+    | ------------ | ------ |
+    | Homework     | 30%    |
+    | Quiz         | 20%    |
+    | Midterm Exam | 25%    |
+    | Final Exam   | 25%    |
+
+    In order to use this information to compute the final grade for each student, we first need to create a data frame to store the category weights.
+    A template code block for doing this is provided below,
+
+    ```r
+    grade_weights <- tibble(
+      Category = combine("Homework", ...),
+      Weight = combine(0.30, ...)
+    )
+    ```
+
+    The first row has been filled in for you.
+    Replace the ellipses [...]{.monospace} so that the rest of the categories and weights are present in the [grade\_weights]{.monospace} data frame.
+    **The spelling and capitalization in the [Category]{.monospace} column must exactly match the above table.**
+
+    Once you have [grade\_weights]{.monospace} created, we need to import that information into [tidy\_gradebook]{.monospace}.
+    We can do that using the `left_join()` function as follows:
+
+    ```r
+    tidy_gradebook_with_weights <- tidy_gradebook %>%
+      left_join(grade_weights, by = combine("Category"))
+    ```
+
+    Copy and paste this into your R Markdown notebook and verify that [tidy\_gradebook\_with\_weights]{.monospace} now contains a column called [Weight]{.monospace} with the category weights.
+
+@mutate-weighted-grades.
+    Now that we've imported the category weights into our gradebook, we can continue with computing the final grade for each student.
+    Our next step in this calculation is to multiply the category weights and grades columns together using `mutate()`.
+    A template code block for doing this is provided below,
+
+    ```r
+    weighted_grades <- tidy_gradebook_with_weights %>%
+      mutate(`Weighted Grade` = ...)
+    ```
+
+    Replace the ellipses [...]{.monospace} so that the values in the [Grade]{.monospace} and [Weight]{.monospace} columns are multiplied together.
+
+@compute-final-grades.
+    Now that we've weighted the grades, we can now use `group_by()` and `summarize()` to compute the average weighted grade for each student and in each category.
+    A template code block for doing this is provided below,
+
+    ```r
+    grades_per_category <- weighted_grades %>%
+      group_by(`First Name`, `Last Name`, Category) %>%
+      summarize(`Category Grade` = ...)
+    ```
+
+    Replace the ellipses [...]{.monospace} so that the average of the weighted grades is computed for each student within each grade category.
+
+    Finally, to compute the final grade, use `summarize()` to sum the average weighted grades per category together.
+    A template code block for doing this is provided below,
+
+    ```r
+    final_grades <- grades_per_category %>%
+      summarize(`Final Grade` = ...)
+    ```
+
+    Replace the ellipses [...]{.monospace} so that the average weighted grades per category as summed together.
+
+    Once you've computed the final grades, display the first few rows using the following code:
+
+    ```r
+    final_grades %>%
+      head()
+    ```
+
+    Confirm that the first six rows are the following:
+    
+    | First Name  | Last Name  |  Final Grade |
+    | :---------- | :--------- | -----------: |
+    | Anthony     | Capote     |     87.22143 |
+    | Bryant      | Criddle    |     90.60000 |
+    | Cherie      | Maiden     |     71.17143 |
+    | Christiana  | Deblois    |     83.22857 |
+    | Cleveland   | Fromm      |     83.49286 |
+    | Cliff       | Vankeuren  |     79.81429 |
+
+@final-grades-visualization.
+    Now that we have the final grades, let's use a point plot similar to what is shown in Chapter 15.4 of the textbook, http://r4ds.had.co.nz/factors.html#modifying-factor-order, and review how the students did:
+
+    ```r
+    ggplot(final_grades) +
+      geom_point(
+        mapping = aes(
+          x = `Final Grade`,
+          y = fct_reorder(`Last Name`, `Final Grade`)
+        )
+      ) +
+      labs(
+        x = "Final Grade",
+        y = "Student Name"
+      ) +
+      coord_cartesian(xlim = combine(60, 100))
+    ```
+
+    The figure's length and width may look distorted by default.
+    To fix this, add [fig.asp = 0.85]{.monospace} as an input to your code block,
+
+    <pre><code>&#96;&#96;&#96;{r, fig.asp = 0.85}</code></pre>
+
+## How to submit
+
+To submit your mini-homework, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [dplyr cheatsheet][data-transformation-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
