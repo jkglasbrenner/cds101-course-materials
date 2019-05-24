@@ -1,0 +1,40 @@
+{# -*- engine: django -*- #}
+{% macro wookmark_card(title, datetime, iso_datetime, summary, content, url, tags, show_summary, show_link) %}
+  <li class="card-item">
+    {% if "midterm" in tags or "final" in tags %}
+      <div class="card-project"><i class="fas fa-rocket" data-fa-transform="grow-8"></i>&emsp;<strong>Project</strong></div>
+    {% elif "homework" in tags %}
+      <div class="card-homework"><i class="fas fa-pencil-alt" data-fa-transform="grow-8"></i>&emsp;<strong>Homework</strong></div>
+    {% elif "mini-assignment" in tags %}
+      <div class="card-mini-assignment"><i class="fas fa-pen-square" data-fa-transform="grow-8"></i>&emsp;<strong>Mini-Assignment</strong></div>
+    {% elif "reading" in tags %}
+      <div class="card-reading"><i class="fas fa-book" data-fa-transform="grow-8"></i>&emsp;<strong>Reading</strong></div>
+    {% elif "reading-nograyout" in tags %}
+      <div class="card-reading-nograyout"><i class="fas fa-book" data-fa-transform="grow-8"></i>&emsp;<strong>Reading</strong></div>
+    {% elif "module-exercise" in tags %}
+      <div class="card-activity"><i class="fas fa-laptop" data-fa-transform="grow-8"></i>&emsp;<strong>Module Exercise</strong></div>
+    {% elif "class notes" in tags %}
+      <div class="card-class-notes"><i class="fas fa-file-alt" data-fa-transform="grow-8"></i>&emsp;<strong>Class Notes</strong></div>
+    {% elif "guide" in tags %}
+      <div class="card-guide"><i class="fas fa-map" data-fa-transform="grow-8"></i>&emsp;<strong>Guide</strong></div>
+    {% endif %}
+    <div class="card-section">
+      <h2>{{ title }}</h2>
+      {% if "guide" not in tags %}
+        <p class="card-datetime"><time datetime="{{ iso_datetime }}">{{ datetime }}</time></p>
+      {% endif %}
+    </div>
+    <div class="card-section">
+      {% if show_summary is equalto "true" %}
+        <p>{{ summary }}</p>
+      {% else %}
+        {{ content }}
+      {% endif %}
+    </div>
+    {% if url and show_link is equalto "true" %}
+      <div class="card-section card-link">
+        <p><a href="{{ url }}"><i class="fas fa-link"></i> Link</a></p>
+      </div>
+    {% endif %}
+  </li>
+{% endmacro %}

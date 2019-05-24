@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="315pt"
+   height="140pt"
+   viewBox="0 0 393.75001 175"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="class-logo-no-paths.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1017"
+     id="namedview24"
+     showgrid="false"
+     inkscape:zoom="1.0908807"
+     inkscape:cx="379.84409"
+     inkscape:cy="87.5"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <flowRoot
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="flowRoot4136"
+     xml:space="preserve"
+     transform="translate(-175.44588,-38.132203)"><flowRegion
+       id="flowRegion4138"><rect
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans'"
+         y="318.07648"
+         x="82.85714"
+         height="380"
+         width="560"
+         id="rect4140" /></flowRegion><flowPara
+       id="flowPara4142" /></flowRoot>  <flowRoot
+     transform="matrix(0.9,0,0,1,-13.59163,-388.22294)"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;line-height:125%;font-family:Tahoma;-inkscape-font-specification:Tahoma;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="flowRoot4144"
+     xml:space="preserve"><flowRegion
+       id="flowRegion4146"><rect
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;font-family:Tahoma;-inkscape-font-specification:Tahoma"
+         y="432.36218"
+         x="10.000004"
+         height="391.42859"
+         width="650"
+         id="rect4148" /></flowRegion><flowPara
+       id="flowPara4170"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:115.95018768px;line-height:125%;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"><flowSpan
+   id="flowSpan4180"
+   style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:115.95018768px;line-height:125%;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1e6239;fill-opacity:1">CDS</flowSpan> 101</flowPara><flowPara
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:150px;font-family:Montserrat;-inkscape-font-specification:Montserrat"
+       id="flowPara4152" /></flowRoot>  <text
+     sodipodi:linespacing="125%"
+     id="text4162"
+     y="72.577011"
+     x="4.3200045"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:35.00000381px;line-height:125%;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Medium';text-align:start;writing-mode:lr-tb;text-anchor:start"
+       id="tspan4166"
+       y="72.577011"
+       x="4.3200045">Online</tspan></text>
+</svg>

@@ -1,0 +1,10 @@
+{# -*- engine: django -*- #}
+<footer class="article-footer">
+  {% if article.tags %}
+    <ul class="article-taglist">
+      {% for tag in article.tags %}
+        <li class="tag">{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</footer>

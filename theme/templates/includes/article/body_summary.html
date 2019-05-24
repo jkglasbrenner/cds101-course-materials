@@ -1,0 +1,5 @@
+{# -*- engine: django -*- #}
+<div class="article-body">
+  {{ article.summary }}
+  <p class="continue-reading"><a href="{{ SITEURL }}/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">Continue reading <i class="fas fa-angle-double-right"></i></a></p>
+</div>

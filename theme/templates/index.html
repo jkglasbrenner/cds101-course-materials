@@ -1,0 +1,22 @@
+{# -*- engine: django -*- #}
+{% extends "base.html" %}
+
+{% block content %}
+  {% if FRONT_PAGE_STYLE is equalto "annoucements" %}
+    <div class="common-grid-x">
+      {% include 'includes/frontpage/this_weeks_topics.html' %}
+      {% include 'includes/frontpage/due_dates.html' %}
+    </div>
+    <div class="common-grid-x">
+      {% include 'includes/frontpage/recent_annoucements.html' %}
+    </div>
+  {% elif FRONT_PAGE_STYLE is equalto "schedule" %}
+    <div class="common-grid-x">
+      {% include 'includes/frontpage/course_schedule.html' %}
+    </div>
+  {% else %}
+    <div class="common-grid-x">
+      {% include 'includes/frontpage/course_schedule.html' %}
+    </div>
+  {% endif %}
+{% endblock content %}

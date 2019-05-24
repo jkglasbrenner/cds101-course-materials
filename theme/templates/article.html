@@ -1,0 +1,28 @@
+{# -*- engine: django -*- #}
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% if article.description %}
+    <meta name="description" content="{{ article.description }}">
+  {% endif %}
+  {% for tag in article.tags %}
+    <meta name="tags" content="{{ tag }}">
+  {% endfor %}
+{% endblock head %}
+
+{% block content %}
+  {% if article.category == "Annoucements" %}
+    <article class="annoucement">
+      {% include 'includes/article/header.html' %}
+      {% include 'includes/article/body_content.html' %}
+      {% include 'includes/article/footer.html' %}
+      <hr>
+    </article>
+  {% else %}
+    <article class="static-page">
+      {% include 'includes/article/static-header.html' %}
+      {% include 'includes/article/static-body.html' %}
+    </article>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{# -*- engine: django -*- #}
+{% extends "base.html" %}
+{% from 'macros/cards.html' import wookmark_card %}
+
+{% block title %}Assignments{% endblock title %}
+
+{% block content %}
+  {% include 'includes/assignments/header.html' %}
+  {% include 'includes/assignments/body.html' %}
+{% endblock content %}

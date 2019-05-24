@@ -1,0 +1,21 @@
+{# -*- engine: django -*- #}
+<header class="article-header">
+  <time class="article-datecreated" datetime="{{ article.date.isoformat() }}">{{ article.date|strftime('%b %d, %Y at %I:%M %p') }}</time>
+  <h2 class="article-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+  {% if article.authors %}
+    <div class="article-byline">
+      {% for author in article.authors %}
+        <div class="article-byline-author">
+          {% if article.author_image %}
+            <img class="article-byline-img" src="{{ article.author_image }}" alt="{{ author }}">
+          {% endif %}
+          <span class="article-byline-name">{{ author }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if article.modified %}
+    <time class="article-datemodified" datetime="{{ article.modified.isoformat() }}">{{ article.modified|strftime('Last updated: %b %d, %Y at %I:%M %p')}}</time>
+  {% endif %}
+  <hr>
+</header>
