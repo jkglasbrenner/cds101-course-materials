@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Homework&nbsp;3</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>The first part of this page explains how homework assignments will be handled and evaluated, since they are completed in groups. The questions for Homework 3 start further down, <a href="#the-national-survey-of-family-growth-dataset">click this link to skip to that part of the page</a>.</p>
+<h3 id="overview">Overview</h3>
+<p>As a group, solve the homework problems and write your answers in the R Markdown file <span class="monospace">homework_3.Rmd</span>. Grades for the group submissions will, in addition to correctness, be based on document formatting, visualization quality, writing quality, and code style. <strong>This means that your group submission is to be written in the style of a exploratory data report,&nbsp;meaning:</strong></p>
+<ul>
+<li><p>Each exercise must be written up using full sentences such that it is clear what question is being&nbsp;answered.</p></li>
+<li><p>There needs to be plain text above each code block explaining what you are doing, and the code blocks should be&nbsp;organized.</p></li>
+<li><p>The R Markdown file <strong>must</strong> knit without error and generate a <span class="caps">PDF</span> file, and the final <span class="caps">PDF</span> output must look nice, clean, and be easy to&nbsp;read.</p></li>
+</ul>
+<h3 id="participation">Participation</h3>
+<p>Credit for group participation will be determined using the following&nbsp;sources:</p>
+<ol type="1">
+<li><p>A <span class="monospace"><span class="caps">CONTRIBUTIONS</span>.md</span> file distributed with your group&nbsp;repository</p></li>
+<li><p>Commit history on&nbsp;GitHub</p></li>
+<li><p>Discussion history in your group’s private Slack&nbsp;channel</p></li>
+</ol>
+<p><strong>Each group will need to fill out the <span class="monospace"><span class="caps">CONTRIBUTIONS</span>.md</span> file as part of their submission.</strong> This file is where where each group member lists what he or she contributed to the final submission. Read the section <strong><a href="#fill-out-the-contributions.md-file">Fill out the <span class="monospace"><span class="caps">CONTRIBUTIONS</span>.md</span> file</a></strong> for more details on how this&nbsp;works.</p>
+<h4 id="google-docs">Google&nbsp;Docs</h4>
+<p>If your group used an external document to coordinate and organize your work, such as a Google Doc, then that can also count as evidence of participation, <strong>provided that there is a visible writing history and it is possible to identify which student is responsible for each edit.</strong> This will require you to share the relevant file with the instructor with full privileges on the document so that it’s possible to review the document’s editing history. Please note that anonymous edits to Google Docs documents cannot be used as participation evidence, since there is no way to verify the account responsible for the added content. Also, for similar reasons, offline documents traded back and forth via email cannot be accepted as evidence of&nbsp;participation.</p>
+<h3 id="how-to-answer-the-questions-as-a-group">How to answer the questions as a&nbsp;group</h3>
+<p>The following is a checklist you may follow to help you get started with answering the questions as a&nbsp;group:</p>
+<div class="no-bullets">
+<ul>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Read through all the problems individually. Then, as a group, discuss what will be needed to fully answer each&nbsp;question.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  As a group, decide how you will split up writing responsibilities. A typical way to do this is to have each group member be responsible for writing out the full answer to a certain number of&nbsp;questions.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  <strong>(Important)</strong> Before you start, make a copy of <span class="monospace">homework_3.Rmd</span> and <strong>rename the copied file</strong> to include your last name. For example, if your last name is Smith, then your file copy should be renamed to <span class="monospace">homework_3_smith.Rmd</span>.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Commit and push your copied file to&nbsp;GitHub.</p></li>
+<li><i class="far fa-square" data=fa=transform="grow-8"></i>  Draft your contributions in <strong>your</strong> file. For example, if my last name was Smith and I agreed to write-up the answers to questions 4, 5, and 6, then I would open up <span class="monospace">homework_3_smith.Rmd</span> and put my answers there. When I’m done, I would save my file, then commit and push my work to&nbsp;GitHub.</li>
+</ul>
+</div>
+<h3 id="how-to-edit-and-merge-your-answers-into-the-group-submission">How to edit and merge your answers into the group&nbsp;submission</h3>
+<p>While you will be writing your answers in separate files, eventually the group will need to merge in everyone’s answers into the main <span class="monospace">homework_3.Rmd</span> document. The following checklist may help with&nbsp;this:</p>
+<ul>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Select an editor to be in charge of merging everyone’s answers into the final document <span class="monospace">homework_3.Rmd</span>. Because the editor needs to prepare the document for submission, it is reasonable if he or she contributes slightly less in terms of answering the questions (for example, if everyone else answers three questions, it would be okay if the editor answers&nbsp;two).</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor should ensure that everyone has committed and pushed their answers to GitHub so they can copy and paste in each&nbsp;contribution.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor needs to make sure that the final submission reads like a coherent document and that the writing style and code style are uniform across all the answers. In other words, it should read like a single person answered all the questions, not a group of four&nbsp;people.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor will be in charge of of committing and pushing the final R Markdown file to GitHub, knitting to <span class="caps">PDF</span>, and uploading the <span class="caps">PDF</span> file on&nbsp;Blackboard.</p></li>
+</ul>
+<h3 id="fill-out-the-contributions.md-file">Fill out the <span class="monospace"><span class="caps">CONTRIBUTIONS</span>.md</span>&nbsp;file</h3>
+<p>After everything is written up and ready for submission, the last thing the group will need to do is fill out the <span class="monospace"><span class="caps">CONTRIBUTIONS</span>.md</span> file. By default, the file looks like&nbsp;this:</p>
+<pre class="markdown"><code># Contributions to group submission
+
+## Editor: FirstName LastName Member 1
+
+*   Questions answered:
+
+## FirstName LastName Member 2
+
+*   Questions answered:
+
+## FirstName LastName Member 3
+
+*   Questions answered:
+
+## FirstName LastName Member 4
+
+*   Questions answered:</code></pre>
+<p>At a minimum, you must remove the <span class="monospace">FirstName LastName Member</span> entries in the template and fill in the names of the people in your group, indicate which group member served as the editor, and state which questions were written up by each&nbsp;member.</p>
+<p>Additional information beyond this <strong>should</strong> be supplied, such as indicating when a group member helped another group member edit an answer or gave helpful comments in a Slack discussion. For example, one group member’s contribution list may read as&nbsp;follows:</p>
+<pre class="markdown"><code>## Jane Smith
+
+*   Questions answered: 4, 5, 6
+*   Helped with editing on answers 8 and 9
+*   Collaborated with group member Jack Williams on answering question 10
+*   Pointed out spelling errors and suggested fixes to the document layout in the merged group document</code></pre>
+<h3 id="working-with-a-github-repository-as-a-group">Working with a GitHub repository as a&nbsp;group</h3>
+<p>You will likely encounter some issues while working in a group-based GitHub repository. In particular, you might find that when you click <em>“Push”</em> in the <strong>Git</strong> tab of RStudio, that it doesn’t seem to work and instead you get an annoying error message! This will happen when another member of your group has uploaded work before you did. While this can be irritating to deal with, this is actually a good thing, as it is GitHub’s way of protecting your files from accidential overwrites and&nbsp;deletions.</p>
+<p>So what should you do to keep things running smoothly? First, <strong>always</strong> work in your own file, never in another person’s file. If you are not the editor, then you should not edit <span class="monospace">homework_3.Rmd</span> either! Also, do not remove or rename any files that are not your own. Finally, when you are getting ready to work, following the procedure below should help keep the error messages to a&nbsp;minimum:</p>
+<ol type="1">
+<li><p>When you start working, you should begin by going to the <strong>Git</strong> tab and clicking <em>“Pull”</em> (notice this is not the same as <em>“Push”</em>). This will synchronize any new changes that your group may have made into your&nbsp;files.</p></li>
+<li><p>Work on your file as normal. When you have completed your work, save your&nbsp;file.</p></li>
+<li><p>Now we want to commit. <strong>But first</strong>, go to the <strong>Git</strong> tab and click <em>“Pull”</em> one more time to check for any other changes. Then, still in the <strong>Git</strong> tab, click the checkmark next to your updated file, type a message in the messagebox, and click the <strong>Commit</strong>&nbsp;button.</p></li>
+<li><p>If the updated file is no longer in the list of files in the <strong>Git</strong> tab, then your commit was&nbsp;successful.</p></li>
+<li><p>Click <em>“Push”</em> to upload your changed&nbsp;file.</p></li>
+</ol>
+<h4 id="if-the-above-advice-doesnt-work">If the above advice doesn’t&nbsp;work…</h4>
+<p>If, even after following the advice below, you still encounter error messages when Pulling from and Pushing to GitHub, contact the course instructor for&nbsp;help.</p>
+<h3 id="how-to-submit">How to&nbsp;submit</h3>
+<p>The editor should follow the steps below to submit the homework for his/her&nbsp;group.</p>
+<ol type="1">
+<li><p>Make sure that everyone has committed and pushed their R Markdown files so that everything is synchronized to GitHub. If you do this right, then you will be able to view all the completed files on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your group’s R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Homework 3</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="the-national-survey-of-family-growth-dataset">The National Survey of Family Growth&nbsp;dataset</h2>
+<p>For this dataset, you will be working with the <em>National Survey of Family Growth, Cycle 6</em> dataset published by the National Center for Health Statistics. Your analysis will revolve around answering the following&nbsp;question,</p>
+<blockquote>
+<p>Do first born children either arrive early or late when compared with&nbsp;non-first-borns?</p>
+</blockquote>
+<p>The questions in this assignment will guide you through the process of answering this question using statistical&nbsp;inference.</p>
+<p>The dataset contains 244 variables collected from 13,593 women. We only require a few variables to answer the above question, which are listed below. Complete descriptions of all the variables can be found in the <a href="http://www.icpsr.umich.edu/nsfg6/Controller?displayPage=codeBook&amp;fileCode=PREG&amp;section=&amp;subSec="><span class="caps">NSFG</span> Cycle 6: Female Pregnancy File Codebook</a>.</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">caseid</span></td>
+<td>integer <span class="caps">ID</span> of the respondent</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">prglngth</span></td>
+<td>integer duration of the pregnancy in weeks</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">outcome</span></td>
+<td>integer code for the outcome of the pregnancy, with a 1 indicating a live birth</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">birthord</span></td>
+<td>serial number for live births; the code for a respondent’s first child is 1, and so on. For outcomes other than live birth, this field is blank</td>
+</tr>
+</tbody>
+</table>
+<h2 id="questions">Questions</h2>
+<ol class="example" type="1">
+<li><p>Addressing the question <em>“do first born children either arrive early or late when compared with non-first-borns?”</em> means that we should only consider live births in the dataset. Filter the dataset so that it only contains outcomes with live births and assign this result to the variable <span class="monospace">live_births</span>.</p>
+<p>Next, we need to label all births in <span class="monospace">live_births</span> as either “first” or “other” so that we can easily find the children that are first borns and the ones that are not. There are a couple of different ways that you can label the&nbsp;births:</p>
+<ul>
+<li><p>Split the dataset into two parts, a <span class="monospace">first_births</span> dataset and an <span class="monospace">other_births</span> dataset. Do this by applying a filter to extract the first births, then use <code>mutate()</code> to create a new column called <span class="monospace">birth_order</span> that labels these rows as “first”. Then repeat this process, except apply a filter to extract all other births and label those as “other” in <span class="monospace">birth_order</span>. To recombine the datasets into one, use <code>bind_rows()</code>.</p></li>
+<li><p>Use <code>if_else()</code> with <code>mutate()</code> to create the <span class="monospace">birth_order</span> column and the “first” and “other” labels. You can also try using <code>case_when()</code> instead of <code>if_else()</code> to accomplish this. If you do it this way, you won’t need to use <code>bind_rows()</code>.</p></li>
+</ul>
+<p>After labeling the births, remove the extraneous variables from the data frame leaving just the <span class="monospace">prglngth</span> and <span class="monospace">birth_order</span> columns. Assign the resulting data frame to a variable named <span class="monospace">pregnancy_length</span>.</p></li>
+<li><p>Take the <span class="monospace">pregnancy_length</span> dataset and plot a probability mass function (<span class="caps">PMF</span>) histogram of the pregnancy length in weeks that shows “first” births and “other” births on the same plot. Choose a reasonable binwidth for the histogram and add <code>coord_cartesian(xlim = combine(27, 46))</code> to your plot so that the window focuses where most of the data is. <strong>After creating the plot, describe the shape, center, and spread of the two distributions</strong>. Based on the visualization, do you think the data looks like it supports the statement that “first born children either arrive early or arrive late when compared with&nbsp;non-first-borns”?</p></li>
+<li><p>Group the variable <span class="monospace">prglngth</span> into “first” and “other” births and compute the summary statistics (mean, median, standard deviation, inter-quartile range, minimum, maximum) for each group. How do the different summary statistics compare between the two distributions? Does it look like there may be a notable difference between the two distributions?&nbsp;Explain.</p></li>
+<li><p>Plot the cumulative distribution functions (CDFs) of the pregnancy lengths for “first” and “other” births. The <span class="caps">CDF</span> for both distributions should be on the same figure so that we can directly compare them (<strong>hint:</strong> they should be two different colors and partially transparent). How do the distributions compare? Does it look like there is there a meaningful difference between the two&nbsp;distributions?</p></li>
+<li><p>If we want to determine whether or not the difference between two distributions is statistically significant, we need to run a hypothesis test. Formalize your analysis by writing down the null hypothesis for the question of whether first babies arrive early or arrive late when compared with non-first-borns. It should be clear from how you write your null hypothesis whether you’re conducting a <strong>one-sided</strong> or <strong>two-sided</strong> hypothesis test. You should also restate what the <strong>observed value</strong> is (this will be a number you compute using the data in <span class="monospace">prglngth</span>) that you will be comparing against the null&nbsp;distribution.</p></li>
+<li><p>Use a simulation to generate the null distribution so that you can perform the hypothesis test. Do this using the functions provided in the <span class="monospace">infer</span> package, <code>specify()</code>, <code>hypothesize()</code>, <code>generate()</code>, and <code>calculate()</code>. To collect enough statistics, you should set the simulation to repeat 10,000&nbsp;times.</p>
+<p>Once you’ve obtained the null distribution, get the <em>p</em>-value for your hypothesis test using <code>get_p_value()</code>. Assuming a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, state whether we can we reject the null&nbsp;hypothesis.</p>
+<p>Finally, visualize the simulated null distribution using <code>visualize()</code> and the meaning of the <em>p</em>-value using <code>shade_p_value()</code>.</p></li>
+<li><p>Use a bootstrap simulation to calculate the 95% confidence interval for your <strong>observed value</strong>. Do this using the following functions from the <span class="monospace">infer</span> package, <code>specify()</code>, `<code>generate()</code>, and <code>calculate()</code>. To collect enough statistics, you should set the bootstrap simulation to repeat 10,000&nbsp;times.</p>
+<p>Once you’ve obtained the bootstrap distribution, use <code>get_confidence_interval()</code> to find the upper and lower bounds of the 95% confidence interval. Does the value corresponding to the null result fall within the range of the 95% confidence&nbsp;interval?</p>
+<p>Finally, visualize the bootstrap distribution using <code>visualize()</code> and show the 95% confidence interval using <code>shade_confidence_interval()</code>.</p></li>
+<li><p>In addition to hypothesis tests and confidence intervals, we should also consider the <strong>effect size</strong>, which measures the relative difference between two distributions. The effect size helps us better know how important a given result actually is, not just whether or not we can reject the null hypothesis. One measure of the effect size is called <a href="https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d">Cohen’s <em>d</em></a> (<a href="https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d" class="uri">https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d</a>), which we will use to compute the effect size between the pregnancy lengths for “first” and “other” births. The different ranges of <em>d</em> can be interpreted using the following&nbsp;table:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Effect size</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Very small</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td>Small</td>
+<td>0.20</td>
+</tr>
+<tr class="odd">
+<td>Medium</td>
+<td>0.50</td>
+</tr>
+<tr class="even">
+<td>Large</td>
+<td>0.80</td>
+</tr>
+<tr class="odd">
+<td>Very large</td>
+<td>1.20</td>
+</tr>
+<tr class="even">
+<td>Huge</td>
+<td>2.00</td>
+</tr>
+</tbody>
+</table>
+<p>The following set of functions should also be preloaded for you: <code>cohens_d_bootstrap()</code>, <code>bootstrap_report()</code>, and <code>plot_ci()</code>. These functions will use bootstrap simulations to compute the confidence interval for the Cohen’s <em>d</em> parameter. Run the bootstrap simulation as follows (you can just copy and paste this&nbsp;code):</p>
+<pre class="r"><code>cohens_d_bootstrap(data = pregnancy_length, model = prglngth ~ birth_order)</code></pre>
+<p><strong>Be sure to assign the results to a variable</strong>, for example <code>bootstrap_results</code>.</p>
+<p>To print a report for the bootstrap simulation,&nbsp;run:</p>
+<pre class="r"><code>bootstrap_report(bootstrap_results)</code></pre>
+<p>To visualize the bootstrap distribution and confidence interval,&nbsp;run:</p>
+<pre class="r"><code>plot_ci(bootstrap_results)</code></pre>
+<p>Using the provided table, report how large the effect size is for the difference in pregnancy lengths for “first” and “other”&nbsp;births.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;assignment:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Data transformation&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">Data import&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">RMarkdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">RMarkdown&nbsp;reference</a></p></li>
+</ul>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Tidy&nbsp;Gradebook</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named <span class="monospace">tidy_gradebook.Rmd</span>. This mini-homework will help you become more familiar with reshaping datasets using R by guiding you through some examples. Read the <a href="#about-the-dataset">About the dataset</a> section to get some background information on the dataset that you’ll be working with. Each of the below <a href="#exercises">exercises</a> are to be completed in the provided spaces within your starter file <span class="monospace">tidy_gradebook.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <strong><a href="#how-to-submit">How to submit</a></strong> section&nbsp;below.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The dataset we are working with in this mini-homework is the <span class="monospace">gradebook</span> dataset, a synthetic spreadsheet of student grades for a fictitious course. The gradebook data does not fulfill the tidy data principles, but illustrates a way that an instructor might implement his or her gradebook in spreadsheet software. <strong>Load the dataset by running the setup block at the top of your R Markdown file,</strong> then inspect the dataset by running <code>View(gradebook)</code> in the <em>Console</em>&nbsp;window.</p>
+<p>This dataset breaks all 3 of the tidy data&nbsp;rules:</p>
+<ol type="1">
+<li>Each variable must have its own column.
+<ul>
+<li><em>The student names, assignment categories, assignment names, and grades are the variables in the dataset.</em> <em>Each individual student should not be considered a separate&nbsp;variable.</em></li>
+</ul></li>
+<li>Each observation must have its own row.
+<ul>
+<li><em>A single observation in this dataset should be a single grade given to a student for a specific assignment.</em> <em>Instead of one grade per row, there are multiple grades per&nbsp;row.</em></li>
+</ul></li>
+<li>Each value must have its own cell.
+<ul>
+<li><em>The student names can be split out into first and last name columns instead of keeping it as a full&nbsp;name.</em></li>
+</ul></li>
+</ol>
+<p>The student names were generated using the site: <a href="http://listofrandomnames.com" class="uri">http://listofrandomnames.com</a>. Any similarity to real names is&nbsp;coincidental.</p>
+<h2 id="exercises">Exercises</h2>
+<p>Our main goal in the exercises below will be to use the <span class="monospace">tidyr</span> functions to reshape the dataset so that it fulfills the tidy data principles. Afterwards, we will analyze the&nbsp;dataset.</p>
+<ol class="example" type="1">
+<li><p>To fulfill the tidy data principles, we need to use the <code>gather()</code> function to convert the student columns into rows so that each row contains a single grade. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>gradebook_long &lt;- gradebook %&gt;%
+  gather(
+    &lt;students&gt;,
+    key = &quot;&lt;key&gt;&quot;,
+    value = &quot;&lt;value&gt;&quot;
+  )</code></pre>
+<p>To get the code to work, you need to replace <span class="monospace">&lt;students&gt;</span> with a list of the student names (don’t forget to also remove the angular brackets <span class="monospace">&lt;&gt;</span> when filling in your answer). Then, <span class="monospace">&lt;key&gt;</span> and <span class="monospace">&lt;value&gt;</span> need to be replaced so that the new column containing the student names is called <span class="monospace">Name</span> and the new column containing the assignment grades is called <span class="monospace">Grades</span>.</p>
+<div class="callout primary">
+<p><strong><span class="h4">Hints</span></strong></p>
+<ul>
+<li><p>Refer to section 12.3.1 of the <em>R for Data Science</em> textbook for additional clues on how to use the <code>gather()</code> function: <a href="https://r4ds.had.co.nz/tidy-data.html#gathering" class="uri">https://r4ds.had.co.nz/tidy-data.html#gathering</a></p></li>
+<li><p>The names for the student columns contain spaces, so you will need to use backticks when specifying them, for example <span class="monospace">`Jermaine Gautreau`</span>.</p></li>
+<li>You shouldn’t need to list all the student names manually. Section 5.4 of <em>R for Data Science</em> contains a hint for how you can specify a range of column names: <a href="https://r4ds.had.co.nz/transform.html#select" class="uri">https://r4ds.had.co.nz/transform.html#select</a></li>
+</ul>
+</div></li>
+<li><p>The <span class="monospace">Name</span> column that we created in exercise 1 technically contains two values per cell, i.e. each student’s first name <em>and</em> last name. We can fix this by using the <code>separate()</code> function to split the column into two columns. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>tidy_gradebook &lt;- gradebook_long %&gt;%
+  separate(
+    col = &lt;column to separate&gt;,
+    into = combine(&quot;&lt;name for first column&gt;&quot;, &quot;&lt;name for second column&gt;&quot;),
+    sep = &quot;&lt;separator&gt;&quot;
+  )</code></pre>
+<p>To get the code to work, you need to replace <span class="monospace">&lt;column to separate&gt;</span> with the name of the column that you wish to split into two columns (like before, don’t forget to also remove the angular brackets <span class="monospace">&lt;&gt;</span> when filling in your answer). Then, <span class="monospace">&lt;name for first column&gt;</span> and <span class="monospace">&lt;name for second column&gt;</span> need to be replaced so that the new column of first names is called <span class="monospace">First Name</span> and the new column of last names is called <span class="monospace">Last Name</span>. Finally, <span class="monospace">&lt;separator&gt;</span> needs to be replaced with whatever symbol/letter/etc that separates the first and last name of each&nbsp;student.</p>
+<p>After you’ve obtained your tidy gradebook, take a look at the first several rows using the following code&nbsp;block:</p>
+<pre class="r"><code>tidy_gradebook %&gt;%
+  head()</code></pre></li>
+<li><p>The data frame we obtain in exercise 2 fulfills the tidy data principles, but it does not resemble how gradebooks are presented. For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment. To represent our gradebook in this format, we need to use the <code>separate()</code> function to convert the rows of the <span class="monospace">Assignment</span> column into their own columns. Let’s do that now for the sake of&nbsp;practice.</p>
+<p>The first thing we need to do is drop the <span class="monospace">Category</span> column, which is typically stored as metadata and not visible in gradebooks. <strong>Replace the ellipses <span class="monospace">…</span> in the code template below so that the <span class="monospace">Category</span> column is removed and all the other information&nbsp;remains.</strong></p>
+<pre class="r"><code>gradebook_no_categories &lt;- tidy_gradebook %&gt;%
+  select(...)</code></pre>
+<p>Now we are ready to use <code>separate()</code> to convert the rows in the <span class="monospace">Assignment</span> column into multiple columns. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>blackboard_gradebook &lt;- gradebook_no_categories %&gt;%
+  spread(
+    key = &lt;key&gt;,
+    value = &lt;value&gt;
+  )</code></pre>
+<p>To get the code to work, you need to replace <span class="monospace">&lt;key&gt;</span> with the name of the column that contains the <strong>names</strong> of the columns you will be creating (this means it must be a column containing categorical data). Then, <span class="monospace">&lt;value&gt;</span> will be replaced with the name of the column that contains the values (the grades) that are to be placed under each of the&nbsp;columns.</p>
+<p>After you’ve obtained your “Blackboard-style” gradebook, take a look at the first several rows using the following code&nbsp;block:</p>
+<pre class="r"><code>blackboard_gradebook %&gt;%
+  head()</code></pre></li>
+<li><p>Now that we have a tidy gradebook, let’s look at the grade distribution for one of the homework assignments, <em>Homework 5</em>. First, you will need to need to filter the dataset so that it only contains entries for Homework 5. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>homework5_grades &lt;- tidy_gradebook %&gt;%
+  filter(...)</code></pre>
+<p>Replace the ellipses <span class="monospace">…</span> so that <span class="monospace">homework5_grades</span> only contains rows with grades for <em>Homework 5</em>.</p>
+<p><strong>After you successfully filter the dataset, create a histogram of the grades stored in <span class="monospace">homework5_grades</span>.</strong> The histogram should have a binwidth of 10 and be centered around 0 (use <span class="monospace">center = 0</span>). You should be familiar with creating histograms by now, so no template for this&nbsp;one!</p></li>
+<li><p>Having a tidy dataset makes computing the final grade for each student in the course straightforward. Let’s assume that the category weights are the&nbsp;following:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Homework</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>Quiz</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Midterm Exam</td>
+<td>25%</td>
+</tr>
+<tr class="even">
+<td>Final Exam</td>
+<td>25%</td>
+</tr>
+</tbody>
+</table>
+<p>In order to use this information to compute the final grade for each student, we first need to create a data frame to store the category weights. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>grade_weights &lt;- tibble(
+  Category = combine(&quot;Homework&quot;, ...),
+  Weight = combine(0.30, ...)
+)</code></pre>
+<p>The first row has been filled in for you. Replace the ellipses <span class="monospace">…</span> so that the rest of the categories and weights are present in the <span class="monospace">grade_weights</span> data frame. <strong>The spelling and capitalization in the <span class="monospace">Category</span> column must exactly match the above&nbsp;table.</strong></p>
+<p>Once you have <span class="monospace">grade_weights</span> created, we need to import that information into <span class="monospace">tidy_gradebook</span>. We can do that using the <code>left_join()</code> function as&nbsp;follows:</p>
+<pre class="r"><code>tidy_gradebook_with_weights &lt;- tidy_gradebook %&gt;%
+  left_join(grade_weights, by = combine(&quot;Category&quot;))</code></pre>
+<p>Copy and paste this into your R Markdown notebook and verify that <span class="monospace">tidy_gradebook_with_weights</span> now contains a column called <span class="monospace">Weight</span> with the category&nbsp;weights.</p></li>
+<li><p>Now that we’ve imported the category weights into our gradebook, we can continue with computing the final grade for each student. Our next step in this calculation is to multiply the category weights and grades columns together using <code>mutate()</code>. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>weighted_grades &lt;- tidy_gradebook_with_weights %&gt;%
+  mutate(`Weighted Grade` = ...)</code></pre>
+<p>Replace the ellipses <span class="monospace">…</span> so that the values in the <span class="monospace">Grade</span> and <span class="monospace">Weight</span> columns are multiplied&nbsp;together.</p></li>
+<li><p>Now that we’ve weighted the grades, we can now use <code>group_by()</code> and <code>summarize()</code> to compute the average weighted grade for each student and in each category. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>grades_per_category &lt;- weighted_grades %&gt;%
+  group_by(`First Name`, `Last Name`, Category) %&gt;%
+  summarize(`Category Grade` = ...)</code></pre>
+<p>Replace the ellipses <span class="monospace">…</span> so that the average of the weighted grades is computed for each student within each grade&nbsp;category.</p>
+<p>Finally, to compute the final grade, use <code>summarize()</code> to sum the average weighted grades per category together. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>final_grades &lt;- grades_per_category %&gt;%
+  summarize(`Final Grade` = ...)</code></pre>
+<p>Replace the ellipses <span class="monospace">…</span> so that the average weighted grades per category as summed&nbsp;together.</p>
+<p>Once you’ve computed the final grades, display the first few rows using the following&nbsp;code:</p>
+<pre class="r"><code>final_grades %&gt;%
+  head()</code></pre>
+<p>Confirm that the first six rows are the&nbsp;following:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">First Name</th>
+<th style="text-align: left;">Last Name</th>
+<th style="text-align: right;">Final Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anthony</td>
+<td style="text-align: left;">Capote</td>
+<td style="text-align: right;">87.22143</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bryant</td>
+<td style="text-align: left;">Criddle</td>
+<td style="text-align: right;">90.60000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cherie</td>
+<td style="text-align: left;">Maiden</td>
+<td style="text-align: right;">71.17143</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Christiana</td>
+<td style="text-align: left;">Deblois</td>
+<td style="text-align: right;">83.22857</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cleveland</td>
+<td style="text-align: left;">Fromm</td>
+<td style="text-align: right;">83.49286</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cliff</td>
+<td style="text-align: left;">Vankeuren</td>
+<td style="text-align: right;">79.81429</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Now that we have the final grades, let’s use a point plot similar to what is shown in Chapter 15.4 of the textbook, <a href="http://r4ds.had.co.nz/factors.html#modifying-factor-order" class="uri">http://r4ds.had.co.nz/factors.html#modifying-factor-order</a>, and review how the students&nbsp;did:</p>
+<pre class="r"><code>ggplot(final_grades) +
+  geom_point(
+    mapping = aes(
+      x = `Final Grade`,
+      y = fct_reorder(`Last Name`, `Final Grade`)
+    )
+  ) +
+  labs(
+    x = &quot;Final Grade&quot;,
+    y = &quot;Student Name&quot;
+  ) +
+  coord_cartesian(xlim = combine(60, 100))</code></pre>
+<p>The figure’s length and width may look distorted by default. To fix this, add <span class="monospace">fig.asp = 0.85</span> as an input to your code&nbsp;block,</p>
+<pre><code>&#96;&#96;&#96;{r, fig.asp = 0.85}</code></pre></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your mini-homework, follow the two steps below. Your homework will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Mini-homework 5</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;mini-homework:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Analyzing data&nbsp;distributions</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named <span class="monospace">analyzing_data_distributions.Rmd</span>. This mini-homework will guide you through examples demonstrating how to analyze a dataset using standard statistical functions in R, <span class="monospace">ggplot2</span>, and <span class="monospace">dplyr</span>. Read the <a href="#about-the-dataset">About the dataset</a> section to get some background information on the dataset that you’ll be working with. Each of the below <a href="#exercises">exercises</a> are to be completed in the provided spaces within your starter file <span class="monospace">analyzing_data_distributions.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <strong><a href="#how-to-submit">How to submit</a></strong> section&nbsp;below.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The dataset we are using in this mini-homework come from the article “Exploring Relationships in Body Dimensions” by Peterson, Johnson, and Kerk published in Journal of Statistics Education Volume 11, Number 2 (2003), and consists of body girth and skeletal diameter measurements as well as the age, weight, height, and sex for 507 physically active individuals, 247 men and 260 women. <strong>Load the dataset by running the setup block at the top of your R Markdown file,</strong> then inspect the dataset by running <code>View(body_dims)</code> in the <em>Console</em>&nbsp;window.</p>
+<p>The table below provides descriptions of the dataset’s 25&nbsp;variables,</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">bia.di</span></td>
+<td>respondent’s biacromial diameter in centimeters</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">bii.di</span></td>
+<td>respondent’s biiliac diameter (pelvic breadth) in centimeters</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">bit.di</span></td>
+<td>respondent’s bitrochanteric diameter in centimeters</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">che.de</span></td>
+<td>respondent’s chest depth in centimeters, measured between spine and sternum at nipple level, mid-expiration</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">che.di</span></td>
+<td>respondent’s chest diameter in centimeters, measured at nipple level, mid-expiration</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">elb.di</span></td>
+<td>respondent’s elbow diameter in centimeters, measured as sum of two elbows</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">wri.di</span></td>
+<td>respondent’s wrist diameter in centimeters, measured as sum of two wrists</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">kne.di</span></td>
+<td>respondent’s knee diameter in centimeters, measured as sum of two knees</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">ank.di</span></td>
+<td>respondent’s ankle diameter in centimeters, measured as sum of two ankles</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">sho.gi</span></td>
+<td>respondent’s shoulder girth in centimeters, measured over deltoid muscles</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">che.gi</span></td>
+<td>respondent’s chest girth in centimeters, measured at nipple line in males and just above breast tissue in females, mid-expiration</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">wai.gi</span></td>
+<td>respondent’s waist girth in centimeters, measured at the narrowest part of torso below the rib cage as average of contracted and relaxed position</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">nav.gi</span></td>
+<td>respondent’s navel (abdominal) girth in centimeters, measured at umbilicus and iliac crest using iliac crest as a landmark</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">hip.gi</span></td>
+<td>respondent’s hip girth in centimeters, measured at at level of bitrochanteric diameter</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">thi.gi</span></td>
+<td>respondent’s thigh girth in centimeters, measured below gluteal fold as the average of right and left girths</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">bic.gi</span></td>
+<td>respondent’s bicep girth in centimeters, measured when flexed as the average of right and left girths</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">for.gi</span></td>
+<td>respondent’s forearm girth in centimeters, measured when extended, palm up as the average of right and left girths</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">kne.gi</span></td>
+<td>respondent’s knee diameter in centimeters, measured as sum of two knees</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">cal.gi</span></td>
+<td>respondent’s calf maximum girth in centimeters, measured as average of right and left girths</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">ank.gi</span></td>
+<td>respondent’s ankle minimum girth in centimeters, measured as average of right and left girths</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">wri.gi</span></td>
+<td>respondent’s wrist minimum girth in centimeters, measured as average of right and left girths</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">age</span></td>
+<td>respondent’s age in years</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">wgt</span></td>
+<td>respondent’s weight in kilograms</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">hgt</span></td>
+<td>respondent’s height in centimeters</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">sex</span></td>
+<td>“male” for male respondents and “female” for female respondents</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercises">Exercises</h2>
+<ol class="example" type="1">
+<li><p>Visualizations are a helpful tool for exploring a new dataset. As this dataset contains 25 variables, let’s start simple by inspecting the distribution of heights (<span class="monospace">hgt</span> column) for the men and women (<span class="monospace">sex</span> column) in the dataset. <strong>Create two separate plots</strong>, one where you use <code>geom_histogram()</code> and another where you use <code>geom_density()</code> to look at the distribution of heights for men and&nbsp;women.</p>
+<div class="callout secondary">
+<p><span class="h4">Hint</span></p>
+<p>The height distributions for men and women should be on the same plot. You will need to use the <span class="monospace">fill = </span> and <span class="monospace">alpha = 0.5</span> inputs. Remember, <span class="monospace">alpha = 0.5</span> <strong>should not</strong> be inside the <code>aes()</code> function! <code>geom_histogram()</code> additionally requires a value for the <span class="monospace">position = </span> input so that the distributions overlap one&nbsp;another.</p>
+</div></li>
+<li><p>There are advantages and disadvantages to using either <code>geom_histogram()</code> or <code>geom_density()</code> to represent a data distribution, so it can be preferable to show both types on the same plot. Take the code you wrote in Exercise 1 and try doing this yourself. The distributions should still be split by <span class="monospace">sex</span> using <span class="monospace">fill = </span> in both <code>geom_histogram()</code> and <code>geom_density()</code>. Remember, to overlay geoms you add them together like in the code template below (you will need to replace the ellipses <span class="monospace">…</span>),</p>
+<pre class="r"><code>ggplot(...) +
+  geom_histogram(aes(...), ...) +
+  geom_density(aes(...), ...)</code></pre>
+<p>Does the plot look okay, or do you notice a&nbsp;problem?</p></li>
+<li><p>The main issue you should have noticed in Exercise 2 is that the vertical axis scale for the histogram and density plots do not match. This is because the bar heights in the histogram <em>count</em> the number of data points that fall within a given range of values while the density curve’s height is a fraction, and so they are not directly comparable. You can fix this discrepancy by <em>normalizing</em> the bar heights in the histogram by dividing the height of each bar by the number of data points within each distribution (the bars in the men’s distribution are divided by 247, the women’s distribution are divided by 260). Luckily for us, there is a convenient way to do this using <span class="monospace">ggplot2</span>, just add the input <span class="monospace">y = ..density..</span> <em>inside</em> the <code>aes()</code> function of <code>geom_histogram()</code>. This converts the histogram into a <strong>probability mass function</strong> (<span class="caps">PMF</span>).</p>
+<p><strong>Try converting your histogram from Exercise 2 into a <span class="caps">PMF</span>.</strong> Copy and paste your code and then add <span class="monospace">y = ..density..</span> inside the <code>aes()</code> function of <code>geom_histogram()</code>.</p>
+<div class="callout primary">
+<p><span class="h4">Tip</span></p>
+<p>Using a <span class="caps">PMF</span> or density curve to represent your distribution allows you to directly compare groups of data containing <em>different</em> numbers of&nbsp;observations.</p>
+</div></li>
+<li><p>Yet another way to evaluate and compare distributions is the <strong>cumulative distribution function</strong> (<span class="caps">CDF</span>), which is a function that maps from a value to its percentile rank. Since the terms percentile rank and cumulative distribution function may be new to you, pause here and read sections 4.2.2 (<a href="http://book.cds101.com/cumulative-distribution-functions.html#percentiles" class="uri">http://book.cds101.com/cumulative-distribution-functions.html#percentiles</a>) and 4.2.3 (<a href="http://book.cds101.com/cumulative-distribution-functions.html#cdfs" class="uri">http://book.cds101.com/cumulative-distribution-functions.html#cdfs</a>) of the <a href="http://book.cds101.com"><em>Introduction to Computational and Data Sciences</em> supplemental textbook</a> from this module’s <a href="assignments/reading06/">reading assignment</a>.</p>
+<p>Now that you have a better idea of what percentile ranks are and how they connect with the <span class="caps">CDF</span>, let’s plot the <span class="caps">CDF</span> for men’s and women’s heights. A template code block for doing this is provided&nbsp;below,</p>
+<pre class="r"><code>ggplot(body_dims) +
+  geom_step(
+    mapping = aes(...),
+    stat = &quot;ecdf&quot;
+  ) +
+  labs(y = &quot;CDF&quot;)</code></pre>
+<p>Replace the ellipses <span class="monospace">…</span> in <code>aes()</code> to plot a <span class="caps">CDF</span> for men’s and women’s heights on the same&nbsp;plot.</p>
+<div class="callout secondary">
+<p><span class="h4">Hint</span></p>
+<p>The <code>aes()</code> inputs should be similar to what you used in <code>geom_density()</code> in Exercise 1, except you should use <span class="monospace">color = </span> instead of <span class="monospace">fill = </span>.</p>
+</div></li>
+<li><p>The <span class="caps">CDF</span> is a bit like a fingerprint for data distributions, as different <em>classes</em> of distributions have different characteristic shapes. CDFs are also convenient when you want to compare two data distributions within a dataset and determine if they share a similar shape and center or if they deviate from one another. <strong>Does the shape of the <span class="caps">CDF</span> curve for men’s and women’s heights look the same or different?</strong> Put another way, if we shifted the men’s curve to the left, would it mostly overlap with the women’s curve, or would there be&nbsp;deviations?</p></li>
+<li><p>Up until this point in the course, you’ve been asked to discuss the features of data distributions after looking at plots, as it is important that you conceptually understand what the terms <strong>center</strong>, <strong>spread</strong>, and <strong>shape</strong> mean. We are now ready to start quantitatively analyzing our data distributions using statistical measures. The following R functions will be useful for computing basic statistical&nbsp;measures,</p>
+<ul>
+<li><p><code>mean()</code>: Computes the average (measure of distribution’s&nbsp;center)</p></li>
+<li><p><code>median()</code>: Computes the median (measure of distribution’s&nbsp;center)</p></li>
+<li><p><code>min()</code>: Finds the minimum value (related to distribution’s&nbsp;spread)</p></li>
+<li><p><code>max()</code>: Finds the maximum value (related to distribution’s&nbsp;spread)</p></li>
+<li><p><code>sd()</code>: Computes the standard deviation (related to distribution’s&nbsp;spread)</p></li>
+<li><p><code>IQR()</code>: Computes the interquartile range, which is the difference between the 75th and 25th percentiles (related to distribution’s&nbsp;spread)</p></li>
+</ul>
+<p>We can use <code>summarize()</code> to apply these functions to a column in our dataset. Copy the code below into your R Markdown notebook and run&nbsp;it.</p>
+<pre class="r"><code>body_dims %&gt;%
+  summarize(
+    mean = mean(hgt),
+    median = median(hgt),
+    min = min(hgt),
+    max = max(hgt),
+    sd = sd(hgt),
+    iqr = IQR(hgt)
+  )</code></pre>
+<p>Of course, these measures are being computed for the entire <span class="monospace">hgt</span> column, with no distinction between men and women. <strong>Copy and paste the code into a second code block and insert a <code>group_by(...)</code> function before <code>summarize()</code> so that the measures are computed separately for men’s and women’s heights.</strong> You will need to replace the ellipses <span class="monospace">…</span> with a variable&nbsp;name.</p></li>
+<li><p>Let’s now move beyond <span class="monospace">hgt</span> column and consider all the measurements in the column range <span class="monospace">bia.di:wri.gi</span>. As it would be tedious to type out each column name individually, let’s use <code>gather()</code> to turn these columns into rows. Use the name <span class="monospace">body_part</span> for the column containing the variable names <span class="monospace">bia.di</span> through <span class="monospace">wri.gi</span> and use the name <span class="monospace">measurement</span> for the column containing numerical values. Assign this data frame to a variable called <span class="monospace">body_dims_long</span>.</p></li>
+<li><p>Visualize the columns we just converted into rows as PMFs and density curves, just like in Exercise 3. Continue to separate the distributions by <span class="monospace">sex</span> using the <span class="monospace">fill = </span> input. Use <code>facet_wrap(~ body_part, scales = &quot;free_x&quot;)</code> to separate the body part measurements into separate plot windows. Are the distribution shapes mostly similar or mostly different across different body part&nbsp;measurements?</p>
+<div class="callout secondary">
+<p><span class="h4">Hint</span></p>
+<p>Adjust the size of the figure by adding the following options to your code&nbsp;block</p>
+<pre><code>&#96;&#96;&#96;{r, fig.asp = 1.1, fig.width = 8}</code></pre>
+</div></li>
+<li><p>Copy and paste the code from Exercise 8 and modify it so that each plot window (facet) shows the <span class="caps">CDF</span> for each data distribution. Refer to Exercise 4 for ideas on what you might need to change in the code. Based on the <span class="caps">CDF</span> plots, are there any body part measurements where the distributions for men and women are nearly indistinguishable from one another? If so, which&nbsp;ones?</p></li>
+<li><p>Compute summary statistics for the different body part measurements. Group <span class="monospace">body_dims_long</span> by <span class="monospace">body_part</span> and <span class="monospace">sex</span> using <span class="monospace">group_by()</span>, then pipe this into a <span class="monospace">summarize()</span> like the one in Exercise 6 (you will need to replace <span class="monospace">hgt</span> with a different column&nbsp;name).</p></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your mini-homework, follow the two steps below. Your homework will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Mini-homework 6</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;mini-homework:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

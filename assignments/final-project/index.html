@@ -1,0 +1,183 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Final&nbsp;Project</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>For the final project, you will be assigned into a team to conduct an exploratory data analysis using the skills you’ve developed over the semester and write a report. Each group will motivate their exploration by formulating interesting questions that can be answered with the dataset, which are then answered by computing summary statistics as well as wrangling the data into a form that allows you to visualize it. The key words are <strong>summary statistics</strong> and <strong>visualize</strong>; the answer to each question must involve the presentation and discussion of visual and quantitative information. If desired, groups may also bring in additional data to strengthen the analysis, but please note that any additional data must be documented, which includes describing how you obtained it and how you’ve integrated it with the main dataset to further your&nbsp;analysis.</p>
+<h2 id="the-dataset">The&nbsp;Dataset</h2>
+<p>All groups will be working with the <a href="https://collegescorecard.ed.gov">College Scorecard</a> dataset started by The Obama Administration in September 2015. The dataset is included in the starter repository for your group and it is loaded by default (the variable name is <span class="monospace">college</span>) in the setup block of the R Markdown file where you write your group report. The source link for the dataset is found here: <a href="https://collegescorecard.ed.gov/data/" class="uri">https://collegescorecard.ed.gov/data/</a>.</p>
+<p>The data code-book, <strong>which tells you what the columns mean</strong>, is available at <a href="https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx" class="uri">https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx</a>. You will have to look through the code-book to understand the meaning of the variables, and this should be your starting point before you start running an analysis on the&nbsp;dataset.</p>
+<p>For further information about the dataset, consult the documentation pages at <a href="https://collegescorecard.ed.gov/data/documentation/" class="uri">https://collegescorecard.ed.gov/data/documentation/</a>.</p>
+<p><strong>This is a large dataset that that contains millions of individual cells.</strong> <strong>As such, there is no one right way to approach this project.</strong> <strong>There are many different avenues that you can take, so have fun with&nbsp;it!</strong></p>
+<h2 id="grade">Grade</h2>
+<p>Grades for the final project will be based on the correctness and readability of your R code, how well your report is written (the report should be structured, coherent, and follow the standard rules of spelling and grammar), and how well the exploratory questions are answered. The report’s formatting and style will be graded as a whole for the group, while the answer quality for each question will be graded individually. Group members that are judged to have not sufficiently contributed to the final product will have their grade&nbsp;penalized.</p>
+<h2 id="the-report">The&nbsp;report</h2>
+<p>The group report is built around interesting questions you can ask of the dataset. <strong>Each group member will construct and answer 1 question about the dataset</strong>. So, for example, a group of four members will have 4 questions in total. These questions must be decided upon first before you begin putting your report&nbsp;together.</p>
+<p>The report is to have two sections, <strong>Preprocessing the dataset</strong> and <strong>Exploratory data analysis</strong>:</p>
+<ul>
+<li><p><strong>Preprocessing the dataset</strong> is where the group will work together to organize and prepare the dataset into a common format that everyone will start from when answering his or her&nbsp;question.</p></li>
+<li><p><strong>Exploratory data analysis</strong> is where each group member will state, analyze, and answer his/her question. Although this is handled individually, the final submission should be organized, easy to follow, and adhere to a common&nbsp;format.</p></li>
+</ul>
+<p>The subsections below give more detail about what is expected from your questions and what to put in the&nbsp;report.</p>
+<h3 id="choosing-your-questions">Choosing your&nbsp;questions</h3>
+<p>There are some restrictions on what is considered a valid question for this final project. Here is a short list of criteria that your question must&nbsp;meet:</p>
+<ol type="1">
+<li><p>Your question cannot be a simple lookup query, like “how many students go to this&nbsp;school?”</p></li>
+<li><p>The question must be about comparing relationships and trends between two or more variables in the dataset, either by comparing two or more columns or by comparing well-defined groups of values within a single&nbsp;column.</p></li>
+<li><p>Answering the question must involve creating one or more visualizations and the calculation of one or more summary&nbsp;statistics.</p></li>
+<li><p>Answering the question must require data aggregation (<span class="monospace">group_by</span>/<span class="monospace">summarize</span>) or identifying a trend between 2 or more&nbsp;variables.</p></li>
+</ol>
+<p><strong>Before you begin working on your project report, you must submit a draft question on Blackboard for my review and comment.</strong> You must provide the following in your question&nbsp;submission:</p>
+<ul>
+<li><p>The question itself written as a complete&nbsp;sentence.</p></li>
+<li><p>A list of the columns you plan to use to answer the&nbsp;question.</p></li>
+<li><p>A one or two sentence explanation for why you think it’s a worthwhile question to&nbsp;ask.</p></li>
+</ul>
+<p>I reserve the right to adjust or veto any questions that do not meet the outlined criteria or that cannot be appropriately justified. <strong>Submitting these on time to Blackboard will be counted as part of your final project&nbsp;grade.</strong></p>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p>Below are two common misconceptions regarding this dataset that you should be aware of as you formulate your&nbsp;questions:</p>
+<ul>
+<li><p><strong>It is not possible to make statements about individual students using this&nbsp;dataset!</strong></p>
+<p>Each observation (row) in the dataset is a single college/university and the variables (columns) frequently represent <strong>aggregated information</strong> about students. This means that many of the columns are often an average, sum, or a percentile for the entire student body or a specific subgroup of&nbsp;students.</p></li>
+<li><p><strong>It is not possible to extract data about a subgroup of students from a column that was aggregated over the entire student&nbsp;body.</strong></p>
+As an example, if one column is “median salary 5 years after gradution” and another column is “percentage of students majoring in data science”, you cannot use these two columns to figure out the median salary for students graduating with a data science degree. In general, the only way to make statements about different groups is if the column itself mentions that the quantity is aggregated over a specific&nbsp;subgroup.</li>
+</ul>
+</div>
+<h3 id="preprocessing-the-dataset-section">Preprocessing the dataset&nbsp;section</h3>
+<p>This dataset is structured and mostly clean, but there is still some <em>data preprocessing</em> that needs to be done before you can begin analysis. At a minimum, there are three clear tasks to complete and document in this first section of the R Markdown file before you continue on to the <strong>Exploratory data analysis</strong>&nbsp;section:</p>
+<ol type="1">
+<li><p>After your group has decided on the questions you will answer, figure out which columns in the dataset your group needs to answer the questions. Then, extract those columns using <code>select</code> and save the reduced dataset to another variable, for example <span class="monospace">college_reduced</span>.</p></li>
+<li><p>The column names are shortened abbreviations, and should be made more human-readable using the <code>rename</code> function. Use the data code-book, <a href="https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx" class="uri">https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx</a>, to help you figure out what the abbreviations&nbsp;mean.</p></li>
+<li><p>Categorical variables that are not easy to understand, for example the integer categories under the <span class="monospace"><span class="caps">REGION</span></span> column, should be relabeled using the <code>recode</code> function.</p></li>
+</ol>
+<p>Additional preprocessing steps may be necessary, depending on the questions your group is trying to answer. Regardless of what you do, these steps should be documented in the usual way, where code blocks are accompanied with written&nbsp;explanations.</p>
+<p><strong>Each question in the Exploratory data analysis section must be answered starting from the preprocessed dataset you end up with at the end of this&nbsp;section!</strong></p>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p><strong>Resist the temptation to drop any rows containing one or more <span class="monospace"><span class="caps">NA</span></span> values as an early step in your&nbsp;analysis!</strong></p>
+<p>This dataset contains a lot of missing (<span class="monospace"><span class="caps">NA</span></span>) values relative to other datasets that you’ve worked with during the semester. It is important to remember that just because some information may be missing for a school doesn’t mean that the other information isn’t useful, and many of the <span class="monospace">tidyverse</span> commands are able to gracefully handle <span class="monospace"><span class="caps">NA</span></span> values. <strong>If you need to filter out rows with <span class="monospace"><span class="caps">NA</span></span> values, this should be one of the last steps you do, and it should not affect the analysis and answers provided in other&nbsp;questions.</strong></p>
+</div>
+<h3 id="exploratory-data-analysis-section">Exploratory data analysis&nbsp;section</h3>
+<p>This section is where each group member is responsible for answering his or her respective question about the dataset. Each question should be clearly stated and each answer should <strong>start from the preprocessed dataset obtained in the previous section</strong>. The procedure for obtaining the answer needs to be documented in the form of both code blocks and plain text. Calculated summary statistics and visualizations <strong>need to be discussed and interpreted for the reader</strong>. For example, if you present a distribution, discuss it’s shape, center, and spread, which you should relate to the computed summary statistics. If you present a scatter plot, what is the trend of the points? After analyzing the various outputs, synthesize it and provide a formal answer to your stated&nbsp;question.</p>
+<p>Here is a quick checklist to apply to each question and&nbsp;answer:</p>
+<div class="no-bullets">
+<ul>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Is the question clearly&nbsp;stated?</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Does the code used to find the answer contain at least one <span class="monospace">dplyr</span>-based data transformation, one calculation of a summary statistic, and one <span class="monospace">ggplot2</span> data&nbsp;visualization?</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Are the results obtained from the code properly explained and interpreted for the&nbsp;reader?</p></li>
+<li><i class="far fa-square" data=fa=transform="grow-8"></i>  Is a final answer clearly given for the&nbsp;question?</li>
+</ul>
+</div>
+<h3 id="how-to-edit-and-merge-each-group-members-content-into-the-final-report">How to edit and merge each group member’s content into the final&nbsp;report</h3>
+<p>Like in the group submissions for the homework assignments, collaboration on the GitHub repository will work best if you create your own versions of the <span class="monospace">final_project.Rmd</span> file where you make a copy and rename it to include your last name. For example, if your last name is Smith, then you should make a file copy and rename it to <span class="monospace">final_project_smith.Rmd</span>. Eventually, the group will need to merge in everyone’s answers into the <span class="monospace">final_project.Rmd</span> document. The following checklist may help with&nbsp;this:</p>
+<div class="no-bullets">
+<ul>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  Select an editor to be in charge of merging everyone’s answers into the final document <span class="monospace">final_project.Rmd</span>.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor should ensure that everyone has committed and pushed their answers to GitHub so they can copy and paste in each&nbsp;contribution.</p></li>
+<li><p><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor needs to make sure that the final submission reads like a coherent document and that the writing style and code style are uniform across all the answers. In other words, it should read like a single person answered all the questions, not a group of four&nbsp;people.</p></li>
+<li><i class="far fa-square" data=fa=transform="grow-8"></i>  The editor will be in charge of of committing and pushing the final R Markdown file to GitHub, knitting to <span class="caps">PDF</span>, and uploading the <span class="caps">PDF</span> file on&nbsp;Blackboard.</li>
+</ul>
+</div>
+<h2 id="additional-guidelines">Additional&nbsp;guidelines</h2>
+<p>The following are additional guidelines for your Final Project&nbsp;submission:</p>
+<ul>
+<li><p><strong>Your group’s final project will only be graded if a <span class="caps">PDF</span> of your final report is submitted on Blackboard and the final versions of the group’s R Markdown files are pushed to&nbsp;GitHub.</strong></p></li>
+<li><p>The final R Markdown report file in the group’s GitHub repository must knit to the <span class="caps">PDF</span> format without&nbsp;error.</p></li>
+<li><p>You must use the <span class="monospace">tidyverse</span> functions in your work, I should not see any “base R” functions used (<code>subset</code>, for example) that were not shown in the lecture slides or the&nbsp;textbook.</p></li>
+<li><p>Each group member must contribute substantive commits to the group repository on Github that reflect his/her own&nbsp;work.</p></li>
+<li><p>The report represents your group’s final results and should only contain the methods used to obtain them. <strong>Do not include questions in the report that you cannot&nbsp;answer.</strong></p></li>
+<li><p>Your R code should be clean and readable, which includes what it looks like after knitting. <strong>Code blocks should not run off the side of the page when knitted to <span class="caps">PDF</span>!</strong></p></li>
+<li><p><strong>The report’s tone should be professional and should not read like a social media feed or personal blog</strong>. Refrain from editorializing about the project as a whole or about a specific question, as this is not an opinion paper. Do not speculate, instead support your claims and explanations using data and analysis. Avoid self-narration or writing about how you felt or what you were thinking as you complete each question, instead write as if you are constructing a step-by-step tutorial for others to&nbsp;use.</p></li>
+<li><p><strong>Late submissions for the final project will not be accepted, no&nbsp;exceptions.</strong></p></li>
+</ul>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>The editor should follow the steps below to submit the homework for his/her&nbsp;group.</p>
+<ol type="1">
+<li><p>Make sure that everyone has committed and pushed their R Markdown files so that everything is synchronized to GitHub. If you do this right, then you will be able to view all the completed files on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your group’s R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Final Project Report</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

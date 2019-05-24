@@ -1,0 +1,235 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Under (blood)&nbsp;pressure</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named <span class="monospace">pressure.Rmd</span>. This mini-homework will guide you through the process of building and analyzing linear regression models. Read the <a href="#about-the-dataset">About the dataset</a> section to get some background information on the dataset that you’ll be working with. Each of the below <a href="#exercises">exercises</a> are to be completed in the provided spaces within your starter file <span class="monospace">pressure.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <strong><a href="#how-to-submit">How to submit</a></strong> section&nbsp;below.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The dataset<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> we are using in this mini-homework comes from a study conducted by anthropologists to determine the long-term effects of a change in environment on blood pressure. They measured the blood pressure of individuals who had migrated from a pre-modern environment high in the Andes mountains of Peru into the mainstream of Peruvian society at a much lower altitude. The motivation for looking at blood pressure for this group of individuals comes from a prior study in Africa, which suggested that migration from a simpler society to a more technologically complex one might increase blood pressure at first, but that the blood pressure would tend to decrease back to normal over time. The anthropologists recorded systolic blood pressure measurements as it is often a more sensitive indicator compared to diastolic measurements, as well as each participant’s height, weight, and a number of other characteristics. All these data are for males over 21 who were born at a high altitude and whose parents were born at a high&nbsp;altitude.</p>
+<p>Using this collected data, we aim to answer the research&nbsp;question,</p>
+<blockquote>
+<p>All else kept equal, does the amount of time spent in an urban environment affect the blood pressure of individuals that recently migrated from a pre-modern&nbsp;society?</p>
+</blockquote>
+<p>You might wonder if the features in the <span class="monospace">infer</span> package would be sufficient to address this question. The <span class="monospace">infer</span> package could be used to determine whether or not time spent in an urban environment has any effect at all, such that we could conclude “yes it does” or “no it doesn’t.” What it won’t let us do is predict the blood pressure of another individual that did not participate in the study or help to quantify how <strong>much</strong> of an effect time spent in an urban environment has relative to the other measurements taken during the study. If we want to predict things based on what we see in the dataset and analyze the relative importance of different variables, we will need to build a model. There are many types of models out there, and for this mini-homework we will focus on building a <em>linear regression model</em> for this&nbsp;dataset.</p>
+<p>The dataset <span class="monospace">blood_pressure</span> contains 9 variables and 39&nbsp;rows,</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">Systol</span></td>
+<td>systolic blood pressure</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Age</span></td>
+<td>age</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Years</span></td>
+<td>years in urban area</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Weight</span></td>
+<td>weight (kg)</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Height</span></td>
+<td>height (mm)</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Chin</span></td>
+<td>chin skinfold</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Forearm</span></td>
+<td>forearm skinfold</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Calf</span></td>
+<td>calf skinfold</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Pulse</span></td>
+<td>resting pulse rate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercises">Exercises</h2>
+<ol class="example" type="1">
+<li><p>As always, we begin by creating visualizations to help familiarize ourselves with the dataset. Since we are interested in how the variable <span class="monospace">Systol</span> is affected by the other variables in the dataset, let’s use <code>facet_wrap()</code> to create a sequence of scatter plots that will show us which variables correlate with <span class="monospace">Systol</span>. Fill in the ellipses <span class="monospace">…</span> in the following template to create the&nbsp;visualization,</p>
+<pre class="r"><code>blood_pressure %&gt;%
+  gather(..., key = &quot;variable&quot;, value = &quot;value&quot;) %&gt;%
+  ggplot() +
+  geom_point(mapping = aes(x = ..., y = ...)) +
+  facet_wrap(~ ..., scales = &quot;free_x&quot;)</code></pre>
+<p>The missing input in <code>gather()</code> should grab all the columns in the range <span class="monospace">Age</span> through <span class="monospace">Pulse</span>. In the plot, fill in the missing inputs so that the <strong>vertical axis</strong> is <span class="monospace">Systol</span>, the <strong>horizontal axis</strong> is the value of the other variable, and the faceting is done over the different variable&nbsp;names.</p></li>
+<li><p>Does the <span class="monospace">Years</span> variable have a positive or negative correlation with <span class="monospace">Systol</span>? Are there any other variables that follow a similar trend with respect to <span class="monospace">Systol</span>? Which variables show a moderate to strong <em>positive</em> correlation with <span class="monospace">Systol</span>?</p>
+<div class="callout primary">
+<p><span class="h4">Reminder</span></p>
+<p>The <span class="monospace">Years</span> variable is the number of years that an individual has lived in an urban&nbsp;environment.</p>
+</div></li>
+<li><p>A common preprocessing step in model building is to combine or transform some of the variables to create additional columns that may improve the accuracy of a model. Our research question asks whether the length of time spent living in an urban environment correlates with decreased blood pressure over time. To figure this out, we could just look at <span class="monospace">Years</span>, but it may be that any trends in the <span class="monospace">Years</span> variable are confounded by the overall age of the individual. Account for the effect of age by using <code>mutate()</code> to create a new column by computing the ratio <span class="math inline">\(\text{urban\_frac\_life}=\dfrac{\text{Years}}{\text{Age}}\)</span>. Assign the resulting data frame with these two new columns to <span class="monospace">blood_pressure_updated</span>.</p></li>
+<li><p>We’re now ready to create our first linear regression model using the <code>lm()</code> function! Try the following as an example, which builds a linear regression model of <span class="monospace">Systol</span> using <span class="monospace">urban_frac_life</span> as the explanatory&nbsp;variable,</p>
+<pre class="r"><code>systol_urban_frac_model &lt;- lm(Systol ~ urban_frac_life, data = blood_pressure_updated)</code></pre>
+<p>After building the model, use the following two convenience functions from the <span class="monospace">broom</span> package to get a basic overview of the model. To get a data frame summarizing the model parameters, use the <code>tidy()</code> function,</p>
+<pre class="r"><code>systol_urban_frac_model %&gt;%
+  tidy()</code></pre>
+<p>The values under the <span class="monospace">estimate</span> column give us the intercept and slope of our linear model (remember <span class="math inline">\(y=mx+b\)</span>?). Additional information about the model, such as the model’s <span class="math inline">\(R^{2}\)</span> paramter, can be obtained using the <code>glance()</code> function:</p>
+<pre class="r"><code>systol_urban_frac_model %&gt;%
+  glance()</code></pre>
+<p>The <span class="math inline">\(R^{2}\)</span> value represents the proportion of variability in the response variable that is explained by the explanatory variable. If <span class="math inline">\(R^{2}\)</span> is close to 1, that means that the model is doing an excellent job capturing the variability of the response variable. If it is close to 0, then it is doing a poor job capturing the variability of the response&nbsp;variable.</p>
+<div class="callout primary">
+<p><span class="h4">Reminder</span></p>
+<p>Notice that we are using the same formula syntax in <code>lm()</code> to specify the model as we used in the <code>specify()</code> function from the <span class="monospace">infer</span> package. Remember, the response variable goes on the left side of the tilde <span class="monospace">~</span> and the explanatory variable goes on the right&nbsp;side.</p>
+</div></li>
+<li><p>After building a model, we would like to know what it predicts and how accurate the predictions are. One way to capture the accuracy of the predictions is to calculate the <strong>residuals</strong>, which tell us how far off any given prediction is from the true value. The <span class="monospace">modelr</span> package, which is part of the <span class="monospace">tidyverse</span>, provides us with functions for adding model predictions and residuals to our data frame. To do this for our model <span class="monospace">Systol ~ urban_frac_life</span>, we pipe our dataset into two functions, <code>add_predictions()</code> and <code>add_residuals()</code>, which each take the model <code>systol_urban_frac_model</code> that we built earlier as&nbsp;input,</p>
+<pre class="r"><code>systol_urban_frac_df &lt;- blood_pressure_updated %&gt;%
+  add_predictions(systol_urban_frac_model) %&gt;%
+  add_residuals(systol_urban_frac_model)</code></pre>
+<p>The predictions are added under a new column called <span class="monospace">pred</span> and the residuals are added under a new column called <span class="monospace">resid</span>.</p></li>
+<li><p>Now that we’ve made our predictions and calculated the residuals, let’s create some visualizations to investigate how well our model performs. First, let’s plot the model fit on top of the <span class="monospace">Systol</span> versus <span class="monospace">urban_frac_life</span> scatter plot. To create this visualization, we will need the slope and intercept we printed out in Exercise 4, which should be filled in the template code&nbsp;below,</p>
+<pre class="r"><code>ggplot(systol_urban_frac_df) +
+  geom_point(mapping = aes(x = ..., y = ...)) +
+  geom_abline(slope = ..., intercept = ...)</code></pre>
+<p>As before, you will need to fill in the ellipses <span class="monospace">…</span> to create the&nbsp;plot.</p></li>
+<li><p>The one problem with the plot in Exercise 6 is that it can only be made when your model has a single explanatory variable. If you create a model with two or more explanatory variables, you will need a different type of plot to visualize the predictive power of your model. One such plot is the <em>observed versus predicted plot</em>, which is created as&nbsp;follows,</p>
+<pre class="r"><code>ggplot(systol_urban_frac_df) +
+  geom_point(aes(pred, Systol)) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = &quot;red&quot;,
+    size = 1
+  )</code></pre>
+<p>Alternatively, you can use a <em>residual versus predicted plot</em>,</p>
+<pre class="r"><code>ggplot(systol_urban_frac_df) +
+  geom_point(aes(pred, resid)) +
+  geom_ref_line(h = 0)</code></pre>
+<p>Make both of these plots in your R Markdown&nbsp;file.</p></li>
+<li><p>It is also important to inspect the residuals to see what the prediction error is like. It is typical to visualize the residuals using a histogram to get a sense of their center, shape, and overall spread. Create a histogram of the <span class="monospace">resid</span> column in <span class="monospace">systol_urban_frac_df</span>, making sure you choose an appropriate bin width for the distribution. What is the shape and center of the&nbsp;residuals?</p></li>
+<li><p>How do we know if a linear regression model is reliable? In general, three conditions must be met in order for a linear model built using <code>lm()</code> to be&nbsp;reliable:</p>
+<ol type="1">
+<li><p><strong>Linearity:</strong> The relationship between the explanatory variable and the response variable must be&nbsp;linear</p></li>
+<li><p><strong>Nearly normal residuals:</strong> The residuals should be nearly normal (i.e. follow a bell curve&nbsp;shape)</p></li>
+<li><p><strong>Constant variability:</strong> The variability of the points around the model line should be roughly&nbsp;constant</p></li>
+</ol>
+<p>The first and third conditions, <strong>linearity</strong> and <strong>constant variability</strong>, can be determined from the plots created in Exercise 7. Look at your <em>observed versus predicted</em> and <em>residual versus predicted</em> plots again. If the points in either plot appear to follow a non-linear (curved) trend, then that’s a tell-tale sign that the condition for linearity has been violated. Similarly, in the <em>residual versus predicted</em> plot, if the residual spread seems to meaningfully increase or decrease as the predicted value changes then the constant variability condition has been violated. Interpret the plots and conclude whether or not the relationship between <span class="monospace">Systol</span> and <span class="monospace">urban_frac_life</span> is linear or non-linear and whether constant variability is&nbsp;violated.</p></li>
+<li><p>The histogram we created in Exercise 8 can give us a basic idea of whether the second condition, <strong>nearly normal residuals</strong>, is violated, but we should have a more precise method for figuring this out. A useful method for determining if the residuals are nearly normal is to build a Q-Q plot using <code>geom_qq()</code>, which creates a plot that shows us precisely where the distribution of residuals deviates from normality. To create the Q-Q plot of the residuals, run the following&nbsp;code,</p>
+<pre class="r"><code>ggplot(data = systol_urban_frac_df) +
+  geom_qq(mapping = aes(sample = resid)) +
+  geom_qq_line(mapping = aes(sample = resid))</code></pre>
+<p>Generally, if we have a nearly normal distribution then most of the residuals will stay close to the reference line on the Q-Q plot. Regions where the residual distribution deviates from the normal distribution’s bell curve shape will show up as points that diverge from the reference line. Based on what you see in the visualization, conclude whether or not the residuals are nearly&nbsp;normal.</p></li>
+<li><p>Create and fit a second linear model for <span class="monospace">Systol</span> using the <span class="monospace">Weight</span> variable and name it <span class="monospace">systol_weight_model</span>. Does this new model seem to predict <span class="monospace">Systol</span> better than <span class="monospace">urban_frac_life</span>? Determine this by comparing the <span class="math inline">\(R^{2}\)</span> values (obtained using <code>glance()</code>) for the two models. Then, create an <em>observed versus predicted</em> plot, a <em>residual versus predicted</em> plot, and a Q-Q residual plot for this new model. Should we conclude that this new model is reliable? Why or why&nbsp;not?</p></li>
+<li><p>Now let’s see what happens when we build a multivariate model. Build a model for <span class="monospace">Systol</span> that uses <span class="monospace">urban_frac_life</span> and <span class="monospace">Weight</span> at the same&nbsp;time,</p>
+<pre class="r"><code>systol_combo_model &lt;- lm(Systol ~ urban_frac_life + Weight, data = blood_pressure_updated)</code></pre>
+<p>Create a <em>residual versus predicted</em> plot and a Q-Q residual plot for this model. Should we conclude that this new model is reliable? Also inspect the <span class="math inline">\(R^{2}\)</span> value for this new model. Does this seem to perform better than the single-variable&nbsp;models?</p></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your mini-homework, follow the two steps below. Your homework will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Mini-homework 8</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;mini-homework:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Peruvian blood pressure dataset and description sources: <a href="https://newonlinecourses.science.psu.edu/stat501/node/299/" class="uri">https://newonlinecourses.science.psu.edu/stat501/node/299/</a>, <a href="https://www2.stat.duke.edu/courses/Fall98/sta113/proj/datasets.html" class="uri">https://www2.stat.duke.edu/courses/Fall98/sta113/proj/datasets.html</a>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Who busts the&nbsp;Mythbusters?</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named <span class="monospace">mythbusters.Rmd</span>. This mini-homework will guide you through examples demonstrating how to conduct hypothesis tests and calculate confidence intervals using the <span class="monospace">infer</span> package. Read the <a href="#about-the-dataset">About the dataset</a> section to get some background information on the dataset that you’ll be working with. Each of the below <a href="#exercises">exercises</a> are to be completed in the provided spaces within your starter file <span class="monospace">mythbusters.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <strong><a href="#how-to-submit">How to submit</a></strong> section&nbsp;below.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The dataset we are using in this mini-homework comes from an experiment shown on an episode of the <em>Mythbusters</em> television show<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, a science entertainment <span class="caps">TV</span> program that aired on the Discovery Channel. The show’s build team, Kari Byron, Scottie Chapman, and Tory Belleci, conducted the experiment in order to test the following&nbsp;hypothesis,</p>
+<blockquote>
+<p>It becomes more likely for a person to yawn if another person near them&nbsp;yawns.</p>
+</blockquote>
+<p>To conduct the experiment, the team drove 50 volunteers, one at a time, to a flea market in a van, and one of the team members, would either yawn (treatment) or not yawn (no treatment) during the ride. It was randomly determined ahead of time whether or not Kari yawned. Therefore, the 50 people were split into two randomly assigned&nbsp;groups:</p>
+<ul>
+<li><p><strong>Treatment group:</strong> 34 people where a person near them&nbsp;yawned</p></li>
+<li><p><strong>Control group:</strong> 16 people where there wasn’t a person yawning near&nbsp;them</p></li>
+</ul>
+<p>The results of the experiment are presented in the following&nbsp;table,</p>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:right;">
+yawns
+</th>
+<th style="text-align:right;">
+total
+</th>
+<th style="text-align:right;">
+fraction_yawned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.2500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.2941
+</td>
+</tr>
+</tbody>
+</table>
+<p>They concluded that the myth was confirmed because there was a 4% increase in yawns between the control and treatment groups. However, their analysis did not appear to include a formal hypothesis test, nor did the team discuss how likely it was that random chance alone could generate their results. Without this kind of analysis, we can not meaningfully determine whether the data supports the conclusion that yawning is&nbsp;contagious.</p>
+<p>Our main activity in this mini-homework will be fact-checking the Mythbusters by carrying out a formal hypothesis test using the <span class="monospace">infer</span> package. This will allow us to assess how likely it is that a random chance model could generate the observed experimental results and whether or not the collected data allow us to infer the same conclusion as the <em>Mythbusters</em> build&nbsp;team.</p>
+<p>The dataset <span class="monospace">yawn</span> contains 3 variables and 50&nbsp;rows,</p>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">subject_id</span></td>
+<td>Integer uniquely identifying an experiment volunteer</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">yawn</span></td>
+<td>Whether or not a volunteer yawned, <em>yes</em> if he/she did, <em>no</em> if he/she did not</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">group</span></td>
+<td>Specifies if the volunteer was part of the <em>Control</em> group or the <em>Treatment</em> group</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercises">Exercises</h2>
+<ol class="example" type="1">
+<li><p>Whenever we conduct an experiment, we need to know what variable we will change between the treatment and control groups, and what the kinds of outcomes we will be measuring. Look again as the three variables for this experiment. Which one is the <strong>explanatory</strong> variable and which one is the <strong>response</strong> variable? What value in the <strong>response</strong> value should be classified as a&nbsp;success?</p></li>
+<li><p>To conduct the hypothesis test, we need to simulate the null distribution. The null distribution represents the range of outcomes for this experiment if yawning has no effect on the treatment group and is due to random chance alone. To generate a null distribution we need to know how the observed experimental result was calculated, as we will need to repeat this same calculation during our simulations. Review the results table in the <a href="#about-the-dataset">About the dataset</a> section again. What quantity should we use or compute in order to build the null distribution? Choose the correct answer&nbsp;below.</p>
+<ol type="1">
+<li><p><em>The average number of <span class="monospace">yawns</span> in the treatment&nbsp;group</em></p></li>
+<li><p><em>The average value of <span class="monospace">fraction_yawned</span> in the treatment&nbsp;group</em></p></li>
+<li><p><em>The average difference in <span class="monospace">yawns</span> between the treatment and control&nbsp;groups</em></p></li>
+<li><p><em>The average difference in <span class="monospace">fraction_yawned</span> between the treatment and control&nbsp;groups</em></p></li>
+</ol></li>
+<li><p>Running a hypothesis test for this dataset requires us to fill in the following code template that contains four functions from the <span class="monospace">infer</span>&nbsp;package,</p>
+<pre class="r"><code>yawn_null &lt;- yawn %&gt;%
+  specify(&lt;variable1&gt; ~ &lt;variable2&gt;, success = &quot;...&quot;) %&gt;%
+  hypothesize(null = &quot;...&quot;) %&gt;%
+  generate(reps = ...,  type = &quot;...&quot;) %&gt;%
+  calculate(stat = &quot;...&quot;,  order = combine(&quot;...&quot;, &quot;...&quot;))</code></pre>
+<p>We will step through filling in this template over the next few&nbsp;questions.</p>
+<p>We start with the function <code>specify()</code>, which we see has the following&nbsp;structure,</p>
+<pre class="r"><code>specify(&lt;variable1&gt; ~ &lt;variable2&gt;, success = &quot;...&quot;)</code></pre>
+<p><span class="monospace">&lt;variable1&gt;</span>, <span class="monospace">&lt;variable2&gt;</span>, and <span class="monospace">“…”</span> are placeholders. Using your answers from Exercise 1, figure out what to fill in for these three placeholders. You only need to write out the <code>specify()</code> function.</p>
+<div class="callout primary">
+<p><span class="h4">Hint</span></p>
+<p>The relationship between the response and explanatory variables is written using a special formula syntax, <span class="monospace">&lt;variable1&gt;</span> ~ <span class="monospace">&lt;variable2&gt;</span>. The word on the left side of the tilde, <span class="monospace">&lt;variable1&gt;</span>, is the response variable. The word on the right side of the tilde, <span class="monospace">&lt;variable2&gt;</span>, is the explanatory&nbsp;variable.</p>
+</div></li>
+<li><p>The next step in our code template for generating a null hypothesis is the <code>hypothesize()</code> function,</p>
+<pre class="r"><code>hypothesize(null = &quot;...&quot;)</code></pre>
+<p>This function only takes one input, and you have two choices for what to use. What input should we&nbsp;use?</p>
+<div class="callout secondary">
+<p><span class="h4">Values for <span class="monospace">null</span></span></p>
+<ul>
+<li><p><span class="monospace">“independence”</span>: used when the explanatory and response variables both refer to columns in the&nbsp;dataset.</p></li>
+<li><span class="monospace">“point”</span>: used when we want to compare a column against a reported point estimate (i.e. mean or&nbsp;median).</li>
+</ul>
+</div></li>
+<li><p>The third step in our code template is the <code>generate()</code> function,</p>
+<pre class="r"><code>generate(reps = ...,  type = &quot;...&quot;)</code></pre>
+<p>We use the <span class="monospace">reps</span> input to set how many simulation trials we want to run to generate the null distribution. This input should be set equal to an integer value. The more trials we run, the more accurate our simulated range of outcomes will be, although it will also mean it will take our code longer to run. The <span class="monospace">type</span> keyword is used to choose the type of simulation that we want to&nbsp;run.</p>
+<p>Generating a null distribution for this dataset means we want to see what our outcomes will look like if the response variable and explanatory variable have no relationship to each other. If we want to run 10,000 simulations to create the null distribution for this dataset, what should I replace the placeholders&nbsp;with?</p>
+<div class="callout secondary">
+<p><span class="h4">Values for <span class="monospace">type</span></span></p>
+<p>There are three choices for <span class="monospace">type</span>,</p>
+<ul>
+<li><p><span class="monospace">“bootstrap”</span>: Run the simulation by randomly sampling rows <em>with replacement</em> from the dataset. The relationship between different columns in each row is&nbsp;preserved.</p></li>
+<li><p><span class="monospace">“permute”</span>: Run the simulation by randomly shuffling the order of the cells in the explanatory and response variables. This random shuffling procedure is done separately in each column, so the relationship between different columns in each row is not&nbsp;preserved.</p></li>
+<li><span class="monospace">“simulate”</span>: Run the simulation by flipping a weighted coin, meaning that heads or tails may not be equally probable (i.e. the coin may be unfair). This coin, being virtual, may have more than two sides, meaning there are several discrete outcomes that each have certain probabilities of happening. This <span class="monospace">type</span> is typically needed if you are using <span class="monospace">null = “point”</span> in <code>hypothesize()</code> and your response variable is&nbsp;categorical.</li>
+</ul>
+</div></li>
+<li><p>The last step in our code template is the <code>calculate()</code> function,</p>
+<pre class="r"><code>calculate(stat = &quot;...&quot;,  order = combine(&quot;...&quot;, &quot;...&quot;))</code></pre>
+<p>The first input <span class="monospace">stat</span> is where we specify what exactly it is that we’re calculating, which must mirror how the observed experimental result was calculated. The second input is <span class="monospace">order</span> and specifies the order of subtraction between the two groups listed under the <strong>explanatory</strong>&nbsp;variable.</p>
+<p>Based on your response to question 2 and the above information, what should I replace the placeholders&nbsp;with?</p>
+<div class="callout secondary">
+<p><span class="h4">Values for <span class="monospace">stat</span></span></p>
+<p>The available choices for <span class="monospace">stat</span> are as&nbsp;follows,</p>
+<ul>
+<li><p><span class="monospace">“mean”</span>: For simulations based on a single numerical variable. Compute the mean of each simulation&nbsp;trial.</p></li>
+<li><p><span class="monospace">“median”</span>: For simulations based on a single numerical variable. Find the median of each simulation&nbsp;trial.</p></li>
+<li><p><span class="monospace">“sum”</span>: For simulations based on a single numerical variable. Compute the sum of each simulation&nbsp;trial.</p></li>
+<li><p><span class="monospace">“sd”</span>: For simulations based on a single numerical variable. Compute the standard deviation of each simulation&nbsp;trial.</p></li>
+<li><p><span class="monospace">“prop”</span>: For simulations based on a single categorical variable. Count the number of successes and convert this to a fraction&nbsp;(proportion).</p></li>
+<li><p><span class="monospace">“count”</span>: For simulations based on a single categorical variable. Count the number of&nbsp;successes.</p></li>
+<li><p><span class="monospace">“diff in means”</span>: Calculate the mean of the numerical response variable for the two groups defined in the categorical explanatory variable. Subtract these two&nbsp;means.</p></li>
+<li><p><span class="monospace">“diff in medians”</span>: Find the median of the numerical response variable for the two groups defined in the categorical explanatory variable. Subtract these two&nbsp;medians.</p></li>
+<li><p><span class="monospace">“diff in props”</span>: Calculate the number of successes in the <em>categorical</em> response variable and convert this to a fraction (proportion) in each of the two groups defined in the <em>categorical</em> explanatory variable. Subtract these two&nbsp;fractions.</p></li>
+<li><p><span class="monospace">“Chisq”</span>: Calculate the chi-squared statistic for a response and explanatory variable that are both categorical and contain two or more groups&nbsp;each.</p></li>
+<li><p><span class="monospace">“F”</span>: Calculate the <em>F</em> statistic for a numerical response variable and categorical explanatory variable with two or more&nbsp;groups.</p></li>
+<li><p><span class="monospace">“t”</span>: Calculate the two-sample t-test statistic for a numerical response variable and categorical explanatory variable with two groups. This is similar to the <span class="monospace">“diff in means”</span>&nbsp;calculation.</p></li>
+<li><p><span class="monospace">“z”</span>: Calculate the two-sample z statistic for a numerical response variable and categorical explanatory variable with two groups. It is assumed that the number of samples in your dataset is large, otherwise the <span class="monospace">“t”</span> test is preferred. This is similar to the <span class="monospace">“diff in means”</span>&nbsp;calculation.</p></li>
+<li><p><span class="monospace">“slope”</span>: Calculate the slope using linear regression for a response and explanatory variable that are both&nbsp;numerical.</p></li>
+<li><span class="monospace">“correlation”</span>: Calculate the correlation coefficient for a response and explanatory variable that are both&nbsp;numerical.</li>
+</ul>
+</div></li>
+<li><p>Take your answers to questions 3 through 6 and combine them to fill in the&nbsp;template,</p>
+<pre class="r"><code>yawn_null &lt;- yawn %&gt;%
+  specify(formula = &lt;variable1&gt; ~ &lt;variable2&gt;, success = &quot;...&quot;) %&gt;%
+  hypothesize(null = &quot;...&quot;) %&gt;%
+  generate(reps = ...,  type = &quot;...&quot;) %&gt;%
+  calculate(stat = &quot;...&quot;,  order = combine(&quot;...&quot;, &quot;...&quot;))</code></pre>
+<p>This will simulate the null distribution for the <span class="monospace">yawn</span> experiment. This may take a few seconds to run in&nbsp;RStudio.</p></li>
+<li><p>Now that we have a simulated null distribution, let’s quantify how likely it is that a random chance model would generate the Mythbuster’s experimental result. We will do this by computing the <em>p</em>-value of a <strong>one-sided hypothesis test</strong>, which is just the probability that the result of a simulation trial is the same or more extreme than the experimental result. We will also assume a significance level of <span class="math inline">\(\alpha = 0.05\)</span>. <strong>If our <em>p</em>-value is less than <span class="math inline">\(\alpha = 0.05\)</span></strong>, then we will conclude that we have sufficient evidence to reject the null hypothesis in favor of the alternative&nbsp;hypothesis.</p>
+<p>First, let’s use <span class="monospace">infer</span> to compute the experimental result for comparison with the null distribution. Fill in the template below with the values you determined for <code>specify()</code> and <code>calculate()</code>,</p>
+<pre class="r"><code>yawn_obs_stat &lt;- yawn %&gt;%
+  specify(formula = &lt;variable1&gt; ~ &lt;variable2&gt;, success = &quot;...&quot;) %&gt;%
+  calculate(stat = &quot;...&quot;,  order = combine(&quot;...&quot;, &quot;...&quot;))</code></pre>
+<p>Notice that we just took the template from Exercise 7 and removed the <code>hypothesize()</code> and <code>generate()</code> lines.</p>
+<p>Next, if we wanted to compute the <em>p</em>-value manually, we would need to count how many simulations gave us a result that was the same or more extreme than the experimental result and then divide by 10,000, which is the total number of simulations we ran. Lucky for us, the <span class="monospace">infer</span> package has a convenience function, <code>get_p_value()</code>, for calculating p-values so that we don’t have to do it manually. To compute the <em>p</em>-value of a one-sided hypothesis test, we&nbsp;run,</p>
+<pre class="r"><code>yawn_null %&gt;%
+  get_p_value(obs_stat = yawn_obs_stat, direction = &quot;right&quot;)</code></pre>
+<p>To visualize the range of outcomes in the null distribution that are the same or more extreme than <span class="monospace">yawn_obs_stat</span>, we&nbsp;run,</p>
+<pre class="r"><code>yawn_null %&gt;%
+  visualize() +
+  shade_p_value(obs_stat = yawn_obs_stat, direction = &quot;right&quot;)</code></pre>
+<p>Based on these results and a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, conclude whether or not we have sufficient evidence to reject the null&nbsp;hypothesis.</p></li>
+<li><p>It’s often prudent to run a <strong>two-sided hypothesis test</strong> instead of the one-sided version, as it is more strict and hence stronger evidence is needed before the <span class="math inline">\(\alpha = 0.05\)</span> significance threshold is crossed. Switching from a one-sided test to a two-sided test simply requires that you replace <span class="monospace">direction = “right”</span> with <span class="monospace">direction = “both”</span> in <code>get_p_value()</code> and <code>shade_p_value()</code>. Do this and compute the <em>p</em>-value and visualization for the two-sided hypothesis test. Assuming a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, do we have sufficient evidence to reject the null&nbsp;hypothesis?</p></li>
+<li><p>Our final piece of analysis will be to compute a 95% confidence interval for the experimental result. The 95% confidence interval represents a plausible range of values for the experimental result based on the variability of the dataset. Computing this interval requires us to run a bootstrap simulation. To do this, copy and paste your code from Exercise 7, delete the <code>hypothesize()</code> line, and change the <span class="monospace">type</span> input in <code>generate()</code> to <span class="monospace">type = “bootstrap”</span>. A template is shown&nbsp;below,</p>
+<pre class="r"><code>yawn_bootstrap &lt;- yawn %&gt;%
+  specify(formula = &lt;variable1&gt; ~ &lt;variable2&gt;, success = &quot;...&quot;) %&gt;%
+  generate(reps = ..., type = &quot;bootstrap&quot;) %&gt;%
+  calculate(stat = &quot;...&quot;, order = combine(&quot;...&quot;, &quot;...&quot;))</code></pre></li>
+<li><p>We obtain the 95% confidence interval by running the following&nbsp;code,</p>
+<pre class="r"><code>yawn_ci &lt;- yawn_bootstrap %&gt;%
+  get_confidence_interval()</code></pre>
+<p>To visualize the 95% confidence interval, we run the following&nbsp;code,</p>
+<pre class="r"><code>yawn_bootstrap %&gt;%
+  visualize() +
+  shade_confidence_interval(yawn_ci)</code></pre>
+<p>After computing and visualizing the confidence interval, <strong>choose the statement that correctly interprets what it means</strong>,</p>
+<ol type="1">
+<li><p><em>People in this sample, on average, yawn approximately 23% less to 30% more of the time when someone near them&nbsp;yawns.</em></p></li>
+<li><p><em>People will, on average, yawn 23% less to 30% more when someone near them&nbsp;yawns.</em></p></li>
+<li><p><em>A randomly chosen person yawns 23% less to 30% more when someone near them&nbsp;yawns.</em></p></li>
+<li><p><em>95% of people yawn 23% less to 30% more when someone near them&nbsp;yawns.</em></p></li>
+</ol></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your mini-homework, follow the two steps below. Your homework will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Mini-homework 7</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;mini-homework:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Season 3, Episode 28, <em>Is Yawning Contagious?</em>, first aired on March 9, 2005.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

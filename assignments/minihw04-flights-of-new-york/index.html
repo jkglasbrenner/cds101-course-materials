@@ -1,0 +1,195 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="http://cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="http://cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="http://cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="http://cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="http://cds101.com/"><img src="http://cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="http://cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="http://cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="http://cds101.com/assignments.html">Assignments</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://sp19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Flights of New&nbsp;York</h1>
+</header><div class="static-page-body">
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named <span class="monospace">flights_of_new_york.Rmd</span>. This mini-homework will help you become more familiar with manipulating datasets using R by guiding you through some examples. Read the <a href="#about-the-dataset">About the dataset</a> section to get some background information on the dataset that you’ll be working with. Each of the below <a href="#exercises">exercises</a> are to be completed in the provided spaces within your starter file <span class="monospace">flights_of_new_york.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <strong><a href="#how-to-submit">How to submit</a></strong> section&nbsp;below.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The dataset we are working with in this mini-homework is the <span class="monospace">flights</span> dataset that is loaded via the <span class="monospace">nycflights13</span> R package. This dataset contains on-time data for all flights that departed from a New York City airport (airport codes: <span class="caps">JFK</span>, <span class="caps">LGA</span>, <span class="caps">EWR</span>) in&nbsp;2013.</p>
+<h2 id="exercises">Exercises</h2>
+<p>Start working on these exercises <strong>after</strong> you have successfully cloned your repository into RStudio&nbsp;Server.</p>
+<ol class="example" type="1">
+<li><p>As always, you should inspect a new dataset to become more familiar with what it contains. To do this in RStudio, type the following command <strong>in your <em>Console</em> window</strong> (not in the R Markdown&nbsp;file):</p>
+<pre class="r"><code>View(flights)</code></pre>
+<p>Since the <span class="monospace">flights</span> dataset is loaded as an R package via the <code>library(nycflights13)</code> in your setup code block, additional documentation is available. To read more about the dataset, type the following command <strong>in your <em>Console</em> window</strong>:</p>
+<pre class="r"><code>?flights</code></pre>
+<p>Use these resources to answer these initial&nbsp;questions.</p>
+<ol type="1">
+<li><p>How many rows and columns does this dataset&nbsp;have?</p></li>
+<li><p>What does a single row in this dataset&nbsp;represent?</p></li>
+<li><p>What is the difference between the information contained in the <span class="monospace">dep_time</span> and <span class="monospace">sched_dep_time</span>&nbsp;columns?</p></li>
+<li><p>Which columns contain information about dates and&nbsp;times?</p></li>
+<li><p>Airplanes are reused across many different flights. Which columns would be helpful to use in identifying individual&nbsp;airplanes?</p></li>
+</ol></li>
+<li><p>Let’s start with the <code>select()</code> function. The <code>select()</code> function <em>selects</em> columns from a dataset, which is useful when you’re working with a dataset that contains dozens of variables. Try running the following&nbsp;code:</p>
+<pre class="r"><code>flights %&gt;%
+  select(year, month)</code></pre>
+<p>Based on the output, explain what happens when you run this&nbsp;command.</p>
+<div class="callout primary">
+<p><span class="h4">What does <span class="monospace">%&gt;%</span>&nbsp;mean?</span></p>
+<p>The strange looking symbol <span class="monospace">%&gt;%</span> is called the <strong>pipe</strong>, and it is a handy way to pass a dataset through a chain of&nbsp;commands.</p>
+</div></li>
+<li><p>There are multiple ways to specify columns with the <code>select()</code> command. To demonstrate this, copy the code you wrote in <strong>Exercise 2</strong> and replace <code>select(year, month)</code> with <code>select(year:day)</code>. What does the colon <span class="monospace">:</span>&nbsp;do?</p></li>
+<li><p>The sort operation is a common and indispensible operation for organizing data, and the function from <span class="monospace">dplyr</span> that allows us to sort is called <code>arrange()</code>. <code>arrange()</code> sorts columns with textual data (<span class="monospace">chr</span> data type) into alphabetical order and sorts numerical data into numerical&nbsp;order.</p>
+<p>Try running the following&nbsp;code:</p>
+<pre class="r"><code>flights %&gt;%
+  arrange(month, day)</code></pre>
+<p>Based on the output, does it look like both the <span class="monospace">month</span> and <span class="monospace">day</span> columns were sorted? Which column was sorted first? What happens if you reverse the order you specify the columns in <code>arrange()</code>?</p>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p>Confusion about the function to use for sorting data frames frequently comes up later in the course. Students often find that there is a function named <code>sort()</code> in R as well. However, it will give you errors if you try to use it the same way we use <code>arrange()</code>. For the purposes of this course, <strong>always use <code>arrange()</code> and pretend <code>sort()</code> doesn’t exist</strong>.</p>
+</div></li>
+<li><p>By default, <code>arrange()</code> will sort data in ascending order. The function <code>desc()</code> can be used to sort in descending order. For example, to sort by months in reverse order, we would use <code>arrange(desc(month))</code> Let’s use it to answer a simple question about the dataset: what flight experienced the longest departure delay? Identify the column that gives information about flight departure delays, and then use <code>arrange()</code> in combination with <code>desc()</code> to sort the <span class="monospace">flights</span> dataset to find the flight with the longest departure&nbsp;delay.</p></li>
+<li><p>Let’s now try an example that uses the <code>mutate()</code> function, which is a little more complex. <code>mutate()</code> lets us <strong>transform</strong> a dataset by applying the same operation to each row in the dataset and appending the results as a <em>new</em> column. More simply, this is how you can add, subtract, multiply, and divide different two or more columns against each other. As an example, run the following command to calculate the average speed for each flight in miles per&nbsp;hour:</p>
+<pre class="r"><code>flights %&gt;%
+  mutate(
+    average_speed = distance / (air_time * 60)
+  )</code></pre>
+<p>Where does the new column you just computed show up in the dataset and what is the name of this new column? What part of the code is controlling the name of the new&nbsp;column?</p></li>
+<li><p>We are not limited to only one input at a time in <code>mutate()</code>. As long as we separate each input by a comma, we can put as many inputs as we want in the <code>mutate()</code> function! As an example, let’s take the <code>dep_time</code> column, which gives the clock time as an integer (for example, 11:00am is 1100) and separate it into an hours column and minutes&nbsp;column:</p>
+<pre class="r"><code>flights %&gt;%
+  mutate(
+    dep_time_hour = dep_time %/% 100,
+    dep_time_minute = dep_time %% 100
+  )</code></pre>
+<p>Next, copy and paste this code into a new code block, add a second comma, and then add a third line. <strong>Have this third line use the <code>dep_time_hour</code> and <code>dep_time_minute</code> columns to compute the number of minutes since midnight.</strong> Name this third column <code>dep_time_minutes_midnight</code>.</p>
+<div class="callout primary">
+<p><span class="h4">What do <span class="monospace">%/%</span> and <span class="monospace">%%</span>&nbsp;mean?</span></p>
+<p>The operators <span class="monospace">%/%</span> and <span class="monospace">%%</span> let you do <strong>modular arithmetic.</strong> The symbol <span class="monospace">%/%</span> means <em>integer division</em> and <span class="monospace">%%</span> means <em>remainder</em>. As a quick example, you might remember learning about proper and improper fractions in math class. <span class="math inline">\(\dfrac{9}{4}\)</span> is an example of an improper fraction. To convert it into a proper fraction, first we need to figure out how many times 4 goes into 9. We can easily compute this with integer&nbsp;division:</p>
+<pre class="r"><code>9 %/% 4</code></pre>
+<pre><code># [1] 2</code></pre>
+<p>We also need to know the remainder, or how much is left over after dividing 4 into&nbsp;9.</p>
+<pre class="r"><code>9 %% 4</code></pre>
+<pre><code># [1] 1</code></pre>
+<p>So the proper fraction representation of <span class="math inline">\(\dfrac{9}{4}\)</span> is <span class="math inline">\(2 \frac{1}{4}\)</span>.</p>
+</div></li>
+<li><p>Next we consider the <code>filter()</code> function, which provides a ruled-based way to keep a subset of rows and remove the rest. Here we just consider rules that are simple comparisons, which involve the&nbsp;symbols:</p>
+<ul>
+<li><span class="monospace">&gt;</span>: greater&nbsp;than</li>
+<li><span class="monospace">&gt;=</span>: greater than or equal&nbsp;to</li>
+<li><span class="monospace">&lt;</span>: less&nbsp;than</li>
+<li><span class="monospace">&lt;=</span>: less than or equal&nbsp;to</li>
+<li><span class="monospace">!=</span>: not&nbsp;equal</li>
+<li><span class="monospace">==</span>:&nbsp;equal</li>
+</ul>
+<p>Give <code>filter()</code> a try by running the following two code&nbsp;blocks:</p>
+<pre class="r"><code>flights %&gt;%
+  filter(
+    arr_delay &lt; 0
+  )</code></pre>
+<pre class="r"><code>flights %&gt;%
+  filter(
+    carrier == &quot;UA&quot;
+  )</code></pre>
+<p>After running the above code, figure out how to combine the two examples in one <code>filter()</code> function (<strong>hint:</strong> it resembles what you did with <code>mutate()</code>). This will tell you all the flights operated by United Airlines (<span class="caps">UA</span>) that arrived&nbsp;early.</p></li>
+<li><p>It is common to want to summarize the information contained within a dataset, such as computing sums and averages, or counting how many data points belong to different groups. This is called data aggregation, as it <strong>aggregates</strong> many data points together and uses them to compute a cetain quantity. We perform data aggregation in R by using the commands <code>group_by()</code> and <code>summarize()</code>, which frequently show up as a&nbsp;pair.</p>
+<p>The <code>group_by()</code> command is applied to one or more columns, and allows you create groups that share common values in a column of categorical data. The <code>summarize()</code> command can then be used to compute quantities like averages <strong>within</strong> those groups. It will help to see an example. Run the following code, which calculates the mean (average) arrival delay for each airline&nbsp;carrier:</p>
+<pre class="r"><code>flights %&gt;%
+  group_by(carrier) %&gt;%
+  summarize(
+    average_arr_delay = mean(arr_delay, na.rm = TRUE)
+  )</code></pre>
+<p>Which airline carrier had the longest arrival delays on average? Which airline carrier had the shortest arrival delays on&nbsp;average?</p></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your mini-homework, follow the two steps below. Your homework will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Mini-homework 4</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;mini-homework:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">RMarkdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">RMarkdown&nbsp;reference</a></p></li>
+</ul>
+<h2 id="credits">Credits</h2>
+<p><strong><span class="monospace">nycflights13</span> data set source:</strong> Hadley Wickham. 2018. <em>nycflights13</em>: Flights that Departed <span class="caps">NYC</span> in 2013. <a href="https://cran.r-project.org/web/packages/nycflights13/index.html" class="uri">https://cran.r-project.org/web/packages/nycflights13/index.html</a></p>
+<p>The example in Exercise 6 and the example and question of Exercise 7 sourced from <a href="https://r4ds.had.co.nz/transform.html">Chapter 5 of <em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a>, used under <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/us/"><span class="caps">CC</span> <span class="caps">BY</span>-<span class="caps">NC</span>-<span class="caps">ND</span> 3.0</a>.</p>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="http://cds101.com/theme/js/cds101.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="http://cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>
