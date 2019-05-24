@@ -1,0 +1,389 @@
+Title: CDS 101 Syllabus
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-05-24 00:00
+Modified: 2019-05-24 00:56
+Course_Title: Introduction to Computational and Data Sciences
+Course_Number: CDS 101
+Semester: Online
+
+```{r setup, include = FALSE}
+fa18_dl1_homework <- '<i class="fas fa-lock"></i> <span class="monospace">fa18-dl1-homework</span>'
+fa18_dl1_discussion <- '<i class="fas fa-lock"></i> <span class="monospace">fa18-dl1-discussion</span>'
+```
+
+## Description {#course-description data-magellan-target="course-description"}
+
+During this course, students will develop basic skills for obtaining, cleaning, transforming, and visualizing real-world datasets using the R programming language and the RStudio integrated development environment.
+Statistical methods for analyzing, interpreting, and predicting dataset trends are then introduced and approached from a computational point of view using randomization and simulation.
+Additional topics may be covered, such as an introduction to advanced or special topics like cross-validation.
+Throughout the course emphasis is placed on documenting one’s scientific work using RStudio in conjunction with Github to fulfill the principles of reproducible research.
+Connections are highlighted between statistical inference and the scientific method and how this is related to both the scientific method’s power and its limitations.
+These tools will also be used to critically examine statistical claims reported in mass media, demonstrating how scientific literacy and a basic knowledge in statistics are indispensable tools to making sense of our modern world.
+
+*   **Classroom:** Online
+*   **Meeting times:** Asynchronous
+*   **University holidays:** Labor Day, September 3, Columbus Day, October 8, Thanksgiving Recess, November 21 -- 25
+*   **Credit hours:** 3.0 credit hours
+*   **Prerequisites:** None, but a background in algebra is assumed.
+*   **Mason Core:** Natural science (+lab when taken with CDS 102)
+
+## Instructor {#course-instructor data-magellan-target="course-instructor"}
+
+![](https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e?s=128)
+
+Dr. James K. Glasbrenner
+
+*   **Office**: 253 Research Hall
+*   **Phone:** (703) 993-4512
+*   **Email:** [[jglasbr2\@gmu.edu]{.monospace}](mailto:jglasbr2@gmu.edu)
+*   **Office hours:** Virtual office hours held on Blackboard Collaborate Ultra every Wednesday between 4:00pm -- 5:00pm.
+    Individual video conferencing sessions or on-campus meetings must be made by appointment.
+
+## Objectives {#course-objectives data-magellan-target="course-objectives"}
+
+By the end of the course, students will be able to:
+
+*   Use Github for collaborating on a reproducible research document
+*   Obtain, clean, transform, and visualize a dataset using the R programming language
+*   Interpret, and predict dataset trends using statistical inference and models
+*   Critically examine and interpret statistical claims reported in mass media
+
+## Materials {#course-materials data-magellan-target="course-materials"}
+
+### Textbooks
+
+This course utilizes two free textbooks that are made available under Creative Commons licenses:
+
+::: {.textbook}
+*   R for Data Science: Import, Tidy, Transform, Visualize, and Model Data
+    *   Hadley Wickham
+    *   Garrett Grolemund
+
+![](/img/r4ds_cover.png){alt="R for Data Science textbook cover"}
+
+[Click here to read the textbook for free online.][r4ds-online-ebook]
+
+This is the free, [open-source][r4ds-github] data science textbook that we will use throughout the course.
+This textbook is available under a [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License][r4ds-cc-license].
+
+If you would like a physical copy of the textbook, you can [order it from Amazon][r4ds-amazon].
+:::
+
+::: {.textbook}
+*   Introductory Statistics with Randomization and Simulation
+    *   David M Diez
+    *   Christopher D Barr
+    *   Mine Çetinkaya-Rundel
+
+![](/img/isrs_cover.png){alt="Introductory Statistics with Randomization and Simulation textbook cover"}
+
+[Click here to download a free PDF copy of the textbook.][isrs-online-ebook]
+
+This is the free, [open-source][isrs-github] statistics textbook that we will use to supplement the *R for Data Science* textbook during the course.
+This textbook is available under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license (CC BY-NC-SA)][isrs-cc-license].
+
+If you would like a physical copy of the textbook, you can [order it from Amazon][isrs-amazon].
+:::
+
+### Software
+
+During the course we will use RStudio Server available at https://rstudio.cos.gmu.edu, which provides a complete computing environment that is accessible using any computer with a modern web browser (Firefox and Chrome).
+Students are welcome to install RStudio on their own computers and will need to install the following applications in order to match what is available on RStudio Server:
+
+*   Programming language: R (https://www.r-project.org)
+    *   Windows: https://cran.cnr.berkeley.edu/bin/windows/base/
+    *   Mac: https://cran.cnr.berkeley.edu/bin/macosx/
+*   Version control: Git (https://git-scm.com)
+    *   Windows: https://git-scm.com/download/win
+    *   Mac: https://git-scm.com/download/mac
+*   PDF export: LaTeX (https://www.latex-project.org)
+    *   Windows: https://mirrors.rit.edu/CTAN/systems/win32/miktex/setup/windows-x64/basic-miktex-2.9.6753-x64.exe
+    *   Mac: http://tug.org/cgi-bin/mactex-download/MacTeX.pkg
+*   Programming software: RStudio (https://www.rstudio.com)
+    *   Windows: https://s3.amazonaws.com/rstudio-ide-build/desktop/windows/RStudio-1.2.830.exe
+    *   Mac: https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-1.2.830.dmg
+
+**Technical support will only be provided for RStudio Server.**
+
+### Platforms
+
+The course will be administered through the following online platforms:
+
+*   Course website: http://cds101.com
+*   Github: https://github.com
+*   Slack: https://masoncds101.slack.com
+*   Blackboard: https://mymasonportal.gmu.edu
+
+The course website operates as the central repository for course materials, including an up-to-date schedule, copies of the lecture slides and handouts, homework instructions, and links to the lecture videos.
+Slack is the primary communication medium, replacing email (see the Contact policy below) and serving as a discussion board.
+Github is used for connecting your class files to RStudio Server, tracking changes, distributing starter files for homework assignments and certain module exercises, handing out example code, and for project collaborations.
+Blackboard will also contain the lecture videos, video quizzes, and module exercises, which will also be cross-linked on the course website, and be used for submitting PDF versions of your assignments and returning grades.
+
+## Policies {#course-policies data-magellan-target="course-policies"}
+
+### Contact policy
+
+*All* correspondence is to be done using the private, invite-only Slack workspace for the course.
+Direct messages on Slack are to be used for contacting me instead of emails.
+Your Slack username must be registered and associated with your Mason \@gmu.edu email address at all times.
+
+My ground rules for direct messages are as follows:
+
+*   I check and respond to messages during normal university hours
+*   Allow up to approximately 24 hours for a response during normal hours
+*   Questions about homework problems or troubleshooting a technical issue should be sent to the relevant Slack channels.
+*   Just because I view a message does not mean I will respond right away
+*   I generally don’t respond to messages over weekends and school holidays
+*   If your questions are involved enough, I will ask you to talk to me in person
+*   On email: Emails sent during the first week of classes will be responded to, but I will respond to you using Slack.
+    Emails sent to me after the first week will be ignored.[^email-policy-footnote]
+
+### Tech support: R, RStudio, Github, and your computer
+
+Post all technical issues or error messages for R, RStudio, Github, and your computer in the designated Slack channel [[#r-rstudio-github-help]{.monospace}][slack-r-rstudio-github-help].
+This is so that other students can either help out or see how to resolve what is likely a common problem.
+If it becomes clear that the error or issue is highly specific, then discussion can be moved to Direct Message or handled via a remote desktop sharing session.
+
+When posting about an issue, here are some basic questions to answer that will help with troubleshooting:
+
+1.  What did you expect to happen when you ran your code?
+2.  What is actually happening when you run your code?
+    a.  If there’s an error message, tell us what it is.
+        A screenshot works, provided you a) don’t crop the image as that can remove useful information by accident, and b) take a real screenshot, not a photograph of your screen using your phone.
+3.  Is there any other context we should know?
+    For example, if a file won’t load, did you check that you are in the correct project or that the file actually exists?
+    Did your issue appear only after you worked on a different assignment?
+    Did you recently install a package not used in class?
+
+### Illness and emergencies
+
+It is a student’s responsibility to inform me about illnesses or personal/family emergencies that will interfere with submitting work on time.
+This must be done as soon as possible.
+In case of illness, you may be asked to provide a doctor’s note before being granted an assignment extension or exemption.
+
+I understand that certain emotional or physical situations can impact a student’s willingness and ability to communicate what is going on and that it can take a few days to inform me about a personal emergency or severe illness.
+At the same time, all students are expected to exercise personal responsibility.
+It is not acceptable to wait to tell me about the impacts of a personal illness or emergency until you’re about to fail the course due to missing multiple submission deadlines.
+
+### Late work policy
+
+Unless otherwise noted, assignments are to be submitted by 11:59pm on the due date.
+The following penalties apply for most assignments (please note that weekends count as days):
+
+*   First day late, by 11:59pm: -15%
+*   Second day late, by 11:59pm: -30%
+*   Third day late or later: no credit
+
+The above does not pertain to the module exercises, which must be completed within a week of posting to receive credit.
+The midterm exam will be available for a limited amount of time and must be completed within time window, otherwise you will receive a zero.
+Reports and related materials for the final project are also exceptions and must be submitted by the due date.
+Late submissions for the final project will not be accepted.
+
+Students are responsible for informing me about any religious holidays, scheduled varsity sports trips, or other school-sponsored activities that will interfere with submitting an assignment on time.
+Extensions are to be completed within the time-frame I set forth.
+Exemptions may be granted at my discretion.
+
+### Regrading appeals policy
+
+Regrade appeals need to be written and formatted as a formal letter and submitted to me as a PDF file within 48 hours of receiving back an assignment (not including weekends).
+Appeals sent in plain text via Slack or email will not be accepted, no exceptions.
+Appeals are only to be used for correct answers being marked as incorrect, misapplication of the grading rubric, or incorrectly tallied points.
+Submissions need to clearly state what you want regraded and justify the request by citing evidence.[^regrading-appeals-footnote]
+The number of points a question, exercise, or rubric category is worth or that were deducted for an incorrect answer or mistake cannot be appealed and are not up for debate or negotiation.
+
+### Extra credit and grading curves policy
+
+Individual requests for extra credit or a grading curve will not be granted, no exceptions.
+Any opportunities to earn extra points will be offered to the entire class.
+Grading curves are handled on a per-assignment basis and are applied to all students equally.
+
+### Accommodations policy
+
+Students with disabilities who need academic accommodations, please see me and contact the Office of Disability Services (ODS) at (703) 993-2474.
+All academic accommodations must be arranged through the ODS: [http://ods.gmu.edu/](http://ods.gmu.edu/).
+
+## Grading {#course-grading data-magellan-target="course-grading"}
+
+### Breakdown
+
+| Category           | Weight |
+| :----------------- | :----- |
+| Participation      |    10% |
+| Module exercises   |    10% |
+| Homework           |    30% |
+| Midterm exam       |    25% |
+| Final project      |    25% |
+
+### Schema
+
+Based on the final total score, your final grade will be determined as follows:
+
+| Score Range | Final Grade |
+| :---------- | :---------- |
+|     97--100 | A+          |
+|      93--96 | A           |
+|      90--92 | A-          |
+|      87--89 | B+          |
+|      83--86 | B           |
+|      80--82 | B-          |
+|      77--79 | C+          |
+|      73--76 | C           |
+|      70--72 | C-          |
+|      65--69 | D           |
+|         <65 | F           |
+
+## Expectations {#course-expectations data-magellan-target="course-expectations"}
+
+### Module exercises
+
+Video quiz questions for checking your understanding and end-of-unit exercises to reenforce what you’ve learned will be a regular part of the course and collectively factor into the Module exercises grade category.
+Your grade in this category will factor in both completion, meaning how many questions did you attempt to answer, and correctness.
+
+### Readings
+
+Reading assignments will be regularly scheduled during the semester and students are expected to complete all readings on their own.
+These readings cover the same general topics as the lecture slides, but often contain different examples and ways of explaining a method or concept.
+The readings can contain material that is not part of the lecture slides.
+While there is not a grade category for the course readings, students are responsible for understanding the content and being able to apply the discussed methods in the end-of-unit exercises and homeworks.
+
+Students are encouraged to ask questions about and discuss the readings in the [`r fa18_dl1_discussion`][slack-fa18-dl1-discussion] Slack channel.
+To maintain a high quality discussion, here’s a list of things you should do before submitting your question in the Slack channel:
+
+*   **Do...**
+    *   use the search feature to check if your question has already been asked, and if so, contribute to that ongoing discussion thread instead of asking the question again
+    *   ask questions that are on-topic and about the reading’s subject matter instead of asking about tangential commentary made by the reading’s author or extraneous details in an example
+    *   explain, as part of your question, which part of a concept or method you do not understand and why, instead of just saying you don’t understand it
+    *   look up words you do not understand and information you can quickly do a web search for to help you better phrase and contextualize your question
+
+### Homework
+
+There will be 5 homework assignments to complete during the semester.
+The homeworks are cumulative and will require you to draw on and apply concepts and methods you learned about earlier in the course.
+The homework assignments will include instructions on how you are to submit your work, which will typically involve uploading a file to Blackboard and also opening a pull request on Github against the branch labeled grading.
+
+Homework assignments will completed in two stages.
+The first is the "rough draft" stage that each student must complete on their own.
+Grades for these submissions will be primarily based on the correctness of your answers to each question.
+The second is the "group draft" stage, which will begin approximately 3 days after the rough drafts are due.
+You will be assigned into groups where you will discuss the questions and assemble a final draft together.
+You will not know these groups beforehand, and they will change with each assignment.
+Grades for the group-submitted final drafts will, in addition to correctness, be based on document formatting, visualization quality, writing quality, and code style.
+
+Both the individual rough draft and group report homework submissions are to be completed using the R Markdown format and they must successfully knit to HTML and PDF in a clean RStudio environment.
+In the individual submissions, full sentences are required when the question is asking for a written response.
+In the group reports, full sentences with proper grammar and punctuation are to be used throughout the report.
+The group reports should explain what you are doing with each chunk of code and to interpret the meaning of what you calculate so that a person that is not familiar with the problem could follow your logic.
+
+Group final drafts are to have a style and formatting that is clean, readable, and follows the conventions demonstrated in the lecture slides and readings.
+Use your common sense when getting ready to submit an assignment.
+For example, the knitted PDF for your submission should not contain figures with unreadable overlapping labels, code blocks that run off the edge of the page, or be 50 -- 100 pages in length because you keep printing out long tables.
+Submissions must use the Markdown syntax correctly and not engage in unorthodox practices such as writing sentences in a section header or placing code outside of code blocks.
+Unless specifically requested in the instructions, screenshots should never be included as part of your submission.
+
+Questions about the homework assignments during the rough draft stage should be posted in the [`r fa18_dl1_homework`][slack-fa18-dl1-homework] Slack channel.
+Group discussion channels will be created for the group draft stage.
+Take care to ensure that your submissions are in your own words and code.
+See the academic integrity section for specifics.
+
+### Participation
+
+Your participation grade will be determined by evaluating the quality of your contributions and activity history within the homework groups.
+Contributions that factor into the participation grade include: how often you participated in group discussions on Slack and GitHub, if your comments were understandable and substantive, if you committed content and edits to the draft in your group’s GitHub repository, and what the group’s [CONTRIBUTIONS.md]{.monospace} log says you contributed to the final submission.
+
+### Midterm exam
+
+There will be a midterm exam around the halfway point of the course and will be available for you to start at any time during a specified time window.
+The midterm exam is cumulative and tests your knowledge of the material covered in the lecture videos, readings, and homeworks during the first several weeks of the course.
+The structure and content of this exam will be explained in more detail before it is assigned.
+The midterm exam must be completed alone and the Mason Honor Code, as always, is in effect.
+Evidence of collaboration on the midterm exam with another student will result in, at minimum, an automatic zero for the exam.
+
+### Final project
+
+Students will complete a final project in assigned groups where you will perform an exploratory data analysis on a dataset.
+Groups will focus on asking and answering questions about their dataset and then submit a final collaborative report.
+More detailed information about the project is to come later in the semester.
+
+## Conduct {#course-conduct data-magellan-target="course-conduct"}
+
+### Academic integrity
+
+> Student members of the George Mason University community pledge not to cheat, plagiarize, steal, or lie in matters related to academic work.[^mason-academic-integrity-reference]
+
+Students are permitted to ask questions about the homeworks on Slack and discuss assignments in private communications, however it is important to make sure that you write your assignments by yourself and in your own words, meaning that students are not permitted to collaborate on write-ups for individual assignments and projects.
+In the same vein, do not duplicate or paraphrase another person’s material or ideas and represent them as your own.
+"Individual assignment" is the default classification for all assignments, exams, and projects in the course; any exceptions to the rule will be noted in the instructions.
+Content that comes from a resource or another student should be properly cited.
+
+A note on sharing or reusing code found on other Github repos or on websites like *Wikipedia* or *Stack Overflow*.
+I am aware that there are solution sets, sample snippets of code, etc. that can be of use while working on your assignments, projects and exercises during the course.
+It’s common knowledge that researchers in both industry and academia will use search engines while writing code.
+Being able to search for existing solutions so that you don’t "reinvent the wheel" is a useful skill.
+Therefore, unless I specify otherwise, you are permitted to use these resources **as long as you provide a citation**.
+
+Exceptions to this rule are:
+
+*   For individual assignments, you cannot reuse anything from another student’s work (past or present), including but not limited to RMarkdown documents, code, plain text explanations, etc.
+*   For the group assignments, you cannot use any material from another group, such as code and plain text explanations
+*   You are not permitted to consult or use solution sets for the two main textbooks or any of the assignments, activities, and projects for the course
+*   You are not permitted to ask other students from this or previous semesters for copies of their submitted assignments or projects, even to use for reference.
+
+**[Any material that is taken in whole or in part from another source and not properly cited will be treated as a violation of Mason's Academic Honor Code.]{.smallcaps}**
+
+Other violations of Mason's Honor Code will be treated similarly.
+Suspected violations will be reported to the Office of Academic Integrity.
+Please see the Honor Code page for details.
+
+### Decorum/discourse
+
+Students are expected to be civil in their conduct and respectful of their fellow classmates and the instructor for the duration of the course on all discussion platforms.
+Students are expected to follow proper grammar and punctuation in their posted messages and to refrain from using internet slang, abbreviations, and sarcasm.
+
+I will address violations of classroom decorum on a case-by-case basis and reserve the right to enact grade-based penalties for disruptive or repeat violations.
+Penalties for decorum violations cannot be negotiated or appealed.
+
+### Mason diversity statement
+
+George Mason University promotes a living and learning environment for outstanding growth and productivity among its students, faculty and staff.
+An emphasis upon diversity and inclusion throughout the campus community is essential to achieve these goals.
+Diversity is broadly defined to include such characteristics as, but not limited to, race, ethnicity, gender, religion, age, disability, and sexual orientation.
+Diversity also entails different viewpoints, philosophies, and perspectives.
+Attention to these aspects of diversity will help promote a culture of inclusion and belonging, and an environment where diverse opinions, backgrounds and practices have the opportunity to be voiced, heard and respected.
+
+## Support services
+
+The Math Tutoring Center is in 344 Johnson Center; [http://math.gmu.edu/tutor-center.php](http://math.gmu.edu/tutor-center.php).
+The Math Department also maintains a list of persons that have identified themselves as math tutors: [http://math.gmu.edu/tutor-list.php](http://math.gmu.edu/tutor-list.php)
+
+Mason's Writing Center is in A114 Robinson Hall; (703) 993-1200; [http://writingcenter.gmu.edu/](http://writingcenter.gmu.edu/)
+
+George Mason provides Counseling and Psychological Services (CAPS) for students.
+Contact them at (703) 993-2380 or [http://caps.gmu.edu/](http://caps.gmu.edu/).
+
+## Disclaimer {#course-disclaimer data-magellan-target="course-disclaimer"}
+
+The instructor reserves the right to modify this syllabus at any time during the course to improve the learning experience and classroom environment.
+The digital version of the syllabus on the course website will be updated to reflect the changes.
+The pacing of the course and the list of covered topics may also be altered in response to student progress.
+
+The course objectives reflect what a student is expected to understand by the end of the course after putting in the necessary time and effort both inside and outside the classroom and completing all assignments.
+These outcomes are not a guarantee, and students will get more out of the course the more they put into it.
+Any acquired skills and knowledge can fade over time if not reviewed or practiced after the course concludes.
+
+[^email-policy-footnote]: If there are special circumstances requiring that we communicate via email, it is your responsibility to inform me about it as soon as possible.
+[^regrading-appeals-footnote]: Acceptable evidence includes in-class notes (provide date of class), a reading passage (provide full citation), or another valid source (textbooks, official publications, etc).
+[^mason-academic-integrity-reference]: Office for Academic Integrity. *2017-2018 Honor Code and Honor System.* Web. 27 Aug. 2017.
+
+[r4ds-github]:                 https://github.com/hadley/r4ds
+[isrs-github]:                 https://github.com/OpenIntroOrg/randomization-and-simulation
+[r4ds-amazon]:                 http://amzn.to/2aHLAQ1
+[isrs-amazon]:                 http://a.co/ixGTX7R
+[r4ds-cc-license]:             http://creativecommons.org/licenses/by-nc-nd/3.0/us/
+[isrs-cc-license]:             /doc/isrs_license.txt
+[r4ds-online-ebook]:           http://r4ds.had.co.nz/
+[isrs-online-ebook]:           https://drive.google.com/file/d/1qCW5nnrPRde6OQatY1P6Y3l8KWv02sf4
+[jkg-github-profile]:          https://github.com/jkglasbrenner
+[slack-fa18-dl1-homework]:     https://masoncds101.slack.com/messages/GCE5Z8CKD
+[slack-fa18-dl1-discussion]:   https://masoncds101.slack.com/messages/GCFKW2WMC
+[slack-r-rstudio-github-help]: https://masoncds101.slack.com/messages/CASUNTFNX

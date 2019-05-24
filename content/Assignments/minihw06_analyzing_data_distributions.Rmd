@@ -1,0 +1,228 @@
+Title: Analyzing data distributions
+Author: Dr. Glasbrenner
+Date: 2019-01-06 00:00
+Tags: mini-assignment
+Slug: minihw06-analyzing-data-distributions
+Summary: A mini-homework for practicing how to analyze data distributions using basic statistical functions in R, ggplot2, and dplyr.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 6"
+```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named [analyzing\_data\_distributions.Rmd]{.monospace}.
+This mini-homework will guide you through examples demonstrating how to analyze a dataset using standard statistical functions in R, [ggplot2]{.monospace}, and [dplyr]{.monospace}.
+Read the [About the dataset](#about-the-dataset) section to get some background information on the dataset that you'll be working with.
+Each of the below [exercises](#exercises) are to be completed in the provided spaces within your starter file [analyzing\_data\_distributions.Rmd]{.monospace}.
+Then, when you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## About the dataset
+
+The dataset we are using in this mini-homework come from the article "Exploring Relationships in Body Dimensions" by Peterson, Johnson, and Kerk published in Journal of Statistics Education Volume 11, Number 2 (2003), and consists of body girth and skeletal diameter measurements as well as the age, weight, height, and sex for 507 physically active individuals, 247 men and 260 women.
+**Load the dataset by running the setup block at the top of your R Markdown file,** then inspect the dataset by running `View(body_dims)` in the *Console* window.
+
+The table below provides descriptions of the dataset's 25 variables,
+
+| Variable             | Description                                                                                                                                       |
+| --------             | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [bia.di]{.monospace} | respondent's biacromial diameter in centimeters                                                                                                   |
+| [bii.di]{.monospace} | respondent's biiliac diameter (pelvic breadth) in centimeters                                                                                     |
+| [bit.di]{.monospace} | respondent's bitrochanteric diameter in centimeters                                                                                               |
+| [che.de]{.monospace} | respondent's chest depth in centimeters, measured between spine and sternum at nipple level, mid-expiration                                       |
+| [che.di]{.monospace} | respondent's chest diameter in centimeters, measured at nipple level, mid-expiration                                                              |
+| [elb.di]{.monospace} | respondent's elbow diameter in centimeters, measured as sum of two elbows                                                                         |
+| [wri.di]{.monospace} | respondent's wrist diameter in centimeters, measured as sum of two wrists                                                                         |
+| [kne.di]{.monospace} | respondent's knee diameter in centimeters, measured as sum of two knees                                                                           |
+| [ank.di]{.monospace} | respondent's ankle diameter in centimeters, measured as sum of two ankles                                                                         |
+| [sho.gi]{.monospace} | respondent's shoulder girth in centimeters, measured over deltoid muscles                                                                         |
+| [che.gi]{.monospace} | respondent's chest girth in centimeters, measured at nipple line in males and just above breast tissue in females, mid-expiration                 |
+| [wai.gi]{.monospace} | respondent's waist girth in centimeters, measured at the narrowest part of torso below the rib cage as average of contracted and relaxed position |
+| [nav.gi]{.monospace} | respondent's navel (abdominal) girth in centimeters, measured at umbilicus and iliac crest using iliac crest as a landmark                        |
+| [hip.gi]{.monospace} | respondent's hip girth in centimeters, measured at at level of bitrochanteric diameter                                                            |
+| [thi.gi]{.monospace} | respondent's thigh girth in centimeters, measured below gluteal fold as the average of right and left girths                                      |
+| [bic.gi]{.monospace} | respondent's bicep girth in centimeters, measured when flexed as the average of right and left girths                                             |
+| [for.gi]{.monospace} | respondent's forearm girth in centimeters, measured when extended, palm up as the average of right and left girths                                |
+| [kne.gi]{.monospace} | respondent's knee diameter in centimeters, measured as sum of two knees                                                                           |
+| [cal.gi]{.monospace} | respondent's calf maximum girth in centimeters, measured as average of right and left girths                                                      |
+| [ank.gi]{.monospace} | respondent's ankle minimum girth in centimeters, measured as average of right and left girths                                                     |
+| [wri.gi]{.monospace} | respondent's wrist minimum girth in centimeters, measured as average of right and left girths                                                     |
+| [age]{.monospace}    | respondent's age in years                                                                                                                         |
+| [wgt]{.monospace}    | respondent's weight in kilograms                                                                                                                  |
+| [hgt]{.monospace}    | respondent's height in centimeters                                                                                                                |
+| [sex]{.monospace}    | "male" for male respondents and "female" for female respondents                                                                                   |
+
+## Exercises
+
+@visualize-heights.
+    Visualizations are a helpful tool for exploring a new dataset.
+    As this dataset contains 25 variables, let's start simple by inspecting the distribution of heights ([hgt]{.monospace} column) for the men and women ([sex]{.monospace} column) in the dataset.
+    **Create two separate plots**, one where you use `geom_histogram()` and another where you use `geom_density()` to look at the distribution of heights for men and women.
+    
+    ::: {.callout .secondary}
+    [Hint]{.h4}
+    
+    The height distributions for men and women should be on the same plot.
+    You will need to use the [fill =\ ]{.monospace} and [alpha = 0.5]{.monospace} inputs.
+    Remember, [alpha = 0.5]{.monospace} **should not** be inside the `aes()` function!
+    `geom_histogram()` additionally requires a value for the [position =\ ]{.monospace} input so that the distributions overlap one another.
+    :::
+    
+@overlay-density-and-histogram.
+    There are advantages and disadvantages to using either `geom_histogram()` or `geom_density()` to represent a data distribution, so it can be preferable to show both types on the same plot.
+    Take the code you wrote in Exercise @visualize-heights and try doing this yourself.
+    The distributions should still be split by [sex]{.monospace} using [fill =\ ]{.monospace} in both `geom_histogram()` and `geom_density()`.
+    Remember, to overlay geoms you add them together like in the code template below (you will need to replace the ellipses [...]{.monospace}),
+    
+    ```r
+    ggplot(...) +
+      geom_histogram(aes(...), ...) +
+      geom_density(aes(...), ...)
+    ```
+    
+    Does the plot look okay, or do you notice a problem?
+    
+@overlay-density-and-pmf.
+    The main issue you should have noticed in Exercise @overlay-density-and-histogram is that the vertical axis scale for the histogram and density plots do not match.
+    This is because the bar heights in the histogram *count* the number of data points that fall within a given range of values while the density curve's height is a fraction, and so they are not directly comparable.
+    You can fix this discrepancy by *normalizing* the bar heights in the histogram by dividing the height of each bar by the number of data points within each distribution (the bars in the men's distribution are divided by 247, the women's distribution are divided by 260).
+    Luckily for us, there is a convenient way to do this using [ggplot2]{.monospace}, just add the input [y = ..density..]{.monospace} *inside* the `aes()` function of `geom_histogram()`.
+    This converts the histogram into a **probability mass function** (PMF).
+    
+    **Try converting your histogram from Exercise @overlay-density-and-histogram into a PMF.**
+    Copy and paste your code and then add [y = ..density..]{.monospace} inside the `aes()` function of `geom_histogram()`.
+    
+    ::: {.callout .primary}
+    [Tip]{.h4}
+    
+    Using a PMF or density curve to represent your distribution allows you to directly compare groups of data containing *different* numbers of observations.
+    :::
+    
+@cdf-heights.
+    Yet another way to evaluate and compare distributions is the **cumulative distribution function** (CDF), which is a function that maps from a value to its percentile rank.
+    Since the terms percentile rank and cumulative distribution function may be new to you, pause here and read sections 4.2.2 (<http://book.cds101.com/cumulative-distribution-functions.html#percentiles>) and 4.2.3 (<http://book.cds101.com/cumulative-distribution-functions.html#cdfs>) of the [*Introduction to Computational and Data Sciences* supplemental textbook](http://book.cds101.com) from this module's [reading assignment](assignments/reading06/).
+    
+    Now that you have a better idea of what percentile ranks are and how they connect with the CDF, let's plot the CDF for men's and women's heights.
+    A template code block for doing this is provided below,
+    
+    ```r
+    ggplot(body_dims) +
+      geom_step(
+        mapping = aes(...),
+        stat = "ecdf"
+      ) +
+      labs(y = "CDF")
+    ```
+    
+    Replace the ellipses [...]{.monospace} in `aes()` to plot a CDF for men's and women's heights on the same plot.
+    
+    ::: {.callout .secondary}
+    [Hint]{.h4}
+    
+    The `aes()` inputs should be similar to what you used in `geom_density()` in Exercise @visualize-heights, except you should use [color =\ ]{.monospace} instead of [fill =\ ]{.monospace}.
+    :::
+
+@discuss-cdf-plots.
+    The CDF is a bit like a fingerprint for data distributions, as different *classes* of distributions have different characteristic shapes.
+    CDFs are also convenient when you want to compare two data distributions within a dataset and determine if they share a similar shape and center or if they deviate from one another.
+    **Does the shape of the CDF curve for men's and women's heights look the same or different?**
+    Put another way, if we shifted the men's curve to the left, would it mostly overlap with the women's curve, or would there be deviations?
+    
+@compute-point-statistics.
+    Up until this point in the course, you've been asked to discuss the features of data distributions after looking at plots, as it is important that you conceptually understand what the terms **center**, **spread**, and **shape** mean.
+    We are now ready to start quantitatively analyzing our data distributions using statistical measures.
+    The following R functions will be useful for computing basic statistical measures,
+    
+    *   `mean()`: Computes the average (measure of distribution's center)
+    
+    *   `median()`: Computes the median (measure of distribution's center)
+    
+    *   `min()`: Finds the minimum value (related to distribution's spread)
+    
+    *   `max()`: Finds the maximum value (related to distribution's spread)
+    
+    *   `sd()`: Computes the standard deviation (related to distribution's spread)
+    
+    *   `IQR()`: Computes the interquartile range, which is the difference between the 75th and 25th percentiles (related to distribution's spread)
+    
+    We can use `summarize()` to apply these functions to a column in our dataset.
+    Copy the code below into your R Markdown notebook and run it.
+    
+    ```r
+    body_dims %>%
+      summarize(
+        mean = mean(hgt),
+        median = median(hgt),
+        min = min(hgt),
+        max = max(hgt),
+        sd = sd(hgt),
+        iqr = IQR(hgt)
+      )
+    ```
+    
+    Of course, these measures are being computed for the entire [hgt]{.monospace} column, with no distinction between men and women.
+    **Copy and paste the code into a second code block and insert a `group_by(...)` function before `summarize()` so that the measures are computed separately for men's and women's heights.**
+    You will need to replace the ellipses [...]{.monospace} with a variable name.
+    
+@gather-body-part-measurements.
+    Let's now move beyond [hgt]{.monospace} column and consider all the measurements in the column range [bia.di:wri.gi]{.monospace}.
+    As it would be tedious to type out each column name individually, let's use `gather()` to turn these columns into rows.
+    Use the name [body\_part]{.monospace} for the column containing the variable names [bia.di]{.monospace} through [wri.gi]{.monospace} and use the name [measurement]{.monospace} for the column containing numerical values.
+    Assign this data frame to a variable called [body\_dims\_long]{.monospace}.
+    
+@body-part-pmf-density.
+    Visualize the columns we just converted into rows as PMFs and density curves, just like in Exercise @overlay-density-and-pmf.
+    Continue to separate the distributions by [sex]{.monospace} using the [fill =\ ]{.monospace} input.
+    Use `facet_wrap(~ body_part, scales = "free_x")` to separate the body part measurements into separate plot windows.
+    Are the distribution shapes mostly similar or mostly different across different body part measurements?
+
+    ::: {.callout .secondary}
+    [Hint]{.h4}
+    
+    Adjust the size of the figure by adding the following options to your code block
+    
+    <pre><code>&#96;&#96;&#96;{r, fig.asp = 1.1, fig.width = 8}</code></pre>
+    :::
+
+@body-part-cdf.
+    Copy and paste the code from Exercise @body-part-pmf-density and modify it so that each plot window (facet) shows the CDF for each data distribution.
+    Refer to Exercise @cdf-heights for ideas on what you might need to change in the code.
+    Based on the CDF plots, are there any body part measurements where the distributions for men and women are nearly indistinguishable from one another?
+    If so, which ones?
+    
+@body-part-stat-measures.
+    Compute summary statistics for the different body part measurements.
+    Group [body\_dims\_long]{.monospace} by [body\_part]{.monospace} and [sex]{.monospace} using [group\_by()]{.monospace}, then pipe this into a [summarize()]{.monospace} like the one in Exercise @compute-point-statistics (you will need to replace [hgt]{.monospace} with a different column name).
+    
+## How to submit
+
+To submit your mini-homework, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [dplyr cheatsheet][data-transformation-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf

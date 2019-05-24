@@ -1,0 +1,64 @@
+Title: Module 5 – Data reshaping
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-05 00:00
+Tags: class notes
+Slug: module05-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 5]{.card-downloads-format}][reading05]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Module exercises]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_laptop` &nbsp; [Module 5 exercises]{.card-downloads-format}][module05-exercises]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 5 -- Tidy Gradebook]{.card-downloads-format}][mini-homework05]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - Principles of tidy data]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - The [gather]{.monospace} function]{.card-downloads-format}][slides-02]
+
+*   [`r icon_pdf` &nbsp; [03 - The [spread]{.monospace} function]{.card-downloads-format}][slides-03]
+
+*   [`r icon_pdf` &nbsp; [04 - The [separate]{.monospace} function]{.card-downloads-format}][slides-04]
+
+*   [`r icon_pdf` &nbsp; [05 - The [unite]{.monospace} function]{.card-downloads-format}][slides-05]
+:::
+
+[slides-01]:          https://drive.google.com/file/d/174WhC51cMkM_IfBH12HME-bZNQu3rJ4o
+[slides-02]:          https://drive.google.com/file/d/1CTxz65d4TfHhCAl3AaF1guNl3OvFABgm
+[slides-03]:          https://drive.google.com/file/d/1c3yI5GcKdF93rALaa72jo8vV0PqyIuGW
+[slides-04]:          https://drive.google.com/file/d/17SOza86ASc-ioFA6_vmFeUj_HGWv_B7t
+[slides-05]:          https://drive.google.com/file/d/1En-4bj2Vh74wdkPbdRmXSSS5K0UQNFGK
+[reading05]:          /assignments/reading05/
+[mini-homework05]:    /assignments/minihw05-tidy-gradebook/
+[module05-exercises]: /assignments/module05-exercises/

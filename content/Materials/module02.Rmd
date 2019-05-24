@@ -1,0 +1,63 @@
+Title: Module 2 – Course toolbox
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-02 00:00
+Tags: class notes
+Slug: module02-materials
+Show_summary: false
+Show_link: false
+
+```{r setup, include = FALSE}
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pen <- '<i class="fa fa-pen-square" data-fa-transform="grow-16"></i>&nbsp;'
+icon_book <- '<i class="fa fa-book" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pencil <- '<i class="fas fa-pencil-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
+```
+
+[Readings]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_book` &nbsp; [Reading 2]{.card-downloads-format}][reading02]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Homeworks]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pen` &nbsp; [Mini-homework 2a -- R Markdown practice]{.card-downloads-format}][mini-homework02a]
+
+*   [`r icon_pen` &nbsp; [Mini-homework 2b -- Visualization practice]{.card-downloads-format}][mini-homework02b]
+:::
+
+<div style="margin-bottom: 1em"></div>
+
+[Videos]{.h2}
+
+**01 - Reproducible toolbox - Reproducibility in science**
+
+```{r reproducible-toolbox-01-reproducibility-in-science, echo = FALSE}
+vembedr::embed_youtube(id = "-Pw-z_rROlw", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+**02 - Reproducible toolbox - Reproducible research toolkit**
+
+```{r reproducible-toolbox-02-reproducible-research-toolkit, echo = FALSE}
+vembedr::embed_youtube(id = "GicSJT_VorM", height = 350, allowfullscreen = TRUE, frameborder = 0)
+```
+
+[Slides]{.h2}
+
+::: {.no-bullets}
+*   [`r icon_pdf` &nbsp; [01 - Reproducibility in science]{.card-downloads-format}][slides-01]
+
+*   [`r icon_pdf` &nbsp; [02 - Reproducible research toolkit]{.card-downloads-format}][slides-02]
+:::
+
+[slides-01]:        https://drive.google.com/file/d/1pESwnL5jC7x6aGS1iU_fgsMpO8FjkZV5
+[slides-02]:        https://drive.google.com/file/d/1T3OGay77MSGz4lG7iXL9ZblH85de4Ia7
+[reading02]:        /assignments/reading02/
+[mini-homework02a]: /assignments/minihw02a-rmarkdown-practice/
+[mini-homework02b]: /assignments/minihw02b-visualization-practice/

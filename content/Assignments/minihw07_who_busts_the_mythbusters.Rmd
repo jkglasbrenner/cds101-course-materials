@@ -1,0 +1,361 @@
+Title: Who busts the Mythbusters?
+Author: Dr. Glasbrenner
+Date: 2019-01-07 00:00
+Tags: mini-assignment
+Slug: minihw07-who-busts-the-mythbusters
+Summary: A mini-homework for practicing how to conduct hypothesis tests and calculate confidence intervals using the infer package.
+Show_summary: true
+Show_link: true
+
+```{r setup, include=FALSE}
+library(dplyr)
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+assignment_name <- "Mini-homework 7"
+yawn <- readr::read_csv("http://data.cds101.com/yawn.csv")
+```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the mini-homework, which contains a starter file named [mythbusters.Rmd]{.monospace}.
+This mini-homework will guide you through examples demonstrating how to conduct hypothesis tests and calculate confidence intervals using the [infer]{.monospace} package.
+Read the [About the dataset](#about-the-dataset) section to get some background information on the dataset that you'll be working with.
+Each of the below [exercises](#exercises) are to be completed in the provided spaces within your starter file [mythbusters.Rmd]{.monospace}.
+Then, when you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
+
+## About the dataset
+
+The dataset we are using in this mini-homework comes from an experiment shown on an episode of the *Mythbusters* television show[^mythbusters-ep-info], a science entertainment TV program that aired on the Discovery Channel.
+The show's build team, Kari Byron, Scottie Chapman, and Tory Belleci, conducted the experiment in order to test the following hypothesis,
+
+> It becomes more likely for a person to yawn if another person near them yawns.
+
+To conduct the experiment, the team drove 50 volunteers, one at a time, to a flea market in a van, and one of the team members, would either yawn (treatment) or not yawn (no treatment) during the ride.
+It was randomly determined ahead of time whether or not Kari yawned.
+Therefore, the 50 people were split into two randomly assigned groups:
+
+*   **Treatment group:** 34 people where a person near them yawned
+
+*   **Control group:** 16 people where there wasn't a person yawning near them
+
+The results of the experiment are presented in the following table,
+
+```{r yawn-mythbusters-stats-table, eval = TRUE, echo = FALSE}
+num_participants_per_group <- yawn %>%
+  count(group) %>%
+  rename(total = n)
+
+yawn %>%
+  filter(yawn == "yes") %>%
+  group_by(group) %>%
+  summarize(yawns = n()) %>%
+  left_join(num_participants_per_group, by = combine("group")) %>%
+  mutate(fraction_yawned = round(yawns / total, 4)) %>%
+  knitr::kable(format = "html") %>%
+  kableExtra::kable_styling(full_width = FALSE, position = "left")
+```
+
+They concluded that the myth was confirmed because there was a 4% increase in yawns between the control and treatment groups.
+However, their analysis did not appear to include a formal hypothesis test, nor did the team discuss how likely it was that random chance alone could generate their results.
+Without this kind of analysis, we can not meaningfully determine whether the data supports the conclusion that yawning is contagious.
+
+Our main activity in this mini-homework will be fact-checking the Mythbusters by carrying out a formal hypothesis test using the [infer]{.monospace} package.
+This will allow us to assess how likely it is that a random chance model could generate the observed experimental results and whether or not the collected data allow us to infer the same conclusion as the *Mythbusters* build team.
+
+The dataset [yawn]{.monospace} contains 3 variables and 50 rows,
+
+| Variable                 | Description                                                                          |
+| --------                 | ------------------------------------------------------------------------------------ |
+| [subject_id]{.monospace} | Integer uniquely identifying an experiment volunteer                                 |
+| [yawn]{.monospace}       | Whether or not a volunteer yawned, *yes* if he/she did, *no* if he/she did not       |
+| [group]{.monospace}      | Specifies if the volunteer was part of the *Control* group or the *Treatment* group  |
+
+## Exercises
+
+@explanatory-response-variables.
+    Whenever we conduct an experiment, we need to know what variable we will change between the treatment and control groups, and what the kinds of outcomes we will be measuring.
+    Look again as the three variables for this experiment.
+    Which one is the **explanatory** variable and which one is the **response** variable?
+    What value in the **response** value should be classified as a success? 
+
+@hypothesis-test-quantity.
+    To conduct the hypothesis test, we need to simulate the null distribution.
+    The null distribution represents the range of outcomes for this experiment if yawning has no effect on the treatment group and is due to random chance alone.
+    To generate a null distribution we need to know how the observed experimental result was calculated, as we will need to repeat this same calculation during our simulations.
+    Review the results table in the [About the dataset](#about-the-dataset) section again.
+    What quantity should we use or compute in order to build the null distribution?
+    Choose the correct answer below.
+    
+    1.  *The average number of [yawns]{.monospace} in the treatment group*
+    
+    2.  *The average value of [fraction_yawned]{.monospace} in the treatment group*
+    
+    3.  *The average difference in [yawns]{.monospace} between the treatment and control groups*
+    
+    4.  *The average difference in  [fraction_yawned]{.monospace} between the treatment and control groups*
+
+@specify-values.
+    Running a hypothesis test for this dataset requires us to fill in the following code template that contains four functions from the [infer]{.monospace} package,
+    
+    ```r
+    yawn_null <- yawn %>%
+      specify(<variable1> ~ <variable2>, success = "...") %>%
+      hypothesize(null = "...") %>%
+      generate(reps = ...,  type = "...") %>%
+      calculate(stat = "...",  order = combine("...", "..."))
+    ```
+    
+    We will step through filling in this template over the next few questions.
+    
+    We start with the function `specify()`, which we see has the following structure,
+    
+    ```r
+    specify(<variable1> ~ <variable2>, success = "...")
+    ```
+    
+    [\<variable1\>]{.monospace}, [\<variable2\>]{.monospace}, and ["..."]{.monospace} are placeholders.
+    Using your answers from Exercise @explanatory-response-variables, figure out what to fill in for these three placeholders.
+    You only need to write out the `specify()` function.
+    
+    ::: {.callout .primary}
+    [Hint]{.h4}
+    
+    The relationship between the response and explanatory variables is written using a special formula syntax, [\<variable1\>]{.monospace} ~ [\<variable2\>]{.monospace}.
+    The word on the left side of the tilde, [\<variable1\>]{.monospace}, is the response variable.
+    The word on the right side of the tilde, [\<variable2\>]{.monospace}, is the explanatory variable. 
+    :::
+
+@hypothesize-values.
+    The next step in our code template for generating a null hypothesis is the `hypothesize()` function,
+    
+    ```r
+    hypothesize(null = "...")
+    ```
+    
+    This function only takes one input, and you have two choices for what to use. What input should we use?
+    
+    :::{.callout .secondary}
+    [Values for [null]{.monospace}]{.h4}
+    
+    *  ["independence"]{.monospace}: used when the explanatory and response variables both refer to columns in the dataset.
+    
+    *  ["point"]{.monospace}: used when we want to compare a column against a reported point estimate (i.e. mean or median).
+    :::
+
+@generate-values.
+    The third step in our code template is the `generate()` function,
+    
+    ```r
+    generate(reps = ...,  type = "...")
+    ```
+    
+    We use the [reps]{.monospace} input to set how many simulation trials we want to run to generate the null distribution.
+    This input should be set equal to an integer value.
+    The more trials we run, the more accurate our simulated range of outcomes will be, although it will also mean it will take our code longer to run.
+    The [type]{.monospace} keyword is used to choose the type of simulation that we want to run.
+    
+    Generating a null distribution for this dataset means we want to see what our outcomes will look like if the response variable and explanatory variable have no relationship to each other.
+    If we want to run 10,000 simulations to create the null distribution for this dataset, what should I replace the placeholders with?
+
+    :::{.callout .secondary}
+    [Values for [type]{.monospace}]{.h4}
+    
+    There are three choices for [type]{.monospace},
+    
+    *   ["bootstrap"]{.monospace}: Run the simulation by randomly sampling rows *with replacement* from the dataset.
+        The relationship between different columns in each row is preserved.
+    
+    *   ["permute"]{.monospace}: Run the simulation by randomly shuffling the order of the cells in the explanatory and response variables.
+        This random shuffling procedure is done separately in each column, so the relationship between different columns in each row is not preserved.
+    
+    *   ["simulate"]{.monospace}: Run the simulation by flipping a weighted coin, meaning that heads or tails may not be equally probable (i.e. the coin may be unfair).
+        This coin, being virtual, may have more than two sides, meaning there are several discrete outcomes that each have certain probabilities of happening.
+        This [type]{.monospace} is typically needed if you are using [null = "point"]{.monospace} in `hypothesize()` and your response variable is categorical.
+    :::
+    
+@calculate-values.
+    The last step in our code template is the `calculate()` function,
+    
+    ```r
+    calculate(stat = "...",  order = combine("...", "..."))
+    ```
+    
+    The first input [stat]{.monospace} is where we specify what exactly it is that we're calculating, which must mirror how the observed experimental result was calculated.
+    The second input is [order]{.monospace} and specifies the order of subtraction between the two groups listed under the **explanatory** variable.
+    
+    Based on your response to question @hypothesis-test-quantity and the above information, what should I replace the placeholders with?
+
+    :::{.callout .secondary}
+    [Values for [stat]{.monospace}]{.h4}
+    
+    The available choices for [stat]{.monospace} are as follows,
+    
+    *   ["mean"]{.monospace}: For simulations based on a single numerical variable.
+        Compute the mean of each simulation trial.
+    
+    *   ["median"]{.monospace}: For simulations based on a single numerical variable.
+        Find the median of each simulation trial.
+    
+    *   ["sum"]{.monospace}: For simulations based on a single numerical variable.
+        Compute the sum of each simulation trial.
+    
+    *   ["sd"]{.monospace}: For simulations based on a single numerical variable.
+        Compute the standard deviation of each simulation trial.
+    
+    *   ["prop"]{.monospace}: For simulations based on a single categorical variable.
+        Count the number of successes and convert this to a fraction (proportion).
+    
+    *   ["count"]{.monospace}: For simulations based on a single categorical variable.
+        Count the number of successes.
+    
+    *   ["diff in means"]{.monospace}: Calculate the mean of the numerical response variable for the two groups defined in the categorical explanatory variable.
+        Subtract these two means.
+    
+    *   ["diff in medians"]{.monospace}: Find the median of the numerical response variable for the two groups defined in the categorical explanatory variable.
+        Subtract these two medians.
+    
+    *   ["diff in props"]{.monospace}: Calculate the number of successes in the *categorical* response variable and convert this to a fraction (proportion) in each of the two groups defined in the *categorical* explanatory variable.
+        Subtract these two fractions.
+    
+    *   ["Chisq"]{.monospace}: Calculate the chi-squared statistic for a response and explanatory variable that are both categorical and contain two or more groups each.
+    
+    *   ["F"]{.monospace}: Calculate the *F* statistic for a numerical response variable and categorical explanatory variable with two or more groups.
+    
+    *   ["t"]{.monospace}: Calculate the two-sample t-test statistic for a numerical response variable and categorical explanatory variable with two groups.
+        This is similar to the ["diff in means"]{.monospace} calculation.
+    
+    *   ["z"]{.monospace}: Calculate the two-sample z statistic for a numerical response variable and categorical explanatory variable with two groups.
+        It is assumed that the number of samples in your dataset is large, otherwise the ["t"]{.monospace} test is preferred.
+        This is similar to the ["diff in means"]{.monospace} calculation.
+    
+    *   ["slope"]{.monospace}: Calculate the slope using linear regression for a response and explanatory variable that are both numerical.
+    
+    *   ["correlation"]{.monospace}: Calculate the correlation coefficient for a response and explanatory variable that are both numerical.
+    :::
+    
+@null-distribution.
+    Take your answers to questions @specify-values through @calculate-values and combine them to fill in the template,
+    
+    ```r
+    yawn_null <- yawn %>%
+      specify(formula = <variable1> ~ <variable2>, success = "...") %>%
+      hypothesize(null = "...") %>%
+      generate(reps = ...,  type = "...") %>%
+      calculate(stat = "...",  order = combine("...", "..."))
+    ```
+    
+    This will simulate the null distribution for the [yawn]{.monospace} experiment.
+    This may take a few seconds to run in RStudio.
+
+@one-sided-test.
+    Now that we have a simulated null distribution, let's quantify how likely it is that a random chance model would generate the Mythbuster's experimental result.
+    We will do this by computing the *p*-value of a **one-sided hypothesis test**, which is just the probability that the result of a simulation trial is the same or more extreme than the experimental result.
+    We will also assume a significance level of $\alpha = 0.05$.
+    **If our *p*-value is less than $\alpha = 0.05$**, then we will conclude that we have sufficient evidence to reject the null hypothesis in favor of the alternative hypothesis.
+    
+    First, let's use [infer]{.monospace} to compute the experimental result for comparison with the null distribution.
+    Fill in the template below with the values you determined for `specify()` and `calculate()`,
+    
+    ```r
+    yawn_obs_stat <- yawn %>%
+      specify(formula = <variable1> ~ <variable2>, success = "...") %>%
+      calculate(stat = "...",  order = combine("...", "..."))
+    ```
+    
+    Notice that we just took the template from Exercise @null-distribution and removed the `hypothesize()` and `generate()` lines.
+    
+    Next, if we wanted to compute the *p*-value manually, we would need to count how many simulations gave us a result that was the same or more extreme than the experimental result and then divide by 10,000, which is the total number of simulations we ran.
+    Lucky for us, the [infer]{.monospace} package has a convenience function, `get_p_value()`, for calculating p-values so that we don't have to do it manually.
+    To compute the *p*-value of a one-sided hypothesis test, we run,
+    
+    ```r
+    yawn_null %>%
+      get_p_value(obs_stat = yawn_obs_stat, direction = "right")
+    ```
+    
+    To visualize the range of outcomes in the null distribution that are the same or more extreme than [yawn\_obs\_stat]{.monospace}, we run,
+    
+    ```r
+    yawn_null %>%
+      visualize() +
+      shade_p_value(obs_stat = yawn_obs_stat, direction = "right")
+    ```
+    
+    Based on these results and a significance level of $\alpha = 0.05$, conclude whether or not we have sufficient evidence to reject the null hypothesis.
+
+@two-sided-test.
+    It's often prudent to run a **two-sided hypothesis test** instead of the one-sided version, as it is more strict and hence stronger evidence is needed before the $\alpha = 0.05$ significance threshold is crossed.
+    Switching from a one-sided test to a two-sided test simply requires that you replace [direction = "right"]{.monospace} with [direction = "both"]{.monospace} in `get_p_value()` and `shade_p_value()`.
+    Do this and compute the *p*-value and visualization for the two-sided hypothesis test.
+    Assuming a significance level of $\alpha = 0.05$, do we have sufficient evidence to reject the null hypothesis?
+
+@bootstrap-simulation.
+    Our final piece of analysis will be to compute a 95% confidence interval for the experimental result.
+    The 95% confidence interval represents a plausible range of values for the experimental result based on the variability of the dataset.
+    Computing this interval requires us to run a bootstrap simulation.
+    To do this, copy and paste your code from Exercise @null-distribution, delete the `hypothesize()` line, and change the [type]{.monospace} input in `generate()` to [type = "bootstrap"]{.monospace}.
+    A template is shown below,
+    
+    ```r
+    yawn_bootstrap <- yawn %>%
+      specify(formula = <variable1> ~ <variable2>, success = "...") %>%
+      generate(reps = ..., type = "bootstrap") %>%
+      calculate(stat = "...", order = combine("...", "..."))
+    ```
+
+@confidence-interval.
+    We obtain the 95% confidence interval by running the following code,
+    
+    ```r
+    yawn_ci <- yawn_bootstrap %>%
+      get_confidence_interval()
+    ```
+    
+    To visualize the 95% confidence interval, we run the following code,
+    
+    ```r
+    yawn_bootstrap %>%
+      visualize() +
+      shade_confidence_interval(yawn_ci)
+    ```
+    
+    After computing and visualizing the confidence interval, **choose the statement that correctly interprets what it means**,
+    
+    1.  *People in this sample, on average, yawn approximately 23% less to 30% more of the time when someone near them yawns.*
+
+    2.  *People will, on average, yawn 23% less to 30% more when someone near them yawns.*
+
+    3.  *A randomly chosen person yawns 23% less to 30% more when someone near them yawns.*
+
+    4.  *95% of people yawn 23% less to 30% more when someone near them yawns.*
+
+## How to submit
+
+To submit your mini-homework, follow the two steps below.
+Your homework will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this mini-homework:
+
+*   [dplyr cheatsheet][data-transformation-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+[^mythbusters-ep-info]: Season 3, Episode 28, *Is Yawning Contagious?*, first aired on March 9, 2005.
+
+[ggplot2-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+[rstudio-cheatsheet]:             https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:            https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf

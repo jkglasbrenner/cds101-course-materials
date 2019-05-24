@@ -1,0 +1,209 @@
+Title: Final Project
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-10 00:00
+Tags: final
+Slug: final-project
+Summary: For the final project, you will be assigned into a team to conduct an exploratory data analysis of the U.S. Department of Education's <emph>College Scorecard</emph> dataset.
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+# DO NOT ALTER THIS CHUNK
+knitr::opts_chunk$set(
+  echo = FALSE, eval = TRUE, fig.width = 5,
+  fig.asp = 0.618, out.width = "70%", dpi = 120,
+  fig.align = "center", cache = TRUE, dev = "svg"
+)
+icon_html5 <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_square <- '<i class="far fa-square" data=fa=transform="grow-8"></i>&nbsp;'
+```
+
+## Instructions
+
+For the final project, you will be assigned into a team to conduct an exploratory data analysis using the skills you've developed over the semester and write a report.
+Each group will motivate their exploration by formulating interesting questions that can be answered with the dataset, which are then answered by computing summary statistics as well as wrangling the data into a form that allows you to visualize it.
+The key words are **summary statistics** and **visualize**; the answer to each question must involve the presentation and discussion of visual and quantitative information.
+If desired, groups may also bring in additional data to strengthen the analysis, but please note that any additional data must be documented, which includes describing how you obtained it and how you've integrated it with the main dataset to further your analysis.
+
+## The Dataset
+
+All groups will be working with the [College Scorecard][college-scorecard-link] dataset started by The Obama Administration in September 2015.
+The dataset is included in the starter repository for your group and it is loaded by default (the variable name is [college]{.monospace}) in the setup block of the R Markdown file where you write your group report.
+The source link for the dataset is found here: <https://collegescorecard.ed.gov/data/>.
+
+The data code-book, **which tells you what the columns mean**, is available at <https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx>.
+You will have to look through the code-book to understand the meaning of the variables, and this should be your starting point before you start running an analysis on the dataset.
+
+For further information about the dataset, consult the documentation pages at <https://collegescorecard.ed.gov/data/documentation/>.
+
+**This is a large dataset that that contains millions of individual cells.**
+**As such, there is no one right way to approach this project.**
+**There are many different avenues that you can take, so have fun with it!**
+
+## Grade
+
+Grades for the final project will be based on the correctness and readability of your R code, how well your report is written (the report should be structured, coherent, and follow the standard rules of spelling and grammar), and how well the exploratory questions are answered.
+The report's formatting and style will be graded as a whole for the group, while the answer quality for each question will be graded individually.
+Group members that are judged to have not sufficiently contributed to the final product will have their grade penalized.
+
+## The report
+
+The group report is built around interesting questions you can ask of the dataset.
+**Each group member will construct and answer 1 question about the dataset**.
+So, for example, a group of four members will have 4 questions in total.
+These questions must be decided upon first before you begin putting your report together.
+
+The report is to have two sections, **Preprocessing the dataset** and **Exploratory data analysis**:
+
+*   **Preprocessing the dataset** is where the group will work together to organize and prepare the dataset into a common format that everyone will start from when answering his or her question.
+
+*   **Exploratory data analysis** is where each group member will state, analyze, and answer his/her question.
+    Although this is handled individually, the final submission should be organized, easy to follow, and adhere to a common format.
+
+The subsections below give more detail about what is expected from your questions and what to put in the report.
+
+### Choosing your questions
+
+There are some restrictions on what is considered a valid question for this final project.
+Here is a short list of criteria that your question must meet:
+
+1.  Your question cannot be a simple lookup query, like "how many students go to this school?"
+
+2.  The question must be about comparing relationships and trends between two or more variables in the dataset, either by comparing two or more columns or by comparing well-defined groups of values within a single column.
+
+3.  Answering the question must involve creating one or more visualizations and the calculation of one or more summary statistics.
+
+4.  Answering the question must require data aggregation ([group\_by]{.monospace}/[summarize]{.monospace}) or identifying a trend between 2 or more variables.
+
+**Before you begin working on your project report, you must submit a draft question on Blackboard for my review and comment.**
+You must provide the following in your question submission:
+
+*   The question itself written as a complete sentence.
+
+*   A list of the columns you plan to use to answer the question.
+
+*   A one or two sentence explanation for why you think it's a worthwhile question to ask.
+
+I reserve the right to adjust or veto any questions that do not meet the outlined criteria or that cannot be appropriately justified.
+**Submitting these on time to Blackboard will be counted as part of your final project grade.**
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+Below are two common misconceptions regarding this dataset that you should be aware of as you formulate your questions:
+
+*   **It is not possible to make statements about individual students using this dataset!**
+    
+    Each observation (row) in the dataset is a single college/university and the variables (columns) frequently represent **aggregated information** about students.
+    This means that many of the columns are often an average, sum, or a percentile for the entire student body or a specific subgroup of students.
+
+*   **It is not possible to extract data about a subgroup of students from a column that was aggregated over the entire student body.**
+
+    As an example, if one column is "median salary 5 years after gradution" and another column is "percentage of students majoring in data science", you cannot use these two columns to figure out the median salary for students graduating with a data science degree.
+    In general, the only way to make statements about different groups is if the column itself mentions that the quantity is aggregated over a specific subgroup.
+:::
+
+### Preprocessing the dataset section
+
+This dataset is structured and mostly clean, but there is still some *data preprocessing* that needs to be done before you can begin analysis.
+At a minimum, there are three clear tasks to complete and document in this first section of the R Markdown file before you continue on to the **Exploratory data analysis** section:
+
+1.  After your group has decided on the questions you will answer, figure out which columns in the dataset your group needs to answer the questions.
+    Then, extract those columns using `select` and save the reduced dataset to another variable, for example [college\_reduced]{.monospace}.
+    
+2.  The column names are shortened abbreviations, and should be made more human-readable using the `rename` function.
+    Use the data code-book, <https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx>, to help you figure out what the abbreviations mean.
+
+3.  Categorical variables that are not easy to understand, for example the integer categories under the [REGION]{.monospace} column, should be relabeled using the `recode` function.
+
+Additional preprocessing steps may be necessary, depending on the questions your group is trying to answer.
+Regardless of what you do, these steps should be documented in the usual way, where code blocks are accompanied with written explanations.
+
+**Each question in the Exploratory data analysis section must be answered starting from the preprocessed dataset you end up with at the end of this section!**
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+**Resist the temptation to drop any rows containing one or more [NA]{.monospace} values as an early step in your analysis!**
+
+This dataset contains a lot of missing ([NA]{.monospace}) values relative to other datasets that you've worked with during the semester.
+It is important to remember that just because some information may be missing for a school doesn't mean that the other information isn't useful, and many of the [tidyverse]{.monospace} commands are able to gracefully handle [NA]{.monospace} values.
+**If you need to filter out rows with [NA]{.monospace} values, this should be one of the last steps you do, and it should not affect the analysis and answers provided in other questions.**
+:::
+
+### Exploratory data analysis section
+
+This section is where each group member is responsible for answering his or her respective question about the dataset.
+Each question should be clearly stated and each answer should **start from the preprocessed dataset obtained in the previous section**.
+The procedure for obtaining the answer needs to be documented in the form of both code blocks and plain text.
+Calculated summary statistics and visualizations **need to be discussed and interpreted for the reader**.
+For example, if you present a distribution, discuss it's shape, center, and spread, which you should relate to the computed summary statistics.
+If you present a scatter plot, what is the trend of the points?
+After analyzing the various outputs, synthesize it and provide a formal answer to your stated question.
+
+Here is a quick checklist to apply to each question and answer:
+
+::: {.no-bullets}
+*   `r icon_square` Is the question clearly stated?
+
+*   `r icon_square` Does the code used to find the answer contain at least one [dplyr]{.monospace}-based data transformation, one calculation of a summary statistic, and one [ggplot2]{.monospace} data visualization?
+
+*   `r icon_square` Are the results obtained from the code properly explained and interpreted for the reader?
+
+*   `r icon_square` Is a final answer clearly given for the question?
+:::
+
+### How to edit and merge each group member's content into the final report
+
+Like in the group submissions for the homework assignments, collaboration on the GitHub repository will work best if you create your own versions of the [final\_project.Rmd]{.monospace} file where you make a copy and rename it to include your last name.
+For example, if your last name is Smith, then you should make a file copy and rename it to [final\_project\_smith.Rmd]{.monospace}.
+Eventually, the group will need to merge in everyone's answers into the [final\_project.Rmd]{.monospace} document.
+The following checklist may help with this:
+
+::: {.no-bullets}
+*   `r icon_square` Select an editor to be in charge of merging everyone's answers into the final document [final\_project.Rmd]{.monospace}.
+
+*   `r icon_square` The editor should ensure that everyone has committed and pushed their answers to GitHub so they can copy and paste in each contribution.
+
+*   `r icon_square` The editor needs to make sure that the final submission reads like a coherent document and that the writing style and code style are uniform across all the answers. In other words, it should read like a single person answered all the questions, not a group of four people.
+
+*   `r icon_square` The editor will be in charge of of committing and pushing the final R Markdown file to GitHub, knitting to PDF, and uploading the PDF file on Blackboard.
+:::
+
+## Additional guidelines
+
+The following are additional guidelines for your Final Project submission:
+
+*   **Your group's final project will only be graded if a PDF of your final report is submitted on Blackboard and the final versions of the group's R Markdown files are pushed to GitHub.**
+
+*   The final R Markdown report file in the group's GitHub repository must knit to the PDF format without error.
+
+*   You must use the [tidyverse]{.monospace} functions in your work, I should not see any "base R" functions used (`subset`, for example) that were not shown in the lecture slides or the textbook.
+
+*   Each group member must contribute substantive commits to the group repository on Github that reflect his/her own work.
+
+*   The report represents your group's final results and should only contain the methods used to obtain them.
+    **Do not include questions in the report that you cannot answer.**
+    
+*   Your R code should be clean and readable, which includes what it looks like after knitting.
+    **Code blocks should not run off the side of the page when knitted to PDF!**
+
+*   **The report's tone should be professional and should not read like a social media feed or personal blog**.
+    Refrain from editorializing about the project as a whole or about a specific question, as this is not an opinion paper.
+    Do not speculate, instead support your claims and explanations using data and analysis.
+    Avoid self-narration or writing about how you felt or what you were thinking as you complete each question, instead write as if you are constructing a step-by-step tutorial for others to use.
+
+*   **Late submissions for the final project will not be accepted, no exceptions.**
+
+## How to submit
+
+The editor should follow the steps below to submit the homework for his/her group.
+
+1.  Make sure that everyone has committed and pushed their R Markdown files so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view all the completed files on the GitHub website.
+
+2.  Knit your group's R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *Final Project Report* posting on Blackboard.
+
+[college-scorecard-link]: https://collegescorecard.ed.gov

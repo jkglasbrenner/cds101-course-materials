@@ -1,0 +1,20 @@
+Title: Module 1 exercises
+Author: Dr. Glasbrenner
+Date: 2019-01-01 00:00
+Tags: module-exercise
+Slug: module01-exercises
+Summary: For this module exercise, you will answer a series of questions that check your understanding of the material covered in the Module 1 lecture videos.
+Show_summary: true
+Show_link: true
+
+## Instructions
+
+This module exercise is a series of questions **posted on Blackboard** that check your understanding of the material contained in the [module 1 lecture videos][module01-lectures].
+This should be completed **after** you have finished watching the lecture videos.
+
+::::: {.callout .primary}
+There is no time limit and you may attempt the module exercises up to three times.
+Your grade will be the highest score you receive across your attempts.
+:::::
+
+[module01-lectures]: /materials/module01-materials/
