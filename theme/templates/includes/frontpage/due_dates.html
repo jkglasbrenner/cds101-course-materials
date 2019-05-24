@@ -1,0 +1,20 @@
+{# -*- engine: django -*- #}
+<section class="due-dates card-section">
+  <h1>Due dates</h1>
+  {% for category, articles in categories %}
+    {% if category is equalto 'DueDates' %}
+      <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="true">
+        {% for article in articles|sort(attribute='date') %}
+          {% if (article.date.now(tz=article.date.tzinfo) - article.date).days <= 1 %}
+            <li class="accordion-item" data-accordion-item>
+              <a href="#" class="accordion-title"><i class="{{ article.icon }}"></i>&emsp;&emsp;{{ article.title }} (Due: {{ article.date|strftime('%B %d at %I:%M %p') }})</a>
+              <div class="accordion-content due-date-assignment" data-tab-content>
+                {{ article.content }}
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</section>

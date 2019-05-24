@@ -1,0 +1,11 @@
+{# -*- engine: django -*- #}
+<section class="static-page-body">
+  <h1>Schedule</h1>
+  {% for category, articles in categories if category is equalto "Frontpage" %}
+    {% for article in articles %}
+      <article class="frontpage-schedule">
+        {{ article.content }}
+      </article>
+    {% endfor %}
+  {% endfor %}
+</section>

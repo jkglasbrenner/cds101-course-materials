@@ -1,0 +1,55 @@
+{# -*- engine: django -*- #}
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="{{ SITEURL }}/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+        {% for dropdown, title, value in MENUITEMS %}
+          {% if dropdown %}
+            <li>
+              <a class="navbar-menu-item" href="#">{{ title }}</a>
+              <ul class="navbar-nested-menu">
+                {% for subtitle, subvalue in value %}
+                  <li>
+                    <a class="navbar-menu-item" href="{{ SITEURL }}/{{ subvalue }}">{{ subtitle }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li>
+              <a class="navbar-menu-item" href="{{ SITEURL }}/{{ value }}">{{ title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+        {% if GITHUB_URL or SLACK_URL %}
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+              {% if GITHUB_URL %}
+                <li>
+                  <a class="navbar-social-item" href="{{ GITHUB_URL }}"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+              {% endif %}
+              {% if SLACK_URL %}
+                <li>
+                  <a class="navbar-social-item" href="{{ SLACK_URL }}"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+              {% endif %}
+              {% if FEED_ALL_ATOM %}
+                <li>
+                  <a class="navbar-social-item" href="{{ FEED_ALL_ATOM }}"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+              {% endif %}
+            </ul>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</div>

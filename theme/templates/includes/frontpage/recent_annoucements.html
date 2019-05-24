@@ -1,0 +1,18 @@
+{# -*- engine: django -*- #}
+<section class="recent-annoucements card-section">
+  <h1 class="recent-annoucements-title">Annoucements</h1>
+  {% for category, articles in categories %}
+    {% if category is equalto 'Annoucements' %}
+      {% for article in articles|sort(attribute='date', reverse=True) %}
+        {% if (article.date.now(tz=article.date.tzinfo) - article.date).days <= 7 %}
+          <article class="frontpage-annoucement card-item card-section">
+            {% include 'includes/article/header.html' %}
+            {% include 'includes/article/body_content.html' %}
+            {% include 'includes/article/footer.html' %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  <p><a href="{{ SITEURL }}/category/annoucements/" title="Permalink to annoucements category">Read all annoucements <i class="fas fa-angle-double-right"></i></a></p>
+</section>

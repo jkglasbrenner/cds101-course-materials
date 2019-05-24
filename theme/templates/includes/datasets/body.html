@@ -1,0 +1,8 @@
+{# -*- engine: django -*- #}
+<div class="static-page-body">
+  {% for category, articles in categories if category is equalto 'Datasets' %}
+    {% for article in articles %}
+      {{ article.content }}
+    {% endfor %}
+  {% endfor %}
+</div>

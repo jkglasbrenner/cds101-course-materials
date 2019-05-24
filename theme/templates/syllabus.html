@@ -1,0 +1,12 @@
+{# -*- engine: django -*- #}
+{% extends "base.html" %}
+
+{% block title %}Syllabus{% endblock title %}
+
+{% block content %}
+  <article class="static-page">
+    {% include 'includes/syllabus/header.html' %}
+    {% include 'includes/syllabus/body.html' %}
+    {% include 'includes/syllabus/footer.html' %}
+  </article>
+{% endblock content %}

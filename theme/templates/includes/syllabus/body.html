@@ -1,0 +1,13 @@
+{# -*- engine: django -*- #}
+<div class="static-page-body">
+  <div class="syllabus-body" id="syllabus-anchor">
+    <div class="syllabus-content">
+      {% for category, articles in categories if category is equalto 'Syllabus' %}
+        {% for article in articles %}
+          {{ article.content }}
+        {% endfor %}
+      {% endfor %}
+    </div>
+    {% include "includes/syllabus/magellan.html" %}
+  </div>
+</div>

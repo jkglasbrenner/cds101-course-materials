@@ -1,0 +1,12 @@
+{# -*- engine: django -*- #}
+<section class="this-weeks-topics card-section">
+  <h1>This week's topics</h1>
+  {% for category, articles in categories %}
+    {% if category is equalto 'ThisWeeksTopics' %}
+      {% for article in articles %}
+        {{ article.content }}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  <p><a href="schedule.html">Full course schedule <i class="fas fa-angle-double-right"></i></a></p>
+</section>
