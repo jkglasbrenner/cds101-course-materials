@@ -1,0 +1,293 @@
+Title: Lab 02 – Exploration by visualization: the Galton dataset
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-01 00:00
+Tags: lab
+Slug: lab-02-exploration-by-visualization-the-galton-dataset
+Summary: Explore the Galton dataset using data visualization.
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+lab_name <- "Lab 2"
+```
+
+> This week’s lab shows you how to use the [ggplot2]{.monospace} package to visualize datasets and how visualization plays a crucial role in data exploration.
+
+## Why data visualization?
+
+Why is data visualization an important topic?
+On the face of it, you might wonder why we need to dedicate any time to this topic.
+Aren't plots really easy now that we all have computers?
+And isn't making plots and figures one of the *last* things that we do for a project or lab report, after we've figured everything out?
+Why start with this?
+Since a picture (or visualization) is worth a thousand words, take a moment to explore the data visualizations linked below.
+
+:::::{.callout .primary}
+**After a few minutes, be prepared to share with the class one thing you noticed about one of the visualizations that you think made it effective at conveying information.**
+
+*   Why do buses bunch? <http://setosa.io/bus/>
+
+*   U.S. Age Pyramid Becomes a Rectangle: <http://www.pewresearch.org/next-america/#Two-Dramas-in-Slow-Motion>
+:::::
+
+Visualizations have an important role to play in nearly every stage of a data science project.
+High-quality visualizations help people to understand your results and can activate their curiosity about your work and ideas.
+Creating visualizations in R is also easy and fun, and learning how to make them will help you become more comfortable with using R and RStudio.
+You will quickly see how simple it is to make colorful and eye-catching plots!
+
+:::::{.callout .secondary}
+We will use the [ggplot2]{.monospace} library for all of our visualizations.
+You are encouraged to download and use the [official [ggplot2]{.monospace} cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf) for this and future labs.
+:::::
+
+## About this week's dataset
+
+You will be exploring the famous dataset by Francis Galton for this week's lab on data visualization, which is automatically loaded into the variable [galton]{.monospace} for you in the RMarkdown file for your lab report.
+Francis Galton was developing ways to quantify the heritability of traits in the 1880s, and as part of this work he collected data on the heights of adult children and their parents.
+To explore the dataset, type the following in your *Console* window:
+
+```r
+View(galton)
+```
+
+### Variables
+
+This is a tabular dataset with 898 observations on the following variables:
+
+| Variable             | Type               | Description                                                                                         |
+| :-------             | :-----             | :-------------------------------------------------------------------------------------------------- |
+| [family]{.monospace} | [chr]{.monospace}  | a category with levels for each family                                                              |
+| [father]{.monospace} | [dbl]{.monospace}  | the father's height (in inches)                                                                     |
+| [mother]{.monospace} | [dbl]{.monospace}  | the mother's height (in inches)                                                                     |
+| [sex]{.monospace}    | [chr]{.monospace}  | the child's sex: [F]{.monospace} or [M]{.monospace}                                                 |
+| [height]{.monospace} | [dbl]{.monospace}  | the child's height as an adult (in inches)                                                          |
+| [nkids]{.monospace}  | [int]{.monospace}  | the number of adult children in the family, or, at least, the number whose heights Galton recorded. |
+
+### Sources
+
+*   The data were transcribed by J.A. Hanley who has published them at <http://www.medicine.mcgill.ca/epidemiology/hanley/galton/>
+*   Reference: "'Transmuting' women into men: Galton's family data on human stature" (2004) *The American Statistician*, 58(3):237-243.
+
+## Visualization by example
+
+Before we discuss the general format for creating [ggplot2]{.monospace} plots, let's play around with some examples:
+
+@height-histogram.
+    In your lab report, create an R code block that contains the following code:
+
+    ```r
+    ggplot(data = galton) +
+      geom_histogram(mapping = aes(x = height), bins = 30)
+    ```
+
+    To run the code, either click the green "play" button in the upper right corner of the R code block or, while your cursor is inside the code block, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>.
+    This should create a plot called a histogram.
+    
+    After creating the histogram, look at the [height]{.monospace} column in the data table you can view with `View(galton)` and compare it with the histogram.
+    Then, describe what the histogram is doing with the data in this column.
+
+The input parameter [bins = 30]{.monospace} controls an important visual element in the histogram plot.
+Let's experiment with the parameter in order to figure out what it does.
+
+@histogram-bins-binwidth.
+    Using the code you wrote in **Exercise @height-histogram** as a starting point, try setting the input keyword [bins]{.monospace} equal to something *larger* than the number 30, and then equal to something *smaller* than the number 30.
+    This will create two plots.
+    Then, change the input keyword from [bins]{.monospace} to [binwidth]{.monospace} and set its value equal to 1.
+    Compare the plots and write a conclusion about what the [bins]{.monospace} and [binwidth]{.monospace} inputs control.
+
+It is simple to add additional arguments to the aesthetic input `aes()` that change the way data are shown, which can reveal trends that were previously hidden from view.
+Let's see what the [fill]{.monospace} argument does to our histogram:
+
+@histogram-fill.
+    Write the following code in your lab report:
+
+    ```r
+    ggplot(data = galton) +
+      geom_histogram(
+        mapping=aes(x = height, fill = sex), binwidth = 1, alpha = 0.5,
+        position="identity"
+      )
+    ```
+
+    Run the block and look at the output.
+    What did adding [fill = sex]{.monospace} do?
+    Does this change the way you might interpret the visualization?
+    What kinds of differences stand out now that we added this?
+
+As you can now see, changing one of the inputs in your [ggplot2]{.monospace} code can have a substantial effect on the way your visualization looks.
+When a visualization reveals new information, we should describe and interpret it in our lab reports.
+
+@histogram-analysis.
+    Describe the shape of the male and female height distributions and where they seem to be centered around.
+    Upon your visual inspection, does there appear to be a tangible difference in the average height for these two distributions?
+    Based on what you know about the relative heights of people, is this a result that you would have expected to see?
+    Why or why not?
+
+Based on what you've seen so far, do you understand what **all** of the inputs are doing?
+The exercise below guides you through the process of exploring how the different inputs affect the plot's look:
+
+@exploring-inputs.
+    A good way to figure out how R works is to experiment with inputs.
+    What happens if you change the value of [alpha = 0.5]{.monospace} (keep it between 0 and 1).
+    What happens if you remove the input [position = "identity"]{.monospace}?
+    What happens if you replace it with [position = "dodge"]{.monospace}?
+    What does it change in your output?
+
+    **Hint:** When moving the input, be careful with the commas!
+    A comma should separate each input.
+
+## The [ggplot2]{.monospace} syntax
+
+Let's take a small break from making plots and review the general syntax for creating a [ggplot2]{.monospace} figure.
+The command `ggplot()`, as you might have figured out already, creates the plot window.
+Commands with the prefix [geom\_]{.monospace} --- such as `geom_histogram()` --- convert data points into different kinds of visualizations, and the command `aes()` controls the aesthetic properties of each [geom\_]{.monospace} object.
+We then specify input parameters inside the parentheses of these commands, *with each input separated from neighboring inputs by commas* [,]{.monospace} *and input names and values separated by the equals sign* [=]{.monospace}.
+In general, visualizations in [ggplot2]{.monospace} have a predictable structure for the commands you need to enter.
+The general pattern is:
+
+```r
+ggplot(data = <data>) +                     # Required in all ggplot2 visualizations
+  geom_<function>(
+    mapping = aes(<mapping>),               # Required in all ggplot2 visualizations
+    stat = <stat>,                          # Optional, sensible default chosen
+    position = <position>                   # Optional, sensible default chosen
+  ) +
+  coord_<function> +                        # Optional, sensible default chosen
+  facet_<function> +                        # Optional, sensible default chosen
+  scale_<function> +                        # Optional, sensible default chosen
+  theme_<function>                          # Optional, sensible default chosen
+```
+
+In the above, anywhere you see a word [\<surrounded\>]{.monospace} in angular brackets, you can replace it with one of several choices.
+Bare minimum, you must always specify the first two functions, all the rest are optional and have sensible defaults chosen for you.
+Also note that each major category, those being [geom\_]{.monospace} objects, [coord\_]{.monospace} objects, [facet\_]{.monospace} objects, [scale\_]{.monospace} objects, and [theme\_]{.monospace} objects, are added to the [ggplot2]{.monospace} "sentence" via the plus sign [+]{.monospace}.
+Think of it as a series of layers: first you lay down the canvas ([ggplot]{.monospace}), then you plot the data using a certain type of plot ([geom\_\<function\>]{.monospace}) as the second layer, and afterward you tweak and polish the plot using additional layers to find-tune things.
+This layered approach allows you to create nice figures without much effort or the need to memorize dozens of commands.
+
+## Scatterplots
+
+Let's further explore the data using another type of visualization, the scatter-plot.
+
+@father-child-heights.
+    Use the following code to create a scatter-plot of each person's height as a function of their father's height.
+
+    ```r
+    ggplot(data = galton) +
+      geom_point(mapping = aes(x = father, y = height))
+    ```
+
+    Here, [height]{.monospace} is the response (dependent) variable and [father]{.monospace} would be the explanatory (independent) variable.
+    Describe any trends that you see using full sentences.    
+
+Next, we should try and create a plot that is similar in spirit to what we did in **Exercise @histogram-fill**, so that we can see how the [height]{.monospace} variable depends on the [father]{.monospace} variable when the [sex]{.monospace} variable is taken into account.
+One important difference to know is that we need to use the word [color]{.monospace} as an input instead of [fill]{.monospace}.
+Otherwise, the procedure for grouping over the [sex]{.monospace} variable is basically the same.
+
+@father-child-heights-color.
+    Figure out how to group the data over the [sex]{.monospace} variable using the [color]{.monospace} input and create a new plot.
+    What does this plot tell you about the relationship between the height measurements and the [sex]{.monospace} variable?
+
+## Faceting
+
+Let's introduce another new concept, the facet.
+Facets create visualizations with multiple panels, splitting things up across a categorical variable.
+Let's apply this to our scatter-plot that we created in **Exercise @father-child-heights**.
+
+@add-facet.
+    Copy your code from **Exercise @father-child-heights** that created a scatter-plot.
+    Add the following new command to your code snippet using the [+]{.monospace} sign:
+    
+    ```r
+    facet_grid(. ~ sex)
+    ```
+    
+    Describe what you get as output.
+    Then, create a new code block where you reverse the input for [facet\_grid]{.monospace} like so:
+    
+    ```r
+    facet_grid(sex ~ .)
+    ```
+    
+    What did adding [facet\_grid]{.monospace} do to your output, and what does the order of [. ~ sex]{.monospace} versus [sex ~ .]{.monospace} seem to do?
+    Is the information presented here any different from the information in **Exercise @father-child-heights-color**?
+
+## Modeling in [ggplot2]{.monospace}
+
+You can actually create regression models using [geom\_smooth]{.monospace}, which is another handy way to look for trends.
+You can choose from one of several kinds of regression methods.
+Here, we'll use linear regression for creating our models (perhaps you remember drawing one of these "lines of best fit" by hand in a prior science or math class).
+
+@add-smooth.
+    Copy your code from **Exercise @father-child-heights** that created a scatter-plot.
+    Add the following new command to your code snippet using the [+]{.monospace} sign:
+    
+    ```r
+    geom_smooth(mapping = aes(x = father, y = height), method = "lm")
+    ```
+    
+    Describe the line that you get as output.
+    Does it follow the trends (if any) you've previously described in the data?
+    What do you think the semi-transparent gray region around the line stands for?
+    
+When creating a graph, you often want to make some touch ups after you've figured out what to plot.
+Do the following to add some extra polish to the plot you made in **Exercise @add-smooth**.
+
+@add-annotations.
+    Copy your code from **Exercise @add-smooth** and add the following command to your code:
+
+    ```r
+    labs(
+      title = "Height of children as adults versus the height of their fathers",
+      x = "Father's height (in)",
+      y = "Adult child's height (in)"
+    )
+    ```
+    
+    You should also alter the size of the scatterplot circles by adding [size = 2]{.monospace} as an input in [geom\_point]{.monospace}.
+
+## Additional questions
+
+:::::{.additional-questions}
+*   Create a similar plot to **Exercise @father-child-heights** and make a scatter-plot of each person's height as a function of their *mother's* height.
+    Describe any trends that you see using full sentences.
+    If there's a trend both here and in **Exercise @father-child-heights**, does it follow the same general direction or does it not?
+    If the trends move in the same direction, then does one trend look stronger than the other?
+    If so, which one?
+    Explain how you know this using full sentences.
+    
+*   Start with your code from **Exercise @add-facet** and add a [geom\_smooth]{.monospace} command that separately performs a linear regression on the male and female categories.
+    Each subplot (or facet) should have a line in it.
+    Additionally, polish the graph using what you learned in **Exercise @add-annotations**.
+    Intrepret your results and explain how well these visualizations explain the trends in the dataset, if any.
+
+*   Compare the [geom\_smooth]{.monospace} trend-lines for when used the father's height only and when you used both the father's height and whether the child was male or female.
+    Do they both show the same trend?
+    Is one trend more "powerful" than the other?
+    Why or why not?
+    Remember to respond by writing full sentences.
+:::::
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Credits
+
+This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+[The description of the [Galton]{.monospace} dataset](#about-the-galton-dataset) was adapted from the documentation of the same dataset that’s available in the [[mosaicData]{.monospace} R package][mosaicdata-github] and some of the lab exercises were adapted from problem sets found in *Modern Data Science with R* by Benjamin Baumer, Daniel Kaplan, and Nicholas Horton.
+All other exercises and instructions written by James Glasbrenner for CDS-102.
+
+[cc-by-sa-4]:         http://creativecommons.org/licenses/by-sa/4.0/
+[mosaicdata-github]:  https://github.com/ProjectMOSAIC/mosaicData
+[ggplot2-cheatsheet]: https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf

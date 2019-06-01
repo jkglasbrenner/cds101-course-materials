@@ -1,0 +1,285 @@
+Title: Lab 07 – <em>Moneyball</em>
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-01 00:00
+Tags: lab
+Slug: lab-07-moneyball
+Summary: Build predictive models of baseball data, just like in the movie <em>Moneyball</em>
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+lab_name <- "Lab 7"
+```
+
+> This week's lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball season.
+
+## Data science in sports and at the movies
+
+The movie [Moneyball][moneyball-wiki] focuses on the "quest for the secret of success in baseball".
+It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player's ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average.
+Obtaining players who excelled in these underused statistics turned out to be much more affordable for the team.
+
+## About this week's dataset
+
+This dataset is the data from the 2011 Major League Baseball (MLB) season, containing several different kinds of summary statistics for the different teams.
+
+| Variable                    | Description                                                         |
+| --------------              | ------------------------------------------------------              |
+| [team]{.monospace}          | Name of baseball team                                               |
+| [runs]{.monospace}          | Number of runs scored                                               |
+| [at\_bats]{.monospace}      | Number of players at bat                                            |
+| [hits]{.monospace}          | Number of hits                                                      |
+| [homeruns]{.monospace}      | Number of homeruns                                                  |
+| [bat\_avg]{.monospace}      | Team batting average                                                |
+| [strikeouts]{.monospace}    | Number of strikeouts                                                |
+| [stolen\_bases]{.monospace} | Number of bases stolen                                              |
+| [wins]{.monospace}          | Number of games won                                                 |
+| [new\_onbase]{.monospace}   | On-base percentage                                                  |
+| [new\_slug]{.monospace}     | Slugging percentage (total bases divided by [at\_bats]{.monospace}) |
+| [new\_obs]{.monospace}      | On-base plus slugging percentages                                   |
+
+The first seven variables, [at\_bats]{.monospace}, [hits]{.monospace}, [homeruns]{.monospace}, [bat\_avg]{.monospace}, [strikeouts]{.monospace}, [stolen\_bases]{.monospace}, and [wins]{.monospace}, are the [traditionally used variables][traditional-baseball-statistics] for baseball statistics.
+The last three variables, [new\_onbase]{.monospace}, [new\_slug]{.monospace}, and [new\_obs]{.monospace}, are the suggested variables that the author of *Moneyball* claims were better predictors of the [runs]{.monospace} variable.
+
+@.  What type of plot would you use to display the relationship between [runs]{.monospace} and one of the other numerical variables?
+    Plot this relationship using the variable [at\_bats]{.monospace} as the explanatory variable (horizontal axis).
+    Does the relationship look linear?
+    Explain what you've noticed in the plot that makes you think the relationship is linear (or not linear).
+
+## Building a linear model
+
+R provides a straightforward way to build a least-squares linear regression model with the `lm()` function. 
+The term "least-squares" refers to the method used to find the linear model, which is to minimize the sum of the squared residuals, and the **residual** is the leftover variation in the data after accounting for the model fit.
+As an example, to build a least-squares model of [runs]{.monospace} using [at\_bats]{.monospace} as the explanatory variable, we write,
+
+```r
+runs_at_bats_model <- lm(runs ~ at_bats, data = mlb11)
+```
+
+The first argument in the function [lm]{.monospace} is a formula that takes the form [response ~ explanatory]{.monospace}.
+Here it can be read that we want to make a linear model of [runs]{.monospace} as a function of [at\_bats]{.monospace}.
+The second argument specifies that R should look in the [mlb11]{.monospace} data frame to find the [runs]{.monospace} and [at\_bats]{.monospace} variables.
+
+Having assigned the model to [runs\_at\_bats\_model]{.monospace}, we can use a couple of convenience functions from the handy [broom]{.monospace} package --- this was installed when we installed [tidyverse]{.monospace} --- to get a basic overview of the model.
+To get a data frame summarizing the model parameters, we use the `tidy()` function,
+
+```r
+runs_at_bats_model %>%
+  tidy()
+```
+
+This table contains the model coefficients, with the first column pertaining to the linear model's y-intercept and the coefficient (slope) of [at_bats]{.monospace}.
+With this table, we can write down the formal expression for the least squares regression line for our linear model:
+\\[\text{runs}(\text{at\_bats})=-2789.2429+0.6305\times\text{at\_bats}\\]
+
+Additional information about the model, such as the model's $R^2$ paramter, can be obtained using the `glance()` function:
+
+```r
+runs_at_bats_model %>%
+  glance()
+```
+
+The $R^2$ value represents the proportion of variability in the response variable that is explained by the explanatory variable.
+For this model, 37.3% of the variability in runs is explained by [at\_bats]{.monospace}.
+
+@.  Fit a new model that uses [homeruns]{.monospace} to predict [runs]{.monospace} and obtain the coefficients and other details about the model using `tidy()` and `glance()`.
+    What do the intercept and the slope tell us about the relationship between the success of a team and the number of home runs its players hit during the season?
+
+## Prediction and prediction errors
+
+After building a model, we would like to know what it predicts and what the residuals look like.
+The [modelr]{.monospace} package, which is part of the [tidyverse]{.monospace}, provides us with a function for adding the predictions to our data frame.
+To get the predictions for the model [runs ~ at_bats]{.monospace}, run:
+
+```r
+runs_at_bats_df <- mlb11 %>%
+  add_predictions(runs_at_bats_model)
+```
+
+First, let's directly compare the model with the underlying data.
+We use [ggplot2]{.monospace} to create a scatter plot and overlay the model line on top,
+
+```r
+ggplot(data = runs_at_bats_df) +
+  geom_point(mapping = aes(x = at_bats, y = runs)) +
+  geom_line(
+    mapping = aes(x = at_bats, y = pred),
+    color = "indianred3",  # color and size are used here to help the
+    size = 1               # the model line stand out.
+  )
+```
+
+Although the [pred]{.monospace} column in [runs\_at\_bats\_df]{.monospace} only corresponds to predictions for the input values of the [at\_bats]{.monospace} column, in general the model allows us to predict the value of [runs]{.monospace} at **any** value of [at\_bats]{.monospace}, including values that are outside the range $[5417, 5710]$.
+Predictions beyond the range of the observed data is referred to as *extrapolation*, and making strong predictions based on extrapolation is not recommended.
+Predictions made within the range of the data are considered more reliable.
+
+You have a couple of options available if you want to make predictions at values of [at\_bats]{.monospace} not found in the [mlb11]{.monospace} data frame.
+If you are interested in a few specific points, then you can build a data frame by hand and pipe it into `add_predictions()`,
+
+```r
+runs_at_bats_more_pred <- tibble(   (  # Creates a data frame with a column
+  at_bats = combine(5400, 5650)        # named at_bats with two values, 5400
+) %>%                                  # and 5650
+  add_predictions(runs_at_bats_model)
+```
+
+If you instead want to check predictions for a collection of points at regularly-spaced intervals, you can use the `seq_range()` function as follows:
+
+```r
+runs_at_bats_seq_pred <- tibble(      # Creates a data frame with a column
+  at_bats = seq_range(                # named at_bats that has values
+    x = combine(5400, 5700),          # incrementing by 20 over the range
+    by = 20                           # [5400, 5700]
+  )
+) %>%
+  add_predictions(runs_at_bats_model)
+```
+
+@lm-prediction.
+    If a team manager saw the least squares regression line and not the actual data, how many runs would he or she predict for a team with 5,578 [at\_bats]{.monospace}?
+    Is this an overestimate or an underestimate, and by how much?
+    In other words, what is the residual for this prediction?
+
+## Residuals
+
+As discussed earlier, the prediction error is defined as the difference between the predicted value and the observed value is called the **residual**.
+Visually, the residual is the vertical distance from the model line to each data point.
+
+@.  Use the following code to visualize the residuals connected to each data point,
+    
+    ```r
+    ggplot(runs_at_bats_df) +
+      geom_point(mapping = aes(x = at_bats, y = runs)) +
+      geom_line(
+        mapping = aes(x = at_bats, y = pred),
+        color = "indianred3",
+        size = 1
+      ) +
+      geom_linerange(
+        mapping = aes(x = at_bats, ymin = pred, ymax = runs),
+        linetype = "dashed"
+      )
+    ```
+    
+    Which data point appears to have the smallest residual?
+    Which data point appears to have the largest residual?
+
+It is typical to visualize how a model's residuals are distributed using a histogram to get a sense of their center, shape, and overall spread.
+Before we can plot the histogram, we need to collect the residuals into a new column in our dataset.
+Just like for the predictions, [modelr]{.monospace} provides the function `add_residuals()` for this purpose,
+
+```r
+runs_at_bats_df2 <- runs_at_bats_df %>%
+  add_residuals(runs_at_bats_model)
+```
+
+The residuals are added as a new column named [resid]{.monospace}.
+
+@.  Create a histogram of the residuals stored in [runs\_at\_bats\_df2]{.monospace}.
+    Make sure you choose an appropriate bin width for the distribution.
+    What is the shape and center of the residuals?
+
+## Conditions for using a linear model
+
+Three conditions must be met in order for a linear model built using `lm()` to be reliable:
+
+:::::{.additional-questions}
+*  **Linearity:** The relationship between the explanatory variable and the response variable must be linear
+
+*  **Nearly normal residuals:** The residuals should be nearly normal (i.e. follow a bell curve shape)
+
+*  **Constant variability:** The variability of the points around the model line should be roughly constant
+:::::
+
+Let's walk through each of the three conditions and discuss what we can plot to help us assess whether the linear model is reliable.
+
+### Linearity
+
+The plot we created at the beginning of the [prediction and prediction errors](#prediction-and-prediction-errors) section already provides us with an approximate idea of whether the relationship between the explanatory and response variable is linear.
+However, there are two other types of plots that we can create that will help in our assessment, an **observed versus predicted plot** and a **residual versus predicted plot**.
+The code to make an observed versus predicted plot is,
+
+```r
+ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = runs)) +
+  geom_abline(slope = 1, intercept = 0, color = "red")
+```
+
+and the code to make a residual versus predicted plot is,
+
+```r
+ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = resid)) +
+  geom_ref_line(h = 0)
+```
+
+If the points in either plot appear to follow a non-linear (curved) trend, then that's a tell-tale sign that the condition for linearity has been violated.
+
+@resid-or-obs-vs-pred-plots.
+    Create the **observed versus predicted** and **residual versus predicted** plots for the [runs ~ at_bats]{.monospace} model.
+    Interpret the plots and conclude whether the relationship between [runs]{.monospace} and [at\_bats]{.monospace} is linear or non-linear.
+
+### Nearly normal residuals
+
+The histogram we created in the [residuals](#residuals) section gives us a rough idea of whether the residuals are nearly normal, but we should have a more precise method for figuring this out.
+One such method is to build a Q-Q plot using `geom_qq()`, which is designed to show us precisely where the distribution of residuals deviates from normality.
+A reference line should also be included in the Q-Q plot, which we can do by using `geom_qq_line()`.
+Any points found on this line are following a normal distribution and any points away from the line are deviating from the normal distribution.
+
+@.  Create a Q-Q plot of the model's residuals using the following code:
+
+    ```r
+    ggplot(data = runs_at_bats_df2) +
+      geom_qq(mapping = aes(sample = resid)) +
+      geom_qq_line(mapping = aes(sample = resid))
+    ```
+    
+    Based on the resulting plot, does it appear that the condition that residuals must be nearly normal is met?
+
+### Constant variability
+
+The residual versus predicted plot you created in **Exercise @resid-or-obs-vs-pred-plots** can be used to determine whether the variability of the points around the model line remain approximately constant.
+If the residual spread seems to increase or decrease as the predicted value changes, then this condition is violated.
+
+@.  Interpret the residual versus predicted plot from **Exercise @resid-or-obs-vs-pred-plots** and conclude whether the constant variability condition is met.
+
+## Additional questions
+
+:::::{.additional-questions}
+*   Choose another traditional variable from [mlb11]{.monospace} that you think might be a good predictor of [runs]{.monospace}.
+    Fit a linear model and create **observed versus predicted** and **residual versus predicted** plots (you do not need to check the conditions for using the linear model).
+    Does your variable seem to predict [runs]{.monospace} better than [at\_bats]{.monospace}?
+    Determine this by comparing the $R^2$ values (obtained using `glance()`) for the two models.
+
+*   Now use one of the three newer variables, [new\_onbase]{.monospace}, [new\_slug]{.monospace}, and [new\_obs]{.monospace}, to build a linear model using the same method as before.
+    These are the statistics used by the author of *Moneyball* to predict a teams success.
+    After fitting the model you should create **observed versus predicted** and **residual versus predicted** plots (you do not need to check the conditions for using the linear model) and also compare the new model's $R^2$ values (obtained using `glance()`) with the others.
+    Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you investigated.
+:::::
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Credits
+
+This lab, *Moneyball*, is a derivative of [OpenIntro Lab 9 – Introduction to linear regression][openintro-lab-9] by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of UCLA Statistics, used under [CC BY-SA 3.0][cc-by-sa-3].
+*Moneyball* is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4] by James Glasbrenner.
+
+[cc-by-sa-3]:                      https://creativecommons.org/licenses/by-sa/3.0/
+[cc-by-sa-4]:                      http://creativecommons.org/licenses/by-sa/4.0/
+[moneyball-wiki]:                  http://en.wikipedia.org/wiki/Moneyball_(film)
+[openintro-lab-9]:                 https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html
+[univariate-description]:          http://stattrek.com/statistics/charts/data-patterns.aspx
+[traditional-baseball-statistics]: https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics

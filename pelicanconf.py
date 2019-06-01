@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 AUTHOR = "Dr. Glasbrenner"
 SITENAME = "CDS 101: Introduction to Computational and Data Sciences"
 SITEURL = ""
-SLACK_URL = "http://sp19-masoncds101.slack.com"
+SLACK_URL = "http://su19-masoncds101.slack.com"
 GITHUB_URL = "https://github.com/jkglasbrenner/cds101-course-materials"
 UNIVERSITYURL = "https://gmu.edu"
 TIMEZONE = "America/New_York"
@@ -64,6 +64,7 @@ TAGS_SAVE_AS = ""
 INDEX_SAVE_AS = "index.html"
 DIRECT_TEMPLATES = [
     "index",
+    "labs",
     "materials",
     "assignments",
 ]
@@ -76,9 +77,10 @@ SUMMARY_MAX_LENGTH = 50
 
 # Menu items
 MENUITEMS = [
-    # (False, "Syllabus", "syllabus.html"),
     (False, "Materials", "materials.html"),
     (False, "Assignments", "assignments.html"),
+    (False, "Labs", "labs.html"),
+    # (False, "Syllabus", "syllabus.html"),
     # (False, "Datasets", "datasets.html"),
 ]
 
@@ -100,6 +102,11 @@ CUSTOM_ARTICLE_URLS = {
         'URL': 'materials/{slug}/',
         'SAVE_AS': ('materials/{slug}/index.html'),
     },
+    'Labs': {
+        'URL': 'labs/{slug}/',
+        'SAVE_AS': ('labs/{slug}/index.html'),
+    },
+
 }
 
 # Plugin: RMD Reader
@@ -115,8 +122,12 @@ RMD_READER_KNITR_OPTS_KNIT = None
 # Plugin: Pandoc Reader
 PANDOC_ARGS = [
     "--no-highlight",
+    "--bibliography",
+    "\"theme/static/bib/references.bib\"",
     "--filter",
     "pandoc-citeproc",
+    "--csl",
+    "\"theme/static/bib/apslike.csl\"",
     "--mathjax",
     "--variable",
     "\"mathjax-url:#\"",
