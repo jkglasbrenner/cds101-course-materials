@@ -1,4 +1,4 @@
-Title: Visualization by example
+Title: Mini-homework 3 – Visualization by example
 Author: Dr. Glasbrenner
 Date: 2019-01-03 00:00
 Tags: mini-assignment
