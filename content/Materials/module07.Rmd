@@ -38,7 +38,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 ::::: {.videos-container}
 ::: {.video-item}
-**Inference and simulation - 01 - Gender discrimination case study**
+<p style="height: 50px">**01 - Gender discrimination case study**</p>
 
 ```{r inference-and-simulations-01-gender-discrimination-case-study, echo = FALSE}
 vembedr::embed_youtube(id = "EL9bbzblRq8", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -46,7 +46,7 @@ vembedr::embed_youtube(id = "EL9bbzblRq8", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Inference and simulation - 02 - A hypothesis test as a court trial**
+<p style="height: 50px">**02 - A hypothesis test as a court trial**</p>
 
 ```{r inference-and-simulations-02-a-hypothesis-test-as-a-court-trial, echo = FALSE}
 vembedr::embed_youtube(id = "LzsLhuxYiMs", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -54,7 +54,7 @@ vembedr::embed_youtube(id = "LzsLhuxYiMs", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Inference and simulation - 03 - A manual simulation of the gender discrimination experiment**
+<p style="height: 50px">**03 - A manual simulation of the gender discrimination experiment**</p>
 
 ```{r inference-and-simulations-03-a-manual-simulation-of-the-gender-discrimination-experiment, echo = FALSE}
 vembedr::embed_youtube(id = "hjVjAzuMRDM", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -62,7 +62,7 @@ vembedr::embed_youtube(id = "hjVjAzuMRDM", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Inference and simulation - 04 - Simulating the gender discrimination experiment in R**
+<p style="height: 50px">**04 - Simulating the gender discrimination experiment in R**</p>
 
 ```{r inference-and-simulations-04-simulating-the-gender-discrimination-experiment-in-r, echo = FALSE}
 vembedr::embed_youtube(id = "8wQ-uU611vI", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)

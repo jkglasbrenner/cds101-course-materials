@@ -38,7 +38,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 ::::: {.videos-container}
 ::: {.video-item}
-**01 - Reproducible toolbox - Reproducibility in science**
+**01 - Reproducibility in science**
 
 ```{r reproducible-toolbox-01-reproducibility-in-science, echo = FALSE}
 vembedr::embed_youtube(id = "-Pw-z_rROlw", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -46,7 +46,7 @@ vembedr::embed_youtube(id = "-Pw-z_rROlw", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**02 - Reproducible toolbox - Reproducible research toolkit**
+**02 - Reproducible research toolkit**
 
 ```{r reproducible-toolbox-02-reproducible-research-toolkit, echo = FALSE}
 vembedr::embed_youtube(id = "GicSJT_VorM", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)

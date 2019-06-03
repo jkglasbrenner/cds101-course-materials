@@ -44,7 +44,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 ::::: {.videos-container}
 ::: {.video-item}
-**Data distributions - 01 - Quantifying data distributions**
+**01 - Quantifying data distributions**
 
 ```{r data-distributions-01-quantifying-data-distributions, echo = FALSE}
 vembedr::embed_youtube(id = "BL5Bt-nI22k", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -52,7 +52,7 @@ vembedr::embed_youtube(id = "BL5Bt-nI22k", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Data distributions - 02 - Quantifying data distributions in R**
+**02 - Quantifying data distributions in R**
 
 ```{r data-distributions-02-quantifying-data-distributions-in-r, echo = FALSE}
 vembedr::embed_youtube(id = "tvUw91TrWO4", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -60,7 +60,7 @@ vembedr::embed_youtube(id = "tvUw91TrWO4", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Data distributions - 03 - Probability mass functions**
+**03 - Probability mass functions**
 
 ```{r data-distributions-03-probability-mass-functions, echo = FALSE}
 vembedr::embed_youtube(id = "xbLim5imqe4", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
@@ -68,7 +68,7 @@ vembedr::embed_youtube(id = "xbLim5imqe4", height = 325, width = 365, allowfulls
 :::
 
 ::: {.video-item}
-**Data distributions - 04 - Cumulative distribution functions**
+**04 - Cumulative distribution functions**
 
 ```{r data-distributions-04-cumulative-distribution-functions, echo = FALSE}
 vembedr::embed_youtube(id = "WC3YL8Npujw", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
