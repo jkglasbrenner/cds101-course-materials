@@ -3,6 +3,8 @@
   <li class="card-item">
     {% if "midterm" in tags or "final" in tags %}
       <div class="card-project"><i class="fas fa-rocket" data-fa-transform="grow-8"></i>&emsp;<strong>Project</strong></div>
+    {% elif "lab" in tags %}
+      <div class="card-class-notes"><i class="fas fa-flask" data-fa-transform="grow-8"></i>&emsp;<strong>Lab</strong></div>
     {% elif "homework" in tags %}
       <div class="card-homework"><i class="fas fa-pencil-alt" data-fa-transform="grow-8"></i>&emsp;<strong>Homework</strong></div>
     {% elif "mini-assignment" in tags %}
@@ -20,9 +22,6 @@
     {% endif %}
     <div class="card-section">
       <h2>{{ title }}</h2>
-      {% if "guide" not in tags %}
-        <p class="card-datetime"><time datetime="{{ iso_datetime }}">{{ datetime }}</time></p>
-      {% endif %}
     </div>
     <div class="card-section">
       {% if show_summary is equalto "true" %}

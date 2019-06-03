@@ -2,8 +2,8 @@
 <section class="static-page-body">
   {% for category, articles in categories if category is equalto "Assignments" %}
     <div class="wookmark-card-grid">
-      <ul>
-        {% for article in articles|sort(attribute='date', reverse=true) %}
+      <ul class="assignment-card">
+        {% for article in articles|sort(attribute='date', reverse=false) %}
           {{ wookmark_card(article.title, article.date|strftime('<strong>Due:</strong> %B %d at %I:%M %p'), article.date.isoformat(), article.summary, article.content, article.url, article.tags, article.show_summary|lower, article.show_link|lower) }}
         {% endfor %}
       </ul>

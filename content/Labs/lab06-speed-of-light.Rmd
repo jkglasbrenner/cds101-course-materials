@@ -1,0 +1,232 @@
+Title: Lab 06 – Speed of light
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-01 00:00
+Tags: lab
+Slug: lab-06-speed-of-light
+Summary: <span style="monospace">infer</span> the speed of light using Simon Newcomb's famous dataset
+Show_summary: true
+Show_link: true
+
+```{r setup, include = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+lab_name <- "Lab 6"
+```
+
+> This week's lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb's measurements of the speed of light.
+> Through this, we will see how statistical methods can help us to put the scientific method into practice and provide you with hands-on experience with the kinds of data analysis a scientist will use after completing a series of experimental measurements.
+
+## Natural science, data science
+
+Many of the datasets we've worked through in our labs this semester have come from fields outside of the natural sciences.
+That doesn't mean that the skills we're building don't have a useful application in fields such as physics, chemistry, and biology.
+For that reason, this week we will apply statistical methods to a dataset from the natural sciences that can be used to calculate the speed of light.
+
+## About this week's dataset
+
+The astronomer and applied mathematician Simon Newcomb collected this dataset over three separate days between the dates of July 24, 1882 and September 5, 1882[@stigler:robust; @Newcomb:1882] in Washington, DC.
+He performed the measurements using an apparatus design similar to Léon Foucault's system of rotating mirrors[@jaffe:1960], which allowed Newcomb to measure the time it took a beam of light to travel from Fort Myer on the west bank of the Potomac to a mirror located at the Washington monument and back[@stigler:robust; @Carter:2002], corresponding to a distance of 7443.73 meters.
+This dataset contains 66 observations, which have been transformed so that the dataset could be analyzed as a series of integers.
+To convert a dataset value $t$ to the actual transit time $t_{meas}$ in seconds, use the formula,
+
+\\[\text{t}_{\text{meas}}=\dfrac{\dfrac{\text{t}}{1000}+24.8}{1000000}\\]
+
+## Visualizing and quantifying the distribution
+
+Let's start by doing the usual practice of getting to know our dataset.
+There's only one relevant variable in this dataset, [time]{.monospace}, so it's the distribution of the measured times that matter.
+Let's appraise the distribution of time measurements by creating some visualizations:
+
+@.
+    Visualize the dataset distribution as a boxplot --- use `geom_boxplot(aes(x = "unfiltered", y = time)) + coord_flip()` --- and as a probability mass function (PMF) --- use `geom_histogram()` with [y = ..density..]{.monospace} inside `aes()` --- with a binwidth that allows you can see the full dataset (only identical numbers should have counts larger than 1).
+    Describe the center, shape, and spread of the distribution (don't forget to mention the outliers).
+
+One of the things you'll immediately notice when visualizing this dataset is how pronounced the outliers are.
+The experimental setup involved a rapidly rotating mirror that had to be precisely tuned.
+Given that the speed of light is so high, small variations in the rotation speed could significantly impact the measured travel times.
+As such, it's quite possible these outliers are due to experimental error.
+However, without further information we cannot be sure that this is the case.
+Thus, the best choice is to analyze two versions of the dataset, one with the outliers removed and one where we keep all data points.
+
+@.
+    Create a second, filtered version of the dataset that removes the outliers that you see in the distribution.
+
+Another useful visualization for understanding a dataset is the cumulative distribution function (CDF), which creates a map from the distribution's values to their respective percentiles.
+To plot the CDF for a data distribution, we can use the `geom_step()` function in [ggplot2]{.monospace}.
+
+@.
+    Visualize the CDF for both the unfiltered and filtered versions of the dataset.
+    The code for plotting the CDF for the unfiltered dataset would be:
+    
+    ```r
+    ggplot(data = newcomb) +
+      geom_step(
+        mapping = aes(x = time),
+        stat = "ecdf"
+      ) +
+      labs(y = "CDF")
+    ```
+    
+    The CDF for the filtered dataset can be visualized by slightly modifying the above code.
+    Do you notice any changes in the CDF after removing the outliers from the original dataset?
+
+Finally, to wrap up this initial exploration, quantify these distributions by computing their summary statistics.
+The following functions in R are useful for computing the summary statistics of a dataset:
+
+*   `mean()`: Computes the average
+
+*   `median()`: Computes the median
+
+*   `min()`: Finds the minimum value
+
+*   `max()`: Finds the maximum value
+
+*   `sd()`: Computes the standard deviation
+
+*   `IQR()`: Computes the interquartile range
+
+@.
+    Calculate the following summary statistics for the filtered and unfiltered versions of the dataset: the mean, median, maximum, minimum, standard deviation, and the inter-quartile range (IQR).
+    For the unfiltered dataset, this would be:
+    ```r
+    newcomb %>%
+      summarize(
+        mean = mean(time),
+        median = median(time),
+        sd = sd(time),
+        iqr = IQR(time),
+        min = min(time),
+        max = max(time),
+      )
+    ```
+    Which summary statistics are sensitive to removing the outliers?
+    Which ones are not?
+
+## [infer]{.monospace}ing a trend
+
+Because there is a spread in the time measurements in Newcomb's dataset, the measured time should be reported as a mean value with error bars.
+The error bars are typically found by calculating a confidence interval.
+A typical choice is a 95% confidence interval, which can be estimated using computational simulations that *resample* the dataset.
+To perform our statistical resampling, we will use the [tidyverse]{.monospace}-inspired [[infer]{.monospace} package][r-infer-github], which will help us to compute confidence intervals and perform hypothesis tests.
+
+To compute the confidence interval, we will need to generate the so-called *bootstrap distribution*.
+We obtain the bootstrap simulation using the following code:
+
+```r
+newcomb_bootstrap <- newcomb %>%
+  specify(formula = time ~ NULL) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+```
+
+To visualize the bootstrap distribution, we run:
+
+```r
+newcomb_bootstrap %>%
+  visualize() +
+  labs(x = "average time")
+```
+
+What the bootstrap has done is sample *with replacement* from the dataset distribution.
+The basic idea is that, if the underlying sample is representative, then we can sample directly from it *as if it were the true population*.
+The number of samples we pull is equal to the number of observations in the dataset.
+After we resample the data, we complete the procedure by calculating the [mean]{.monospace} of the simulated sample (or [median]{.monospace}, [sd]{.monospace}, or some other parameter), after which we then repeat the process multiple times until we end up with a distribution of means.
+We can then use the bootstrap sample to determine the confidence interval for the sample statistic of interest.
+
+The 95% confidence interval is defined as the fraction of the data in the bootstrap distribution that lies between the 2.5th and 97.5th percentiles, which we can compute as follows:
+
+```r
+newcomb_ci <- newcomb_bootstrap %>%
+  get_confidence_interval()
+```
+
+To visualize the confidence interval with respect to the bootstrap distribution, we run:
+
+```r
+newcomb_bootstrap %>%
+  visualize() +
+  shade_confidence_interval(endpoints = newcomb_ci) +
+  labs(x = "average time")
+```
+
+@.
+    Using the above code, compute the 95% confidence interval for the unfiltered and filtered dataset using the bootstrap method and visualize both of them.
+    Make sure that you also print out the values of the confidence interval.
+    How does the confidence interval change when you exclude the outliers (the filtered dataset)?
+    
+We can also use [infer]{.monospace} to perform a two-sided hypothesis test.
+The code for doing this is relatively similar, we just need to add an additional `hypothesize()` function.
+Of course, in order to run a hypothesis test we need some sort of hypothesis to test against, which will allow us to define the **null distribution**.
+We also need to select a significance level $\alpha$, which serves as a kind of evidence threshold that we use when determining whether or not we can reject the null hypothesis.
+A common choice for $\alpha$ is 0.05, which is the value that we will use.
+
+Subsequent work on the speed of light has determined that, given the conditions of Newcomb's setup, that this experiment should yield a "true" mean value of 33.02.
+With this value in hand, we can formalize the question of whether or not the gap separating our dataset's distribution could have been generated by chance alone.
+
+@.
+    Write down (in words) the **null hypothesis** and the **alternative hypothesis** for comparing this dataset against the "true" mean value of 33.02.
+
+We modify our code as follows in order to generate the **null distribution** needed to perform the hypothesis test:
+
+```r
+newcomb_null <- newcomb %>%
+  specify(formula = time ~ NULL) %>%
+  hypothesize(null = "point", mu = 33.02) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+```
+
+Now that we have a null distribution, we can use it in combination with the experimental average for the speed of light to calculate the **p-value**.
+The **p-value** is simply the probability that, were we to repeat the experiment again, we would obtain a result that is the same **or more extreme** than the reported experimental measurement.
+[infer]{.monospace} provides us with a convenient way to calculate the observed value, you just take the above code block and remove the `hypothesize()` and `generate()` lines,
+
+```r
+average_light_speed <- newcomb %>%
+  specify(formula = time ~ NULL) %>%
+  calculate(stat = "mean")
+```
+
+Now that we have our observed value, we can find the two-sided p-value,
+
+```r
+newcomb_null %>%
+  get_p_value(obs_stat = average_light_speed, direction = "both")
+```
+
+If the computed p-value is less than 0.05, our significance level, then we reject the null hypothesis in favor of the alternative hypothesis.
+    
+@.
+    Use the [infer]{.monospace} package to run the two-sided hypothesis test with $\alpha = 0.05$ between the ideal value of 33.02 and unfiltered and filtered datasets.
+    Can we reject the null hypothesis for either version (filtered or unfiltered) of the dataset?
+
+## Additional questions
+
+:::::{.additional-questions}
+*   From your analysis, does Newcomb's dataset seem to agree with the "true" mean value of 33.02?
+    Or is it inconsistent?
+    Make reference to your confidence intervals of both the unfiltered and filtered datasets when answering these questions as well as your two-sided hypothesis test.
+    Based on all this, how likely is it that a systematic bias exists within Newcomb's dataset?
+:::::
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Credits
+
+This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+Exercises and instructions written by James Glasbrenner for CDS-102.
+
+## References
+
+[cc-by-sa-4]:     http://creativecommons.org/licenses/by-sa/4.0/
+[r-infer-github]: https://infer.netlify.com/
