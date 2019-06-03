@@ -36,29 +36,39 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 [Videos]{.h2}
 
+::::: {.videos-container}
+::: {.video-item}
 **01 - Data visualization as communication**
 
 ```{r data-visualization-01-communication, echo = FALSE}
-vembedr::embed_youtube(id = "W5Fnc4U3sS4", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "W5Fnc4U3sS4", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **02 - Examining numerical data**
 
 ```{r data-visualization-02-examining-numerical-data, echo = FALSE}
-vembedr::embed_youtube(id = "Dtveq_kYlKQ", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "Dtveq_kYlKQ", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **03 - Describing visualizations**
 
 ```{r data-visualization-03-describing, echo = FALSE}
-vembedr::embed_youtube(id = "HVFek-6iz-M", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "HVFek-6iz-M", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **04 - Data visualization with ggplot2**
 
 ```{r data-visualization-04-data-visualization-with-ggplot2, echo = FALSE}
-vembedr::embed_youtube(id = "pmjM0mz_1Es", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "pmjM0mz_1Es", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
+:::::
 
 [Slides]{.h2}
 

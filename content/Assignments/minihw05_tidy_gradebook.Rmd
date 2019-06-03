@@ -1,4 +1,4 @@
-Title: Tidy Gradebook
+Title: Mini-homework 5 – Tidy Gradebook
 Author: Dr. Glasbrenner
 Date: 2019-01-05 00:00
 Tags: mini-assignment

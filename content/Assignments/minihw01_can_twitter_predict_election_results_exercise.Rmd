@@ -1,4 +1,4 @@
-Title: Can Twitter predict election results?
+Title: Mini-homework 1 – Can Twitter predict election results?
 Author: Dr. Glasbrenner
 Date: 2019-01-01 00:00
 Tags: mini-assignment

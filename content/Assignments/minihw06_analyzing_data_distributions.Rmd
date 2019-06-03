@@ -1,4 +1,4 @@
-Title: Analyzing data distributions
+Title: Mini-homework 6 – Analyzing data distributions
 Author: Dr. Glasbrenner
 Date: 2019-01-06 00:00
 Tags: mini-assignment

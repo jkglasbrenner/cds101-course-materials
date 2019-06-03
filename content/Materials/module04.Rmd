@@ -44,71 +44,95 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 [Videos]{.h2}
 
+::::: {.videos-container}
+::: {.video-item}
 **Data transformation - 01 - What is data wrangling?**
 
 ```{r data-transformation-01-what-is-data-wrangling, echo = FALSE}
-vembedr::embed_youtube(id = "j8tKN7Iw5dw", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "j8tKN7Iw5dw", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 02 - The presidential dataset**
 
 ```{r data-visualization-02-the-presidential-dataset, echo = FALSE}
-vembedr::embed_youtube(id = "wP6xGaTdfVc", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "wP6xGaTdfVc", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 03 - The select function**
 
 ```{r data-visualization-03-the-select-function, echo = FALSE}
-vembedr::embed_youtube(id = "bfmMYUOWnls", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "bfmMYUOWnls", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 04 - The pipe operator**
 
 ```{r data-visualization-04-the-pipe-operator, echo = FALSE}
-vembedr::embed_youtube(id = "SdrBENv3F-s", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "SdrBENv3F-s", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 05 - The arrange function**
 
 ```{r data-visualization-05-the-arrange-function, echo = FALSE}
-vembedr::embed_youtube(id = "9Hnz8KEBCUc", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "9Hnz8KEBCUc", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 06 - The slice function**
 
 ```{r data-visualization-06-the-slice-function, echo = FALSE}
-vembedr::embed_youtube(id = "m3lvPn8oP2E", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "m3lvPn8oP2E", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 07 - Boolean logic**
 
 ```{r data-visualization-07-boolean-logic, echo = FALSE}
-vembedr::embed_youtube(id = "_nVGIkzf8fg", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "_nVGIkzf8fg", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 08 - The filter function**
 
 ```{r data-visualization-08-the-filter-function, echo = FALSE}
-vembedr::embed_youtube(id = "BnscboiLaUM", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "BnscboiLaUM", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 09 - The mutate function**
 
 ```{r data-transformation-09-the-mutate-function, echo = FALSE}
-vembedr::embed_youtube(id = "1YuxbvsaErk", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "1YuxbvsaErk", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 10 - The group\_by and summarize functions**
 
 ```{r data-visualization-10-the-group-by-and-summarize-functions, echo = FALSE}
-vembedr::embed_youtube(id = "5UOC4b2_G8s", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "5UOC4b2_G8s", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
 
+::: {.video-item}
 **Data transformation - 11 - Other helpful dplyr verbs**
 
 ```{r data-visualization-11-other-helpful-dplyr-verbs, echo = FALSE}
-vembedr::embed_youtube(id = "ZTL_tP70-zo", height = 350, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "ZTL_tP70-zo", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
+:::
+:::::
 
 [Slides]{.h2}
 

@@ -1,4 +1,4 @@
-Title: R Markdown practice
+Title: Mini-homework 2a – R Markdown practice
 Author: Dr. Glasbrenner
 Date: 2019-01-02 00:00
 Tags: mini-assignment
