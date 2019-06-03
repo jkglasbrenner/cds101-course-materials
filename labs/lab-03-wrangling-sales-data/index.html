@@ -1,0 +1,269 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="https://www.cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="https://www.cds101.com/"><img src="https://www.cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="https://www.cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="https://www.cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/assignments.html">Assignments</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/labs.html">Labs</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://su19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Lab 03 – Wrangling sales&nbsp;data</h1>
+</header><div class="static-page-body">
+  <blockquote>
+<p>This week’s lab will introduce you to data transformations using the <span class="monospace">dplyr</span> library, which is loaded as part of <span class="monospace">tidyverse</span>. To keep things from becoming too complicated, we practice these commands on a small, synthetic dataset that represents sales of office&nbsp;supplies.</p>
+</blockquote>
+<h2 id="what-is-data-wrangling">What is “data&nbsp;wrangling”?</h2>
+<p>The previous lab focused on constructing visualizations using the <span class="monospace">ggplot2</span> library. The dataset used for that lab, the <span class="monospace">galton</span> dataset, was selected because it was relatively small in size and could be visualized in interesting ways without the need for additional processing. It would certainly be nice if all datasets came in such a form! However, in reality, many datasets need cleaning and to be transformed before you can create a meaningful visualization or answer a question. The dataset need not even be messy; datasets that have been preprocessed and are clean and tidy still may require transformations. The full pipeline for obtaining data, cleaning it up, and transforming it is informally referred to as “data wrangling”, which is summarized in the figure from <a href="http://r4ds.had.co.nz/wrangle-intro.html"><em>R for Data Science</em></a>&nbsp;below:</p>
+<p><img src="https://www.cds101.com/img/r4ds_data_wrangling.png" title="plot of chunk data-wrangling-figure" alt="plot of chunk data-wrangling-figure" width="60%" /></p>
+<p>We start with the <em>transform</em> part of the data wrangling pipeline, which relies on commands that are part of the <span class="monospace">dplyr</span> package, itself part of <span class="monospace">tidyverse</span>. Like many of the functions available in the <span class="monospace">tidyverse</span>, the command names provide us with clues as to what they do. If you have any prior experience with spreadsheeting software such as Microsoft Excel, you will probably find the commands in <span class="monospace">dplyr</span> to be&nbsp;familiar.</p>
+<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
+<p>This is a synthetic dataset that contains sales data of office supplies to different regions of the United States. The dataset is stored in the variable <span class="monospace">office_supplies</span>.</p>
+<h3 id="variables">Variables</h3>
+<p>This is a tabular dataset with 43 observations on the following&nbsp;variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">order_date</span></td>
+<td><span class="monospace">date</span></td>
+<td>The date the office supplies order was placed</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">region</span></td>
+<td><span class="monospace">chr</span></td>
+<td>Shipping region in United States</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">representative</span></td>
+<td><span class="monospace">chr</span></td>
+<td>Name of sales representative</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">item</span></td>
+<td><span class="monospace">chr</span></td>
+<td>Item ordered</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">units</span></td>
+<td><span class="monospace">int</span></td>
+<td>How many units of item were sold</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">unit_price</span></td>
+<td><span class="monospace">dbl</span></td>
+<td>Price per unit of item</td>
+</tr>
+</tbody>
+</table>
+<p>Like in previous labs, it’s recommended that you take a first look at the dataset by viewing it by running <code>View(office_supplies)</code> in your <em>Console</em>&nbsp;window.</p>
+<h2 id="subsetting-over-variables">Subsetting over&nbsp;variables</h2>
+<p>Let’s start with the <code>select()</code> function. The <code>select()</code> function <em>selects</em> columns from a dataset, which is useful when you’re working with a dataset that contains dozens of&nbsp;variables.</p>
+<ol class="example" type="1">
+<li><p>Try running the following&nbsp;code:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  select(representative)</code></pre>
+<p>Based on the output, explain what happens when you run this&nbsp;command.</p>
+<p>Try putting an additional column name inside the parentheses of the <code>select()</code> command (don’t forget the comma!). What does this&nbsp;do?</p></li>
+</ol>
+<div class="callout secondary">
+<p>The strange looking symbol <span class="monospace">%&gt;%</span> is called the <strong>pipe</strong>, and it is a handy way to pass a dataset through a chain of&nbsp;commands.</p>
+</div>
+<p>There are multiple ways to specify columns with the <code>select()</code> command. Let’s explore a couple of those&nbsp;ways.</p>
+<ol start="2" class="example" type="1">
+<li><p>Copy the code you wrote in <strong>Exercise 1</strong> and replace <span class="monospace">representative</span> with <span class="monospace">representative:unit_price</span>. What does the colon <span class="monospace">:</span>&nbsp;do?</p>
+<p>Next, try putting a minus sign in front of the column names, such as <span class="monospace">-representative</span> or <span class="monospace">-representative:-unit_price</span>. How does the minus sign affect the&nbsp;output?</p></li>
+</ol>
+<h2 id="sorting-data">Sorting&nbsp;data</h2>
+<p>The sort operation is a common and indispensible operation for organizing data, and the function from <span class="monospace">dplyr</span> that allows us to sort is called <code>arrange()</code>. <code>arrange()</code> sorts columns with textual data (<span class="monospace">chr</span> data type) into alphabetical order and sorts numerical data into numerical order. Try running the following&nbsp;code:</p>
+<ol start="3" class="example" type="1">
+<li><p>Run the following&nbsp;code:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  arrange(region, item)</code></pre>
+<p>Based on the output, does it look like both the <span class="monospace">region</span> and <span class="monospace">item</span> columns were sorted? Which column was sorted first? What happens if you reverse the order of the columns in your code&nbsp;snippet?</p></li>
+</ol>
+<p>By default, <code>arrange()</code> will sort data in ascending order. The function <code>desc()</code> can be used to sort in descending order, and we can mix-and-match which columns are ascending and which columns as&nbsp;descending.</p>
+<ol start="4" class="example" type="1">
+<li><p>Sort using the variable <span class="monospace">order_date</span>. Then, make a copy of the code block you just wrote and then wrap the column name with <code>desc()</code>, like so: <code>desc(order_date)</code>. Verify that <code>desc()</code> sorted the data in the reverse&nbsp;order.</p>
+<p>Copy the starting code from the previous example, and adapt it so that <span class="monospace">region</span> is sorted in <em>ascending</em> order and <span class="monospace">item</span> is sorted in <em>descending</em> order. Write it down and get the&nbsp;output.</p></li>
+</ol>
+<h2 id="transforming-data">Transforming&nbsp;data</h2>
+<p>Let’s now try an example that uses the <code>mutate()</code> function, which is a little more complex. <code>mutate()</code> lets us <strong>transform</strong> our dataset by applying the same operation to each row in the dataset and appending the results as a <em>new</em> column. This would allow you to create a new column in your dataset called <span class="monospace">total_price</span> that contains the toal price of each&nbsp;order.</p>
+<ol start="5" class="example" type="1">
+<li><p>To calculate the total price of an order, we need to multiply the number of units sold by the unit price across each row. Do this by running the following <code>mutate()</code> command:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  mutate(total_price = units * unit_price)</code></pre>
+<p>After confirming that the above command works, copy this code into a new code block and remove <span class="monospace">total_price =</span> from the function input. Does the code still run? If so, what (if anything) is different in the output? What if you used <code>mutate(final_price = units * unit_price)</code> instead?</p>
+<p>Based on these outputs, describe what the <span class="monospace">total_price =</span> part of the command seems to be&nbsp;doing.</p></li>
+</ol>
+<p>We are not limited to only one input at a time in <code>mutate()</code>. As long as we separate each input by a comma, we can put as many inputs as we want in the <code>mutate()</code> function!</p>
+<ol start="6" class="example" type="1">
+<li><p>Starting again with this&nbsp;example,</p>
+<pre class="r"><code>office_supplies %&gt;%
+  mutate(total_price = units * unit_price)</code></pre>
+<p>modify it so that there’s a second input in <code>mutate()</code>, <span class="monospace">shipping_date = order_date + 2</span>. Does this add another column? What has happened by adding the number 2 to the rows in the <span class="monospace">order_date</span>&nbsp;column?</p></li>
+</ol>
+<h2 id="immutable-datasets">Immutable&nbsp;datasets</h2>
+<p>It’s worth pausing for a moment and asking whether any of these commands are permanently changing the way the dataset looks in <span class="monospace">office_supplies</span>. Inspect your dataset using <code>View(office_supplies)</code> to&nbsp;check.</p>
+<ol start="7" class="example" type="1">
+<li><p>Based on what you observe, has the data frame in <span class="monospace">office_supplies</span> been updating with each command, or is it&nbsp;unchanged?</p>
+<p>As a comparison, run the&nbsp;command,</p>
+<pre class="r"><code>office_supplies_updated &lt;- mutate(office_supplies, total_price = units * unit_price)</code></pre>
+<p>and then print out whatever’s in <span class="monospace">office_supplies_updated</span>. Has the change stuck&nbsp;now?</p></li>
+</ol>
+<h2 id="filtering-data">Filtering&nbsp;data</h2>
+<p>Next up is the <code>filter()</code> function, which provides a ruled-based way to keep a subset of rows and remove the rest. Here we just consider rules that are simple comparisons, which involve the&nbsp;symbols:</p>
+<ul>
+<li><span class="monospace">&gt;</span>: greater&nbsp;than</li>
+<li><span class="monospace">&gt;=</span>: greater than or equal&nbsp;to</li>
+<li><span class="monospace">&lt;</span>: less&nbsp;than</li>
+<li><span class="monospace">&lt;=</span>: less than or equal&nbsp;to</li>
+<li><span class="monospace">!=</span>: not&nbsp;equal</li>
+<li><span class="monospace">==</span>:&nbsp;equal</li>
+</ul>
+<p>So, for example, a comparison rule that would show us all items that cost more than 16 dollars per unit would be <span class="monospace">unit_price &gt; 16</span>. A comparison rule that would find all rows with the representative Susan would be <span class="monospace">representative == “Susan”</span> (if you are testing for equality with a column of <span class="monospace">chr</span> type, then you need to surround any words or values in the column with quotation marks <span class="monospace">“like so”</span>.)</p>
+<ol start="8" class="example" type="1">
+<li><p>Give the <code>filter()</code> function a try by running the following two code&nbsp;blocks:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  filter(unit_price &gt; 16)</code></pre>
+<pre class="r"><code>office_supplies %&gt;%
+  filter(representative == &quot;Susan&quot;)</code></pre>
+<p>After running the above code, figure out how to write a single line of <code>filter()</code> code that shows us all the items sold by Susan that cost more than 16 dollars. You should be able to do this based on what we’ve seen so far with the other <span class="monospace">tidyverse</span>&nbsp;commands</p></li>
+</ol>
+<p>Using <code>filter()</code> is a lot like running an advanced search on a data base, and gives us a convenient way to quickly look up and inspect subsets of&nbsp;data.</p>
+<ol start="9" class="example" type="1">
+<li>Write a filter that shows us all the sales that involved the <span class="monospace">item</span> “Pen&nbsp;Set”.</li>
+</ol>
+<h2 id="data-aggregation">Data&nbsp;aggregation</h2>
+<p>It is common to want to summarize the information contained within a dataset, such as computing sums and averages, or counting how many data points belong to different groups. This is called data aggregation, as it <strong>aggregates</strong> many data points together and uses them to compute a cetain quantity. We perform data aggregation in R by using the commands <code>group_by()</code> and <code>summarize()</code>, which frequently show up as a&nbsp;pair.</p>
+<p>The <code>group_by()</code> command is applied to one or more columns, and allows you create groups that share common values in a column of categorical data. The <code>summarize()</code> command can be used when you want to do things like calculate the average number of units sold by each representative, or calculate the gross earnings of each <span class="monospace">item</span>.</p>
+<ol start="10" class="example" type="1">
+<li><p><code>group_by()</code> and <code>summarize()</code> are functions that are easier to understand using examples. First, run this example where we use <code>mean()</code> to calculate the average of a&nbsp;column:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  group_by(representative) %&gt;%
+  summarize(avg_units_sold = mean(units))</code></pre>
+<p>Which representative sold the most units on&nbsp;average?</p>
+<p>Let’s run another example where we add together the numbers in a column using <code>sum()</code>:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  mutate(total_price = units * unit_price) %&gt;%
+  group_by(item) %&gt;%
+  summarize(gross_earnings = sum(total_price))</code></pre>
+<p>Which item brought in the most gross&nbsp;earnings?</p></li>
+</ol>
+<p>Small changes to how we group our data can have a big impact on what our summary tables look like. This gives us a lot of flexibility in aggregating our data for&nbsp;analysis.</p>
+<ol start="11" class="example" type="1">
+<li><p>Take the second code example from <strong>Exercise 10</strong> and modify it so that it groups over two variables instead of&nbsp;one:</p>
+<pre class="r"><code>office_supplies %&gt;%
+  mutate(total_price = units * unit_price) %&gt;%
+  group_by(item, region) %&gt;%
+  summarize(gross_earnings = sum(total_price))</code></pre>
+<p>How did this change the summary table from what you obtained in <strong>Exercise 10</strong>? Interpret the table you get as&nbsp;output.</p></li>
+</ol>
+<h2 id="additional-questions">Additional&nbsp;questions</h2>
+<div class="additional-questions">
+<ul>
+<li><p>The company wishes to expand their sales to include a new region, Canada. Doing this would require converting the unit prices from <span class="caps">US</span> dollars to Canadian Dollars. The current conversion rate is 1 <span class="caps">US</span> Dollar = 1.29 Canadian Dollars. So, for example, an item that costs 2.99 <span class="caps">US</span> Dollars would convert to <span class="math inline">\(2.99 &#92;times 1.29 = 3.86\)</span> Canadian Dollars. Using the <code>mutate()</code> function, write a code snippet that converts the unit price in <span class="caps">US</span> Dollars into Canadian Dollars and stores the result in a new column named <span class="monospace">unit_price_canadian</span>.</p></li>
+<li><p>Take the 2nd code example you ran in exercise 10 and assign it to a variable, like&nbsp;so:</p>
+<pre class="r"><code>items_gross_earnings &lt;- office_supplies %&gt;%
+  mutate(total_price = units * unit_price) %&gt;%
+  group_by(item) %&gt;%
+  summarize(gross_earnings = sum(total_price))</code></pre>
+<p>Use <span class="monospace">items_gross_earnings</span> to create a bar chart visualization of the gross earnings per&nbsp;item.</p>
+<div class="callout secondary">
+<p><strong>Hint:</strong> You will want to use <code>geom_col()</code> for&nbsp;this.</p>
+</div></li>
+</ul>
+</div>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 3</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="credits">Credits</h2>
+<p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="https://www.cds101.com/theme/js/cds101.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

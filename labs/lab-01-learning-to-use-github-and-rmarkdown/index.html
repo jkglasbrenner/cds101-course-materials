@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="https://www.cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="https://www.cds101.com/"><img src="https://www.cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="https://www.cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="https://www.cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/assignments.html">Assignments</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/labs.html">Labs</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://su19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Lab 01 – Reproducible research with RMarkdown and&nbsp;Github</h1>
+</header><div class="static-page-body">
+  <blockquote>
+<p>This first lab will serve as a general introduction to the major tools and platforms that we will be using throughout the semester, which are R, RStudio, and Git/Github. R is the name of the programming language itself and RStudio is a convenient interface, and both are installed on the lab computers. For this first lab, we request that you login to the RStudio Server <a href="https://rstudio.cos.gmu.edu" class="uri">https://rstudio.cos.gmu.edu</a>, as installing and setting up everything takes some&nbsp;time.</p>
+</blockquote>
+<h2 id="rstudio">RStudio</h2>
+<p>The lab instructor will guide you through how to launch RStudio for the first time. When you launch RStudio, you will see an interface that looks something like&nbsp;this:</p>
+<p><img src="https://www.cds101.com/img/rstudio_interface.png" title="plot of chunk rstudio-interface" alt="plot of chunk rstudio-interface" width="100%" /></p>
+<p>The panel in the upper right contains your workspace as well as a history of the commands that you’ve previously entered. Any plots that you generate will show up in the panel in the lower right&nbsp;corner.</p>
+<p>The panel on the lower left is where you can enter R commands. It’s called the <em>console</em>. Everytime you launch RStudio, it will have the same text at the top of the console telling you the version of R that you’re running. Below that information is the <em>prompt</em>. As its name suggests, this prompt is really a request, a request for a command. When you want to test out an R command and not necessarily save it to a file, this is the place to do&nbsp;it.</p>
+<p>You will need to install some packages before going further. Enter the following command at the R prompt (i.e. right after <span class="monospace">&gt;</span> on the console) by typing it&nbsp;in:</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>You will see some output pass by. Just let it run, and when it’s completed, move on to the next&nbsp;section.</p>
+<h2 id="getting-started-with-github">Getting started with&nbsp;Github</h2>
+<p>Please sign up for an account on <a href="http://github.com">Github</a> using your Mason email address if you do not have one already. If you already have a Github account, please update your profile to use your Mason email address. If you would prefer to not do this, then create a second account using your Mason email address&nbsp;instead.</p>
+<p>Obtain the Lab01 repository on GitHub through the link in Slack. Click “Clone or Download”, and make sure it says “Clone with <span class="caps">SSH</span>” in bold in the top left of the pop-up box. If not, click on the blue “use <span class="caps">SSH</span>” button on the top right of the pop-up box. Now copy the link in the box to your&nbsp;clipboard.</p>
+<p>In RStudio, go to File -&gt; New Project. Click Version Control, then Git. Paste the link you just copied into the Repository <span class="caps">URL</span> box. Leave the Project directory name blank. Click Browse and create a directory where you store your labs, for example as <span class="monospace">Documents/102labs</span>, and select it. An RStudio project should now open up, which will allow you to start working on your homework assignment. You will probably see a blank console screen. However, in RStudio you should also see a list of all of the files available. Click on the <span class="monospace">lab01.Rmd</span> file and edit away. If you save and close R Studio and want to go back to editing your project, open up R Studio, then go to File -&gt; Open Project. Navigate to the project directory and double click on the .Rproj&nbsp;file.</p>
+<p>Note that if you received an error in the above steps, you may have to clone with <span class="caps">HTTPS</span> instead of <span class="caps">SSH</span>. You can do this by again clicking on the “Clone or Download” button in the repository page, then clicking “Use <span class="caps">HTTPS</span>” in the top right of the pop-up box. Now copy the link and repeat this&nbsp;step.</p>
+<h2 id="getting-familiar-with-rmarkdown">Getting familiar with&nbsp;RMarkdown</h2>
+<p>Now that you’ve obtained your personal lab template from Github and opened it in RStudio, we can start learning about RMarkdown. The instructor will play this video after you’ve had time to sign up for Github to introduce what RMarkdown&nbsp;is:</p>
+<!--html_preserve-->
+<iframe class="vimeo-embed" src="https://player.vimeo.com/video/178485416" width="100%" height="350" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+</iframe>
+<!--/html_preserve-->
+<p>As you can see, the combination of RMarkdown and RStudio combines text processing with the ability to execute code written in R. However, unlike software like Microsoft Word, there aren’t any formatting buttons for doing things like creating <strong>bold</strong> or <em>italicized</em> text. So how can you format your text? RMarkdown does this using symbols that stand for different types of text markups. For example, typing <code>**bold text**</code> in RMarkdown signals you want the words “bold text” to be bolded. Paragraphs are separated by a blank line, for&nbsp;example:</p>
+<pre class="markdown"><code>This is the end of the first paragraph.
+
+This starts the next paragraph.
+However, putting a line right below it will not start a new paragraph.</code></pre>
+<p>Let’s get some practice by typing in some&nbsp;examples!</p>
+<div class="callout secondary">
+<p>There is an <a href="/doc/rstudio-IDE-cheatsheet.pdf">official cheatsheet available for you to download</a>. It’s recommended that you have this available to you at all times. You may even want to print it out before next class so that you can easily reference&nbsp;it.</p>
+</div>
+<ol class="example" type="1">
+<li>Fill in your name and other information in the spaces at the top of the file if you haven’t already. Then, click the the “knit” icon just above the editing window (if a drop-down menu appears, choose “knit to <span class="caps">HTML</span>”). Based on the output that you see, explain what the <span class="monospace">##</span> and <span class="monospace">####</span> symbols are doing to the&nbsp;text.</li>
+</ol>
+<p>Let’s write some more Markdown and see what it&nbsp;does.</p>
+<ol start="2" class="example" type="1">
+<li>Type the code in the box below into your lab report file exactly you see it. Then, knit the file again and look at the output. Write a short explanation of what each markup symbol&nbsp;does.</li>
+</ol>
+<pre class="markdown"><code>*What happens when you surround text with one-star pairs?*
+
+**What happens when you surround text with two-star pairs?**
+
+***What happens when you surround text with three-star pairs?***
+
+1.  Start typing this list. Note there are two spaces between the period and the word &quot;Start&quot;.
+2.  Type the second line of the list
+1.  What happens if I type step 3 as another step 1?
+
+*   What does this star at the beginning do?
+*   Visually, it&#39;s similar to the numbered list.
+
+1.  What happens if we nest a list?
+    1.  Type four spaces, then type the number
+    2.  Did this do what you expected?
+2.  What if we contine the numbers this way?
+    *   What happens if we indent using stars?
+    *   Let&#39;s add another one for good measure.
+        *   Can we get another level of nesting?
+
+[What does this do?](https://google.com)
+
+![How is this different from the above?](test-image.jpeg)</code></pre>
+<h2 id="interlude-how-to-save-your-work-back-to-github">Interlude: How to save your work back to&nbsp;Github</h2>
+<p>Now that you’ve typed some material into your RMarkdown document, let’s take a snapshot of our work using what is called a “commit”. First, save your work in the traditional way by going to File -&gt; Save or clicking the floppy disk icon just above the editing window. Next, click on the <span class="monospace"><span class="caps">GIT</span></span> toolbar dropdown menu and select “Commit”. You will see a list of one or more filenames. Click on one of them. You will see some text appear in the lower area. Text highlighted in green has been added to the file since the last snapshot, while text highlighted in red has been deleted. Next, to the left of the filenames is a checkbox marked “Staged”. Staging just means selecting the files that we want to use when taking a snapshot. Stage the file <span class="monospace">lab01.Rmd</span>. Then, to the right, write a brief, informative message in the text box labeled “Commit message”. When you are done, click the commit button just below this text&nbsp;box.</p>
+<div class="callout primary">
+<p>Two things about committing. One, you should commit somewhat frequently. At minimum, you should try and make a commit each time that you’ve finished a lab exercise. Two, leave informative commit messages. “Added stuff” will not help you if you’re looking at your commit history in a year. A message like “Typed in Lab 1 RMarkdown examples” will be more&nbsp;useful.</p>
+</div>
+<p><strong>Important note!</strong> The above process does all this saving and snapshoting on the local computer that you’re currently using. So far we have not synchronized <em>anything</em> back to the Github website. Without synchronizing back, you will not be able to ultimately submit the lab or have the lab instructor read and grade it. Also, and this is important, if you don’t synchronize, you will not be able to work on your lab report from another&nbsp;computer.</p>
+<p>In the world of Github, synchronizing <em>from</em> our local computer <em>to</em> the Github website is called a “Push”. So let’s do that now. In the interactive commit window we opened earlier, in the upper right-hand corner you should see a button labeled “Push”, click that now. Alternatively, if the interactive commit window isn’t open, you can just click on the <span class="caps">GIT</span> toolbar dropdown menu and select “Push&nbsp;branch”.</p>
+<div class="callout primary">
+<p>The synchronizing can go in the opposite direction as well, which is called a “Pull”. One reason you would use “Pull” is if you are working on the lab report from more than one computer throughout the day. You would push your commits from the first computer, move to the second computer, and then use pull to get all the changes you made and&nbsp;synchronized.</p>
+</div>
+<h2 id="more-markdown">More&nbsp;Markdown</h2>
+<p>Now that we’ve saved and synchronized our work on Github, let’s return to RMarkdown. During the rest of the lab, you are encouraged to commit early and commit&nbsp;often.</p>
+<ol start="3" class="example" type="1">
+<li>You can create tables using Markdown, type in the following and knit to see it looks like. Do both tables look the same after being rendered? What are the snippets below each table&nbsp;doing?</li>
+</ol>
+<pre class="markdown"><code>| Column 1 | Column 2 | Column 3 | Column 4 |
+| --- | ---: | :---: | :--- |
+| Notice | what | the | colons |
+| are | doing? | | |
+
+Table: The table with poor spacing
+
+| Column 1 | Column 2 | Column 3 | Column 4 |
+| -------- | -------: | :------: | :------- |
+| Notice   | what     | the      | colons   |
+| are      | doing?   |          |          |
+
+Table: The table with good spacing</code></pre>
+<ol start="4" class="example" type="1">
+<li>Copy-and-paste one of the above tables and then add a fifth column. There should be text in both rows of the fifth&nbsp;column.</li>
+</ol>
+<p>Of course, there isn’t much point to this if we don’t include code snippets. Let’s try a couple of different commands, shall&nbsp;we?</p>
+<ol start="5" class="example" type="1">
+<li>Type the following code block into your file, then click the green “play” icon that appears to the right of your code block. Explain what you’re getting as&nbsp;output.</li>
+</ol>
+<pre><code>&#96;&#96;&#96;{r}
+qplot(x = displ, y = hwy, data = mpg)
+&#96;&#96;&#96;</code></pre>
+<ol start="6" class="example" type="1">
+<li>What output do you get if you type the following in a code block? Do you see a connection between certain parts of this output and the one from the previous question? If so, what are they? If not, why isn’t there a&nbsp;connection?</li>
+</ol>
+<pre><code>&#96;&#96;&#96;{r}
+print(mpg)
+&#96;&#96;&#96;</code></pre>
+<h2 id="knitting-your-document">Knitting your&nbsp;document</h2>
+<p>We’ve done enough demonstration for now. First, check that there are no errors when you click “knit”. Try knitting your lab report using both the <strong>Knit to <span class="caps">HTML</span></strong> and <strong>Knit to <span class="caps">PDF</span></strong> options and inspect the resulting documents. If the documents look good, then save your files and then stage, commit, and push your changes to the Github site. Do not try to commit and push the <span class="caps">HTML</span> and <span class="caps">PDF</span> documents, those will get uploaded&nbsp;elsewhere.</p>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 1</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="credits">Credits</h2>
+<p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Adapted by James Glasbrenner for <span class="caps">CDS</span>-102 from <a href="https://www2.stat.duke.edu/courses/Summer15/sta104.01-1/post/labs/lab0.html">Lab 0 - Introduction to R and RStudio</a> by <a href="https://stat.duke.edu/~mc301">Mine Çetinkaya-Rundel</a> and the <a href="https://github.com/jfiksel/github-classroom-for-students">Github Classroom Guide for Students</a> by <a href="https://github.com/jfiksel">Jacob Fiksel</a>.</p>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="https://www.cds101.com/theme/js/cds101.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>

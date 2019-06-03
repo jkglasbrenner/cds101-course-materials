@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDS 101: Introduction to Computational and Data Sciences</title>
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="https://www.cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="https://www.cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+</head>  <body>
+    <div class="header-grid-container">
+<div class="banner-container">
+  <header>
+    <div class="banner">
+      <div class="course-logo">
+        <a href="https://www.cds101.com/"><img src="https://www.cds101.com/theme/img/course-logo.svg"></a>
+      </div>
+      <div class="university-logo">
+        <a href="https://gmu.edu"><img src="https://www.cds101.com/theme/img/university-logo.svg"></a>
+      </div>
+    </div>
+  </header>
+</div>    </div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <div class="navbar-mobile" data-responsive-toggle="main-menu" data-hide-for="large">
+      <button type="button" data-toggle="main-menu"><i class="fas fa-bars"></i><span class="navbar-mobile-title">Menu</span></button>
+    </div>
+
+    <div class="navbar-menu" id="main-menu">
+      <ul class="navbar-menu-list">
+        <li>
+          <a class="navbar-home-item" href="https://www.cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+        </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/materials.html">Materials</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/assignments.html">Assignments</a>
+            </li>
+            <li>
+              <a class="navbar-menu-item" href="https://www.cds101.com/labs.html">Labs</a>
+            </li>
+          <li class="navbar-social">
+            <ul class="navbar-social-list">
+                <li>
+                  <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="http://su19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
+                </li>
+                <li>
+                  <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </nav>
+</div>    <div class="content-grid-container">
+    <article class="static-page">
+<header class="static-page-header">
+  <h1 class="static-page-title">Lab 07 – <em>Moneyball</em></h1>
+</header><div class="static-page-body">
+  <blockquote>
+<p>This week’s lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball&nbsp;season.</p>
+</blockquote>
+<h2 id="data-science-in-sports-and-at-the-movies">Data science in sports and at the&nbsp;movies</h2>
+<p>The movie <a href="http://en.wikipedia.org/wiki/Moneyball_(film)">Moneyball</a> focuses on the “quest for the secret of success in baseball”. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player’s ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the&nbsp;team.</p>
+<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
+<p>This dataset is the data from the 2011 Major League Baseball (<span class="caps">MLB</span>) season, containing several different kinds of summary statistics for the different&nbsp;teams.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">team</span></td>
+<td>Name of baseball team</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">runs</span></td>
+<td>Number of runs scored</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">at_bats</span></td>
+<td>Number of players at bat</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">hits</span></td>
+<td>Number of hits</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">homeruns</span></td>
+<td>Number of homeruns</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">bat_avg</span></td>
+<td>Team batting average</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">strikeouts</span></td>
+<td>Number of strikeouts</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">stolen_bases</span></td>
+<td>Number of bases stolen</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">wins</span></td>
+<td>Number of games won</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">new_onbase</span></td>
+<td>On-base percentage</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">new_slug</span></td>
+<td>Slugging percentage (total bases divided by <span class="monospace">at_bats</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">new_obs</span></td>
+<td>On-base plus slugging percentages</td>
+</tr>
+</tbody>
+</table>
+<p>The first seven variables, <span class="monospace">at_bats</span>, <span class="monospace">hits</span>, <span class="monospace">homeruns</span>, <span class="monospace">bat_avg</span>, <span class="monospace">strikeouts</span>, <span class="monospace">stolen_bases</span>, and <span class="monospace">wins</span>, are the <a href="https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics">traditionally used variables</a> for baseball statistics. The last three variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, are the suggested variables that the author of <em>Moneyball</em> claims were better predictors of the <span class="monospace">runs</span>&nbsp;variable.</p>
+<ol class="example" type="1">
+<li>What type of plot would you use to display the relationship between <span class="monospace">runs</span> and one of the other numerical variables? Plot this relationship using the variable <span class="monospace">at_bats</span> as the explanatory variable (horizontal axis). Does the relationship look linear? Explain what you’ve noticed in the plot that makes you think the relationship is linear (or not&nbsp;linear).</li>
+</ol>
+<h2 id="building-a-linear-model">Building a linear&nbsp;model</h2>
+<p>R provides a straightforward way to build a least-squares linear regression model with the <code>lm()</code> function. The term “least-squares” refers to the method used to find the linear model, which is to minimize the sum of the squared residuals, and the <strong>residual</strong> is the leftover variation in the data after accounting for the model fit. As an example, to build a least-squares model of <span class="monospace">runs</span> using <span class="monospace">at_bats</span> as the explanatory variable, we&nbsp;write,</p>
+<pre class="r"><code>runs_at_bats_model &lt;- lm(runs ~ at_bats, data = mlb11)</code></pre>
+<p>The first argument in the function <span class="monospace">lm</span> is a formula that takes the form <span class="monospace">response ~ explanatory</span>. Here it can be read that we want to make a linear model of <span class="monospace">runs</span> as a function of <span class="monospace">at_bats</span>. The second argument specifies that R should look in the <span class="monospace">mlb11</span> data frame to find the <span class="monospace">runs</span> and <span class="monospace">at_bats</span>&nbsp;variables.</p>
+<p>Having assigned the model to <span class="monospace">runs_at_bats_model</span>, we can use a couple of convenience functions from the handy <span class="monospace">broom</span> package — this was installed when we installed <span class="monospace">tidyverse</span> — to get a basic overview of the model. To get a data frame summarizing the model parameters, we use the <code>tidy()</code> function,</p>
+<pre class="r"><code>runs_at_bats_model %&gt;%
+  tidy()</code></pre>
+<p>This table contains the model coefficients, with the first column pertaining to the linear model’s y-intercept and the coefficient (slope) of <span class="monospace">at_bats</span>. With this table, we can write down the formal expression for the least squares regression line for our linear model: <span class="math display">\[\text{runs}(\text{at\_bats})=-2789.2429+0.6305\times\text{at\_bats}\]</span></p>
+<p>Additional information about the model, such as the model’s <span class="math inline">\(R^2\)</span> paramter, can be obtained using the <code>glance()</code> function:</p>
+<pre class="r"><code>runs_at_bats_model %&gt;%
+  glance()</code></pre>
+<p>The <span class="math inline">\(R^2\)</span> value represents the proportion of variability in the response variable that is explained by the explanatory variable. For this model, 37.3% of the variability in runs is explained by <span class="monospace">at_bats</span>.</p>
+<ol start="2" class="example" type="1">
+<li>Fit a new model that uses <span class="monospace">homeruns</span> to predict <span class="monospace">runs</span> and obtain the coefficients and other details about the model using <code>tidy()</code> and <code>glance()</code>. What do the intercept and the slope tell us about the relationship between the success of a team and the number of home runs its players hit during the&nbsp;season?</li>
+</ol>
+<h2 id="prediction-and-prediction-errors">Prediction and prediction&nbsp;errors</h2>
+<p>After building a model, we would like to know what it predicts and what the residuals look like. The <span class="monospace">modelr</span> package, which is part of the <span class="monospace">tidyverse</span>, provides us with a function for adding the predictions to our data frame. To get the predictions for the model <span class="monospace">runs ~ at_bats</span>,&nbsp;run:</p>
+<pre class="r"><code>runs_at_bats_df &lt;- mlb11 %&gt;%
+  add_predictions(runs_at_bats_model)</code></pre>
+<p>First, let’s directly compare the model with the underlying data. We use <span class="monospace">ggplot2</span> to create a scatter plot and overlay the model line on&nbsp;top,</p>
+<pre class="r"><code>ggplot(data = runs_at_bats_df) +
+  geom_point(mapping = aes(x = at_bats, y = runs)) +
+  geom_line(
+    mapping = aes(x = at_bats, y = pred),
+    color = &quot;indianred3&quot;,  # color and size are used here to help the
+    size = 1               # the model line stand out.
+  )</code></pre>
+<p>Although the <span class="monospace">pred</span> column in <span class="monospace">runs_at_bats_df</span> only corresponds to predictions for the input values of the <span class="monospace">at_bats</span> column, in general the model allows us to predict the value of <span class="monospace">runs</span> at <strong>any</strong> value of <span class="monospace">at_bats</span>, including values that are outside the range <span class="math inline">\([5417, 5710]\)</span>. Predictions beyond the range of the observed data is referred to as <em>extrapolation</em>, and making strong predictions based on extrapolation is not recommended. Predictions made within the range of the data are considered more&nbsp;reliable.</p>
+<p>You have a couple of options available if you want to make predictions at values of <span class="monospace">at_bats</span> not found in the <span class="monospace">mlb11</span> data frame. If you are interested in a few specific points, then you can build a data frame by hand and pipe it into <code>add_predictions()</code>,</p>
+<pre class="r"><code>runs_at_bats_more_pred &lt;- tibble(   (  # Creates a data frame with a column
+  at_bats = combine(5400, 5650)        # named at_bats with two values, 5400
+) %&gt;%                                  # and 5650
+  add_predictions(runs_at_bats_model)</code></pre>
+<p>If you instead want to check predictions for a collection of points at regularly-spaced intervals, you can use the <code>seq_range()</code> function as&nbsp;follows:</p>
+<pre class="r"><code>runs_at_bats_seq_pred &lt;- tibble(      # Creates a data frame with a column
+  at_bats = seq_range(                # named at_bats that has values
+    x = combine(5400, 5700),          # incrementing by 20 over the range
+    by = 20                           # [5400, 5700]
+  )
+) %&gt;%
+  add_predictions(runs_at_bats_model)</code></pre>
+<ol start="3" class="example" type="1">
+<li>If a team manager saw the least squares regression line and not the actual data, how many runs would he or she predict for a team with 5,578 <span class="monospace">at_bats</span>? Is this an overestimate or an underestimate, and by how much? In other words, what is the residual for this&nbsp;prediction?</li>
+</ol>
+<h2 id="residuals">Residuals</h2>
+<p>As discussed earlier, the prediction error is defined as the difference between the predicted value and the observed value is called the <strong>residual</strong>. Visually, the residual is the vertical distance from the model line to each data&nbsp;point.</p>
+<ol start="4" class="example" type="1">
+<li><p>Use the following code to visualize the residuals connected to each data&nbsp;point,</p>
+<pre class="r"><code>ggplot(runs_at_bats_df) +
+  geom_point(mapping = aes(x = at_bats, y = runs)) +
+  geom_line(
+    mapping = aes(x = at_bats, y = pred),
+    color = &quot;indianred3&quot;,
+    size = 1
+  ) +
+  geom_linerange(
+    mapping = aes(x = at_bats, ymin = pred, ymax = runs),
+    linetype = &quot;dashed&quot;
+  )</code></pre>
+<p>Which data point appears to have the smallest residual? Which data point appears to have the largest&nbsp;residual?</p></li>
+</ol>
+<p>It is typical to visualize how a model’s residuals are distributed using a histogram to get a sense of their center, shape, and overall spread. Before we can plot the histogram, we need to collect the residuals into a new column in our dataset. Just like for the predictions, <span class="monospace">modelr</span> provides the function <code>add_residuals()</code> for this&nbsp;purpose,</p>
+<pre class="r"><code>runs_at_bats_df2 &lt;- runs_at_bats_df %&gt;%
+  add_residuals(runs_at_bats_model)</code></pre>
+<p>The residuals are added as a new column named <span class="monospace">resid</span>.</p>
+<ol start="5" class="example" type="1">
+<li>Create a histogram of the residuals stored in <span class="monospace">runs_at_bats_df2</span>. Make sure you choose an appropriate bin width for the distribution. What is the shape and center of the&nbsp;residuals?</li>
+</ol>
+<h2 id="conditions-for-using-a-linear-model">Conditions for using a linear&nbsp;model</h2>
+<p>Three conditions must be met in order for a linear model built using <code>lm()</code> to be&nbsp;reliable:</p>
+<div class="additional-questions">
+<ul>
+<li><p><strong>Linearity:</strong> The relationship between the explanatory variable and the response variable must be&nbsp;linear</p></li>
+<li><p><strong>Nearly normal residuals:</strong> The residuals should be nearly normal (i.e. follow a bell curve&nbsp;shape)</p></li>
+<li><strong>Constant variability:</strong> The variability of the points around the model line should be roughly&nbsp;constant</li>
+</ul>
+</div>
+<p>Let’s walk through each of the three conditions and discuss what we can plot to help us assess whether the linear model is&nbsp;reliable.</p>
+<h3 id="linearity">Linearity</h3>
+<p>The plot we created at the beginning of the <a href="#prediction-and-prediction-errors">prediction and prediction errors</a> section already provides us with an approximate idea of whether the relationship between the explanatory and response variable is linear. However, there are two other types of plots that we can create that will help in our assessment, an <strong>observed versus predicted plot</strong> and a <strong>residual versus predicted plot</strong>. The code to make an observed versus predicted plot&nbsp;is,</p>
+<pre class="r"><code>ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = runs)) +
+  geom_abline(slope = 1, intercept = 0, color = &quot;red&quot;)</code></pre>
+<p>and the code to make a residual versus predicted plot&nbsp;is,</p>
+<pre class="r"><code>ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = resid)) +
+  geom_ref_line(h = 0)</code></pre>
+<p>If the points in either plot appear to follow a non-linear (curved) trend, then that’s a tell-tale sign that the condition for linearity has been&nbsp;violated.</p>
+<ol start="6" class="example" type="1">
+<li>Create the <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots for the <span class="monospace">runs ~ at_bats</span> model. Interpret the plots and conclude whether the relationship between <span class="monospace">runs</span> and <span class="monospace">at_bats</span> is linear or&nbsp;non-linear.</li>
+</ol>
+<h3 id="nearly-normal-residuals">Nearly normal&nbsp;residuals</h3>
+<p>The histogram we created in the <a href="#residuals">residuals</a> section gives us a rough idea of whether the residuals are nearly normal, but we should have a more precise method for figuring this out. One such method is to build a Q-Q plot using <code>geom_qq()</code>, which is designed to show us precisely where the distribution of residuals deviates from normality. A reference line should also be included in the Q-Q plot, which we can do by using <code>geom_qq_line()</code>. Any points found on this line are following a normal distribution and any points away from the line are deviating from the normal&nbsp;distribution.</p>
+<ol start="7" class="example" type="1">
+<li><p>Create a Q-Q plot of the model’s residuals using the following&nbsp;code:</p>
+<pre class="r"><code>ggplot(data = runs_at_bats_df2) +
+  geom_qq(mapping = aes(sample = resid)) +
+  geom_qq_line(mapping = aes(sample = resid))</code></pre>
+<p>Based on the resulting plot, does it appear that the condition that residuals must be nearly normal is&nbsp;met?</p></li>
+</ol>
+<h3 id="constant-variability">Constant&nbsp;variability</h3>
+<p>The residual versus predicted plot you created in <strong>Exercise 6</strong> can be used to determine whether the variability of the points around the model line remain approximately constant. If the residual spread seems to increase or decrease as the predicted value changes, then this condition is&nbsp;violated.</p>
+<ol start="8" class="example" type="1">
+<li>Interpret the residual versus predicted plot from <strong>Exercise 6</strong> and conclude whether the constant variability condition is&nbsp;met.</li>
+</ol>
+<h2 id="additional-questions">Additional&nbsp;questions</h2>
+<div class="additional-questions">
+<ul>
+<li><p>Choose another traditional variable from <span class="monospace">mlb11</span> that you think might be a good predictor of <span class="monospace">runs</span>. Fit a linear model and create <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots (you do not need to check the conditions for using the linear model). Does your variable seem to predict <span class="monospace">runs</span> better than <span class="monospace">at_bats</span>? Determine this by comparing the <span class="math inline">\(R^2\)</span> values (obtained using <code>glance()</code>) for the two&nbsp;models.</p></li>
+<li>Now use one of the three newer variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, to build a linear model using the same method as before. These are the statistics used by the author of <em>Moneyball</em> to predict a teams success. After fitting the model you should create <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots (you do not need to check the conditions for using the linear model) and also compare the new model’s <span class="math inline">\(R^2\)</span> values (obtained using <code>glance()</code>) with the others. Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you&nbsp;investigated.</li>
+</ul>
+</div>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 7</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="credits">Credits</h2>
+<p>This lab, <em>Moneyball</em>, is a derivative of <a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html">OpenIntro Lab 9 – Introduction to linear regression</a> by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of <span class="caps">UCLA</span> Statistics, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/"><span class="caps">CC</span> <span class="caps">BY</span>-<span class="caps">SA</span> 3.0</a>. <em>Moneyball</em> is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a> by James&nbsp;Glasbrenner.</p>
+
+</div>    </article>
+    </div>
+<footer class="page-footer">
+    <div class="footer-grid-container">
+      Except where otherwise noted, site materials are created by
+      <a href="https://cos.gmu.edu/cds/faculty-profile-james-glasbrenner/">
+        James K. Glasbrenner
+      </a>
+      and licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License
+      </a>.
+    </div>
+</footer><script src="https://www.cds101.com/theme/js/cds101.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="https://www.cds101.com/theme/js/vendor/vendorInit.js"></script>
+  </body>
+</html>
