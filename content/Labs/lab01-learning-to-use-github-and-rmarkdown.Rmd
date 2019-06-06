@@ -1,97 +1,185 @@
-Title: Lab 01 – Reproducible research with RMarkdown and Github
+Title: Lab 01 – Reproducible research with R Markdown and GitHub
 Author: Dr. Glasbrenner
 Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
 Tags: lab
 Slug: lab-01-learning-to-use-github-and-rmarkdown
-Summary: Introducing R, RStudio, Github and RMarkdown!
+Summary: Introducing R, RStudio, GitHub and R Markdown!
 Show_summary: true
 Show_link: true
 
 ```{r setup, include = FALSE}
-library(tidyverse)
-library(vembedr)
-library(htmltools)
-
+knitr::opts_chunk$set(
+  echo = FALSE,
+  eval = TRUE,
+  fig.width = 5,
+  fig.asp = 0.618,
+  out.width = "70%",
+  dpi = 120,
+  fig.align = "center",
+  dev = "svg"
+)
+icon_link <- '<i class="fas fa-link"></i>'
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
 lab_name <- "Lab 1"
+
+library(tidyverse)
+library(vembedr)
+library(htmltools)
 ```
 
-> This first lab will serve as a general introduction to the major tools and platforms that we will be using throughout the semester, which are R, RStudio, and Git/Github.
-> R is the name of the programming language itself and RStudio is a convenient interface, and both are installed on the lab computers.
-> For this first lab, we request that you login to the RStudio Server <https://rstudio.cos.gmu.edu>, as installing and setting up everything takes some time.
+> This week's lab provides you with a general introduction to the tools and platforms we use during the semester, which are R, RStudio Server, and GitHub.
+> R is the name of the programming language itself and RStudio Server is a convenient interface that you access using a web browser at <https://rstudio.cos.gmu.edu>.
 
-## RStudio
+## Obtaining your starter code
 
-The lab instructor will guide you through how to launch RStudio for the first time.
-When you launch RStudio, you will see an interface that looks something like this:
+Since this is the first time that you will obtain starter code for a lab, we will take the time to go through the procedure step-by-step.
+Carefully follow the instructions provided below and do your best to understand why you're performing each step, as you will follow a similar series of steps every time you are assigned a new lab report!
 
-```{r rstudio-interface, echo = FALSE, out.width = "100%"}
+### Login to RStudio Server
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+Since &nbsp;[`r icon_link`_Lab 00: Beginnings_][lab-00] required you to login to RStudio Server, you should have already changed your temporary password and run the initial configuration script.
+If you have not done this yet, please complete all the steps in &nbsp;[`r icon_link`_Lab 00_][lab-00] first before continuing with this lab.
+:::
+
+Navigate to the class installation of RStudio Server using this link <https://rstudio.cos.gmu.edu> and login using your username and password.
+After logging in, you will be presented with an interface that looks something like this,
+
+```{r rstudio-lab01-login, out.width = "80%"}
+knitr::include_graphics("img/rstudio_lab01_login.png")
+```
+
+If, as shown in the above image, you see the phrase [rstudio-server-initial-configuration]{.monospace} in the region surrounded by the orange rectangle, then that means you still have the initial configuration workspace activated.
+To close it, click [rstudio-server-initial-configuration]{.monospace} and then click *Close Project*,
+
+```{r rstudio-close-project, out.width = "80%"}
+knitr::include_graphics("img/rstudio_closing_a_project.gif")
+```
+
+### Accept GitHub Classroom assignment
+
+Each time you are assigned a lab to complete for the course you will need to get a copy of the starter code on GitHub.
+Copies are distributed using [GitHub Classroom][github-education].
+As a student, all you need to do to grab your personal copy is click a link and then click a button to "accept" the assignment.
+
+To accept the starter code for Lab 01, open a new tab in your web browser and go to the Blackboard page for CDS 102.
+Click the _Labs_ link on the left sidebar, locate the Lab 01 assignment, and click the GitHub Classroom link posted there.
+After following the link, if you are presented with a list of names, find yours and click it.
+Afterwards, click accept and wait for the copying process to finish.
+Once copying is complete, click the final link provided to you to view your starter code.
+
+See the animation below for an example of what this process looks like start to finish,
+
+```{r github-classroom-accept-assignment, out.width = "80%"}
+knitr::include_graphics("img/github_classroom_accept_assignment.gif")
+```
+
+### Clone repository to RStudio Server
+
+The starter code that you are looking at is stored in what's called a **repository**.
+GitHub describes a repository as follows,
+
+> A repository is the most basic element of GitHub.
+> They're easiest to imagine as a project's folder.
+> A repository contains all of the project files (including documentation), and stores each file's revision history.
+> Repositories can have multiple collaborators and can be either public or private.
+> 
+> --- [GitHub Glossary][github-glossary-repo]
+
+Looking at the repository page is a good way to check what files are visible to course instructor and, for any group-based assignments, your teammates.
+
+To use this starter code to complete your lab, we need a way to copy it into your RStudio Server account.
+The process of making an exact copy of the repository is called **cloning**.
+To clone your starter code to RStudio Server, we first click the green _Clone or download_ button.
+Verify that the pop-up says _Clone with HTTPS_.
+If it does not, fix this by clicking on the blue "use HTTPS" button on the top right of the pop-up box.
+Finally, click the clipboard icon on the right of the pop-up to copy the link so that you can paste it elsewhere.
+
+See the animation below for an example of what this process looks like start to finish,
+
+```{r github-get-clone-url, out.width = "80%"}
+knitr::include_graphics("img/github_get_clone_url.gif")
+```
+
+We're almost done!
+The final steps you need to complete are similar to what you had to do in _Lab 00_.
+Go back to your RStudio Server tab in your web browser and look for an icon with a blue cube and plus sign near the top left of the interface.
+This is the **New Project** icon.
+Click the icon, then **Version Control**, then **Git**, paste the link you copied into the _Repository URL_ box, and finally click **Create Project**.
+You will be asked to enter your **GitHub username and password**.
+If you enter the information correctly, RStudio Server will connect to GitHub and clone the repository directly into your account, and the screen will refresh.
+
+See the animation below for an example of what this process looks like start to finish,
+
+```{r rstudio-clone-repository, out.width = "80%"}
+knitr::include_graphics("img/rstudio_clone_repository.gif")
+```
+
+## Quick tour of the RStudio Server interface
+
+Now that you have your starter files cloned to your RStudio Server account, let's get better acquainted with RStudio Server's interface.
+Let's start by opening up the file you'll be using to complete your lab report.
+Look at the list of files in the lower-right panel and click the file named [lab01.Rmd]{.monospace}.
+Your interface should now look something like this,
+
+```{r rstudio-interface, out.width = "80%"}
 knitr::include_graphics("img/rstudio_interface.png")
 ```
 
-The panel in the upper right contains your workspace as well as a history of the commands that you've previously entered.
-Any plots that you generate will show up in the panel in the lower right corner.
+The above image labels the four default panels for RStudio Server, which are,
 
-The panel on the lower left is where you can enter R commands.
-It's called the *console*.
-Everytime you launch RStudio, it will have the same text at the top of the console telling you the version of R that you're running.
-Below that information is the *prompt*.
-As its name suggests, this prompt is really a request, a request for a command.
-When you want to test out an R command and not necessarily save it to a file, this is the place to do it.
+*   _Editor_ panel (upper-left): This is the panel where you'll do most of your work. It is similar to plain text editors like Notepad or TextEdit that you may have installed on your personal computer or laptop. This is the place where you will complete exercises and write R code.
 
-You will need to install some packages before going further.
-Enter the following command at the R prompt (i.e. right after [>]{.monospace} on the console) by typing it in:
+*   _Console_ panel (lower-left): This is the panel where you can enter different R commands. The [\>]{.monospace} symbol is called the _prompt_, which is really just a request for an R command. When you want to test an R command but not necessarily save it to a file, this is the place to do it.
 
-```r
-install.packages("tidyverse")
+*   _Workspace Tabs_ panel (upper-right): This is the panel that provides you with information about your current workspace. The most important tabs for you to know are the Environment tab, which tells you the variables and commands you've defined so far, the History tab, which provides a command history, and the Git tab, which provides you with information about changes you make to your GitHub repository.
+
+*   _Support Tabs_ panel (lower-right): This is the panel that provides you with ways to manage your files, preview images and documents, and get help.
+
+## How to switch between labs
+
+As far as RStudio Server is concerned, each lab that you work on is a separate project and is stored within its own folder.
+This might be different from how you like to organize files on your own computer.
+The advantage to this folder-based method is that files related to a specific assignment are grouped together.
+At the same time, browsing between many folders can become a hassle.
+To help with this, RStudio provides a quick way to switch between projects.
+To switch to a different project, click the active project name in the upper-right corner of the interface to open up a menu.
+Under the _Share Project_ option is a list of the most recent projects you've activated.
+Select the project you want to work on and wait for the refresh to complete.
+The files listed in the lower-right panel should have changed to match the project you just activated.
+
+The animation below demonstrates how to switch back and forth between two different projects.
+
+```{r rstudio-switching-projects, out.width = "80%"}
+knitr::include_graphics("img/rstudio_switching_projects.gif")
 ```
 
-You will see some output pass by.
-Just let it run, and when it's completed, move on to the next section.
+::: {.callout .secondary}
+[Do I have to?]{.h4}
 
-## Getting started with Github
+At this point, you might be wondering whether or not switching projects like this is a requirement or just a helpful feature.
+**Since we are using GitHub, it is a requirement.**
+You will only be able to &nbsp;<span style="white-space: nowrap;">[`r icon_link`send your updated files to GitHub](#interlude-how-to-save-your-work-back-to-github)</span> if the correct project is activated.
+:::
 
-Please sign up for an account on [Github](http://github.com) using your Mason email address if you do not have one already.
-If you already have a Github account, please update your profile to use your Mason email address.
-If you would prefer to not do this, then create a second account using your Mason email address instead.
+## Getting familiar with R Markdown
 
-Obtain the Lab01 repository on GitHub through the link in Slack.
-Click "Clone or Download", and make sure it says "Clone with SSH" in bold in the top left of the pop-up box.
-If not, click on the blue "use SSH" button on the top right of the pop-up box.
-Now copy the link in the box to your clipboard.
+Now that you've obtained your starter code from GitHub and opened it in RStudio Server, we can start learning about the R Markdown format.
+Let's start by taking a moment to watch the following video that summarizes what R Markdown is all about,
 
-In RStudio, go to File -> New Project.
-Click Version Control, then Git.
-Paste the link you just copied into the Repository URL box.
-Leave the Project directory name blank.
-Click Browse and create a directory where you store your labs, for example as [Documents/102labs]{.monospace}, and select it.
-An RStudio project should now open up, which will allow you to start working on your homework assignment.
-You will probably see a blank console screen.
-However, in RStudio you should also see a list of all of the files available.
-Click on the [lab01.Rmd]{.monospace} file and edit away.
-If you save and close R Studio and want to go back to editing your project, open up R Studio, then go to File -> Open Project.
-Navigate to the project directory and double click on the .Rproj file.
-
-Note that if you received an error in the above steps, you may have to clone with HTTPS instead of SSH.
-You can do this by again clicking on the "Clone or Download" button in the repository page, then clicking "Use HTTPS" in the top right of the pop-up box.
-Now copy the link and repeat this step.
-
-## Getting familiar with RMarkdown
-
-Now that you've obtained your personal lab template from Github and opened it in RStudio, we can start learning about RMarkdown.
-The instructor will play this video after you've had time to sign up for Github to introduce what RMarkdown is:
-
-```{r rmarkdown-video, echo = FALSE}
+```{r r-markdown-video, echo = FALSE}
 embed_vimeo(id = "178485416", width = "100%", height = 350, allowfullscreen = TRUE, frameborder = 0)
 ```
 
-As you can see, the combination of RMarkdown and RStudio combines text processing with the ability to execute code written in R.
+As you can see, the combination of R Markdown and RStudio Server allows us to combine text processing with the ability to execute code written in R.
 However, unlike software like Microsoft Word, there aren't any formatting buttons for doing things like creating **bold** or *italicized* text.
 So how can you format your text?
-RMarkdown does this using symbols that stand for different types of text markups.
-For example, typing `**bold text**` in RMarkdown signals you want the words "bold text" to be bolded.
+R Markdown does this using symbols that stand for different types of text markups.
+For example, typing `**bold text**` in a R Markdown file signals you want the words "bold text" to be bolded.
 Paragraphs are separated by a blank line, for example:
 
 ```markdown
@@ -101,134 +189,168 @@ This starts the next paragraph.
 However, putting a line right below it will not start a new paragraph.
 ```
 
-Let's get some practice by typing in some examples!
+Let's practice by typing in some examples!
 
-::::: {.callout .secondary}
-There is an [official cheatsheet available for you to download][rstudio-cheatsheet].
-It's recommended that you have this available to you at all times.
-You may even want to print it out before next class so that you can easily reference it.
-:::::
+::: {.callout .secondary}
+[Lab exercises]{.h4}
+
+Each lab assignment for CDS 102 contains a series of numbered exercises for you to complete.
+You will complete these in your [lab01.Rmd]{.monospace} file in the space below each header (the headers are [\#\# Exercise 1]{.monospace}, [\#\# Exercise 2]{.monospace}, etc.).
+These exercises can show up anywhere in the lab instructions, so be sure to read carefully so that you don't miss any.
+The first and second exercises for this lab are below.
+Lab 01 has six exercises in all.
+:::
 
 @.
-    Fill in your name and other information in the spaces at the top of the file if you haven't already.
-    Then, click the the "knit" icon just above the editing window (if a drop-down menu appears, choose "knit to HTML").
-    Based on the output that you see, explain what the [##]{.monospace} and [####]{.monospace} symbols are doing to the text.
+    Fill in your name at the top of the [lab01.Rmd]{.monospace} file if you haven't already.
+    Then, below [\#\# Exercise 1]{.monospace}, write
+    
+    ```markdown
+    ## Exercise 1
+    
+    This is Exercise 1.
+    ```
+    
+    Save your document by clicking the save icon.
+    Next, click the far-right side of the "knit" icon just above the editing window.
+    In the drop-down menu that appears, choose _knit to PDF_.
+    If you are asked to install updates, click _Yes_.
+    
+    ```{r rstudio-knit-demo, out.width = "80%"}
+    knitr::include_graphics("img/rstudio_knit_demo.gif")
+    ```
+    
+    After knitting is complete, a pop-up window should open.
+    Based on the output that you see, explain what the [\#\#]{.monospace} symbols are doing to the text.
+    Write your explanation below [This is Exercise 1]{.monospace}.
+    
+    ::: {.callout .secondary}
+    [Pop-up problems]{.h4}
+    
+    If you do not see a pop-up after clicking knit, then your web browser is most likely blocking pop-ups.
+    Fix this by telling your browser to allow pop-ups from RStudio Server, here are instructions for &nbsp;<span style="white-space: nowrap;">[`r icon_link`Google Chrome][chrome-pop-ups]</span> and for &nbsp;<span style="white-space: nowrap;">[`r icon_link`Firefox][firefox-pop-ups]</span>.
+    :::
 
 Let's write some more Markdown and see what it does.
 
 @.
-    Type the code in the box below into your lab report file exactly you see it.
-    Then, knit the file again and look at the output.
+    Type the markdown text in the box below into your lab report file exactly you see it under [\#\# Exercise 2]{.monospace}.
+    Then, knit the file to PDF again and look at the output.
     Write a short explanation of what each markup symbol does.
 
-```markdown
-*What happens when you surround text with one-star pairs?*
+    ```markdown
+    *What happens when you surround text with one-star pairs?*
+    
+    **What happens when you surround text with two-star pairs?**
+    
+    ***What happens when you surround text with three-star pairs?***
+    
+    1.  Start typing this list. Note there are two spaces between the period and the word "Start".
+    2.  Type the second line of the list
+    1.  What happens if I type step 3 as another step 1?
+    
+    *   What does this star at the beginning do?
+    *   Visually, it's similar to the numbered list.
+    
+    1.  What happens if we nest a list?
+        1.  Type four spaces, then type the number
+        2.  Did this do what you expected?
+    2.  What if we contine the numbers this way?
+        *   What happens if we indent using stars?
+        *   Let's add another one for good measure.
+            *   Can we get another level of nesting?
+    
+    [What does this do?](https://google.com)
+    
+    ![How is this different from the above?](test-image.jpeg)
+    ```
 
-**What happens when you surround text with two-star pairs?**
+## Interlude: How to save your work back to GitHub
 
-***What happens when you surround text with three-star pairs?***
+Now that you've typed some material into your R Markdown document, let's take a snapshot of our work using what is called a "commit".
+The animation below demonstrates how to do this,
 
-1.  Start typing this list. Note there are two spaces between the period and the word "Start".
-2.  Type the second line of the list
-1.  What happens if I type step 3 as another step 1?
-
-*   What does this star at the beginning do?
-*   Visually, it's similar to the numbered list.
-
-1.  What happens if we nest a list?
-    1.  Type four spaces, then type the number
-    2.  Did this do what you expected?
-2.  What if we contine the numbers this way?
-    *   What happens if we indent using stars?
-    *   Let's add another one for good measure.
-        *   Can we get another level of nesting?
-
-[What does this do?](https://google.com)
-
-![How is this different from the above?](test-image.jpeg)
+```{r rstudio-git-commit-and-push, out.width = "80%"}
+knitr::include_graphics("img/rstudio_git_commit_and_push.gif")
 ```
 
-## Interlude: How to save your work back to Github
+The animation shows the following steps,
 
-Now that you've typed some material into your RMarkdown document, let's take a snapshot of our work using what is called a "commit".
-First, save your work in the traditional way by going to File -> Save or clicking the floppy disk icon just above the editing window.
-Next, click on the [GIT]{.monospace} toolbar dropdown menu and select "Commit".
-You will see a list of one or more filenames.
-Click on one of them.
-You will see some text appear in the lower area.
-Text highlighted in green has been added to the file since the last snapshot, while text highlighted in red has been deleted.
-Next, to the left of the filenames is a checkbox marked "Staged".
-Staging just means selecting the files that we want to use when taking a snapshot.
-Stage the file [lab01.Rmd]{.monospace}.
-Then, to the right, write a brief, informative message in the text box labeled "Commit message".
-When you are done, click the commit button just below this text box.
+*   If you haven't already, save your work by clicking the save icon just above the editing window.
 
-::::: {.callout .primary}
-Two things about committing.
-One, you should commit somewhat frequently.
-At minimum, you should try and make a commit each time that you've finished a lab exercise.
-Two, leave informative commit messages.
-"Added stuff" will not help you if you're looking at your commit history in a year.
-A message like "Typed in Lab 1 RMarkdown examples" will be more useful.
-:::::
+*   Go to the _Workspace Tabs_ panel and click the **Git** tab.
+    You will see a list of files that have been added or changed in the project.
+    Since we changed [lab01.Rmd]{.monospace}, it is shown in the list.
 
-**Important note!**
-The above process does all this saving and snapshoting on the local computer that you're currently using.
-So far we have not synchronized *anything* back to the Github website.
-Without synchronizing back, you will not be able to ultimately submit the lab or have the lab instructor read and grade it.
-Also, and this is important, if you don't synchronize, you will not be able to work on your lab report from another computer.
+*   To _stage_ the changes made to [lab01.Rmd]{.monospace}, in the **Git** tab click the check box to the left of the file.
 
-In the world of Github, synchronizing *from* our local computer *to* the Github website is called a "Push".
-So let's do that now.
-In the interactive commit window we opened earlier, in the upper right-hand corner you should see a button labeled "Push", click that now.
-Alternatively, if the interactive commit window isn't open, you can just click on the GIT toolbar dropdown menu and select "Push branch".
+*   Click the button labeled **Commit**, which will open up a pop-up window.
+    In the pop-up, you should still see a check in the check box to the left of [lab01.Rmd]{.monospace}.
 
-::::: {.callout .primary}
-The synchronizing can go in the opposite direction as well, which is called a "Pull".
-One reason you would use "Pull" is if you are working on the lab report from more than one computer throughout the day.
-You would push your commits from the first computer, move to the second computer, and then use pull to get all the changes you made and synchronized.
-:::::
+*   Click anywhere in the text box labeled **Commit message** and then write a brief, informative message there (in the example, the somewhat unhelpful "My first commit!" is used as a message).
+
+*   Click the commit button.
+
+After clicking the commit button, you have taken a snapshot of your work.
+You should notice that [lab01.Rmd]{.monospace} is no longer listed in the pop-up window or in the **Git** tab.
+This means that your commit worked and the snapshot of [lab01.Rmd]{.monospace} is now up-to-date.
+
+The animation continues from this point and shows you how to perform a "push".
+**Pushing your changes is how you send your updated files back to GitHub.**
+**It is only after completing a push that the course instructor can see your updated files.**
+As shown in the animation, to perform a push after you make a commit, you do the following,
+
+*   Click the button labeled **Push** in the **Git** pop-up window.
+
+*   Fill in your **GitHub username and password** in the subsequent pop-ups.
+
+If the push is successful, you will see a message that resembles this one,
+
+```{r rstudio-git-push-success, out.width = NA}
+knitr::include_graphics("img/rstudio_git_push_success.png")
+```
 
 ## More Markdown
 
-Now that we've saved and synchronized our work on Github, let's return to RMarkdown.
-During the rest of the lab, you are encouraged to commit early and commit often.
+Now that we've saved and synchronized our work on GitHub, let's return to R Markdown.
+During the rest of the lab, you are encouraged to commit early and often.
+This will help you get more comfortable with this workflow, which you will use for the rest of the semester.
 
 @.
-    You can create tables using Markdown, type in the following and knit to see it looks like.
+    You can create tables using Markdown, type in the following and then knit your document to see it looks like.
     Do both tables look the same after being rendered?
-    What are the snippets below each table doing?
+    What are the lines that start with the word [Table:]{.monospace} doing?
 
-```markdown
-| Column 1 | Column 2 | Column 3 | Column 4 |
-| --- | ---: | :---: | :--- |
-| Notice | what | the | colons |
-| are | doing? | | |
-
-Table: The table with poor spacing
-
-| Column 1 | Column 2 | Column 3 | Column 4 |
-| -------- | -------: | :------: | :------- |
-| Notice   | what     | the      | colons   |
-| are      | doing?   |          |          |
-
-Table: The table with good spacing
-```
+    ```markdown
+    | Column 1 | Column 2 | Column 3 | Column 4 |
+    | --- | ---: | :---: | :--- |
+    | Notice | what | the | colons |
+    | are | doing? | | |
+    
+    Table: The table with poor spacing
+    
+    | Column 1 | Column 2 | Column 3 | Column 4 |
+    | -------- | -------: | :------: | :------- |
+    | Notice   | what     | the      | colons   |
+    | are      | doing?   |          |          |
+    
+    Table: The table with good spacing
+    ```
 
 @.
-    Copy-and-paste one of the above tables and then add a fifth column.
-    There should be text in both rows of the fifth column.
+    Copy-and-paste one of the above tables and add a fifth column to it.
+    Fill in whatever text you like to create the fifth column.
 
-Of course, there isn't much point to this if we don't include code snippets.
-Let's try a couple of different commands, shall we?
+While formatting text is important, the most powerful feature of R Markdown is that it allows us to write and run code within the document itself.
+Let's consider a couple of different commands to demonstrate how this works.
 
 @.
     Type the following code block into your file, then click the green "play" icon that appears to the right of your code block.
     Explain what you're getting as output.
 
-<pre><code>&#96;&#96;&#96;{r}
-qplot(x = displ, y = hwy, data = mpg)
-&#96;&#96;&#96;</code></pre>
+    <pre><code>&#96;&#96;&#96;{r}
+    qplot(x = displ, y = hwy, data = mpg)
+    &#96;&#96;&#96;</code></pre>
 
 @.
     What output do you get if you type the following in a code block?
@@ -236,34 +358,61 @@ qplot(x = displ, y = hwy, data = mpg)
     If so, what are they?
     If not, why isn't there a connection?
 
-<pre><code>&#96;&#96;&#96;{r}
-print(mpg)
-&#96;&#96;&#96;</code></pre>
-
-## Knitting your document
-
-We've done enough demonstration for now.
-First, check that there are no errors when you click "knit".
-Try knitting your lab report using both the **Knit to HTML** and **Knit to PDF** options and inspect the resulting documents.
-If the documents look good, then save your files and then stage, commit, and push your changes to the Github site.
-Do not try to commit and push the HTML and PDF documents, those will get uploaded elsewhere.
+    <pre><code>&#96;&#96;&#96;{r}
+    print(mpg)
+    &#96;&#96;&#96;</code></pre>
 
 ## How to submit
+
+Now that we're done with `r lab_name`, we need to prepare our report for submission.
+Click the save icon and knit your document to PDF.
+If there are no errors, then a pop-up containing your knitted PDF should appear.
+Inspect the PDF to make sure that you've answered all the questions and check that the formatting for your text, figures, and tables looks good.
 
 To submit your lab, follow the two steps below.
 Your lab will be graded for credit **after** you've completed both steps!
 
-1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+1.  [`r icon_link`Save, stage, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.](#interlude-how-to-save-your-work-back-to-github)
     If you do this right, then you will be able to view your completed file on the GitHub website.
+    Please note that you won't be able to commit and push the knitted PDF file.
 
-2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+2.  Upload your knitted PDF file to Blackboard.
+    To do this, you will first need to download it to your computer.
+    Check the box to the left of [lab01.pdf]{.monospace}, click the **More** button, choose _Export_ in the drop-down menu, and click the Download button in the pop-up that appears.
+    This will download the file to your computer, most likely to your [Download]{.monospace} folder.
+    Locate this file and then submit it to *`r lab_name`* posting on Blackboard.
+    
+    ```{r rstudio-download-file, out.width = "80%"}
+    knitr::include_graphics("img/rstudio_download_file.gif")
+    ```
+
+## Cheatsheets
+
+Linked below are some official cheatsheets published by RStudio,
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+These are a handy reference to have nearby while working on the labs.
+You may even want to print them out and keep them by your computer as you complete the labs.
 
 ## Credits
 
 This lab is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-Adapted by James Glasbrenner for CDS-102 from [Lab 0 - Introduction to R and RStudio][lab0-duke-sta104] by [Mine Çetinkaya-Rundel](https://stat.duke.edu/~mc301) and the [Github Classroom Guide for Students][github-classroom-guide-students] by [Jacob Fiksel][github-jfiksel].
+Portions of the instructions were adapted by James Glasbrenner from [Lab 0 - Introduction to R and RStudio][lab0-duke-sta104] by [Mine Çetinkaya-Rundel](https://stat.duke.edu/~mc301) and the [Github Classroom Guide for Students][github-classroom-guide-students] by [Jacob Fiksel][github-jfiksel].
+The rest of the Exercises and instructions were written by James Glasbrenner for CDS-102.
 
+[lab-00]:                          /labs/lab-00-beginnings/
 [github-jfiksel]:                  https://github.com/jfiksel
+[chrome-pop-ups]:                  https://support.google.com/chrome/answer/95472?co=GENIE.Platform%3DDesktop&hl=en
+[firefox-pop-ups]:                 https://support.mozilla.org/en-US/kb/pop-blocker-settings-exceptions-troubleshooting
 [lab0-duke-sta104]:                https://www2.stat.duke.edu/courses/Summer15/sta104.01-1/post/labs/lab0.html
-[rstudio-cheatsheet]:              /doc/rstudio-IDE-cheatsheet.pdf
+[github-education]:                https://education.github.com
+[rstudio-cheatsheet]:              https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:             https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:            https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[github-glossary-repo]:            https://help.github.com/en/articles/github-glossary#repository
 [github-classroom-guide-students]: https://github.com/jfiksel/github-classroom-for-students
