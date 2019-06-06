@@ -8,9 +8,9 @@ Show_summary: true
 Show_link: true
 
 ```{r setup, include = FALSE}
-icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-8"></i>&nbsp;'
-icon_html <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
-icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
+icon_pdf <- '<i class="fas fa-file-pdf"></i>'
+icon_link <- '<i class="fas fa-link"></i>'
+icon_html <- '<i class="fab fa-html5"></i>'
 assignment_name <- "Mini-homework 2a"
 ```
 
@@ -19,17 +19,20 @@ assignment_name <- "Mini-homework 2a"
 ::: {.callout .secondary}
 [First-time RStudio Server configuration]{.h4}
 
-**Very important!** If this is the first homework assignment that you're completing with RStudio Server, you first will need to follow **all** the directions provided at the link below.
-This must be done **before** you start completing homeworks using RStudio Server.
-**You only need to do this once.**
+**Very important!**
 
-:::: {.no-bullets}
-*   [`r icon_github` &nbsp; [RStudio Server Configuration repository]{.card-downloads-format}][rstudio-configuration] 
-::::
+Before you start working on this assignment you first need to follow the directions from this section of Lab 00, &nbsp;[`r icon_link`Setting up your RStudio Server account][rstudio-server-setup].
+Follow **all** the directions from the top of this section to the bottom of the sub-section titled *Run the configuration script*.
+
+**If you already completed these instructions for CDS 102, then you do not need to follow them again.**
 :::
 
 Obtain the GitHub repository for the activity, which contains a starter file named [rmarkdown\_practice.Rmd]{.monospace}.
-Use this file and Markdown to re-create the exact formatting of this PDF document [[minihw02a\_rmarkdown\_practice\_final\_output.pdf]{.monospace}][rmarkdown-recreate-pdf].
+Use this file and Markdown to re-create the exact formatting of this PDF document &nbsp;<span style="white-space: nowrap;">[`r icon_pdf` [minihw02a\_rmarkdown\_practice\_final\_output.pdf]{.monospace}][rmarkdown-recreate-pdf]</span>.
+At the top of the document, make sure that you've replaced [FirstName LastName]{.monospace} with your name.
+Also, the date at the top of your knitted document will, by default, display the current date.
+This is okay and you do not need to change it to match the sample document.
+
 When you're ready to submit, follow the directions in the **[How to submit](#how-to-submit)** section below.
 
 ::: {.callout .primary}
@@ -47,7 +50,7 @@ Your homework will be graded for credit **after** you've completed both steps!
 1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
     If you do this right, then you will be able to view your completed file on the GitHub website.
 
-2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to the *`r assignment_name`* posting on Blackboard.
 
 ## Cheatsheets
 
@@ -61,6 +64,7 @@ You are encouraged to review and keep the following cheatsheets handy while work
 
 [rstudio-cheatsheet]:      https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
 [rmarkdown-reference]:     https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rstudio-server-setup]:    /labs/lab-00-beginnings/#setting-up-your-rstudio-server-account
 [rmarkdown-cheatsheet]:    https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
 [rstudio-configuration]:   https://github.com/jkglasbrenner/rstudio-server-initial-configuration
 [rmarkdown-recreate-pdf]:  https://drive.google.com/file/d/1_fSvhxBlwgv0CFOXaowOMYewonciY7rT

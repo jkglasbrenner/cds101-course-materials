@@ -8,13 +8,14 @@ Show_summary: true
 Show_link: true
 
 ```{r setup, include = FALSE}
+icon_link <- '<i class="fas fa-link"></i>'
 icon_html5 <- '<i class="fab fa-html5" data-fa-transform="grow-8"></i>&nbsp;'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-8"></i>&nbsp;'
 assignment_name <- "Mini-homework 2b"
 ```
 
 ::: {.no-bullets}
-*   [`r icon_html5` Offline, HTML-rendered copy of worksheet (code blocks left unevaluated)][visualization-practice-no-code-preview-html]
+*   [`r icon_html5` HTML-knitted copy of worksheet (code blocks left unevaluated)][visualization-practice-no-code-preview-html]
 :::
 
 ## Instructions
@@ -22,13 +23,12 @@ assignment_name <- "Mini-homework 2b"
 ::: {.callout .secondary}
 [First-time RStudio Server configuration]{.h4}
 
-**Very important!** If this is the first homework assignment that you're completing with RStudio Server, you first will need to follow **all** the directions provided at the link below.
-This must be done **before** you start completing homeworks using RStudio Server.
-**You only need to do this once.**
+**Very important!**
 
-:::: {.no-bullets}
-*   [`r icon_github` &nbsp; [RStudio Server Configuration repository]{.card-downloads-format}][rstudio-configuration] 
-::::
+Before you start working on this assignment you first need to follow the directions from this section of Lab 00, &nbsp;[`r icon_link`Setting up your RStudio Server account][rstudio-server-setup].
+Follow **all** the directions from the top of this section to the bottom of the sub-section titled *Run the configuration script*.
+
+**If you already completed these instructions for CDS 102 or before completing [`r icon_link`mini-homework 2a][mini-homework-2a], then you do not need to follow them again.**
 :::
 
 Obtain the GitHub repository you will use to complete the mini-assignment, which contains a starter file named [visualization\_practice.Rmd]{.monospace}.
@@ -43,7 +43,7 @@ Your homework will be graded for credit **after** you've completed both steps!
 1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
     If you do this right, then you will be able to view your completed file on the GitHub website.
 
-2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r assignment_name`* posting on Blackboard.
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to the *`r assignment_name`* posting on Blackboard.
 
 ## Cheatsheets
 
@@ -55,8 +55,10 @@ You are encouraged to review and keep the following cheatsheets handy while work
 
 *   [RMarkdown reference][rmarkdown-reference]
 
+[mini-homework-2a]:                            /assignments/minihw02a-rmarkdown-practice/
 [rstudio-cheatsheet]:                          https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
 [rmarkdown-reference]:                         https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
 [rmarkdown-cheatsheet]:                        https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[rstudio-server-setup]:                        /labs/lab-00-beginnings/#setting-up-your-rstudio-server-account
 [rstudio-configuration]:                       https://github.com/jkglasbrenner/rstudio-server-initial-configuration
 [visualization-practice-no-code-preview-html]: /doc/minihw02b_visualization_practice_no_code_preview.html
