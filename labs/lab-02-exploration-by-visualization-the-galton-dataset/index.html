@@ -66,112 +66,106 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 02 – Exploration by visualization: the Galton&nbsp;dataset</h1>
 </header><div class="static-page-body">
-  <blockquote>
-<p>This week’s lab shows you how to use the <span class="monospace">ggplot2</span> package to visualize datasets and how visualization plays a crucial role in data&nbsp;exploration.</p>
-</blockquote>
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab02.Rmd</span>. This lab shows you how to use the <span class="monospace">ggplot2</span> package to visualize datasets and demonstrates how visualization plays a crucial role in data exploration. Start by reading <a href="#why-data-visualization"><i class="fas fa-link"></i>Why data visualization?</a> to learn why data visualization is important and why the first lab focuses on it. Next, read the <a href="#about-the-dataset"><i class="fas fa-link"></i>About the dataset</a> section to get some background information on the dataset that you’ll be working with. Continue reading the lab instructions and complete any exercises using the provided spaces within your starter file <span class="monospace">lab02.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
 <h2 id="why-data-visualization">Why data&nbsp;visualization?</h2>
-<p>Why is data visualization an important topic? On the face of it, you might wonder why we need to dedicate any time to this topic. Aren’t plots really easy now that we all have computers? And isn’t making plots and figures one of the <em>last</em> things that we do for a project or lab report, after we’ve figured everything out? Why start with this? Since a picture (or visualization) is worth a thousand words, take a moment to explore the data visualizations linked&nbsp;below.</p>
-<div class="callout primary">
-<p><strong>After a few minutes, be prepared to share with the class one thing you noticed about one of the visualizations that you think made it effective at conveying&nbsp;information.</strong></p>
+<p>Why is data visualization an important topic? On the face of it, you might wonder why we need to dedicate any time to this topic. Aren’t plots really easy now that we all have computers? Isn’t making plots and figures one of the <em>last</em> things that we do for a project or lab report, after we’ve figured everything out? Why start with this? Since a picture (or visualization) is worth a thousand words, take a moment to explore the data visualizations linked&nbsp;below.</p>
+<div class="no-bullets">
 <ul>
-<li><p>Why do buses bunch? <a href="http://setosa.io/bus/" class="uri">http://setosa.io/bus/</a></p></li>
-<li><span class="caps">U.S.</span> Age Pyramid Becomes a Rectangle: <a href="http://www.pewresearch.org/next-america/#Two-Dramas-in-Slow-Motion" class="uri">http://www.pewresearch.org/next-america/#Two-Dramas-in-Slow-Motion</a></li>
+<li><p><a href="http://setosa.io/bus/"><i class="fas fa-link" data-fa-transform="grow-2"></i>  Why do buses&nbsp;bunch?</a></p></li>
+<li><a href="http://www.pewresearch.org/next-america/#Two-Dramas-in-Slow-Motion"><i class="fas fa-link" data-fa-transform="grow-2"></i>  <span class="caps">U.S.</span> Age Pyramid Becomes a&nbsp;Rectangle</a></li>
 </ul>
 </div>
+<ol class="example" type="1">
+<li>After taking a few minutes to explore these visualizations, write at least one full sentence that explains one thing you noticed about either visualization that makes it effective at conveying&nbsp;information.</li>
+</ol>
 <p>Visualizations have an important role to play in nearly every stage of a data science project. High-quality visualizations help people to understand your results and can activate their curiosity about your work and ideas. Creating visualizations in R is also easy and fun, and learning how to make them will help you become more comfortable with using R and RStudio. You will quickly see how simple it is to make colorful and eye-catching&nbsp;plots!</p>
-<div class="callout secondary">
-<p>We will use the <span class="monospace">ggplot2</span> library for all of our visualizations. You are encouraged to download and use the <a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">official <span class="monospace">ggplot2</span> cheatsheet</a> for this and future&nbsp;labs.</p>
-</div>
-<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
-<p>You will be exploring the famous dataset by Francis Galton for this week’s lab on data visualization, which is automatically loaded into the variable <span class="monospace">galton</span> for you in the RMarkdown file for your lab report. Francis Galton was developing ways to quantify the heritability of traits in the 1880s, and as part of this work he collected data on the heights of adult children and their parents. To explore the dataset, type the following in your <em>Console</em>&nbsp;window:</p>
-<pre class="r"><code>View(galton)</code></pre>
-<h3 id="variables">Variables</h3>
-<p>This is a tabular dataset with 898 observations on the following&nbsp;variables:</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>You will be exploring the famous dataset by Francis Galton for this week’s lab on data visualization. The data were transcribed by <span class="caps">J.A.</span> Hanley<span class="citation" data-cites="hanley:2004"> [1]</span> who has published them at <a href="http://www.medicine.mcgill.ca/epidemiology/hanley/galton/" class="uri">http://www.medicine.mcgill.ca/epidemiology/hanley/galton/</a>. Francis Galton was developing ways to quantify the heritability of traits in the 1880s, and as part of this work he collected data on the heights of 898 adult children and their&nbsp;parents.</p>
+<p>The table below provides descriptions of the dataset’s 6&nbsp;variables,</p>
 <table>
 <colgroup>
 <col style="width: 7%" />
-<col style="width: 5%" />
-<col style="width: 87%" />
+<col style="width: 92%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Variable</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Description</th>
+<th>Variable</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><span class="monospace">family</span></td>
-<td style="text-align: left;"><span class="monospace">chr</span></td>
-<td style="text-align: left;">a category with levels for each family</td>
+<td><span class="monospace">family</span></td>
+<td>a category with levels for each family</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="monospace">father</span></td>
-<td style="text-align: left;"><span class="monospace">dbl</span></td>
-<td style="text-align: left;">the father’s height (in inches)</td>
+<td><span class="monospace">father</span></td>
+<td>the father’s height (in inches)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="monospace">mother</span></td>
-<td style="text-align: left;"><span class="monospace">dbl</span></td>
-<td style="text-align: left;">the mother’s height (in inches)</td>
+<td><span class="monospace">mother</span></td>
+<td>the mother’s height (in inches)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="monospace">sex</span></td>
-<td style="text-align: left;"><span class="monospace">chr</span></td>
-<td style="text-align: left;">the child’s sex: <span class="monospace">F</span> or <span class="monospace">M</span></td>
+<td><span class="monospace">sex</span></td>
+<td>the child’s sex: <span class="monospace">F</span> or <span class="monospace">M</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><span class="monospace">height</span></td>
-<td style="text-align: left;"><span class="monospace">dbl</span></td>
-<td style="text-align: left;">the child’s height as an adult (in inches)</td>
+<td><span class="monospace">height</span></td>
+<td>the child’s height as an adult (in inches)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="monospace">nkids</span></td>
-<td style="text-align: left;"><span class="monospace">int</span></td>
-<td style="text-align: left;">the number of adult children in the family, or, at least, the number whose heights Galton recorded.</td>
+<td><span class="monospace">nkids</span></td>
+<td>the number of adult children in the family, or, at least, the number whose heights Galton recorded.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="sources">Sources</h3>
-<ul>
-<li>The data were transcribed by <span class="caps">J.A.</span> Hanley who has published them at <a href="http://www.medicine.mcgill.ca/epidemiology/hanley/galton/" class="uri">http://www.medicine.mcgill.ca/epidemiology/hanley/galton/</a></li>
-<li>Reference: “‘Transmuting’ women into men: Galton’s family data on human stature” (2004) <em>The American Statistician</em>,&nbsp;58(3):237-243.</li>
-</ul>
 <h2 id="visualization-by-example">Visualization by&nbsp;example</h2>
+<div class="callout primary">
+<p><span class="h4">How do I load the&nbsp;dataset?</span></p>
+<p>The dataset should be automatically loaded into the variable <span class="monospace">galton</span> for you in the R Markdown file for your lab report. To explore the dataset, type the following in your <em>Console</em>&nbsp;window,</p>
+<pre class="r"><code>View(galton)</code></pre>
+<p>If running this does not show you a data table, make sure you run the <span class="monospace">setup</span> code block at the top of your R Markdown file&nbsp;first!</p>
+</div>
 <p>Before we discuss the general format for creating <span class="monospace">ggplot2</span> plots, let’s play around with some&nbsp;examples:</p>
-<ol class="example" type="1">
+<ol start="2" class="example" type="1">
 <li><p>In your lab report, create an R code block that contains the following&nbsp;code:</p>
 <pre class="r"><code>ggplot(data = galton) +
-  geom_histogram(mapping = aes(x = height), bins = 30)</code></pre>
+  geom_histogram(
+    mapping = aes(x = height),
+    bins = 30
+  )</code></pre>
 <p>To run the code, either click the green “play” button in the upper right corner of the R code block or, while your cursor is inside the code block, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>. This should create a plot called a&nbsp;histogram.</p>
 <p>After creating the histogram, look at the <span class="monospace">height</span> column in the data table you can view with <code>View(galton)</code> and compare it with the histogram. Then, describe what the histogram is doing with the data in this&nbsp;column.</p></li>
 </ol>
 <p>The input parameter <span class="monospace">bins = 30</span> controls an important visual element in the histogram plot. Let’s experiment with the parameter in order to figure out what it&nbsp;does.</p>
-<ol start="2" class="example" type="1">
-<li>Using the code you wrote in <strong>Exercise 1</strong> as a starting point, try setting the input keyword <span class="monospace">bins</span> equal to something <em>larger</em> than the number 30, and then equal to something <em>smaller</em> than the number 30. This will create two plots. Then, change the input keyword from <span class="monospace">bins</span> to <span class="monospace">binwidth</span> and set its value equal to 1. Compare the plots and write a conclusion about what the <span class="monospace">bins</span> and <span class="monospace">binwidth</span> inputs&nbsp;control.</li>
+<ol start="3" class="example" type="1">
+<li>Using the code you wrote in <strong>Exercise 2</strong> as a starting point, try setting the input keyword <span class="monospace">bins</span> equal to something <em>larger</em> than the number 30, and then equal to something <em>smaller</em> than the number 30. This will create two plots. Then, change the input keyword from <span class="monospace">bins</span> to <span class="monospace">binwidth</span> and set its value equal to 1. Compare the plots and write a conclusion about what the <span class="monospace">bins</span> and <span class="monospace">binwidth</span> inputs&nbsp;control.</li>
 </ol>
 <p>It is simple to add additional arguments to the aesthetic input <code>aes()</code> that change the way data are shown, which can reveal trends that were previously hidden from view. Let’s see what the <span class="monospace">fill</span> argument does to our&nbsp;histogram:</p>
-<ol start="3" class="example" type="1">
+<ol start="4" class="example" type="1">
 <li><p>Write the following code in your lab&nbsp;report:</p>
 <pre class="r"><code>ggplot(data = galton) +
   geom_histogram(
-    mapping=aes(x = height, fill = sex), binwidth = 1, alpha = 0.5,
+    mapping=aes(x = height, fill = sex),
+    binwidth = 1,
+    alpha = 0.5,
     position=&quot;identity&quot;
   )</code></pre>
-<p>Run the block and look at the output. What did adding <span class="monospace">fill = sex</span> do? Does this change the way you might interpret the visualization? What kinds of differences stand out now that we added&nbsp;this?</p></li>
+<p>Run the block and look at the output. What did adding <span class="monospace">fill = sex</span> as a new input in <code>aes()</code> do? Does this change the way you might interpret the visualization? What kinds of differences stand out now that we added&nbsp;this?</p></li>
 </ol>
 <p>As you can now see, changing one of the inputs in your <span class="monospace">ggplot2</span> code can have a substantial effect on the way your visualization looks. When a visualization reveals new information, we should describe and interpret it in our lab&nbsp;reports.</p>
-<ol start="4" class="example" type="1">
-<li>Describe the shape of the male and female height distributions and where they seem to be centered around. Upon your visual inspection, does there appear to be a tangible difference in the average height for these two distributions? Based on what you know about the relative heights of people, is this a result that you would have expected to see? Why or why&nbsp;not?</li>
+<ol start="5" class="example" type="1">
+<li>Describe the shape of the male and female height distributions and estimate the value each distribution seems to be centered around. Does there appear to be a tangible difference in the average height for these two distributions? Based on what you know about the relative heights of people, is this a result that you would have expected to see? Why or why&nbsp;not?</li>
 </ol>
 <p>Based on what you’ve seen so far, do you understand what <strong>all</strong> of the inputs are doing? The exercise below guides you through the process of exploring how the different inputs affect the plot’s&nbsp;look:</p>
-<ol start="5" class="example" type="1">
+<ol start="6" class="example" type="1">
 <li><p>A good way to figure out how R works is to experiment with inputs. What happens if you change the value of <span class="monospace">alpha = 0.5</span> (keep it between 0 and 1). What happens if you remove the input <span class="monospace">position = “identity”</span>? What happens if you replace it with <span class="monospace">position = “dodge”</span>? What does it change in your&nbsp;output?</p>
 <p><strong>Hint:</strong> When moving the input, be careful with the commas! A comma should separate each&nbsp;input.</p></li>
 </ol>
 <h2 id="the-ggplot2-syntax">The <span class="monospace">ggplot2</span>&nbsp;syntax</h2>
-<p>Let’s take a small break from making plots and review the general syntax for creating a <span class="monospace">ggplot2</span> figure. The command <code>ggplot()</code>, as you might have figured out already, creates the plot window. Commands with the prefix <span class="monospace">geom_</span> — such as <code>geom_histogram()</code> — convert data points into different kinds of visualizations, and the command <code>aes()</code> controls the aesthetic properties of each <span class="monospace">geom_</span> object. We then specify input parameters inside the parentheses of these commands, <em>with each input separated from neighboring inputs by commas</em> <span class="monospace">,</span> <em>and input names and values separated by the equals sign</em> <span class="monospace">=</span>. In general, visualizations in <span class="monospace">ggplot2</span> have a predictable structure for the commands you need to enter. The general pattern&nbsp;is:</p>
+<p>Let’s take a small break from making plots and review the general syntax for creating a <span class="monospace">ggplot2</span> figure. The command <code>ggplot()</code>, as you might have figured out already, creates the plot window. Commands with the prefix <span class="monospace">geom_</span>—such as <code>geom_histogram()</code>—convert data points into different kinds of visualizations, and the command <code>aes()</code> controls the aesthetic properties of each <span class="monospace">geom_</span> object. We then specify input parameters inside the parentheses of these commands, <em>with each input separated from neighboring inputs by commas</em> <span class="monospace">,</span> <em>and input names and values separated by the equals sign</em> <span class="monospace">=</span>. In general, visualizations in <span class="monospace">ggplot2</span> have a predictable structure for the commands you need to enter. The general pattern&nbsp;is:</p>
 <pre class="r"><code>ggplot(data = &lt;data&gt;) +                     # Required in all ggplot2 visualizations
   geom_&lt;function&gt;(
     mapping = aes(&lt;mapping&gt;),               # Required in all ggplot2 visualizations
@@ -182,38 +176,43 @@
   facet_&lt;function&gt; +                        # Optional, sensible default chosen
   scale_&lt;function&gt; +                        # Optional, sensible default chosen
   theme_&lt;function&gt;                          # Optional, sensible default chosen</code></pre>
-<p>In the above, anywhere you see a word <span class="monospace">&lt;surrounded&gt;</span> in angular brackets, you can replace it with one of several choices. Bare minimum, you must always specify the first two functions, all the rest are optional and have sensible defaults chosen for you. Also note that each major category, those being <span class="monospace">geom_</span> objects, <span class="monospace">coord_</span> objects, <span class="monospace">facet_</span> objects, <span class="monospace">scale_</span> objects, and <span class="monospace">theme_</span> objects, are added to the <span class="monospace">ggplot2</span> “sentence” via the plus sign <span class="monospace">+</span>. Think of it as a series of layers: first you lay down the canvas (<span class="monospace">ggplot</span>), then you plot the data using a certain type of plot (<span class="monospace">geom_&lt;function&gt;</span>) as the second layer, and afterward you tweak and polish the plot using additional layers to find-tune things. This layered approach allows you to create nice figures without much effort or the need to memorize dozens of&nbsp;commands.</p>
-<h2 id="scatterplots">Scatterplots</h2>
+<p>In the above, anywhere you see a word <span class="monospace">&lt;surrounded&gt;</span> in angular brackets, you can replace it with one of several choices. Bare minimum, you must always specify the first two functions, all the rest are optional and have sensible defaults chosen for you. Also note that each major category—<span class="monospace">geom_</span> objects, <span class="monospace">coord_</span> objects, <span class="monospace">facet_</span> objects, <span class="monospace">scale_</span> objects, <span class="monospace">theme_</span> objects—is added to the <span class="monospace">ggplot2</span> “sentence” using the plus sign <span class="monospace">+</span>. A helpful way to think about this is that you are building a figure using a series of layers: first you lay down the canvas (<span class="monospace">ggplot</span>), then you visualize the data on a second layer using a certain style of plot (<span class="monospace">geom_&lt;function&gt;</span>), and afterward you tweak and polish the plot using additional layers to find-tune things. This layered approach allows you to create nice figures without much effort or the need to memorize dozens of&nbsp;commands.</p>
+<h2 id="scatter-plots">Scatter-plots</h2>
 <p>Let’s further explore the data using another type of visualization, the&nbsp;scatter-plot.</p>
-<ol start="6" class="example" type="1">
+<ol start="7" class="example" type="1">
 <li><p>Use the following code to create a scatter-plot of each person’s height as a function of their father’s&nbsp;height.</p>
 <pre class="r"><code>ggplot(data = galton) +
-  geom_point(mapping = aes(x = father, y = height))</code></pre>
+  geom_point(
+    mapping = aes(x = father, y = height)
+  )</code></pre>
 <p>Here, <span class="monospace">height</span> is the response (dependent) variable and <span class="monospace">father</span> would be the explanatory (independent) variable. Describe any trends that you see using full&nbsp;sentences.</p></li>
 </ol>
-<p>Next, we should try and create a plot that is similar in spirit to what we did in <strong>Exercise 3</strong>, so that we can see how the <span class="monospace">height</span> variable depends on the <span class="monospace">father</span> variable when the <span class="monospace">sex</span> variable is taken into account. One important difference to know is that we need to use the word <span class="monospace">color</span> as an input instead of <span class="monospace">fill</span>. Otherwise, the procedure for grouping over the <span class="monospace">sex</span> variable is basically the&nbsp;same.</p>
-<ol start="7" class="example" type="1">
+<p>Next, let’s try and create a plot that is similar in spirit to what we did in <strong>Exercise 4</strong> so that we can see how the <span class="monospace">height</span> variable depends on the <span class="monospace">father</span> variable when the <span class="monospace">sex</span> variable is taken into account. One important difference to know is that we need to use the word <span class="monospace">color</span> as an input instead of <span class="monospace">fill</span>. Otherwise, the procedure for grouping over the <span class="monospace">sex</span> variable is basically the&nbsp;same.</p>
+<ol start="8" class="example" type="1">
 <li>Figure out how to group the data over the <span class="monospace">sex</span> variable using the <span class="monospace">color</span> input and create a new plot. What does this plot tell you about the relationship between the height measurements and the <span class="monospace">sex</span>&nbsp;variable?</li>
 </ol>
 <h2 id="faceting">Faceting</h2>
-<p>Let’s introduce another new concept, the facet. Facets create visualizations with multiple panels, splitting things up across a categorical variable. Let’s apply this to our scatter-plot that we created in <strong>Exercise 6</strong>.</p>
-<ol start="8" class="example" type="1">
-<li><p>Copy your code from <strong>Exercise 6</strong> that created a scatter-plot. Add the following new command to your code snippet using the <span class="monospace">+</span>&nbsp;sign:</p>
+<p>Let’s introduce another new concept, the facet. Facets create visualizations with multiple panels, splitting things up across a categorical variable. Let’s apply this to our scatter-plot that we created in <strong>Exercise 7</strong>.</p>
+<ol start="9" class="example" type="1">
+<li><p>Copy your code from <strong>Exercise 7</strong> that created a scatter-plot. Add the following new command to your code snippet using the <span class="monospace">+</span>&nbsp;sign:</p>
 <pre class="r"><code>facet_grid(. ~ sex)</code></pre>
 <p>Describe what you get as output. Then, create a new code block where you reverse the input for <span class="monospace">facet_grid</span> like&nbsp;so:</p>
 <pre class="r"><code>facet_grid(sex ~ .)</code></pre>
-<p>What did adding <span class="monospace">facet_grid</span> do to your output, and what does the order of <span class="monospace">. ~ sex</span> versus <span class="monospace">sex ~ .</span> seem to do? Is the information presented here any different from the information in <strong>Exercise 7</strong>?</p></li>
+<p>What did adding <span class="monospace">facet_grid</span> do to your output, and what does the order of <span class="monospace">. ~ sex</span> versus <span class="monospace">sex ~ .</span> seem to do? Is the information presented here any different from the information in <strong>Exercise 8</strong>?</p></li>
 </ol>
 <h2 id="modeling-in-ggplot2">Modeling in <span class="monospace">ggplot2</span></h2>
 <p>You can actually create regression models using <span class="monospace">geom_smooth</span>, which is another handy way to look for trends. You can choose from one of several kinds of regression methods. Here, we’ll use linear regression for creating our models (perhaps you remember drawing one of these “lines of best fit” by hand in a prior science or math&nbsp;class).</p>
-<ol start="9" class="example" type="1">
-<li><p>Copy your code from <strong>Exercise 6</strong> that created a scatter-plot. Add the following new command to your code snippet using the <span class="monospace">+</span>&nbsp;sign:</p>
-<pre class="r"><code>geom_smooth(mapping = aes(x = father, y = height), method = &quot;lm&quot;)</code></pre>
-<p>Describe the line that you get as output. Does it follow the trends (if any) you’ve previously described in the data? What do you think the semi-transparent gray region around the line stands&nbsp;for?</p></li>
-</ol>
-<p>When creating a graph, you often want to make some touch ups after you’ve figured out what to plot. Do the following to add some extra polish to the plot you made in <strong>Exercise 9</strong>.</p>
 <ol start="10" class="example" type="1">
-<li><p>Copy your code from <strong>Exercise 9</strong> and add the following command to your&nbsp;code:</p>
+<li><p>Copy your code from <strong>Exercise 7</strong> that created a scatter-plot. Add the following new command to your code snippet using the <span class="monospace">+</span>&nbsp;sign:</p>
+<pre class="r"><code>geom_smooth(
+  mapping = aes(x = father, y = height),
+  method = &quot;lm&quot;
+)</code></pre>
+<p>Describe the line that you get as output. Does it follow the trends (if any) you’ve previously described in the data? What do you think the semi-transparent gray region around the line&nbsp;represents?</p></li>
+</ol>
+<p>When creating a graph, you often want to make some touch ups after you’ve figured out what to plot. Do the following to add some extra polish to the plot you made in <strong>Exercise 10</strong>.</p>
+<ol start="11" class="example" type="1">
+<li><p>Copy your code from <strong>Exercise 10</strong> and add the following command to your&nbsp;code:</p>
 <pre class="r"><code>labs(
   title = &quot;Height of children as adults versus the height of their fathers&quot;,
   x = &quot;Father&#39;s height (in)&quot;,
@@ -221,22 +220,34 @@
 )</code></pre>
 <p>You should also alter the size of the scatterplot circles by adding <span class="monospace">size = 2</span> as an input in <span class="monospace">geom_point</span>.</p></li>
 </ol>
-<h2 id="additional-questions">Additional&nbsp;questions</h2>
-<div class="additional-questions">
-<ul>
-<li><p>Create a similar plot to <strong>Exercise 6</strong> and make a scatter-plot of each person’s height as a function of their <em>mother’s</em> height. Describe any trends that you see using full sentences. If there’s a trend both here and in <strong>Exercise 6</strong>, does it follow the same general direction or does it not? If the trends move in the same direction, then does one trend look stronger than the other? If so, which one? Explain how you know this using full&nbsp;sentences.</p></li>
-<li><p>Start with your code from <strong>Exercise 8</strong> and add a <span class="monospace">geom_smooth</span> command that separately performs a linear regression on the male and female categories. Each subplot (or facet) should have a line in it. Additionally, polish the graph using what you learned in <strong>Exercise 10</strong>. Intrepret your results and explain how well these visualizations explain the trends in the dataset, if&nbsp;any.</p></li>
-<li>Compare the <span class="monospace">geom_smooth</span> trend-lines for when used the father’s height only and when you used both the father’s height and whether the child was male or female. Do they both show the same trend? Is one trend more “powerful” than the other? Why or why not? Remember to respond by writing full&nbsp;sentences.</li>
-</ul>
-</div>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<ol start="12" class="example" type="1">
+<li><p>Create a similar plot to <strong>Exercise 7</strong> and make a scatter-plot of each person’s height as a function of their <em>mother’s</em> height. Describe any trends that you see using full sentences. If there’s a trend both here and in <strong>Exercise 7</strong>, does it follow the same general direction or does it not? If the trends move in the same direction, then does one trend look stronger than the other? If so, which one? Explain how you know this using full&nbsp;sentences.</p></li>
+<li><p>Start with your code from <strong>Exercise 9</strong> and add a <span class="monospace">geom_smooth</span> command that separately performs a linear regression on the male and female categories. Each subplot (or facet) should have a line in it. Additionally, polish the graph using what you learned in <strong>Exercise 11</strong>. Interpret your results and explain how well these visualizations explain the trends in the dataset, if&nbsp;any.</p></li>
+<li><p>Compare the <span class="monospace">geom_smooth</span> trend-lines for when used the father’s height only and when you used both the father’s height and whether the child was male or female. Do they both show the same trend? Is one trend more “powerful” than the other? Why or why not? Remember to respond by writing full&nbsp;sentences.</p></li>
+</ol>
 <h2 id="how-to-submit">How to&nbsp;submit</h2>
 <p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
 <ol type="1">
 <li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
 <li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 2</em> posting on&nbsp;Blackboard.</p></li>
 </ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
 <h2 id="credits">Credits</h2>
 <p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. <a href="#about-the-galton-dataset">The description of the <span class="monospace">Galton</span> dataset</a> was adapted from the documentation of the same dataset that’s available in the <a href="https://github.com/ProjectMOSAIC/mosaicData"><span class="monospace">mosaicData</span> R package</a> and some of the lab exercises were adapted from problem sets found in <em>Modern Data Science with R</em> by Benjamin Baumer, Daniel Kaplan, and Nicholas Horton. All other exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
+<h2 id="references" class="unnumbered">References</h2>
+<div id="refs" class="references">
+<div id="ref-hanley:2004">
+<p>[1] <span class="caps">J. A.</span> Hanley, “’Transmuting’ Women into Men: Galton’s Family Data on Human Stature,” The American Statistician <strong>58</strong>, 237&nbsp;(2004).</p>
+</div>
+</div>
 
 </div>    </article>
     </div>
