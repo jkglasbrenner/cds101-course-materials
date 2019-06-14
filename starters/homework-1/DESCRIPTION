@@ -1,0 +1,5 @@
+Title: Homework 1 — The rail trail dataset
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
