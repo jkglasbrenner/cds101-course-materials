@@ -21,6 +21,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 | [`mini-homework-6`](mini-homework-6)   | [Mini-homework 6 – Analyzing data distributions][minihw-6]                       |
 | [`mini-homework-7`](mini-homework-7)   | [Mini-homework 7 – Who busts the Mythbusters?][minihw-7]                         |
 | [`mini-homework-8`](mini-homework-8)   | [Mini-homework 8 – Under (blood) pressure][minihw-8]                             |
+| [`final-project`](final-project)       | [Final project – The College Scorecard dataset][final-project]                   |
 
 [homework-1]: https://www.cds101.com/assignments/homework-1/
 [homework-2]: https://www.cds101.com/assignments/homework-2/
@@ -34,6 +35,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 [minihw-6]: https://www.cds101.com/assignments/minihw06-analyzing-data-distributions/
 [minihw-7]: https://www.cds101.com/assignments/minihw07-who-busts-the-mythbusters/
 [minihw-8]: https://www.cds101.com/assignments/minihw08-under-blood-pressure/
+[final-project]: https://www.cds101.com/assignments/final-project/
 
 ## CDS 102
 

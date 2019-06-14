@@ -1,0 +1,8 @@
+Title: Final Project — The College Scorecard dataset
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  infer (>= 0.4.0),
+  modelr (>= 0.1.2),
+  broom (>= 0.5.0)
