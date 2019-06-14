@@ -1,0 +1,6 @@
+Title: Mini-homework 4 - Flights of New York
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  nycflights13
