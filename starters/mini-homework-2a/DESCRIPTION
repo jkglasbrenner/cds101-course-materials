@@ -1,0 +1,5 @@
+Title: Mini-homework 2a - R Markdown practice
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
