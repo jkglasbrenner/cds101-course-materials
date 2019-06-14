@@ -48,14 +48,14 @@ icon_book <- '<i class="fa fa-book" data-fa-transform="grow-4"></i>&nbsp;'
 
 `r icon_link` Book URL: <https://rafalab.github.io/dsbook/>
 
-**Chapter 77: RStudio**
+**Selections from chapters 2, 39, and 40**
 
-*   Section 77.1 -- The panes: <https://rafalab.github.io/dsbook/rstudio.html#the-panes>
+*   Section 2.4.1 -- RStudio: The panes: <https://rafalab.github.io/dsbook/getting-started.html#the-panes>
 
-*   Section 77.2 -- Key bindings: <https://rafalab.github.io/dsbook/rstudio.html#key-bindings>
+*   Section 2.4.2 -- RStudio: Key bindings: <https://rafalab.github.io/dsbook/getting-started.html#key-bindings>
 
-*   Section 77.5 -- Global options: <https://rafalab.github.io/dsbook/rstudio.html#global-options>
+*   Section 2.4.4 -- RStudio: Global options: <https://rafalab.github.io/dsbook/getting-started.html#changing-global-options>
 
-*   Section 77.6 -- Keeping organized with RStudio projects: <https://rafalab.github.io/dsbook/rstudio.html#keeping-organized-with-rstudio-projects>
+*   Section 39.6 -- Using Git and GitHub in RStudio: <https://rafalab.github.io/dsbook/git.html#rstudio-git>
 
-*   Section 77.7 -- Using Git and GitHub in RStudio: <https://rafalab.github.io/dsbook/rstudio.html#using-git-and-github-in-rstudio>
+*   Sections 40.1 -- RStudio projects: <https://rafalab.github.io/dsbook/reproducible-projects-with-rstudio-and-r-markdown.html#rstudio-projects>
