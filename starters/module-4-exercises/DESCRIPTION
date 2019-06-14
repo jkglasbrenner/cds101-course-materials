@@ -1,0 +1,5 @@
+Title: Module 4 exercises — dplyr demonstrations
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse

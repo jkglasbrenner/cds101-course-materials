@@ -1,0 +1,216 @@
+---
+title: "Module 4 exercises: dplyr demo"
+author: FirstName LastName
+date: "`r Sys.Date()`"
+documentclass: article
+geometry: margin=1in
+fontsize: 11pt
+output:
+  pdf_document:
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: false
+    dev: pdf
+    highlight: tango
+  html_document:
+    theme: default
+    self_contained: true
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: false
+    smart: true
+    dev: svg
+---
+
+```{r setup, include = FALSE}
+# DO NOT ALTER THIS CHUNK
+# Set knitr options
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  fig.width = 5,
+  fig.asp = 0.618,
+  out.width = "70%",
+  dpi = 120,
+  fig.align = "center",
+  cache = FALSE
+)
+# Load packages
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(lubridate))
+```
+
+The `presidential` dataset comes with `ggplot2`, so running the above setup code block should load it automatically.
+
+```{r test-presidential-output, eval = FALSE, include = FALSE}
+# Try running me inside RStudio Server!
+View(presidential)
+```
+
+## `select` demo
+
+`select` example 1:
+
+```{r select-example-1}
+# code starts below
+
+```
+
+`select` example 2:
+
+```{r select-example-2}
+# code starts below
+
+```
+
+`select` example 3:
+
+```{r select-example-3}
+# code starts below
+
+```
+
+`select` example 4:
+
+```{r select-example-4}
+# code starts below
+
+```
+
+## `arrange` demo
+
+`arrange` example 1:
+
+```{r arrange-example-1}
+# code starts below
+
+```
+
+`arrange` example 2:
+
+```{r arrange-example-2}
+# code starts below
+
+```
+
+## `slice` demo
+
+`slice` example 1:
+
+```{r slice-example-1}
+# code starts below
+
+```
+
+`slice` example 2:
+
+```{r slice-example-2}
+# code starts below
+
+```
+
+`slice` example 3:
+
+```{r slice-example-3}
+# code starts below
+
+```
+
+## `filter` demo
+
+`filter` example 1:
+
+```{r filter-example-1}
+# code starts below
+
+```
+
+`filter` example 2:
+
+```{r filter-example-2}
+# code starts below
+
+```
+
+`filter` example 3:
+
+```{r filter-example-3}
+# code starts below
+
+```
+
+`filter` example 4:
+
+```{r filter-example-4}
+# code starts below
+
+```
+
+`filter` example 5:
+
+```{r filter-example-5}
+# code starts below
+
+```
+
+`filter` example 6:
+
+```{r filter-example-6}
+# code starts below
+
+```
+
+## `mutate()` demo
+
+`mutate` example 1:
+
+```{r mutate-example-1}
+# code starts below
+
+```
+
+`mutate` example 2:
+
+```{r mutate-example-2}
+# code starts below
+
+```
+
+`mutate` example 3:
+
+```{r mutate-example-3}
+# code starts below
+
+```
+
+## `group_by` and `summarize` demo
+
+`summarize` example:
+
+```{r summarize-example}
+# code starts below
+
+```
+
+`group_by` and `summarize` example:
+
+```{r group-by-summarize-example}
+# code starts below
+
+```
+
+Using `write_csv` to save `elected_pres2` to disk:
+
+```{r write-csv-file}
+# code starts below
+
+```
+
+How to use the csv file you just saved:
+
+```{r load-csv-file}
+# code starts below
+
+```
