@@ -1,0 +1,14 @@
+language: r
+cache: packages
+r: 3.5
+pandoc_version: 2.2.1
+repos:
+  CRAN: https://cran.rstudio.com
+if: tag IS blank AND branch = master
+notifications:
+  email:
+    on_failure: always
+    on_success: never
+script:
+- make homework_3.pdf
+- make homework_3.html
