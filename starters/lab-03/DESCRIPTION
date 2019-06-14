@@ -1,0 +1,5 @@
+Title: Lab 03 — Wrangling sales data
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse

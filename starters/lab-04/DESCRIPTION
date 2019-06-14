@@ -1,0 +1,5 @@
+Title: Lab 04 — Tidying your dataset
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse

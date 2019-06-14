@@ -1,0 +1,9 @@
+Title: Lab 05 — Mining the Social Web
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  glue,
+  lubridate,
+  fs,
+  rtweet
