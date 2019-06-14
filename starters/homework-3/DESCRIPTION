@@ -1,0 +1,6 @@
+Title: Homework 3 — The National Survey of Family Growth dataset
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  infer (>= 0.4.0)

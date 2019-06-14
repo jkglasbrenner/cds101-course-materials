@@ -7,19 +7,25 @@ Each folder contains the starter files of a separate assignment and the list of 
 
 ## CDS 101
 
-| Folder                                 | Assignment                                                 |
-| -----------------                      | -----------------------------------------                  |
-| [`homework-1`](homework-1)             | [Homework 1 – The rail trail dataset][homework-1]          |
-| [`mini-homework-2a`](mini-homework-2a) | [Mini-homework 2a – R Markdown practice][minihw-2a]        |
-| [`mini-homework-2b`](mini-homework-2b) | [Mini-homework 2b – Visualization practice][minihw-2b]     |
-| [`mini-homework-3`](mini-homework-3)   | [Mini-homework 3 – Visualization by example][minihw-3]     |
-| [`mini-homework-4`](mini-homework-4)   | [Mini-homework 4 – Flights of New York][minihw-4]          |
-| [`mini-homework-5`](mini-homework-5)   | [Mini-homework 5 – Tidy Gradebook][minihw-5]               |
-| [`mini-homework-6`](mini-homework-6)   | [Mini-homework 6 – Analyzing data distributions][minihw-6] |
-| [`mini-homework-7`](mini-homework-7)   | [Mini-homework 7 – Who busts the Mythbusters?][minihw-7]   |
-| [`mini-homework-8`](mini-homework-8)   | [Mini-homework 8 – Under (blood) pressure][minihw-8]       |
+| Folder                                 | Assignment                                                                       |
+| -----------------                      | -----------------------------------------                                        |
+| [`homework-1`](homework-1)             | [Homework 1 – The rail trail dataset][homework-1]                                |
+| [`homework-2`](homework-2)             | [Homework 2 – The Titanic dataset][homework-2]                                   |
+| [`homework-3`](homework-3)             | [Homework 3 – The National Survey of Family Growth dataset][homework-3]          |
+| [`homework-4`](homework-4)             | [Homework 4 – Market value of condominiums in New York City dataset][homework-4] |
+| [`mini-homework-2a`](mini-homework-2a) | [Mini-homework 2a – R Markdown practice][minihw-2a]                              |
+| [`mini-homework-2b`](mini-homework-2b) | [Mini-homework 2b – Visualization practice][minihw-2b]                           |
+| [`mini-homework-3`](mini-homework-3)   | [Mini-homework 3 – Visualization by example][minihw-3]                           |
+| [`mini-homework-4`](mini-homework-4)   | [Mini-homework 4 – Flights of New York][minihw-4]                                |
+| [`mini-homework-5`](mini-homework-5)   | [Mini-homework 5 – Tidy Gradebook][minihw-5]                                     |
+| [`mini-homework-6`](mini-homework-6)   | [Mini-homework 6 – Analyzing data distributions][minihw-6]                       |
+| [`mini-homework-7`](mini-homework-7)   | [Mini-homework 7 – Who busts the Mythbusters?][minihw-7]                         |
+| [`mini-homework-8`](mini-homework-8)   | [Mini-homework 8 – Under (blood) pressure][minihw-8]                             |
 
 [homework-1]: https://www.cds101.com/assignments/homework-1/
+[homework-2]: https://www.cds101.com/assignments/homework-2/
+[homework-3]: https://www.cds101.com/assignments/homework-3/
+[homework-4]: https://www.cds101.com/assignments/homework-4/
 [minihw-2a]: https://www.cds101.com/assignments/minihw02a-rmarkdown-practice/
 [minihw-2b]: https://www.cds101.com/assignments/minihw02b-visualization-practice/
 [minihw-3]: https://www.cds101.com/assignments/minihw03-visualization-by-example/
