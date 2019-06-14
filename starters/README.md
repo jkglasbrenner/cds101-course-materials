@@ -22,5 +22,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 | Folder             | Assignment                                                          |
 | -----------------  | -----------------------------------------                           |
 | [`lab-01`](lab-01) | [Lab 01 – Reproducible research with R Markdown and GitHub][lab-01] |
+| [`lab-02`](lab-02) | [Lab 02 – Exploration by visualization: the Galton dataset][lab-02] |
 
 [lab-01]: https://www.cds101.com/labs/lab-01-learning-to-use-github-and-rmarkdown/
+[lab-02]: https://www.cds101.com/labs/lab-02-exploration-by-visualization-the-galton-dataset/
