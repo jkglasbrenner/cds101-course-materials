@@ -1,0 +1,27 @@
+---
+title: "Mini-homework 2a: R Markdown practice"
+author: "FirstName LastName"
+date: "`r Sys.Date()`"
+documentclass: article
+geometry: margin=1in
+fontsize: 11pt
+output:
+  pdf_document:
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: true
+    dev: pdf
+    highlight: tango
+  html_document:
+    theme: paper
+    self_contained: true
+    toc: false
+    df_print: kable
+    fig_caption: false
+    number_sections: true
+    smart: true
+    dev: svg
+---
+
+<!-- Write your Markdown below this line -->
