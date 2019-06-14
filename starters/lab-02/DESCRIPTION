@@ -1,0 +1,5 @@
+Title: Lab 02 — Exploration by visualization: the Galton dataset
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
