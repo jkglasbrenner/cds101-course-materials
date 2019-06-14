@@ -1,0 +1,5 @@
+Title: Lab 01 — Reproducible research with RMarkdown and Github
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
