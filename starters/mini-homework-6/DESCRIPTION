@@ -1,0 +1,5 @@
+Title: Mini-homework 6 - Analyzing data distributions
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse

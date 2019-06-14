@@ -1,0 +1,5 @@
+Title: Mini-homework 5 - Tidy Gradebook
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse

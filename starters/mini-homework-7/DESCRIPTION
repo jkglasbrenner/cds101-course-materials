@@ -1,0 +1,6 @@
+Title: Mini-homework 7 - Who busts the Mythbusters?
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  infer (>= 0.4.0)

@@ -1,0 +1,14 @@
+language: r
+cache: packages
+r: 3.5
+pandoc_version: 2.2.1
+repos:
+  CRAN: https://cran.rstudio.com
+if: tag IS blank AND branch = master
+notifications:
+  email:
+    on_failure: always
+    on_success: never
+script:
+- make flights_of_new_york.pdf
+- make flights_of_new_york.html
