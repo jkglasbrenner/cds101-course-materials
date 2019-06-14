@@ -43,6 +43,16 @@ Each folder contains the starter files of a separate assignment and the list of 
 | -----------------  | -----------------------------------------                           |
 | [`lab-01`](lab-01) | [Lab 01 – Reproducible research with R Markdown and GitHub][lab-01] |
 | [`lab-02`](lab-02) | [Lab 02 – Exploration by visualization: the Galton dataset][lab-02] |
+| [`lab-03`](lab-03) | [Lab 03 – Wrangling sales data][lab-03]                             |
+| [`lab-04`](lab-04) | [Lab 04 – Tidying your dataset][lab-04]                             |
+| [`lab-05`](lab-05) | [Lab 05 – Mining the social web][lab-05]                            |
+| [`lab-06`](lab-06) | [Lab 06 – Speed of light][lab-06]                                   |
+| [`lab-07`](lab-07) | [Lab 07 – Moneyball][lab-07]                                        |
 
 [lab-01]: https://www.cds101.com/labs/lab-01-learning-to-use-github-and-rmarkdown/
 [lab-02]: https://www.cds101.com/labs/lab-02-exploration-by-visualization-the-galton-dataset/
+[lab-03]: https://www.cds101.com/labs/lab-03-wrangling-sales-data/
+[lab-04]: https://www.cds101.com/labs/lab-04-tidying-your-dataset/
+[lab-05]: https://www.cds101.com/labs/lab-05-mining-the-social-web/
+[lab-06]: https://www.cds101.com/labs/lab-06-speed-of-light/
+[lab-07]: https://www.cds101.com/labs/lab-07-moneyball/

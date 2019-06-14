@@ -1,0 +1,7 @@
+Title: Lab 07 — Moneyball
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  modelr (>= 0.1.2),
+  broom (>= 0.5.0)

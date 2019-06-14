@@ -1,0 +1,6 @@
+Title: Lab 06 — Speed of light
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  infer (>= 0.4.0)
