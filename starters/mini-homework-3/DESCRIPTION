@@ -1,0 +1,5 @@
+Title: Mini-homework 3 - Visualization by example
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
