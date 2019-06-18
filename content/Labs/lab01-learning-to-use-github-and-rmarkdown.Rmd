@@ -255,7 +255,7 @@ Let's write some more Markdown and see what it does.
     1.  What happens if we nest a list?
         1.  Type four spaces, then type the number
         2.  Did this do what you expected?
-    2.  What if we contine the numbers this way?
+    2.  What if we continue the numbers this way?
         *   What happens if we indent using stars?
         *   Let's add another one for good measure.
             *   Can we get another level of nesting?
