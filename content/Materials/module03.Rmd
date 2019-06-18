@@ -83,7 +83,7 @@ vembedr::embed_youtube(id = "pmjM0mz_1Es", height = 325, width = 365, allowfulls
 :::
 
 [slides-01]:        https://drive.google.com/file/d/1VK_vXEHBK5U35rfgetwon07A7YLpaj_H
-[slides-02]:        https://drive.google.com/file/d/1VK_vXEHBK5U35rfgetwon07A7YLpaj_H
+[slides-02]:        https://drive.google.com/file/d/1KiY4qavGUf3gMQF5rg1cR5HzmaI9i0dQ
 [slides-03]:        https://drive.google.com/file/d/1zVbreifnXfsTiPiTNnQoacOPvtwG-aLN
 [slides-04]:        https://drive.google.com/file/d/1iOh3_7T7hhCO3IWkSoXCT1xqQUUHc0hw
 [reading03]:        /assignments/reading03/
