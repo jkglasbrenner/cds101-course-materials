@@ -73,6 +73,7 @@ Start working on these exercises **after** you have successfully cloned your rep
     [What does [%>%]{.monospace} mean?]{.h4}
 
     The strange looking symbol [%>%]{.monospace} is called the **pipe**, and it is a handy way to pass a dataset through a chain of commands.
+    All examples going forward will use the pipe whenever possible.
     :::
 
 @more-selecting.
@@ -98,10 +99,9 @@ Start working on these exercises **after** you have successfully cloned your rep
     ::: {.callout .secondary}
     [Important!]{.h4}
 
-    Confusion about the function to use for sorting data frames frequently comes up later in the course.
-    Students often find that there is a function named `sort()` in R as well.
-    However, it will give you errors if you try to use it the same way we use `arrange()`.
-    For the purposes of this course, **always use `arrange()` and pretend `sort()` doesn't exist**.
+    Students often find that there is a _base R_ function named `sort()` as well, leading to confusion later in the course.
+    Using `sort()` the same way you use `arrange()` will give you errors.
+    For the duration of course **we will always prefer to use the [tidyverse]{.monospace} version of a function**, so always use `arrange()` and pretend `sort()` doesn’t exist.
     :::
 
 @descending-sort.
