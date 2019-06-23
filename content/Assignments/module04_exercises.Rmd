@@ -14,7 +14,7 @@ assignment_name <- "Module 4 exercises"
 
 ## Instructions
 
-For this module exercise, you will acquire the [[dplyr]{.monospace} demo starter files][github-classroom] and follow along with the examples from the [Module 4 lecture videos][module-lectures].
+For this module exercise, you will acquire the [dplyr]{.monospace} demo starter files on Blackboard and follow along with the examples from the [Module 4 lecture videos][module-lectures].
 Fill in the code blocks in the R Markdown file [dplyr\_demo.Rmd]{.monospace} to match what you see in the examples from the videos.
 You will receive credit towards your **module exercises** grade if you complete the demos, push your completed R Markdown file to GitHub, and upload a knitted PDF of your completed R Markdown file to Blackboard.
 
