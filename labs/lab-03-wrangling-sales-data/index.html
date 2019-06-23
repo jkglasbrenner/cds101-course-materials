@@ -66,78 +66,69 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 03 – Wrangling sales&nbsp;data</h1>
 </header><div class="static-page-body">
-  <blockquote>
-<p>This week’s lab will introduce you to data transformations using the <span class="monospace">dplyr</span> library, which is loaded as part of <span class="monospace">tidyverse</span>. To keep things from becoming too complicated, we practice these commands on a small, synthetic dataset that represents sales of office&nbsp;supplies.</p>
-</blockquote>
-<h2 id="what-is-data-wrangling">What is “data&nbsp;wrangling”?</h2>
-<p>The previous lab focused on constructing visualizations using the <span class="monospace">ggplot2</span> library. The dataset used for that lab, the <span class="monospace">galton</span> dataset, was selected because it was relatively small in size and could be visualized in interesting ways without the need for additional processing. It would certainly be nice if all datasets came in such a form! However, in reality, many datasets need cleaning and to be transformed before you can create a meaningful visualization or answer a question. The dataset need not even be messy; datasets that have been preprocessed and are clean and tidy still may require transformations. The full pipeline for obtaining data, cleaning it up, and transforming it is informally referred to as “data wrangling”, which is summarized in the figure from <a href="http://r4ds.had.co.nz/wrangle-intro.html"><em>R for Data Science</em></a>&nbsp;below:</p>
-<p><img src="https://www.cds101.com/img/r4ds_data_wrangling.png" title="plot of chunk data-wrangling-figure" alt="plot of chunk data-wrangling-figure" width="60%" /></p>
-<p>We start with the <em>transform</em> part of the data wrangling pipeline, which relies on commands that are part of the <span class="monospace">dplyr</span> package, itself part of <span class="monospace">tidyverse</span>. Like many of the functions available in the <span class="monospace">tidyverse</span>, the command names provide us with clues as to what they do. If you have any prior experience with spreadsheeting software such as Microsoft Excel, you will probably find the commands in <span class="monospace">dplyr</span> to be&nbsp;familiar.</p>
-<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
-<p>This is a synthetic dataset that contains sales data of office supplies to different regions of the United States. The dataset is stored in the variable <span class="monospace">office_supplies</span>.</p>
-<h3 id="variables">Variables</h3>
-<p>This is a tabular dataset with 43 observations on the following&nbsp;variables:</p>
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab03.Rmd</span>. This lab introduces you to data transformations using the <span class="monospace">dplyr</span> library, which is loaded as part of <span class="monospace">tidyverse</span>. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab03.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
+<h2 id="what-is-data-wrangling">What is data&nbsp;wrangling?</h2>
+<p><a href="/labs/lab-02-exploration-by-visualization-the-galton-dataset/"><i class="fas fa-link"></i>Lab 2</a> focused on constructing visualizations using the <span class="monospace">ggplot2</span> library. The dataset used for that lab, the <span class="monospace">galton</span> dataset, was selected because it was relatively small in size and could be visualized in interesting ways without the need for additional processing. It would certainly be nice if all datasets came in such a form! However, in reality, many datasets need to be cleaned, reshaped, and transformed before you can use them to create meaningful visualizations and answer interesting questions. Even datasets that have been preprocessed to be clean and tidy may still require you to apply transformations to help uncover the underlying trends in the data. The full pipeline for obtaining data, cleaning it up, and transforming it is informally referred to as <em>data wrangling</em>, which is summarized in the following figure from <a href="http://r4ds.had.co.nz/wrangle-intro.html"><i class="fas fa-link"></i><em>R for Data Science</em></a>:</p>
+<p><img src="https://www.cds101.com/img/r4ds_data_wrangling.png" title="plot of chunk data-wrangling-figure" alt="plot of chunk data-wrangling-figure" width="NA" style="display: block; margin: auto;" /></p>
+<p>This lab introduces you to functions from the <span class="monospace">dplyr</span> package that you can use to carry out the <em>transform</em> part of the data wrangling pipeline. If you have any prior experience with spreadsheeting software such as Microsoft Excel, you will probably find the functions in the <span class="monospace">dplyr</span> package to be&nbsp;familiar.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>This is a synthetic dataset that contains sales data for office supplies sold to clients in different regions of the United&nbsp;States.</p>
+<p>The table below provides descriptions of the dataset’s 6&nbsp;variables,</p>
 <table>
 <thead>
 <tr class="header">
 <th>Variable</th>
-<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><span class="monospace">order_date</span></td>
-<td><span class="monospace">date</span></td>
 <td>The date the office supplies order was placed</td>
 </tr>
 <tr class="even">
 <td><span class="monospace">region</span></td>
-<td><span class="monospace">chr</span></td>
 <td>Shipping region in United States</td>
 </tr>
 <tr class="odd">
 <td><span class="monospace">representative</span></td>
-<td><span class="monospace">chr</span></td>
 <td>Name of sales representative</td>
 </tr>
 <tr class="even">
 <td><span class="monospace">item</span></td>
-<td><span class="monospace">chr</span></td>
 <td>Item ordered</td>
 </tr>
 <tr class="odd">
 <td><span class="monospace">units</span></td>
-<td><span class="monospace">int</span></td>
 <td>How many units of item were sold</td>
 </tr>
 <tr class="even">
 <td><span class="monospace">unit_price</span></td>
-<td><span class="monospace">dbl</span></td>
 <td>Price per unit of item</td>
 </tr>
 </tbody>
 </table>
-<p>Like in previous labs, it’s recommended that you take a first look at the dataset by viewing it by running <code>View(office_supplies)</code> in your <em>Console</em>&nbsp;window.</p>
 <h2 id="subsetting-over-variables">Subsetting over&nbsp;variables</h2>
-<p>Let’s start with the <code>select()</code> function. The <code>select()</code> function <em>selects</em> columns from a dataset, which is useful when you’re working with a dataset that contains dozens of&nbsp;variables.</p>
+<p>The <span class="monospace">dplyr</span> package has many different functions in it and trying to understand them all at once can be a bit overwhelming. So instead of listing everything all at once, we will build up our intuition by practicing with one function at a time. Let’s start with the <code>select()</code> function, which allows you to <em>select</em> columns from a dataset. This is useful when you’re working with a dataset that contains dozens of variables and you want to make things more&nbsp;manageable.</p>
 <ol class="example" type="1">
 <li><p>Try running the following&nbsp;code:</p>
 <pre class="r"><code>office_supplies %&gt;%
   select(representative)</code></pre>
 <p>Based on the output, explain what happens when you run this&nbsp;command.</p>
-<p>Try putting an additional column name inside the parentheses of the <code>select()</code> command (don’t forget the comma!). What does this&nbsp;do?</p></li>
+<p>Try putting an additional column name inside the parentheses of the <code>select()</code> command (don’t forget the comma!). What does this&nbsp;do?</p>
+<div class="callout primary">
+<p><span class="h4">Note</span></p>
+<p>The strange looking symbol <span class="monospace">%&gt;%</span> is called the <strong>pipe</strong>, and it is a handy way to pass a dataset through a chain of commands. All examples going forward will use the pipe whenever&nbsp;possible.</p>
+</div></li>
 </ol>
-<div class="callout secondary">
-<p>The strange looking symbol <span class="monospace">%&gt;%</span> is called the <strong>pipe</strong>, and it is a handy way to pass a dataset through a chain of&nbsp;commands.</p>
-</div>
 <p>There are multiple ways to specify columns with the <code>select()</code> command. Let’s explore a couple of those&nbsp;ways.</p>
 <ol start="2" class="example" type="1">
 <li><p>Copy the code you wrote in <strong>Exercise 1</strong> and replace <span class="monospace">representative</span> with <span class="monospace">representative:unit_price</span>. What does the colon <span class="monospace">:</span>&nbsp;do?</p>
 <p>Next, try putting a minus sign in front of the column names, such as <span class="monospace">-representative</span> or <span class="monospace">-representative:-unit_price</span>. How does the minus sign affect the&nbsp;output?</p></li>
 </ol>
 <h2 id="sorting-data">Sorting&nbsp;data</h2>
-<p>The sort operation is a common and indispensible operation for organizing data, and the function from <span class="monospace">dplyr</span> that allows us to sort is called <code>arrange()</code>. <code>arrange()</code> sorts columns with textual data (<span class="monospace">chr</span> data type) into alphabetical order and sorts numerical data into numerical order. Try running the following&nbsp;code:</p>
+<p>The sort operation is a common and indispensible operation for organizing data, and the function from <span class="monospace">dplyr</span> that allows us to sort is called <code>arrange()</code>. <code>arrange()</code> sorts columns with textual data (<span class="monospace">chr</span> data type) into alphabetical order and sorts numerical data into numerical&nbsp;order.</p>
 <ol start="3" class="example" type="1">
 <li><p>Run the following&nbsp;code:</p>
 <pre class="r"><code>office_supplies %&gt;%
@@ -149,8 +140,12 @@
 <li><p>Sort using the variable <span class="monospace">order_date</span>. Then, make a copy of the code block you just wrote and then wrap the column name with <code>desc()</code>, like so: <code>desc(order_date)</code>. Verify that <code>desc()</code> sorted the data in the reverse&nbsp;order.</p>
 <p>Copy the starting code from the previous example, and adapt it so that <span class="monospace">region</span> is sorted in <em>ascending</em> order and <span class="monospace">item</span> is sorted in <em>descending</em> order. Write it down and get the&nbsp;output.</p></li>
 </ol>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p>Students often find that there is a <em>base R</em> function named <code>sort()</code> as well, leading to confusion later in the course. Using <code>sort()</code> the same way you use <code>arrange()</code> will give you errors. For the duration of course <strong>we will always prefer to use the <span class="monospace">tidyverse</span> version of a function</strong>, so always use <code>arrange()</code> and pretend <code>sort()</code> doesn’t&nbsp;exist.</p>
+</div>
 <h2 id="transforming-data">Transforming&nbsp;data</h2>
-<p>Let’s now try an example that uses the <code>mutate()</code> function, which is a little more complex. <code>mutate()</code> lets us <strong>transform</strong> our dataset by applying the same operation to each row in the dataset and appending the results as a <em>new</em> column. This would allow you to create a new column in your dataset called <span class="monospace">total_price</span> that contains the toal price of each&nbsp;order.</p>
+<p>Let’s now try an example that uses the <code>mutate()</code> function, which is a little more complex. <code>mutate()</code> lets us <strong>transform</strong> our dataset by applying the same operation to each row in the dataset and storing the results in a <em>new</em> column. This would allow us, for example, to create a new column in the dataset called <span class="monospace">total_price</span> that contains the toal price of each&nbsp;order.</p>
 <ol start="5" class="example" type="1">
 <li><p>To calculate the total price of an order, we need to multiply the number of units sold by the unit price across each row. Do this by running the following <code>mutate()</code> command:</p>
 <pre class="r"><code>office_supplies %&gt;%
@@ -166,12 +161,12 @@
 <p>modify it so that there’s a second input in <code>mutate()</code>, <span class="monospace">shipping_date = order_date + 2</span>. Does this add another column? What has happened by adding the number 2 to the rows in the <span class="monospace">order_date</span>&nbsp;column?</p></li>
 </ol>
 <h2 id="immutable-datasets">Immutable&nbsp;datasets</h2>
-<p>It’s worth pausing for a moment and asking whether any of these commands are permanently changing the way the dataset looks in <span class="monospace">office_supplies</span>. Inspect your dataset using <code>View(office_supplies)</code> to&nbsp;check.</p>
+<p>It’s worth pausing for a moment and asking whether any of these commands are permanently changing the way the dataset looks in <span class="monospace">office_supplies</span>. Inspect your dataset by typing <code>View(office_supplies)</code> in the <em>Console</em> pane to&nbsp;check.</p>
 <ol start="7" class="example" type="1">
-<li><p>Based on what you observe, has the data frame in <span class="monospace">office_supplies</span> been updating with each command, or is it&nbsp;unchanged?</p>
+<li><p>Based on what you observe, has each function we’ve run in the previous exercises changed the information in <span class="monospace">office_supplies</span>?</p>
 <p>As a comparison, run the&nbsp;command,</p>
 <pre class="r"><code>office_supplies_updated &lt;- mutate(office_supplies, total_price = units * unit_price)</code></pre>
-<p>and then print out whatever’s in <span class="monospace">office_supplies_updated</span>. Has the change stuck&nbsp;now?</p></li>
+<p>Then, create a new code block with just <span class="monospace">office_supplies_updated</span> in it, which will print it out for inspection. Has the change stuck&nbsp;now?</p></li>
 </ol>
 <h2 id="filtering-data">Filtering&nbsp;data</h2>
 <p>Next up is the <code>filter()</code> function, which provides a ruled-based way to keep a subset of rows and remove the rest. Here we just consider rules that are simple comparisons, which involve the&nbsp;symbols:</p>
@@ -221,27 +216,35 @@
   summarize(gross_earnings = sum(total_price))</code></pre>
 <p>How did this change the summary table from what you obtained in <strong>Exercise 10</strong>? Interpret the table you get as&nbsp;output.</p></li>
 </ol>
-<h2 id="additional-questions">Additional&nbsp;questions</h2>
-<div class="additional-questions">
-<ul>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<ol start="12" class="example" type="1">
 <li><p>The company wishes to expand their sales to include a new region, Canada. Doing this would require converting the unit prices from <span class="caps">US</span> dollars to Canadian Dollars. The current conversion rate is 1 <span class="caps">US</span> Dollar = 1.29 Canadian Dollars. So, for example, an item that costs 2.99 <span class="caps">US</span> Dollars would convert to <span class="math inline">\(2.99 &#92;times 1.29 = 3.86\)</span> Canadian Dollars. Using the <code>mutate()</code> function, write a code snippet that converts the unit price in <span class="caps">US</span> Dollars into Canadian Dollars and stores the result in a new column named <span class="monospace">unit_price_canadian</span>.</p></li>
-<li><p>Take the 2nd code example you ran in exercise 10 and assign it to a variable, like&nbsp;so:</p>
+<li><p>Take the 2nd code example you ran in <strong>Exercise 10</strong> and assign it to a variable, like&nbsp;so:</p>
 <pre class="r"><code>items_gross_earnings &lt;- office_supplies %&gt;%
   mutate(total_price = units * unit_price) %&gt;%
   group_by(item) %&gt;%
   summarize(gross_earnings = sum(total_price))</code></pre>
 <p>Use <span class="monospace">items_gross_earnings</span> to create a bar chart visualization of the gross earnings per&nbsp;item.</p>
 <div class="callout secondary">
-<p><strong>Hint:</strong> You will want to use <code>geom_col()</code> for&nbsp;this.</p>
+<p><span class="h4">Hint</span></p>
+<p>You will want to use <code>geom_col()</code> for&nbsp;this.</p>
 </div></li>
-</ul>
-</div>
+</ol>
 <h2 id="how-to-submit">How to&nbsp;submit</h2>
 <p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
 <ol type="1">
 <li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
 <li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 3</em> posting on&nbsp;Blackboard.</p></li>
 </ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
 <h2 id="credits">Credits</h2>
 <p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
 
