@@ -11,48 +11,55 @@ Show_link: true
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 
-icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-2"></i>&nbsp;'
+icon_link <- '<i class="fas fa-link"></i>'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp;'
 lab_name <- "Lab 4"
+starter_file <- "lab04.Rmd"
 ```
 
-> This week's lab will introduce you to the concepts of tidy data and how you can reshape your dataset to take advantage of the [tidyverse]{.monospace} tools.
-> You will then be guided through the process of using these tools to reshape a real-world gene expression dataset that tested the effect of starvation and growth rate on baker's yeast.[^brauer-reference]
+## Instructions
+
+Obtain the GitHub repository you will use to complete the lab, which contains a starter file named [`r starter_file`]{.monospace}.
+This lab introduces you to the concepts of tidy data and how you can reshape your dataset to take advantage of the [tidyverse]{.monospace} tools.
+Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file [`r starter_file`]{.monospace}.
+Then, when you're ready to submit, follow the directions in the [`r icon_link`How to submit](#how-to-submit) section below.
 
 ## Tidy data
 
-The principles of *Tidy Data* are visually represented in the figure below:
+As a review, [`r icon_link`the principles of *Tidy Data*][r4ds-tidy-data] are visually represented in the figure below:
 
-```{r tidy-data-schematic, echo = FALSE}
+```{r tidy-data-schematic, echo = FALSE, out.width = "80%", fig.align = "center"}
 knitr::include_graphics("img/tidy_data_schematic.png")
 ```
 
 The three panels are an illustration of the following three rules,
 
-::::: {.additional-questions}
 *   Each variable must have its own column.
 
 *   Each observation must have its own row.
 
 *   Each value must have its own cell.
-:::::
 
-It is worth emphasizing that there is a difference between a **tidy** dataset and a **dirty** dataset.
-"Tidying" a dataset means reshaping it by transposing the rows and columns until the format matches the criteria outlined in the above rules, which then allows us to more easily use the [ggplot2]{.monospace} and [dplyr]{.monospace} functions to analyze and visualize a dataset.
-Cleaning a "dirty" dataset means that you are fixing misspellings, data entry errors, and dealing with other irregularities in the raw data.
+It is worth emphasizing that there is a difference between an _untidy_ dataset and a _dirty_ dataset.
+Tidying a dataset means reshaping it by transposing the rows and columns until the format matches the criteria outlined in the above rules, which then allows us to more easily use the [ggplot2]{.monospace} and [dplyr]{.monospace} functions to analyze and visualize a dataset.
+Cleaning a dirty dataset means that you are fixing misspellings, data entry errors, and dealing with other irregularities in the raw data.
+This lab is about showing you how to reshape a dataset to make it tidy.
 
-## About this week's dataset
+## About the dataset
 
-The following quote, taken from a discussion about this paper[^robinson-post], describes the meaning of this dataset pretty well:
+This week's dataset is a gene expression dataset that comes from a real-world research project that tested the effect of starvation and growth rate on baker's yeast[@Brauer:2007].
+The following quote, sourced from a discussion about this paper[@Robinson:Cleaning:2015], describes the meaning of this dataset well:
 
 > Through the process of gene regulation, a cell can control which genes are transcribed from DNA to RNA --- what we call being "expressed".
 > (If a gene is never turned into RNA, it may as well not be there at all).
 > This provides a sort of "cellular switchboard" that can activate some systems and deactivate others, which can speed up or slow down growth, switch what nutrients are transported into or out of the cell, and respond to other stimuli.
-> A [gene expression microarray][dna-microarray] lets us measure how much of each gene is expressed in a particular condition.
+> A [`r icon_link`gene expression microarray][dna-microarray] lets us measure how much of each gene is expressed in a particular condition.
 > We can use this to figure out the function of a specific gene (based on when it turns on and off), or to get an overall picture of the cell's activity.
 >
-> [Brauer 2008][brauer-2008] used microarrays to test the effect of starvation and growth rate on baker's yeast [S. cerevisiae][s-cerevisiae], a popular model organism for studying molecular genomics because of its simplicity).
-> Basically, if you give yeast plenty of nutrients (a rich media), except that you sharply restrict its supply of one nutrient, you can control the growth rate to whatever level you desire (we do this with a tool called a [chemostat][chemostat]).
+> [`r icon_link`Brauer 2008][brauer-2008] used microarrays to test the effect of starvation and growth rate on baker's yeast [`r icon_link`S. cerevisiae][s-cerevisiae], a popular model organism for studying molecular genomics because of its simplicity).
+> Basically, if you give yeast plenty of nutrients (a rich media), except that you sharply restrict its supply of one nutrient, you can control the growth rate to whatever level you desire (we do this with a tool called a [`r icon_link`chemostat][chemostat]).
 > For example, you could limit the yeast's supply of glucose (sugar, which the cell metabolizes to get energy and carbon), of leucine (an essential amino acid), or of ammonium (a source of nitrogen).
 >
 > "Starving" the yeast of these nutrients lets us find genes that:
@@ -62,9 +69,7 @@ The following quote, taken from a discussion about this paper[^robinson-post], d
 > *   **Respond differently when different nutrients are being limited**.
 >     These genes may be involved in the transport or metabolism of those nutrients.
 
-### Variables
-
-This is a tabular dataset with 5,537 rows and 40 columns:
+The table below provides descriptions about the dataset's 40 variables,
 
 | Variable                             | Description                                                                                                                                       |
 | ------------------------             | --------------------------------------------------------------------------------------------------------------                                    |
@@ -74,7 +79,7 @@ This is a tabular dataset with 5,537 rows and 40 columns:
 | [GWEIGHT]{.monospace}                | The paper doesn't make this clear, but all entries are 1                                                                                          |
 | [[GNP][0.05 ≤ x ≤ 0.30]]{.monospace} | The letters [G]{.monospace}, [N]{.monospace}, and [P]{.monospace} represent the restricted nutrient. The decimal value is the yeast growth rate.  |
 
-The [NAME]{.monospace} column contains the following information separated by the double bar [||]{.monospace} symbols:
+Note that the [NAME]{.monospace} column contains the following information separated by the double bar [||]{.monospace} symbols:
 
 | Variable               | Description                                                      |
 | ---------------------- | ---------------------------------------------------------------- |
@@ -84,17 +89,19 @@ The [NAME]{.monospace} column contains the following information separated by th
 | Systematic ID          | for example, YNL049C. Every gene has one of these unique IDs.    |
 | Unknown ID Number      | for example, 1082129. The paper doesn't explain what these mean. |
 
-::::: {.callout .secondary}
+::::: {.callout .primary}
+[Note]{.h4}
+
 Like in previous labs, it’s recommended that you take a first look at the dataset by viewing it by running `View(brauer)` in your *Console* window.
 :::::
 
 ## The [tidyr]{.monospace} package
 
 Reshaping the gene expression dataset will require us to use two functions found in the [tidyr]{.monospace} package, `gather()` and `separate()`.
-Let's review how each of these functions works with the extended example from Chapter 12.6 in the [*R for Data Science*][r4ds-book] textbook.
+Let's review how each of these functions works with the extended example from Chapter 12.6 in the [`r icon_link`_R for Data Science_][r4ds-book] textbook.
 
-Running the `library(tidyverse)` command at the top of our RMarkdown file loads many packages and example datasets for us, which includes a dataset from the World Health Organization that is stored in the variable [who]{.monospace}.
-The first few lines of the [who]{.monospace} dataset are:
+Running the `library(tidyverse)` command at the top of our RMarkdown file loads many packages and example datasets for us, which includes a dataset from the World Health Organization that is stored in the variable `who`.
+The first few lines of the `who` dataset are:
 
 ```{r who-example-head, echo = FALSE}
 who %>%
@@ -112,14 +119,24 @@ This can easily be fixed by transposing these columns into rows using the `gathe
 
 ```{r who-gather-step}
 who1 <- who %>% 
-  gather(new_sp_m014:newrel_f65, key = "key", value = "cases", na.rm = TRUE)
+  gather(
+    new_sp_m014:newrel_f65,
+    key = "key",
+    value = "cases",
+    na.rm = TRUE
+  )
 ```
 
 After applying the `gather()` operation, the first few rows in the dataset now look as follows:
 
 ```{r who-gather-step-table, echo = FALSE}
 who %>% 
-  gather(new_sp_m014:newrel_f65, key = "key", value = "cases", na.rm = TRUE) %>%
+  gather(
+    new_sp_m014:newrel_f65,
+    key = "key",
+    value = "cases",
+    na.rm = TRUE
+  ) %>%
   head() %>%
   rbind(rep("...", 6)) %>%
   knitr::kable(format = "html")
@@ -128,6 +145,8 @@ who %>%
 As you can see, we've taken the 57 category columnms and converted them into categories underneath a single column named [key]{.monospace} with their corresponding values placed underneath the column [cases]{.monospace}.
 
 ::::: {.callout .primary}
+[Hint]{.h4}
+
 To summarize, the syntax for `gather()` is as follows:
 
 ```r
@@ -154,7 +173,9 @@ To separate the columns, we run the following:
 
 ```{r who-separate-step}
 who2 <- who1 %>%
-  mutate(key = str_replace(key, "newrel", "new_rel")) %>%
+  mutate(
+    key = str_replace(key, "newrel", "new_rel")
+  ) %>%
   separate(
     col = key,
     into = combine("new", "type", "sexage"),
@@ -176,6 +197,8 @@ who2%>%
 As you can see, this has successfully split our one column into three.
 
 ::::: {.callout .primary}
+[Note]{.h4}
+
 To summarize, the syntax for `separate()` is as follows:
 
 ```r
@@ -221,8 +244,10 @@ Looking at the version of the dataset in [brauer3]{.monospace}, we can clearly s
 These are violations that can be fixed using the `separate()` function.
 Let's separate the [sample]{.monospace} column we created with the `gather()` function first.
 
-::: {.callout .secondary}
-**Hint:** If you don't want the `separate()` function to delete any individual letters or symbols when splitting a column, you can set the [sep]{.monospace} argument equal to an integer, for example [sep = 1]{.monospace}.
+::: {.callout .primary}
+[Hint]{.h4}
+
+If you don't want the `separate()` function to delete any individual letters or symbols when splitting a column, you can set the [sep]{.monospace} argument equal to an integer, for example [sep = 1]{.monospace}.
 This tells `separate()` to split the column right after the first letter.
 :::
 
@@ -232,10 +257,12 @@ This tells `separate()` to split the column right after the first letter.
     Assign your result to the variable [brauer4]{.monospace}.
     
 Now we turn to the [NAME]{.monospace} column where each value is separated by two bars [||]{.monospace} and there are five variables contained in each cell.
-Using the information from the [about this week's dataset](#about-this-weeks-dataset) section, we deduce that we should name the new columns [gene\_name]{.monospace}, [biological\_process]{.monospace}, [molecular\_function]{.monospace}, [systematic\_id]{.monospace}, and [number]{.monospace}.
+Using the information from the [`r icon_link`about the dataset](#about-the-dataset) section, we deduce that we should name the new columns [gene\_name]{.monospace}, [biological\_process]{.monospace}, [molecular\_function]{.monospace}, [systematic\_id]{.monospace}, and [number]{.monospace}.
 
 ::: {.callout .secondary}
-**Hint:** If you try to use [sep = "||"]{.monospace} in `separate()`, it will not work as expected.
+[Important!]{.h4}
+
+If you try to use [sep = "||"]{.monospace} in `separate()`, it will not work as expected.
 By default, the bar symbol [|]{.monospace} is interpreted as the boolean operator OR, which should be familiar from creating rules for `filter()`.
 To get around this, we can preceed [|]{.monospace} with backslashes to signal to R that we want it to read [|]{.monospace} as a symbol and not as the boolean operator OR.
 Thus, we should use [sep = "&#92;&#92;&#92;&#92;|&#92;&#92;&#92;&#92;|"]{.monospace} to define our separator.
@@ -255,7 +282,10 @@ Removing this blank space (typically called "white space") is called **trimming*
 
     ```r
     brauer5 %>%
-      mutate_at(vars(gene_name:systematic_id), str_trim)
+      mutate_at(
+        vars(gene_name:systematic_id),
+        str_trim
+      )
     ```
     
     Assign your result to the variable [brauer\_tidy]{.monospace}.
@@ -271,19 +301,19 @@ To demonstrate this, we will now create a plot that a biologist would use to exp
     Filter [brauer\_tidy]{.monospace} so that it only contains entries with [gene\_name]{.monospace} equal to [LEU1]{.monospace}.
     Then, create a line plot where you place [rate]{.monospace} on the horizontal axis, [expression]{.monospace} on the vertical axis, and assign different colors to [nutrient]{.monospace}.
 
-## Additional questions
+## Additional exercises
 
-:::::{.additional-questions}
-*   What are the dataset's dimensions (the number of rows and columns) after completing the tidying procedure?
+@.
+    What are the dataset's dimensions (the number of rows and columns) after completing the tidying procedure?
     Do you find it easier to read the data in this format, or did you think the original format was easier to understand?
     Why or why not?
 
-*   In **Exercise @tidy-make-plot** we were able to easily create a line plot of [expression]{.monospace} as a function of [rate]{.monospace} for the different kinds of nutrients for one of the genes in the microarray.
+@.
+    In **Exercise @tidy-make-plot** we were able to easily create a line plot of [expression]{.monospace} as a function of [rate]{.monospace} for the different kinds of nutrients for one of the genes in the microarray.
     What specifically did the tidying procedure do to make it simple for us to create this plot?
     Could we still create the same plot with [ggplot2]{.monospace} using the untidy version of the dataset?
     If so, try to write the [ggplot2]{.monospace} code for it.
     If not, identify what it is about the untidy dataset that prevents you from creating the same plot.
-:::::
 
 ## How to submit
 
@@ -295,19 +325,39 @@ Your lab will be graded for credit **after** you've completed both steps!
 
 2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
 
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this lab:
+
+*   [data import/tidyr cheatsheet][data-import-cheatsheet]
+
+*   [dplyr cheatsheet][dplyr-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
 ## Credits
 
 This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
 Exercises and instructions written by James Glasbrenner for CDS-102.
 
-[^robinson-post]:
-  Robinson, David, "Cleaning and Visualizing Genomic Data: A Case Study in Tidy Analysis," *Variance Explained* (2015).
-[^brauer-reference]:
-  Brauer *et. al.*, "Coordination of growth rate, cell cycle, stress response, and metabolic activity in yeast", Mol. Biol. Cell **19**, 352 (2008). 
+## References
 
-[r4ds-book]:      http://r4ds.had.co.nz/
-[chemostat]:      https://en.wikipedia.org/wiki/Chemostat
-[cc-by-sa-4]:     http://creativecommons.org/licenses/by-sa/4.0/
-[brauer-2008]:    http://www.molbiolcell.org/content/19/1/352.abstract
-[s-cerevisiae]:   https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae
-[dna-microarray]: https://en.wikipedia.org/wiki/DNA_microarray
+[r4ds-book]:              http://r4ds.had.co.nz/
+[chemostat]:              https://en.wikipedia.org/wiki/Chemostat
+[cc-by-sa-4]:             http://creativecommons.org/licenses/by-sa/4.0/
+[brauer-2008]:            http://www.molbiolcell.org/content/19/1/352.abstract
+[s-cerevisiae]:           https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae
+[dna-microarray]:         https://en.wikipedia.org/wiki/DNA_microarray
+[r4ds-tidy-data]:         https://r4ds.had.co.nz/tidy-data.html
+[dplyr-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+[ggplot2-cheatsheet]:     https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[rstudio-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:    https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:   https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
