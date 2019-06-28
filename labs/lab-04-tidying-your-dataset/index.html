@@ -66,34 +66,30 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 04 – Tidying your&nbsp;dataset</h1>
 </header><div class="static-page-body">
-  <blockquote>
-<p>This week’s lab will introduce you to the concepts of tidy data and how you can reshape your dataset to take advantage of the <span class="monospace">tidyverse</span> tools. You will then be guided through the process of using these tools to reshape a real-world gene expression dataset that tested the effect of starvation and growth rate on baker’s yeast.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-</blockquote>
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab04.Rmd</span>. This lab introduces you to the concepts of tidy data and how you can reshape your dataset to take advantage of the <span class="monospace">tidyverse</span> tools. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab04.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
 <h2 id="tidy-data">Tidy&nbsp;data</h2>
-<p>The principles of <em>Tidy Data</em> are visually represented in the figure&nbsp;below:</p>
-<p><img src="https://www.cds101.com/img/tidy_data_schematic.png" alt="plot of chunk tidy-data-schematic" /></p>
+<p>As a review, <a href="https://r4ds.had.co.nz/tidy-data.html"><i class="fas fa-link"></i>the principles of <em>Tidy Data</em></a> are visually represented in the figure&nbsp;below:</p>
+<p><img src="https://www.cds101.com/img/tidy_data_schematic.png" title="plot of chunk tidy-data-schematic" alt="plot of chunk tidy-data-schematic" width="80%" style="display: block; margin: auto;" /></p>
 <p>The three panels are an illustration of the following three&nbsp;rules,</p>
-<div class="additional-questions">
 <ul>
 <li><p>Each variable must have its own&nbsp;column.</p></li>
 <li><p>Each observation must have its own&nbsp;row.</p></li>
-<li>Each value must have its own&nbsp;cell.</li>
+<li><p>Each value must have its own&nbsp;cell.</p></li>
 </ul>
-</div>
-<p>It is worth emphasizing that there is a difference between a <strong>tidy</strong> dataset and a <strong>dirty</strong> dataset. “Tidying” a dataset means reshaping it by transposing the rows and columns until the format matches the criteria outlined in the above rules, which then allows us to more easily use the <span class="monospace">ggplot2</span> and <span class="monospace">dplyr</span> functions to analyze and visualize a dataset. Cleaning a “dirty” dataset means that you are fixing misspellings, data entry errors, and dealing with other irregularities in the raw&nbsp;data.</p>
-<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
-<p>The following quote, taken from a discussion about this paper<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, describes the meaning of this dataset pretty&nbsp;well:</p>
+<p>It is worth emphasizing that there is a difference between an <em>untidy</em> dataset and a <em>dirty</em> dataset. Tidying a dataset means reshaping it by transposing the rows and columns until the format matches the criteria outlined in the above rules, which then allows us to more easily use the <span class="monospace">ggplot2</span> and <span class="monospace">dplyr</span> functions to analyze and visualize a dataset. Cleaning a dirty dataset means that you are fixing misspellings, data entry errors, and dealing with other irregularities in the raw data. This lab is about showing you how to reshape a dataset to make it&nbsp;tidy.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>This week’s dataset is a gene expression dataset that comes from a real-world research project that tested the effect of starvation and growth rate on baker’s yeast<span class="citation" data-cites="Brauer:2007"> [1]</span>. The following quote, sourced from a discussion about this paper<span class="citation" data-cites="Robinson:Cleaning:2015"> [2]</span>, describes the meaning of this dataset&nbsp;well:</p>
 <blockquote>
-<p>Through the process of gene regulation, a cell can control which genes are transcribed from <span class="caps">DNA</span> to <span class="caps">RNA</span> — what we call being “expressed”. (If a gene is never turned into <span class="caps">RNA</span>, it may as well not be there at all). This provides a sort of “cellular switchboard” that can activate some systems and deactivate others, which can speed up or slow down growth, switch what nutrients are transported into or out of the cell, and respond to other stimuli. A <a href="https://en.wikipedia.org/wiki/DNA_microarray">gene expression microarray</a> lets us measure how much of each gene is expressed in a particular condition. We can use this to figure out the function of a specific gene (based on when it turns on and off), or to get an overall picture of the cell’s&nbsp;activity.</p>
-<p><a href="http://www.molbiolcell.org/content/19/1/352.abstract">Brauer 2008</a> used microarrays to test the effect of starvation and growth rate on baker’s yeast <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">S. cerevisiae</a>, a popular model organism for studying molecular genomics because of its simplicity). Basically, if you give yeast plenty of nutrients (a rich media), except that you sharply restrict its supply of one nutrient, you can control the growth rate to whatever level you desire (we do this with a tool called a <a href="https://en.wikipedia.org/wiki/Chemostat">chemostat</a>). For example, you could limit the yeast’s supply of glucose (sugar, which the cell metabolizes to get energy and carbon), of leucine (an essential amino acid), or of ammonium (a source of&nbsp;nitrogen).</p>
+<p>Through the process of gene regulation, a cell can control which genes are transcribed from <span class="caps">DNA</span> to <span class="caps">RNA</span> — what we call being “expressed”. (If a gene is never turned into <span class="caps">RNA</span>, it may as well not be there at all). This provides a sort of “cellular switchboard” that can activate some systems and deactivate others, which can speed up or slow down growth, switch what nutrients are transported into or out of the cell, and respond to other stimuli. A <a href="https://en.wikipedia.org/wiki/DNA_microarray"><i class="fas fa-link"></i>gene expression microarray</a> lets us measure how much of each gene is expressed in a particular condition. We can use this to figure out the function of a specific gene (based on when it turns on and off), or to get an overall picture of the cell’s&nbsp;activity.</p>
+<p><a href="http://www.molbiolcell.org/content/19/1/352.abstract"><i class="fas fa-link"></i>Brauer 2008</a> used microarrays to test the effect of starvation and growth rate on baker’s yeast <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae"><i class="fas fa-link"></i>S. cerevisiae</a>, a popular model organism for studying molecular genomics because of its simplicity). Basically, if you give yeast plenty of nutrients (a rich media), except that you sharply restrict its supply of one nutrient, you can control the growth rate to whatever level you desire (we do this with a tool called a <a href="https://en.wikipedia.org/wiki/Chemostat"><i class="fas fa-link"></i>chemostat</a>). For example, you could limit the yeast’s supply of glucose (sugar, which the cell metabolizes to get energy and carbon), of leucine (an essential amino acid), or of ammonium (a source of&nbsp;nitrogen).</p>
 <p>“Starving” the yeast of these nutrients lets us find genes&nbsp;that:</p>
 <ul>
 <li><strong>Raise or lower their activity in response to growth rate</strong>. Growth-rate dependent expression patterns can tell us a lot about cell cycle control, and how the cell responds to&nbsp;stress.</li>
 <li><strong>Respond differently when different nutrients are being limited</strong>. These genes may be involved in the transport or metabolism of those&nbsp;nutrients.</li>
 </ul>
 </blockquote>
-<h3 id="variables">Variables</h3>
-<p>This is a tabular dataset with 5,537 rows and 40&nbsp;columns:</p>
+<p>The table below provides descriptions about the dataset’s 40&nbsp;variables,</p>
 <table>
 <colgroup>
 <col style="width: 17%" />
@@ -128,7 +124,7 @@
 </tr>
 </tbody>
 </table>
-<p>The <span class="monospace"><span class="caps">NAME</span></span> column contains the following information separated by the double bar <span class="monospace">||</span>&nbsp;symbols:</p>
+<p>Note that the <span class="monospace"><span class="caps">NAME</span></span> column contains the following information separated by the double bar <span class="monospace">||</span>&nbsp;symbols:</p>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -163,12 +159,13 @@
 </tr>
 </tbody>
 </table>
-<div class="callout secondary">
+<div class="callout primary">
+<p><span class="h4">Note</span></p>
 <p>Like in previous labs, it’s recommended that you take a first look at the dataset by viewing it by running <code>View(brauer)</code> in your <em>Console</em>&nbsp;window.</p>
 </div>
 <h2 id="the-tidyr-package">The <span class="monospace">tidyr</span>&nbsp;package</h2>
-<p>Reshaping the gene expression dataset will require us to use two functions found in the <span class="monospace">tidyr</span> package, <code>gather()</code> and <code>separate()</code>. Let’s review how each of these functions works with the extended example from Chapter 12.6 in the <a href="http://r4ds.had.co.nz/"><em>R for Data Science</em></a>&nbsp;textbook.</p>
-<p>Running the <code>library(tidyverse)</code> command at the top of our RMarkdown file loads many packages and example datasets for us, which includes a dataset from the World Health Organization that is stored in the variable <span class="monospace">who</span>. The first few lines of the <span class="monospace">who</span> dataset&nbsp;are:</p>
+<p>Reshaping the gene expression dataset will require us to use two functions found in the <span class="monospace">tidyr</span> package, <code>gather()</code> and <code>separate()</code>. Let’s review how each of these functions works with the extended example from Chapter 12.6 in the <a href="http://r4ds.had.co.nz/"><i class="fas fa-link"></i><em>R for Data Science</em></a>&nbsp;textbook.</p>
+<p>Running the <code>library(tidyverse)</code> command at the top of our RMarkdown file loads many packages and example datasets for us, which includes a dataset from the World Health Organization that is stored in the variable <code>who</code>. The first few lines of the <code>who</code> dataset&nbsp;are:</p>
 <table>
 <thead>
 <tr>
@@ -433,7 +430,12 @@ Afghanistan
 <h3 id="using-gather-to-transpose-columns-into-rows">Using <span class="monospace">gather()</span> to transpose columns into&nbsp;rows</h3>
 <p>In this data frame, the names of the 57 columns starting with <span class="monospace">new_sp_m014</span> and ending with <span class="monospace">newrel_f65</span> each refer to a set of three categories, violating the first rule for tidy data. This can easily be fixed by transposing these columns into rows using the <code>gather()</code> command:</p>
 <pre class="r"><code>who1 &lt;- who %&gt;% 
-  gather(new_sp_m014:newrel_f65, key = &quot;key&quot;, value = &quot;cases&quot;, na.rm = TRUE)</code></pre>
+  gather(
+    new_sp_m014:newrel_f65,
+    key = &quot;key&quot;,
+    value = &quot;cases&quot;,
+    na.rm = TRUE
+  )</code></pre>
 <p>After applying the <code>gather()</code> operation, the first few rows in the dataset now look as&nbsp;follows:</p>
 <table>
 <thead>
@@ -603,6 +605,7 @@ new_sp_m014
 </table>
 <p>As you can see, we’ve taken the 57 category columnms and converted them into categories underneath a single column named <span class="monospace">key</span> with their corresponding values placed underneath the column <span class="monospace">cases</span>.</p>
 <div class="callout primary">
+<p><span class="h4">Hint</span></p>
 <p>To summarize, the syntax for <code>gather()</code> is as&nbsp;follows:</p>
 <pre class="r"><code>dataset %&gt;%
   gather(
@@ -616,7 +619,9 @@ new_sp_m014
 <p>Going back to the <span class="monospace">who</span> example, after you gathered the 57 columns into a single column, we might wonder what the values under <span class="monospace">key</span> mean. If you run <code>?who</code>, you’ll see that the underscores <span class="monospace">…</span> separate different variable values. This means that the <span class="monospace">key</span> column contains 3 values per cell, not one, so this is a case for using <code>separate()</code>.</p>
 <p>To separate the columns, we run the&nbsp;following:</p>
 <pre class="r"><code>who2 &lt;- who1 %&gt;%
-  mutate(key = str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)) %&gt;%
+  mutate(
+    key = str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)
+  ) %&gt;%
   separate(
     col = key,
     into = combine(&quot;new&quot;, &quot;type&quot;, &quot;sexage&quot;),
@@ -840,6 +845,7 @@ m014
 </table>
 <p>As you can see, this has successfully split our one column into&nbsp;three.</p>
 <div class="callout primary">
+<p><span class="h4">Note</span></p>
 <p>To summarize, the syntax for <code>separate()</code> is as&nbsp;follows:</p>
 <pre class="r"><code>dataset %&gt;%
   separate(
@@ -863,15 +869,17 @@ m014
 <p>After completing this step, the <em>one observation per row</em> rule will be&nbsp;satisfied.</p>
 <h2 id="enforcing-one-column-per-variable-and-one-value-per-cell">Enforcing one column per variable and one value per&nbsp;cell</h2>
 <p>The second and third rules are intertwined, and so fixing one will help to satisfy the other. Looking at the version of the dataset in <span class="monospace">brauer3</span>, we can clearly see that the <em>one value per cell</em> rule is violated by the <span class="monospace"><span class="caps">NAME</span></span> and <span class="monospace">sample</span> columns. These are violations that can be fixed using the <code>separate()</code> function. Let’s separate the <span class="monospace">sample</span> column we created with the <code>gather()</code> function&nbsp;first.</p>
-<div class="callout secondary">
-<p><strong>Hint:</strong> If you don’t want the <code>separate()</code> function to delete any individual letters or symbols when splitting a column, you can set the <span class="monospace">sep</span> argument equal to an integer, for example <span class="monospace">sep = 1</span>. This tells <code>separate()</code> to split the column right after the first&nbsp;letter.</p>
+<div class="callout primary">
+<p><span class="h4">Hint</span></p>
+<p>If you don’t want the <code>separate()</code> function to delete any individual letters or symbols when splitting a column, you can set the <span class="monospace">sep</span> argument equal to an integer, for example <span class="monospace">sep = 1</span>. This tells <code>separate()</code> to split the column right after the first&nbsp;letter.</p>
 </div>
 <ol start="3" class="example" type="1">
 <li>Separate the <span class="monospace">sample</span> column that you created in <strong>Exercise 2</strong> into two variables, <span class="monospace">nutrient</span> and <span class="monospace">rate</span>. After separation, the data type for the <span class="monospace">rate</span> column should be <em>double</em> (<span class="monospace">&lt;dbl&gt;</span>), not <em>character</em>. Assign your result to the variable <span class="monospace">brauer4</span>.</li>
 </ol>
-<p>Now we turn to the <span class="monospace"><span class="caps">NAME</span></span> column where each value is separated by two bars <span class="monospace">||</span> and there are five variables contained in each cell. Using the information from the <a href="#about-this-weeks-dataset">about this week’s dataset</a> section, we deduce that we should name the new columns <span class="monospace">gene_name</span>, <span class="monospace">biological_process</span>, <span class="monospace">molecular_function</span>, <span class="monospace">systematic_id</span>, and <span class="monospace">number</span>.</p>
+<p>Now we turn to the <span class="monospace"><span class="caps">NAME</span></span> column where each value is separated by two bars <span class="monospace">||</span> and there are five variables contained in each cell. Using the information from the <a href="#about-the-dataset"><i class="fas fa-link"></i>about the dataset</a> section, we deduce that we should name the new columns <span class="monospace">gene_name</span>, <span class="monospace">biological_process</span>, <span class="monospace">molecular_function</span>, <span class="monospace">systematic_id</span>, and <span class="monospace">number</span>.</p>
 <div class="callout secondary">
-<p><strong>Hint:</strong> If you try to use <span class="monospace">sep = “||”</span> in <code>separate()</code>, it will not work as expected. By default, the bar symbol <span class="monospace">|</span> is interpreted as the boolean operator <span class="caps">OR</span>, which should be familiar from creating rules for <code>filter()</code>. To get around this, we can preceed <span class="monospace">|</span> with backslashes to signal to R that we want it to read <span class="monospace">|</span> as a symbol and not as the boolean operator <span class="caps">OR</span>. Thus, we should use <span class="monospace">sep = “&#92;&#92;|&#92;&#92;|”</span> to define our&nbsp;separator.</p>
+<p><span class="h4">Important!</span></p>
+<p>If you try to use <span class="monospace">sep = “||”</span> in <code>separate()</code>, it will not work as expected. By default, the bar symbol <span class="monospace">|</span> is interpreted as the boolean operator <span class="caps">OR</span>, which should be familiar from creating rules for <code>filter()</code>. To get around this, we can preceed <span class="monospace">|</span> with backslashes to signal to R that we want it to read <span class="monospace">|</span> as a symbol and not as the boolean operator <span class="caps">OR</span>. Thus, we should use <span class="monospace">sep = “&#92;&#92;|&#92;&#92;|”</span> to define our&nbsp;separator.</p>
 </div>
 <ol start="4" class="example" type="1">
 <li>Use <code>separate()</code> to split the values in the <span class="monospace"><span class="caps">NAME</span></span> column into five columns named <span class="monospace">gene_name</span>, <span class="monospace">biological_process</span>, <span class="monospace">molecular_function</span>, <span class="monospace">systematic_id</span>, and <span class="monospace">number</span>. Assign your result to the variable <span class="monospace">brauer5</span>.</li>
@@ -880,7 +888,10 @@ m014
 <ol start="5" class="example" type="1">
 <li><p>Remove the whitespace from the five new columns you created using <code>mutate_at()</code> in combination with <code>str_trim()</code>:</p>
 <pre class="r"><code>brauer5 %&gt;%
-  mutate_at(vars(gene_name:systematic_id), str_trim)</code></pre>
+  mutate_at(
+    vars(gene_name:systematic_id),
+    str_trim
+  )</code></pre>
 <p>Assign your result to the variable <span class="monospace">brauer_tidy</span>.</p></li>
 </ol>
 <p>Now we’re&nbsp;done!</p>
@@ -889,28 +900,38 @@ m014
 <ol start="6" class="example" type="1">
 <li>Filter <span class="monospace">brauer_tidy</span> so that it only contains entries with <span class="monospace">gene_name</span> equal to <span class="monospace"><span class="caps">LEU1</span></span>. Then, create a line plot where you place <span class="monospace">rate</span> on the horizontal axis, <span class="monospace">expression</span> on the vertical axis, and assign different colors to <span class="monospace">nutrient</span>.</li>
 </ol>
-<h2 id="additional-questions">Additional&nbsp;questions</h2>
-<div class="additional-questions">
-<ul>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<ol start="7" class="example" type="1">
 <li><p>What are the dataset’s dimensions (the number of rows and columns) after completing the tidying procedure? Do you find it easier to read the data in this format, or did you think the original format was easier to understand? Why or why&nbsp;not?</p></li>
-<li>In <strong>Exercise 6</strong> we were able to easily create a line plot of <span class="monospace">expression</span> as a function of <span class="monospace">rate</span> for the different kinds of nutrients for one of the genes in the microarray. What specifically did the tidying procedure do to make it simple for us to create this plot? Could we still create the same plot with <span class="monospace">ggplot2</span> using the untidy version of the dataset? If so, try to write the <span class="monospace">ggplot2</span> code for it. If not, identify what it is about the untidy dataset that prevents you from creating the same&nbsp;plot.</li>
-</ul>
-</div>
+<li><p>In <strong>Exercise 6</strong> we were able to easily create a line plot of <span class="monospace">expression</span> as a function of <span class="monospace">rate</span> for the different kinds of nutrients for one of the genes in the microarray. What specifically did the tidying procedure do to make it simple for us to create this plot? Could we still create the same plot with <span class="monospace">ggplot2</span> using the untidy version of the dataset? If so, try to write the <span class="monospace">ggplot2</span> code for it. If not, identify what it is about the untidy dataset that prevents you from creating the same&nbsp;plot.</p></li>
+</ol>
 <h2 id="how-to-submit">How to&nbsp;submit</h2>
 <p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
 <ol type="1">
 <li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
 <li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 4</em> posting on&nbsp;Blackboard.</p></li>
 </ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">data import/tidyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
 <h2 id="credits">Credits</h2>
 <p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
-<section class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Brauer <em>et. al.</em>, “Coordination of growth rate, cell cycle, stress response, and metabolic activity in yeast”, Mol. Biol. Cell <strong>19</strong>, 352 (2008).<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Robinson, David, “Cleaning and Visualizing Genomic Data: A Case Study in Tidy Analysis,” <em>Variance Explained</em> (2015).<a href="#fnref2" class="footnote-back">↩</a></p></li>
-</ol>
-</section>
+<h2 id="references" class="unnumbered">References</h2>
+<div id="refs" class="references">
+<div id="ref-Brauer:2007">
+<p>[1] <span class="caps">M. J.</span> Brauer, C. Huttenhower, <span class="caps">E. M.</span> Airoldi, R. Rosenstein, <span class="caps">J. C.</span> Matese, D. Gresham, <span class="caps">V. M.</span> Boer, <span class="caps">O. G.</span> Troyanskaya, and D. Botstein, “Coordination of Growth Rate, Cell Cycle, Stress Response, and Metabolic Activity in Yeast,” Molecular Biology of the Cell <strong>19</strong>, 352&nbsp;(2007).</p>
+</div>
+<div id="ref-Robinson:Cleaning:2015">
+<p>[2] David Robinson, “Cleaning and Visualizing Genomic Data: A Case Study in Tidy Analysis,” Variance Explained&nbsp;(2015).</p>
+</div>
+</div>
 
 </div>    </article>
     </div>
