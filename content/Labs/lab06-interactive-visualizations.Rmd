@@ -1,12 +1,12 @@
 Title: Lab 06 – Interactive visualizations
-Author: Dr. Glasbrenner
-Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Author: Ajay Kulkarni, Dr. Glasbrenner
 Date: 2019-01-01 00:00
 Tags: lab
 Slug: lab-06-interactive-visualizations
 Summary: Explore OBX property rental data (a CDS 102 exclusive!) using interactive visualizations
 Show_summary: true
-Show_link: false
+Show_link: true
+
 
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -18,3 +18,409 @@ icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp
 lab_name <- "Lab 6"
 starter_file <- "lab06.Rmd"
 ```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the lab, which contains a starter file named [`r starter_file`]{.monospace}.
+This lab shows you how to create interactive visualizations using the [highcharter]{.monospace} and [leaflet]{.monospace} packages. 
+Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file [`r starter_file`]{.monospace}.
+Then, when you're ready to submit, follow the directions in the [`r icon_link`How to submit](#how-to-submit) section below.
+
+::: {.callout .secondary}
+[Note on PDF submissions]{.h4}
+
+Because of how they work, the interactive visualizations will not show up when you knit your R Markdown files to the PDF format.
+This is okay.
+You should still submit the PDF file for this assignment to Blackboard.
+:::
+
+## What are interactive visualizations?
+
+This lab introduces you to interactive visualizations, which are a class of dynamic visualizations that satisify two criteria[@wiki:interactive-visualization],
+
+> **Human input:** control of some aspect of the visual representation of information, or of the information being represented, must be available to a human
+> 
+> **Response time:** changes made by the human must be incorporated into the visualization in a timely manner
+
+Compared to static visualizations, which are the type of visualization that we create using [ggplot2]{.monospace}, interactive visualizations allow us to include additional information in the plots that make up our R Markdown reports.
+As Andy Kirk explains in _Data Visualisation: A Handbook for Data Driven Design_, interactive visualizations, when used in the right circumstances, offer many advantages[@kirk:data-visualisation-handbook:2016],
+
+> It expands the physical limits of what you can show in a given space.
+>
+> It increases the quanity and broadens the variety of angles of analysis to serve different curiosities.
+>
+> It facilitates manipulations of the data displayed to handle varied interrogations.
+>
+> It increases the overall control and potential customisation of the experience.
+>
+> It amplifies your creative license and the scope for exploring different techniques for engaging users.
+
+Dashboards are a common way to implement an interactive visualization and also allow users to select the parts of a dataset they want to include in a plot.
+An example of a dashboard-based interactive visualization can be seen here: <https://ajayk.shinyapps.io/csi_773/>.
+While we won't be building a full dashboard, we will utilize two R packages, <span style="white-space: nowrap;">[`r icon_link`[highcharter]{.monospace}][highcharter-url]</span> and <span style="white-space: nowrap;">[`r icon_link`[leaflet]{.monospace}][leaflet-url]</span> to add interactivity to our R Markdown documents and enhance the way we explore a new dataset.
+
+## About the dataset
+
+::: {.callout .primary}
+[Unique dataset]{.h4}
+
+This dataset was scraped by Dr. Glasbrenner in January 2019 and it is unique to CDS 102!
+:::
+
+You will be working with a dataset consisting of rental property information scraped on January 21, 2019 from <https://www.carolinadesigns.com>, which is a website people can use to book vacation rentals in North Carolina's Outer Banks.
+The information collected for each property includes rental rates, its location, its features, and if any special amenities accompany the property.
+The website only provides rental rates for properties and dates that haven't been booked yet, so missing values under the [rate\_[month]]{.monospace} columns were imputed using a predictive model trained on the available data.
+
+The table below provides descriptions of the dataset's 63 variables,
+
+| Variable                                    | Description                                                                                                                                                                                                                                                                                                                     |
+| -----------------------                     | ---------------------------------------------------------------------------------------------------                                                                                                                                                                                                                             |
+| [property\_number]{.monospace}              | Numeric identifier for rental property                                                                                                                                                                                                                                                                                          |
+| [property\_name]{.monospace}                | Name of rental property                                                                                                                                                                                                                                                                                                         |
+| [rate\_[month]]{.monospace}                 | Median weekly rental rate for a given month. [[month]]{.monospace} is the first three letters of a calandar month: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec                                                                                                                                                   |
+| [latitude]{.monospace}                      | Latitude for a given property                                                                                                                                                                                                                                                                                                   |
+| [longitude]{.monospace}                     | Longitude for a given property                                                                                                                                                                                                                                                                                                  |
+| [region]{.monospace}                        | Region where property is located. The regions are Corolla, Duck, Kill Devil Hills, Kitty Hawk, Nags Head, and Southern Shores                                                                                                                                                                                                   |
+| [waterfront]{.monospace}                    | Classifies the proximity of a property to the water. The classifications are oceanfront, semi-oceanfront, soundfront, and inland                                                                                                                                                                                                |
+| [check\_in\_day]{.monospace}                | Indicates if the property's check-in day is Friday, Saturday, or Sunday                                                                                                                                                                                                                                                         |
+| [beach\_distance]{.monospace}               | Distance the property is from the beach in yards                                                                                                                                                                                                                                                                                |
+| [baths\_full]{.monospace}                   | The number of full bathrooms a property has                                                                                                                                                                                                                                                                                     |
+| [baths\_half]{.monospace}                   | The number of half bathrooms a property has                                                                                                                                                                                                                                                                                     |
+| [bed\_[type]]{.monospace}                   | The number of beds of a certain type a property has. The values for [[type]]{.monospace} are california\_kings, daybeds, double\_bunks, double\_trundles, doubles, futons, kings, pyramid\_bunks, queen\_over\_queens, queen\_sleep\_sofas, queens, rollaways, sleepsofas, trundles, twin\_bunks, twin\_sleep\_sofas, and twins |
+| [number\_dvd\_players]{.monospace}          | The number of DVD players a property has                                                                                                                                                                                                                                                                                        |
+| [number\_highchairs]{.monospace}            | The number of highchairs a property has                                                                                                                                                                                                                                                                                         |
+| [number\_of\_bedrooms]{.monospace}          | The total number of bedrooms a property has                                                                                                                                                                                                                                                                                     |
+| [number\_of\_master\_bedrooms]{.monospace}  | The number of master bedrooms a property has                                                                                                                                                                                                                                                                                    |
+| [number\_outdoor\_showers]{.monospace}      | The number of outdoor showers a property has                                                                                                                                                                                                                                                                                    |
+| [number\_parking\_spaces]{.monospace}       | The number of parking spaces a property has                                                                                                                                                                                                                                                                                     |
+| [number\_tvs]{.monospace}                   | The number of televisions a property has                                                                                                                                                                                                                                                                                        |
+| [elevator]{.monospace}                      | Indicates if the property has an elevator                                                                                                                                                                                                                                                                                       |
+| [home\_theater]{.monospace}                 | Indicates if the property has a home theater room                                                                                                                                                                                                                                                                               |
+| [media\_room]{.monospace}                   | Indicates if the property has a media room                                                                                                                                                                                                                                                                                      |
+| [recreation\_room]{.monospace}              | Indicates if the property has a recreation room                                                                                                                                                                                                                                                                                 |
+| [seasonal\_fireplace]{.monospace}           | Indicates if the property has a fireplace                                                                                                                                                                                                                                                                                       |
+| [basketball\_hoop]{.monospace}              | Indicates if the property has a basketball hoop                                                                                                                                                                                                                                                                                 |
+| [volleyball\_area]{.monospace}              | Indicates if the property has an area to play volleyball                                                                                                                                                                                                                                                                        |
+| [cabana]{.monospace}                        | Indicates if the property has a cabana                                                                                                                                                                                                                                                                                          |
+| [charcoal\_grill]{.monospace}               | Indicates if the property has a charcoal grill                                                                                                                                                                                                                                                                                  |
+| [gas\_grill]{.monospace}                    | Indicates if the property has a gas grill                                                                                                                                                                                                                                                                                       |
+| [hot\_tub]{.monospace}                      | Indicates if the property has a hot tub                                                                                                                                                                                                                                                                                         |
+| [special\_events\_welcome]{.monospace}      | Indicates if the property allows guests to host a special events                                                                                                                                                                                                                                                                |
+| [two\_dogs\_welcome\_with\_fee]{.monospace} | Indicates if up to two dogs are allowed on a property if guests pay a special fee                                                                                                                                                                                                                                               |
+| [community\_pool\_access]{.monospace}       | Indicates if renting a property grants access to a community pool                                                                                                                                                                                                                                                               |
+| [community\_tennis]{.monospace}             | Indicates if renting a property grants access to community tennis courts                                                                                                                                                                                                                                                        |
+| [discounted\_golf\_fees]{.monospace}        | Indicates if guests receive a discount at a local golf course                                                                                                                                                                                                                                                                   |
+| [firm\_4pm\_check\_in]{.monospace}          | Indicates if a property will not allow guests to check-in earlier than 4pm                                                                                                                                                                                                                                                      |
+
+## A data-driven vacation
+
+Imagine that you are in charge of planning a vacation to the Outer Banks in the month of July and you want to put together a list of top rental options for your friends/family to review and vote on.
+You go to the rental property website and you find that there are over 300 rental properties available.
+Unfortunately the search tool does not let you easily compare and contrast your options and you have no desire to manually go through and read all the individual property pages.
+You realize that this is a perfect opportunity to put your data science skills to use, so you scrape the website and put together a tabular dataset with information on the rental properties that you can more easily explore.
+Since you need to both explore what's available as well as summarize your findings for your friends/family, you decide to put together some interactive visualizations.
+
+## Interactive plots using [highcharter]{.monospace}
+
+The [highcharter]{.monospace} package is used to create interactive versions of the same types of plots we've created using [ggplot2]{.monospace}.
+The syntax for creating a basic plot using [highcharter]{.monospace} is also similar to [ggplot2]{.monospace} and is summarized below,
+
+```r
+data %>%            # The dataset
+  hchart(
+    "...",          # Plot type: "scatter", "line", "column", etc.
+    hcaes(
+      x = ...,      # Variable on x-axis
+      y = ...,      # Variable on y-axis
+      group = ...   # Apply different colors for groups defined in variable
+    )
+  )
+```
+
+The ellipses [...]{.monospace} are placeholders.
+Also note that, within the `hchart()` function, the `hcaes()` function plays a similar role to `aes()` in [ggplot2]{.monospace}.
+
+@rate-bedrooms-scatter.
+    Let's begin our exploration by creating a scatter plot that shows the rental rates for the month of July versus the number of bedrooms a property has,
+    
+    ```r
+    obx %>%
+      hchart(
+        "scatter",
+        hcaes(
+          x = number_of_bedrooms,
+          y = rate_jul
+        )
+      )
+    ```
+    
+    If you hover the mouse cursor over the points, you should see a pop-up that lists the x ([number\_of\_bedrooms]{.monospace}) and y ([rate\_jul]{.monospace}) values for the given point.
+    Describe the trend that you see in this plot, and then use the pop-ups to figure out how many bedrooms the most expensive rental property has and how many bedrooms the least expensive rental property has.
+    
+One of the things we would like to do in our data exploration is to narrow our search towards properties that will have a cheaper rental rate.
+We suspect that an important factor that will affect rental prices is the region where a property is located.
+
+@regions-summary.
+    Use the following code template to help you compute some summary statistics about the July rental rates,
+    
+    ```r
+    regions_summary <- obx %>%
+      group_by(...) %>%
+      summarize(
+        rate_mean = round(mean(rate_jul)),
+        rate_minimum = min(rate_jul),
+        rate_maximum = max(rate_jul)
+      )
+    ```
+    
+    Fill in the ellipses [...]{.monospace} so that you group over the different regions.
+    Which region has the highest overall average rental rate?
+    Which region has the lowest overall average rental rate?
+    
+Let's use the information we just computed in **Exercise @regions-summary** to make an interactive visualization that we could show to our friends/family.
+We will create a bar chart showing the average July rate for each region, which we will enhance by customizing what is displayed in the pop-up when we hover our mouse cursor over each bar.
+This will be done using the `hc_tooltip()` and `tooltip_table()` functions from [highcharter]{.monospace}.
+
+@summary-bar-chart-1.
+    Fill in the ellipses [...]{.monospace} in the following code template to create a bar chart the displays the average July rate for each region,
+    
+    ```r
+    regions_summary %>%
+      hchart(
+        "column",
+        hcaes(
+          x = ...,
+          y = ...
+        )
+      ) %>%
+      hc_tooltip(
+        useHTML = TRUE,
+        pointFormat = tooltip_table(
+          x = combine("Region", "Mean rate"),
+          y = combine("{point.region}", "{point.rate_mean}")
+        )
+      )
+    ```
+    
+    Hover your mouse over the bars for each region.
+    Does the mean rate you see in the pop-up match the mean rate you computed in **Exercise @regions-summary**?
+
+The display information in the pop-up box is set using the vectors passed to the x (names) and y (values) keywords of the `tooltip_table()` function.
+Take special note of the vector passed to the y keyword, which contains text values with curly braces, ["{point.region}"]{.monospace} and ["{point.rate\_mean}"]{.monospace}.
+This is a special syntax that says, for the data _point_ you currently have your mouse hovering over, display the value for the variable [region]{.monospace} or [rate\_mean]{.monospace}.
+Any variable in the [regions\_summary]{.monospace} data frame, not just [region]{.monospace} and [rate\_mean]{.monospace}, can be displayed in the pop-up box.
+
+@summary-bar-chart-2.
+    The pop-up boxes for the visualization you created in **Exercise @summary-bar-chart-1** currently list two pieces of information, the name of the region and the mean rate.
+    While nice to see, this simply repeats what we are already looking at in the bar chart.
+    The real power of interactive visualizations is when we can include additional information.
+    Copy the code you wrote for **Exercise @summary-bar-chart-1** and modify the vectors passed to the x and y keywords in `tooltip_table()` so that each pop-up contains two additional lines of information, the _Minimum rate_ and _Maximum rate_ for each region.
+    
+We now have a nice interactive visualization that summarizes the average, minimum, and maximum rental rates that we can show our friends/family to show which regions contain the cheapest and most expensive rental properties.
+Let's filter the dataset so that we can focus our search on properties in the region with the cheapest rates on average.
+
+@filter-properties.
+    Use the `filter()` function to filter the dataset so that it only contains rental properties from the region with the cheapest July rates on average.
+    Assign this filtered data frame to a variable called [obx\_region]{.monospace}.
+    
+Let's wrap up by updating the scatter plot we created in **Exercise @rate-bedrooms-scatter** by using the filtered dataset [obx\_region]{.monospace} and customizing the pop-up message for each data point.
+
+@update-rate-bedrooms-scatter.
+    Complete the following code template to add pop-ups to the visualization that lists the following information,
+    
+    *   Property number
+    
+    *   Property name
+    
+    *   July rate
+    
+    *   Number of bedrooms
+    
+    *   Number of parking spaces
+    
+    ```r
+    obx_region %>%
+      hchart(
+        "scatter",
+        hcaes(
+          x = number_of_bedrooms,
+          y = rate_jul,
+          group = waterfront
+        )
+      ) %>%
+      hc_tooltip(
+        useHTML = TRUE,
+        pointFormat = tooltip_table(
+          x = combine(...),
+          y = combine(...)
+        )
+      )
+    ```
+    
+    Does the [waterfront]{.monospace} category (oceanfront, semi-oceanfront, soundfront, inland) affect the July rate?
+    If so, which category contains the cheapest rates overall?
+    
+Before we move on, let's filter the dataset one more time.
+    
+@final-data-filter.
+    After checking with your family/friends, you have determined that you will need a rental property with six bedrooms.
+    Filter [obx\_region]{.monospace} so that it only contains properties with six bedrooms.
+    **In addition, if you determined in Exercise @update-rate-bedrooms-scatter that there is a [waterfront]{.monospace} category that has cheaper overall rates, also filter the dataset to only include properties within this category.**
+    Assign the filtered dataset to a variable called [obx\_filtered]{.monospace}.
+
+## Interactive maps using [leaflet]{.monospace}
+
+The [leaflet]{.monospace} package lets us create interactive maps, which can be very useful when working with spatial data encoded as latitude and longitude values.
+The basic syntax for creating an interactive map using [leaflet]{.monospace} is summarized below,
+
+```r
+dataset %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lat = ~<latitude_variable>,
+    lng = ~<longitude_variable>
+  )
+```
+
+where [\<latitude\_variable\>]{.monospace} and [\<longitude\_variable\>]{.monospace} are placeholders.
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+The tilde [~]{.monospace} immediately before [\<latitude\_variable\>]{.monospace} and [\<longitude\_variable\>]{.monospace} are important and must be included.
+For example, you would write [lat = ~lat\_var]{.monospace} if [lat\_var]{.monospace} is the column containing the latitude values.
+:::
+
+Our goal is to build an interactive map that our friends/family could browse that shows the properties that meet our filter criteria.
+We will adopt an iterative approach to building our map by adding features to it one step at a time.
+
+@basic-map-of-filtered-data.
+    Use the [leaflet]{.monospace} syntax summarized above to create a basic interactive map showing the properties in [obx\_filtered]{.monospace}.
+    
+    ::: {.callout .primary}
+    [Hint]{.h4}
+    
+    The variables containing the location data for each property are named [latitude]{.monospace} and [longitude]{.monospace}.
+    :::
+    
+One interesting thing we can do with the interactive map that we're building is add points of interest.
+For example, the first ever [`r icon_link`Duck Donuts][duck-donuts] store (which, appropriately enough, sells [`r icon_link`doughnuts][wiki-doughnut]) opened in the Outer Banks, which could be one possible place to visit.
+We can display the location for the Duck Donuts store as a circle so that it looks different from the other markers.
+We can also add a pop-up to it that displays the street address for the store.
+
+@duck-donuts-map.
+    Copy the code you wrote for **Exercise @basic-map-of-filtered-data** and add the [duck\_donuts]{.monospace} location marker with street address pop-up to it as follows,
+    
+    ```r
+    <code_from_previous_exercise> %>%
+      addCircleMarkers(
+        lat = 36.1633527,
+        lng = -75.7534337,
+        popup = "Duck Donuts<br>1190 Duck Rd<br>Duck, NC 27949",
+        popupOptions = popupOptions(closeButton = FALSE)
+      ) %>%
+      addPopups(
+        lat = 36.1633527,
+        lng = -75.7534337,
+        popup = "Duck Donuts<br>1190 Duck Rd<br>Duck, NC 27949",
+        options = popupOptions(closeButton = FALSE)
+      )
+    ```
+
+We can add the same kind of pop-up that we used for the Duck Donuts marker to our regular property markers, which will allow a user to click the marker icon and see additional information about the property.
+Without this, our friends/family will not be able to understand which property corresponds with each icon.
+
+@customize-property-popups-map.
+    Copy the code you wrote for **Exercise @duck-donuts-map** and add a new input to the `addMarkers()` function called [popup]{.monospace},
+    
+    ```r
+    addMarkers(
+      lat = ~<latitude_variable>,
+      lng = ~<longitude_variable>,
+      popup = ~paste0(
+        property_name,
+        "<br>",
+        "July weekly rate: $",
+        rate_jul,
+        "<br>",
+        ...
+      )
+    )
+    ```
+    
+    The ellipses [...]{.monospace} is a placeholder.
+    The pop-up message for each property is created by the inputs to the `paste0()` function, which concatenates the different inputs together into a single piece of text.
+    You can see the pop-ups by clicking the markers for the different properties.
+    
+    Replace the ellipses with more inputs to the `paste0()` function so that the pop-up displays the following additional information about each property,
+    
+    *   Number of bedrooms
+    
+    *   Number of full bathrooms
+    
+    *   Number of parking spots
+    
+    *   Distance to the beach
+    
+    *   Latitude
+    
+    *   Longitude
+    
+    :::{.callout .secondary}
+    [Important!]{.h4}
+    
+    The ["\<br\>"]{.monospace} inputs are line breaks that will make text display on a new line.
+    This is analogous to what happens in a text editor when you press the <kbd>Enter</kbd> key on your keyboard.
+    :::
+    
+While there is always more that you could add to these interactive maps, this should be sufficient for your friends/family to browse and decide which properties they think are the most promising choices for your upcoming vacation.
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this lab:
+
+*   [leaflet cheatsheet][leaflet-cheatsheet]
+
+*   [data import/tidyr cheatsheet][data-import-cheatsheet]
+
+*   [dplyr cheatsheet][dplyr-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+## Credits
+
+This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+The original idea for the lab along with the first version of the lab instructions were written by Ajay Kulkarni for CDS-102.
+Revised instructions and new exercises written by James Glasbrenner.
+
+## References
+
+[cc-by-sa-4]:             http://creativecommons.org/licenses/by-sa/4.0/
+[duck-donuts]:            https://www.duckdonuts.com/about-us/our-story/
+[leaflet-url]:            https://rstudio.github.io/leaflet/
+[wiki-doughnut]:          https://en.wikipedia.org/wiki/Doughnut
+[highcharter-url]:        http://jkunst.com/highcharter/
+[dplyr-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+[leaflet-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf
+[ggplot2-cheatsheet]:     https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[rstudio-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:    https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:   https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
