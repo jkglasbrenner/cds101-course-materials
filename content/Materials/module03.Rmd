@@ -29,7 +29,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 ::: {.no-bullets}
 *   [`r icon_pen` &nbsp; [Mini-homework 3 -- Visualization by example]{.card-downloads-format}][mini-homework03]
 
-*   [`r icon_pencil` &nbsp; [Homework 1 -- Rail trail (coming soon)]{.card-downloads-format}][homework01]
+*   [`r icon_pencil` &nbsp; [Homework 1 -- Rail trail]{.card-downloads-format}][homework01]
 :::
 
 <div style="margin-bottom: 1em"></div>
@@ -41,7 +41,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 **01 - Data visualization as communication**
 
 ```{r data-visualization-01-communication, echo = FALSE}
-vembedr::embed_youtube(id = "W5Fnc4U3sS4", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "tHEVRahx0WE", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -49,7 +49,7 @@ vembedr::embed_youtube(id = "W5Fnc4U3sS4", height = 325, width = 365, allowfulls
 **02 - Examining numerical data**
 
 ```{r data-visualization-02-examining-numerical-data, echo = FALSE}
-vembedr::embed_youtube(id = "Dtveq_kYlKQ", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "z9Xe3IfkNQU", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -57,7 +57,7 @@ vembedr::embed_youtube(id = "Dtveq_kYlKQ", height = 325, width = 365, allowfulls
 **03 - Describing visualizations**
 
 ```{r data-visualization-03-describing, echo = FALSE}
-vembedr::embed_youtube(id = "HVFek-6iz-M", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "p6J9IxSBMwo", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -65,7 +65,7 @@ vembedr::embed_youtube(id = "HVFek-6iz-M", height = 325, width = 365, allowfulls
 **04 - Data visualization with ggplot2**
 
 ```{r data-visualization-04-data-visualization-with-ggplot2, echo = FALSE}
-vembedr::embed_youtube(id = "pmjM0mz_1Es", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "Wx-Kr9cp7O8", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 :::::

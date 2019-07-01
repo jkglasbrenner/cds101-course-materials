@@ -47,7 +47,7 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 **01 - Science**
 
 ```{r what-are-comput-data-sci-02-science, echo = FALSE}
-vembedr::embed_youtube(id = "fxLFfuW4eag", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "ilxsTe1Q2Bg", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -55,7 +55,7 @@ vembedr::embed_youtube(id = "fxLFfuW4eag", height = 325, width = 365, allowfulls
 **02 - Data Overview**
 
 ```{r what-are-comput-data-sci-03-data-overview, echo = FALSE}
-vembedr::embed_youtube(id = "t7iEMTkfY6g", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "zM5y3dZ-o6o", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -63,7 +63,7 @@ vembedr::embed_youtube(id = "t7iEMTkfY6g", height = 325, width = 365, allowfulls
 **03 - Data Sampling**
 
 ```{r what-are-comput-data-sci-04-data-sampling, echo = FALSE}
-vembedr::embed_youtube(id = "kGlrYxTDGh8", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "VYChbNddUkM", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 
@@ -71,7 +71,7 @@ vembedr::embed_youtube(id = "kGlrYxTDGh8", height = 325, width = 365, allowfulls
 **04 - Computation**
 
 ```{r what-are-comput-data-sci-05-computation, echo = FALSE}
-vembedr::embed_youtube(id = "7mhehSq959k", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+vembedr::embed_youtube(id = "Us0kvjkyk_8", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
 :::::
