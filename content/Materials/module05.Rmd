@@ -40,6 +40,50 @@ icon_laptop <- '<i class="fa fa-laptop" data-fa-transform="grow-16"></i>&nbsp;'
 
 <div style="margin-bottom: 1em"></div>
 
+[Videos]{.h2}
+
+::::: {.videos-container}
+::: {.video-item}
+**01 - Principles of tidy data**
+
+```{r data-reshaping-01-principles-of-tidy-data, echo = FALSE}
+vembedr::embed_youtube(id = "FMJfjwAyMA0", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+
+::: {.video-item}
+**02 - The [gather]{.monospace} function**
+
+```{r data-reshaping-02-the-gather-function, echo = FALSE}
+vembedr::embed_youtube(id = "Hnl7Ksc3bUE", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+
+::: {.video-item}
+**03 - The [spread]{.monospace} function**
+
+```{r data-reshaping-03-the-spread-function, echo = FALSE}
+vembedr::embed_youtube(id = "VV_JdcIPVz8", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+
+::: {.video-item}
+**04 - The [separate]{.monospace} function**
+
+```{r data-reshaping-04-the-separate-function, echo = FALSE}
+vembedr::embed_youtube(id = "uqiqEnRKfFg", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+
+::: {.video-item}
+**05 - The [unite]{.monospace} function**
+
+```{r data-reshaping-05-the-unite-function, echo = FALSE}
+vembedr::embed_youtube(id = "izCk8NBycmo", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+:::::
+
 [Slides]{.h2}
 
 ::: {.no-bullets}
