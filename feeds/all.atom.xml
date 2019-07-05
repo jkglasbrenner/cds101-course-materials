@@ -3555,7 +3555,7 @@ Which would you like to update?&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
 &lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;. Exercises and instructions written by James Glasbrenner for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102.&lt;/p&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 01 – Reproducible research with R Markdown and GitHub</title><link href="https://www.cds101.com/labs/lab-01-learning-to-use-github-and-rmarkdown/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-01-learning-to-use-github-and-rmarkdown/</id><summary type="html">Introducing R, RStudio, GitHub and R&amp;nbsp;Markdown!</summary><content type="html">&lt;blockquote&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 01 – Reproducible research with R Markdown and GitHub</title><link href="https://www.cds101.com/labs/lab-01-learning-to-use-github-and-rmarkdown/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-01-learning-to-use-github-and-rmarkdown/</id><summary type="html">Introducing R, RStudio, GitHub and R&amp;nbsp;Markdown</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This week’s lab provides you with a general introduction to the tools and platforms we use during the semester, which are R, RStudio Server, and GitHub. R is the name of the programming language itself and RStudio Server is a convenient interface that you access using a web browser at &lt;a href="https://rstudio.cos.gmu.edu" class="uri"&gt;https://rstudio.cos.gmu.edu&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="obtaining-your-starter-code"&gt;Obtaining your starter&amp;nbsp;code&lt;/h2&gt;
@@ -3730,7 +3730,7 @@ print(mpg)
 &lt;p&gt;These are a handy reference to have nearby while working on the labs. You may even want to print them out and keep them by your computer as you complete the&amp;nbsp;labs.&lt;/p&gt;
 &lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
 &lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;. Portions of the instructions were adapted by James Glasbrenner from &lt;a href="https://www2.stat.duke.edu/courses/Summer15/sta104.01-1/post/labs/lab0.html"&gt;Lab 0 - Introduction to R and RStudio&lt;/a&gt; by &lt;a href="https://stat.duke.edu/~mc301"&gt;Mine Çetinkaya-Rundel&lt;/a&gt; and the &lt;a href="https://github.com/jfiksel/github-classroom-for-students"&gt;Github Classroom Guide for Students&lt;/a&gt; by &lt;a href="https://github.com/jfiksel"&gt;Jacob Fiksel&lt;/a&gt;. The rest of the Exercises and instructions were written by James Glasbrenner for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102.&lt;/p&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 02 – Exploration by visualization: the Galton dataset</title><link href="https://www.cds101.com/labs/lab-02-exploration-by-visualization-the-galton-dataset/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-02-exploration-by-visualization-the-galton-dataset/</id><summary type="html">Explore the Galton dataset using data&amp;nbsp;visualization.</summary><content type="html">&lt;h2 id="instructions"&gt;Instructions&lt;/h2&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 02 – Exploration by visualization: the Galton dataset</title><link href="https://www.cds101.com/labs/lab-02-exploration-by-visualization-the-galton-dataset/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-02-exploration-by-visualization-the-galton-dataset/</id><summary type="html">Explore the Galton dataset using data&amp;nbsp;visualization</summary><content type="html">&lt;h2 id="instructions"&gt;Instructions&lt;/h2&gt;
 &lt;p&gt;Obtain the GitHub repository you will use to complete the lab, which contains a starter file named &lt;span class="monospace"&gt;lab02.Rmd&lt;/span&gt;. This lab shows you how to use the &lt;span class="monospace"&gt;ggplot2&lt;/span&gt; package to visualize datasets and demonstrates how visualization plays a crucial role in data exploration. Start by reading &lt;a href="#why-data-visualization"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;Why data visualization?&lt;/a&gt; to learn why data visualization is important and why the first lab focuses on it. Next, read the &lt;a href="#about-the-dataset"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;About the dataset&lt;/a&gt; section to get some background information on the dataset that you’ll be working with. Continue reading the lab instructions and complete any exercises using the provided spaces within your starter file &lt;span class="monospace"&gt;lab02.Rmd&lt;/span&gt;. Then, when you’re ready to submit, follow the directions in the &lt;a href="#how-to-submit"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;How to submit&lt;/a&gt; section&amp;nbsp;below.&lt;/p&gt;
 &lt;h2 id="why-data-visualization"&gt;Why data&amp;nbsp;visualization?&lt;/h2&gt;
 &lt;p&gt;Why is data visualization an important topic? On the face of it, you might wonder why we need to dedicate any time to this topic. Aren’t plots really easy now that we all have computers? Isn’t making plots and figures one of the &lt;em&gt;last&lt;/em&gt; things that we do for a project or lab report, after we’ve figured everything out? Why start with this? Since a picture (or visualization) is worth a thousand words, take a moment to explore the data visualizations linked&amp;nbsp;below.&lt;/p&gt;
@@ -4959,7 +4959,324 @@ m014
 &lt;p&gt;[2] David Robinson, “Cleaning and Visualizing Genomic Data: A Case Study in Tidy Analysis,” Variance Explained&amp;nbsp;(2015).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 05 – Mining the social web</title><link href="https://www.cds101.com/labs/lab-05-mining-the-social-web/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-05-mining-the-social-web/</id><summary type="html">Accessing the Twitter &lt;span class="caps"&gt;API&lt;/span&gt; using &lt;span style="monospace"&gt;rtweet&lt;/span&gt; and exploring what you can do with the harvested&amp;nbsp;data</summary><content type="html">&lt;blockquote&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 05 – Data cleaning</title><link href="https://www.cds101.com/labs/lab-05-data-cleaning/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-05-data-cleaning/</id><summary type="html">Clean a real-world dataset that lists cars that were towed or impounded by the Chicago Police&amp;nbsp;Department.</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 06 – Interactive visualizations</title><link href="https://www.cds101.com/labs/lab-06-interactive-visualizations/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-06-interactive-visualizations/</id><summary type="html">Explore &lt;span class="caps"&gt;OBX&lt;/span&gt; property rental data (a &lt;span class="caps"&gt;CDS&lt;/span&gt; 102 exclusive!) using interactive&amp;nbsp;visualizations</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 07 – Basketball and Hot Hands</title><link href="https://www.cds101.com/labs/lab-07-basketball-hot-hands/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-07-basketball-hot-hands/</id><summary type="html">Use randomized simulations to determine whether or not basketball players can have a &amp;#8220;hot&amp;nbsp;hand&amp;#8221;</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 08 – Speed of light</title><link href="https://www.cds101.com/labs/lab-08-speed-of-light/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-08-speed-of-light/</id><summary type="html">&lt;span style="monospace"&gt;infer&lt;/span&gt; the speed of light using Simon Newcomb&amp;#8217;s famous&amp;nbsp;dataset</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;This week’s lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb’s measurements of the speed of light. Through this, we will see how statistical methods can help us to put the scientific method into practice and provide you with hands-on experience with the kinds of data analysis a scientist will use after completing a series of experimental&amp;nbsp;measurements.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="natural-science-data-science"&gt;Natural science, data&amp;nbsp;science&lt;/h2&gt;
+&lt;p&gt;Many of the datasets we’ve worked through in our labs this semester have come from fields outside of the natural sciences. That doesn’t mean that the skills we’re building don’t have a useful application in fields such as physics, chemistry, and biology. For that reason, this week we will apply statistical methods to a dataset from the natural sciences that can be used to calculate the speed of&amp;nbsp;light.&lt;/p&gt;
+&lt;h2 id="about-this-weeks-dataset"&gt;About this week’s&amp;nbsp;dataset&lt;/h2&gt;
+&lt;p&gt;The astronomer and applied mathematician Simon Newcomb collected this dataset over three separate days between the dates of July 24, 1882 and September 5, 1882&lt;span class="citation" data-cites="stigler:robust Newcomb:1882"&gt; [1,2]&lt;/span&gt; in Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;. He performed the measurements using an apparatus design similar to Léon Foucault’s system of rotating mirrors&lt;span class="citation" data-cites="jaffe:1960"&gt; [3]&lt;/span&gt;, which allowed Newcomb to measure the time it took a beam of light to travel from Fort Myer on the west bank of the Potomac to a mirror located at the Washington monument and back&lt;span class="citation" data-cites="stigler:robust Carter:2002"&gt; [1,4]&lt;/span&gt;, corresponding to a distance of 7443.73 meters. This dataset contains 66 observations, which have been transformed so that the dataset could be analyzed as a series of integers. To convert a dataset value &lt;span class="math inline"&gt;\(t\)&lt;/span&gt; to the actual transit time &lt;span class="math inline"&gt;\(t_{meas}\)&lt;/span&gt; in seconds, use the&amp;nbsp;formula,&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[\text{t}_{\text{meas}}=\dfrac{\dfrac{\text{t}}{1000}+24.8}{1000000}\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id="visualizing-and-quantifying-the-distribution"&gt;Visualizing and quantifying the&amp;nbsp;distribution&lt;/h2&gt;
+&lt;p&gt;Let’s start by doing the usual practice of getting to know our dataset. There’s only one relevant variable in this dataset, &lt;span class="monospace"&gt;time&lt;/span&gt;, so it’s the distribution of the measured times that matter. Let’s appraise the distribution of time measurements by creating some&amp;nbsp;visualizations:&lt;/p&gt;
+&lt;ol class="example" type="1"&gt;
+&lt;li&gt;Visualize the dataset distribution as a boxplot — use &lt;code&gt;geom_boxplot(aes(x = &amp;quot;unfiltered&amp;quot;, y = time)) + coord_flip()&lt;/code&gt; — and as a probability mass function (&lt;span class="caps"&gt;PMF&lt;/span&gt;) — use &lt;code&gt;geom_histogram()&lt;/code&gt; with &lt;span class="monospace"&gt;y = ..density..&lt;/span&gt; inside &lt;code&gt;aes()&lt;/code&gt; — with a binwidth that allows you can see the full dataset (only identical numbers should have counts larger than 1). Describe the center, shape, and spread of the distribution (don’t forget to mention the&amp;nbsp;outliers).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One of the things you’ll immediately notice when visualizing this dataset is how pronounced the outliers are. The experimental setup involved a rapidly rotating mirror that had to be precisely tuned. Given that the speed of light is so high, small variations in the rotation speed could significantly impact the measured travel times. As such, it’s quite possible these outliers are due to experimental error. However, without further information we cannot be sure that this is the case. Thus, the best choice is to analyze two versions of the dataset, one with the outliers removed and one where we keep all data&amp;nbsp;points.&lt;/p&gt;
+&lt;ol start="2" class="example" type="1"&gt;
+&lt;li&gt;Create a second, filtered version of the dataset that removes the outliers that you see in the&amp;nbsp;distribution.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Another useful visualization for understanding a dataset is the cumulative distribution function (&lt;span class="caps"&gt;CDF&lt;/span&gt;), which creates a map from the distribution’s values to their respective percentiles. To plot the &lt;span class="caps"&gt;CDF&lt;/span&gt; for a data distribution, we can use the &lt;code&gt;geom_step()&lt;/code&gt; function in &lt;span class="monospace"&gt;ggplot2&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="3" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Visualize the &lt;span class="caps"&gt;CDF&lt;/span&gt; for both the unfiltered and filtered versions of the dataset. The code for plotting the &lt;span class="caps"&gt;CDF&lt;/span&gt; for the unfiltered dataset would&amp;nbsp;be:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = newcomb) +
+  geom_step(
+    mapping = aes(x = time),
+    stat = &amp;quot;ecdf&amp;quot;
+  ) +
+  labs(y = &amp;quot;CDF&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;span class="caps"&gt;CDF&lt;/span&gt; for the filtered dataset can be visualized by slightly modifying the above code. Do you notice any changes in the &lt;span class="caps"&gt;CDF&lt;/span&gt; after removing the outliers from the original&amp;nbsp;dataset?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finally, to wrap up this initial exploration, quantify these distributions by computing their summary statistics. The following functions in R are useful for computing the summary statistics of a&amp;nbsp;dataset:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;mean()&lt;/code&gt;: Computes the&amp;nbsp;average&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;median()&lt;/code&gt;: Computes the&amp;nbsp;median&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;min()&lt;/code&gt;: Finds the minimum&amp;nbsp;value&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;max()&lt;/code&gt;: Finds the maximum&amp;nbsp;value&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;sd()&lt;/code&gt;: Computes the standard&amp;nbsp;deviation&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;IQR()&lt;/code&gt;: Computes the interquartile&amp;nbsp;range&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="4" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Calculate the following summary statistics for the filtered and unfiltered versions of the dataset: the mean, median, maximum, minimum, standard deviation, and the inter-quartile range (&lt;span class="caps"&gt;IQR&lt;/span&gt;). For the unfiltered dataset, this would&amp;nbsp;be:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb %&amp;gt;%
+  summarize(
+    mean = mean(time),
+    median = median(time),
+    sd = sd(time),
+    iqr = IQR(time),
+    min = min(time),
+    max = max(time),
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which summary statistics are sensitive to removing the outliers? Which ones are&amp;nbsp;not?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="infering-a-trend"&gt;&lt;span class="monospace"&gt;infer&lt;/span&gt;ing a&amp;nbsp;trend&lt;/h2&gt;
+&lt;p&gt;Because there is a spread in the time measurements in Newcomb’s dataset, the measured time should be reported as a mean value with error bars. The error bars are typically found by calculating a confidence interval. A typical choice is a 95% confidence interval, which can be estimated using computational simulations that &lt;em&gt;resample&lt;/em&gt; the dataset. To perform our statistical resampling, we will use the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;-inspired &lt;a href="https://infer.netlify.com/"&gt;&lt;span class="monospace"&gt;infer&lt;/span&gt; package&lt;/a&gt;, which will help us to compute confidence intervals and perform hypothesis&amp;nbsp;tests.&lt;/p&gt;
+&lt;p&gt;To compute the confidence interval, we will need to generate the so-called &lt;em&gt;bootstrap distribution&lt;/em&gt;. We obtain the bootstrap simulation using the following&amp;nbsp;code:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap &amp;lt;- newcomb %&amp;gt;%
+  specify(formula = time ~ NULL) %&amp;gt;%
+  generate(reps = 10000, type = &amp;quot;bootstrap&amp;quot;) %&amp;gt;%
+  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To visualize the bootstrap distribution, we&amp;nbsp;run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap %&amp;gt;%
+  visualize() +
+  labs(x = &amp;quot;average time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What the bootstrap has done is sample &lt;em&gt;with replacement&lt;/em&gt; from the dataset distribution. The basic idea is that, if the underlying sample is representative, then we can sample directly from it &lt;em&gt;as if it were the true population&lt;/em&gt;. The number of samples we pull is equal to the number of observations in the dataset. After we resample the data, we complete the procedure by calculating the &lt;span class="monospace"&gt;mean&lt;/span&gt; of the simulated sample (or &lt;span class="monospace"&gt;median&lt;/span&gt;, &lt;span class="monospace"&gt;sd&lt;/span&gt;, or some other parameter), after which we then repeat the process multiple times until we end up with a distribution of means. We can then use the bootstrap sample to determine the confidence interval for the sample statistic of&amp;nbsp;interest.&lt;/p&gt;
+&lt;p&gt;The 95% confidence interval is defined as the fraction of the data in the bootstrap distribution that lies between the 2.5th and 97.5th percentiles, which we can compute as&amp;nbsp;follows:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_ci &amp;lt;- newcomb_bootstrap %&amp;gt;%
+  get_confidence_interval()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To visualize the confidence interval with respect to the bootstrap distribution, we&amp;nbsp;run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap %&amp;gt;%
+  visualize() +
+  shade_confidence_interval(endpoints = newcomb_ci) +
+  labs(x = &amp;quot;average time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="5" class="example" type="1"&gt;
+&lt;li&gt;Using the above code, compute the 95% confidence interval for the unfiltered and filtered dataset using the bootstrap method and visualize both of them. Make sure that you also print out the values of the confidence interval. How does the confidence interval change when you exclude the outliers (the filtered&amp;nbsp;dataset)?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We can also use &lt;span class="monospace"&gt;infer&lt;/span&gt; to perform a two-sided hypothesis test. The code for doing this is relatively similar, we just need to add an additional &lt;code&gt;hypothesize()&lt;/code&gt; function. Of course, in order to run a hypothesis test we need some sort of hypothesis to test against, which will allow us to define the &lt;strong&gt;null distribution&lt;/strong&gt;. We also need to select a significance level &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt;, which serves as a kind of evidence threshold that we use when determining whether or not we can reject the null hypothesis. A common choice for &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt; is 0.05, which is the value that we will&amp;nbsp;use.&lt;/p&gt;
+&lt;p&gt;Subsequent work on the speed of light has determined that, given the conditions of Newcomb’s setup, that this experiment should yield a “true” mean value of 33.02. With this value in hand, we can formalize the question of whether or not the gap separating our dataset’s distribution could have been generated by chance&amp;nbsp;alone.&lt;/p&gt;
+&lt;ol start="6" class="example" type="1"&gt;
+&lt;li&gt;Write down (in words) the &lt;strong&gt;null hypothesis&lt;/strong&gt; and the &lt;strong&gt;alternative hypothesis&lt;/strong&gt; for comparing this dataset against the “true” mean value of&amp;nbsp;33.02.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We modify our code as follows in order to generate the &lt;strong&gt;null distribution&lt;/strong&gt; needed to perform the hypothesis&amp;nbsp;test:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_null &amp;lt;- newcomb %&amp;gt;%
+  specify(formula = time ~ NULL) %&amp;gt;%
+  hypothesize(null = &amp;quot;point&amp;quot;, mu = 33.02) %&amp;gt;%
+  generate(reps = 10000, type = &amp;quot;bootstrap&amp;quot;) %&amp;gt;%
+  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have a null distribution, we can use it in combination with the experimental average for the speed of light to calculate the &lt;strong&gt;p-value&lt;/strong&gt;. The &lt;strong&gt;p-value&lt;/strong&gt; is simply the probability that, were we to repeat the experiment again, we would obtain a result that is the same &lt;strong&gt;or more extreme&lt;/strong&gt; than the reported experimental measurement. &lt;span class="monospace"&gt;infer&lt;/span&gt; provides us with a convenient way to calculate the observed value, you just take the above code block and remove the &lt;code&gt;hypothesize()&lt;/code&gt; and &lt;code&gt;generate()&lt;/code&gt; lines,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;average_light_speed &amp;lt;- newcomb %&amp;gt;%
+  specify(formula = time ~ NULL) %&amp;gt;%
+  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have our observed value, we can find the two-sided&amp;nbsp;p-value,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;newcomb_null %&amp;gt;%
+  get_p_value(obs_stat = average_light_speed, direction = &amp;quot;both&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the computed p-value is less than 0.05, our significance level, then we reject the null hypothesis in favor of the alternative&amp;nbsp;hypothesis.&lt;/p&gt;
+&lt;ol start="7" class="example" type="1"&gt;
+&lt;li&gt;Use the &lt;span class="monospace"&gt;infer&lt;/span&gt; package to run the two-sided hypothesis test with &lt;span class="math inline"&gt;\(\alpha = 0.05\)&lt;/span&gt; between the ideal value of 33.02 and unfiltered and filtered datasets. Can we reject the null hypothesis for either version (filtered or unfiltered) of the&amp;nbsp;dataset?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="additional-questions"&gt;Additional&amp;nbsp;questions&lt;/h2&gt;
+&lt;div class="additional-questions"&gt;
+&lt;ul&gt;
+&lt;li&gt;From your analysis, does Newcomb’s dataset seem to agree with the “true” mean value of 33.02? Or is it inconsistent? Make reference to your confidence intervals of both the unfiltered and filtered datasets when answering these questions as well as your two-sided hypothesis test. Based on all this, how likely is it that a systematic bias exists within Newcomb’s&amp;nbsp;dataset?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
+&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
+&lt;ol type="1"&gt;
+&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 8&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
+&lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;. Exercises and instructions written by James Glasbrenner for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102.&lt;/p&gt;
+&lt;h2 id="references" class="unnumbered"&gt;References&lt;/h2&gt;
+&lt;div id="refs" class="references"&gt;
+&lt;div id="ref-stigler:robust"&gt;
+&lt;p&gt;[1] &lt;span class="caps"&gt;S. M.&lt;/span&gt; Stigler, “Do Robust Estimators Work with &lt;span class="caps"&gt;REAL&lt;/span&gt; Data? (With Discussion),” Annals of Statistics &lt;strong&gt;5&lt;/strong&gt;, 1055&amp;nbsp;(1977).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="ref-Newcomb:1882"&gt;
+&lt;p&gt;[2] S. Newcomb, “Measures of the Velocity of Light Made Under the Direction of the Secretary of the Navy During the Years 1880-’82,” Astronomical Papers &lt;strong&gt;3&lt;/strong&gt;, 107&amp;nbsp;(1882).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="ref-jaffe:1960"&gt;
+&lt;p&gt;[3] B. Jaffe, &lt;em&gt;Michelson and the Speed of Light&lt;/em&gt; (Doubleday; Company, Garden City, New York,&amp;nbsp;1960).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="ref-Carter:2002"&gt;
+&lt;p&gt;[4] &lt;span class="caps"&gt;W. E.&lt;/span&gt; Carter and &lt;span class="caps"&gt;M. S.&lt;/span&gt; Carter, “The Newcomb-Michelson velocity of light experiments,” Eos, Transactions American Geophysical Union &lt;strong&gt;83&lt;/strong&gt;, 405&amp;nbsp;(2002).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 9 – Moneyball</title><link href="https://www.cds101.com/labs/lab-09-moneyball/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-09-moneyball/</id><summary type="html">Build predictive models of baseball data, just like in the movie &lt;em&gt;Moneyball&lt;/em&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;This week’s lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball&amp;nbsp;season.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="data-science-in-sports-and-at-the-movies"&gt;Data science in sports and at the&amp;nbsp;movies&lt;/h2&gt;
+&lt;p&gt;The movie &lt;a href="http://en.wikipedia.org/wiki/Moneyball_(film)"&gt;Moneyball&lt;/a&gt; focuses on the “quest for the secret of success in baseball”. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player’s ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the&amp;nbsp;team.&lt;/p&gt;
+&lt;h2 id="about-this-weeks-dataset"&gt;About this week’s&amp;nbsp;dataset&lt;/h2&gt;
+&lt;p&gt;This dataset is the data from the 2011 Major League Baseball (&lt;span class="caps"&gt;MLB&lt;/span&gt;) season, containing several different kinds of summary statistics for the different&amp;nbsp;teams.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;Variable&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;team&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Name of baseball team&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;runs&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of runs scored&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;at_bats&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of players at bat&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;hits&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of hits&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;homeruns&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of homeruns&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;bat_avg&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Team batting average&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;strikeouts&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of strikeouts&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;stolen_bases&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of bases stolen&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;wins&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Number of games won&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;new_onbase&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;On-base percentage&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;new_slug&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Slugging percentage (total bases divided by &lt;span class="monospace"&gt;at_bats&lt;/span&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;new_obs&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;On-base plus slugging percentages&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The first seven variables, &lt;span class="monospace"&gt;at_bats&lt;/span&gt;, &lt;span class="monospace"&gt;hits&lt;/span&gt;, &lt;span class="monospace"&gt;homeruns&lt;/span&gt;, &lt;span class="monospace"&gt;bat_avg&lt;/span&gt;, &lt;span class="monospace"&gt;strikeouts&lt;/span&gt;, &lt;span class="monospace"&gt;stolen_bases&lt;/span&gt;, and &lt;span class="monospace"&gt;wins&lt;/span&gt;, are the &lt;a href="https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics"&gt;traditionally used variables&lt;/a&gt; for baseball statistics. The last three variables, &lt;span class="monospace"&gt;new_onbase&lt;/span&gt;, &lt;span class="monospace"&gt;new_slug&lt;/span&gt;, and &lt;span class="monospace"&gt;new_obs&lt;/span&gt;, are the suggested variables that the author of &lt;em&gt;Moneyball&lt;/em&gt; claims were better predictors of the &lt;span class="monospace"&gt;runs&lt;/span&gt;&amp;nbsp;variable.&lt;/p&gt;
+&lt;ol class="example" type="1"&gt;
+&lt;li&gt;What type of plot would you use to display the relationship between &lt;span class="monospace"&gt;runs&lt;/span&gt; and one of the other numerical variables? Plot this relationship using the variable &lt;span class="monospace"&gt;at_bats&lt;/span&gt; as the explanatory variable (horizontal axis). Does the relationship look linear? Explain what you’ve noticed in the plot that makes you think the relationship is linear (or not&amp;nbsp;linear).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="building-a-linear-model"&gt;Building a linear&amp;nbsp;model&lt;/h2&gt;
+&lt;p&gt;R provides a straightforward way to build a least-squares linear regression model with the &lt;code&gt;lm()&lt;/code&gt; function. The term “least-squares” refers to the method used to find the linear model, which is to minimize the sum of the squared residuals, and the &lt;strong&gt;residual&lt;/strong&gt; is the leftover variation in the data after accounting for the model fit. As an example, to build a least-squares model of &lt;span class="monospace"&gt;runs&lt;/span&gt; using &lt;span class="monospace"&gt;at_bats&lt;/span&gt; as the explanatory variable, we&amp;nbsp;write,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model &amp;lt;- lm(runs ~ at_bats, data = mlb11)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first argument in the function &lt;span class="monospace"&gt;lm&lt;/span&gt; is a formula that takes the form &lt;span class="monospace"&gt;response ~ explanatory&lt;/span&gt;. Here it can be read that we want to make a linear model of &lt;span class="monospace"&gt;runs&lt;/span&gt; as a function of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;. The second argument specifies that R should look in the &lt;span class="monospace"&gt;mlb11&lt;/span&gt; data frame to find the &lt;span class="monospace"&gt;runs&lt;/span&gt; and &lt;span class="monospace"&gt;at_bats&lt;/span&gt;&amp;nbsp;variables.&lt;/p&gt;
+&lt;p&gt;Having assigned the model to &lt;span class="monospace"&gt;runs_at_bats_model&lt;/span&gt;, we can use a couple of convenience functions from the handy &lt;span class="monospace"&gt;broom&lt;/span&gt; package — this was installed when we installed &lt;span class="monospace"&gt;tidyverse&lt;/span&gt; — to get a basic overview of the model. To get a data frame summarizing the model parameters, we use the &lt;code&gt;tidy()&lt;/code&gt; function,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model %&amp;gt;%
+  tidy()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This table contains the model coefficients, with the first column pertaining to the linear model’s y-intercept and the coefficient (slope) of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;. With this table, we can write down the formal expression for the least squares regression line for our linear model: &lt;span class="math display"&gt;\[\text{runs}(\text{at\_bats})=-2789.2429+0.6305\times\text{at\_bats}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Additional information about the model, such as the model’s &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; paramter, can be obtained using the &lt;code&gt;glance()&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model %&amp;gt;%
+  glance()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; value represents the proportion of variability in the response variable that is explained by the explanatory variable. For this model, 37.3% of the variability in runs is explained by &lt;span class="monospace"&gt;at_bats&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="2" class="example" type="1"&gt;
+&lt;li&gt;Fit a new model that uses &lt;span class="monospace"&gt;homeruns&lt;/span&gt; to predict &lt;span class="monospace"&gt;runs&lt;/span&gt; and obtain the coefficients and other details about the model using &lt;code&gt;tidy()&lt;/code&gt; and &lt;code&gt;glance()&lt;/code&gt;. What do the intercept and the slope tell us about the relationship between the success of a team and the number of home runs its players hit during the&amp;nbsp;season?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="prediction-and-prediction-errors"&gt;Prediction and prediction&amp;nbsp;errors&lt;/h2&gt;
+&lt;p&gt;After building a model, we would like to know what it predicts and what the residuals look like. The &lt;span class="monospace"&gt;modelr&lt;/span&gt; package, which is part of the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;, provides us with a function for adding the predictions to our data frame. To get the predictions for the model &lt;span class="monospace"&gt;runs ~ at_bats&lt;/span&gt;,&amp;nbsp;run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_df &amp;lt;- mlb11 %&amp;gt;%
+  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First, let’s directly compare the model with the underlying data. We use &lt;span class="monospace"&gt;ggplot2&lt;/span&gt; to create a scatter plot and overlay the model line on&amp;nbsp;top,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df) +
+  geom_point(mapping = aes(x = at_bats, y = runs)) +
+  geom_line(
+    mapping = aes(x = at_bats, y = pred),
+    color = &amp;quot;indianred3&amp;quot;,  # color and size are used here to help the
+    size = 1               # the model line stand out.
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Although the &lt;span class="monospace"&gt;pred&lt;/span&gt; column in &lt;span class="monospace"&gt;runs_at_bats_df&lt;/span&gt; only corresponds to predictions for the input values of the &lt;span class="monospace"&gt;at_bats&lt;/span&gt; column, in general the model allows us to predict the value of &lt;span class="monospace"&gt;runs&lt;/span&gt; at &lt;strong&gt;any&lt;/strong&gt; value of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;, including values that are outside the range &lt;span class="math inline"&gt;\([5417, 5710]\)&lt;/span&gt;. Predictions beyond the range of the observed data is referred to as &lt;em&gt;extrapolation&lt;/em&gt;, and making strong predictions based on extrapolation is not recommended. Predictions made within the range of the data are considered more&amp;nbsp;reliable.&lt;/p&gt;
+&lt;p&gt;You have a couple of options available if you want to make predictions at values of &lt;span class="monospace"&gt;at_bats&lt;/span&gt; not found in the &lt;span class="monospace"&gt;mlb11&lt;/span&gt; data frame. If you are interested in a few specific points, then you can build a data frame by hand and pipe it into &lt;code&gt;add_predictions()&lt;/code&gt;,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_more_pred &amp;lt;- tibble(   (  # Creates a data frame with a column
+  at_bats = combine(5400, 5650)        # named at_bats with two values, 5400
+) %&amp;gt;%                                  # and 5650
+  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you instead want to check predictions for a collection of points at regularly-spaced intervals, you can use the &lt;code&gt;seq_range()&lt;/code&gt; function as&amp;nbsp;follows:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_seq_pred &amp;lt;- tibble(      # Creates a data frame with a column
+  at_bats = seq_range(                # named at_bats that has values
+    x = combine(5400, 5700),          # incrementing by 20 over the range
+    by = 20                           # [5400, 5700]
+  )
+) %&amp;gt;%
+  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="3" class="example" type="1"&gt;
+&lt;li&gt;If a team manager saw the least squares regression line and not the actual data, how many runs would he or she predict for a team with 5,578 &lt;span class="monospace"&gt;at_bats&lt;/span&gt;? Is this an overestimate or an underestimate, and by how much? In other words, what is the residual for this&amp;nbsp;prediction?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="residuals"&gt;Residuals&lt;/h2&gt;
+&lt;p&gt;As discussed earlier, the prediction error is defined as the difference between the predicted value and the observed value is called the &lt;strong&gt;residual&lt;/strong&gt;. Visually, the residual is the vertical distance from the model line to each data&amp;nbsp;point.&lt;/p&gt;
+&lt;ol start="4" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Use the following code to visualize the residuals connected to each data&amp;nbsp;point,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(runs_at_bats_df) +
+  geom_point(mapping = aes(x = at_bats, y = runs)) +
+  geom_line(
+    mapping = aes(x = at_bats, y = pred),
+    color = &amp;quot;indianred3&amp;quot;,
+    size = 1
+  ) +
+  geom_linerange(
+    mapping = aes(x = at_bats, ymin = pred, ymax = runs),
+    linetype = &amp;quot;dashed&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which data point appears to have the smallest residual? Which data point appears to have the largest&amp;nbsp;residual?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It is typical to visualize how a model’s residuals are distributed using a histogram to get a sense of their center, shape, and overall spread. Before we can plot the histogram, we need to collect the residuals into a new column in our dataset. Just like for the predictions, &lt;span class="monospace"&gt;modelr&lt;/span&gt; provides the function &lt;code&gt;add_residuals()&lt;/code&gt; for this&amp;nbsp;purpose,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_df2 &amp;lt;- runs_at_bats_df %&amp;gt;%
+  add_residuals(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The residuals are added as a new column named &lt;span class="monospace"&gt;resid&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="5" class="example" type="1"&gt;
+&lt;li&gt;Create a histogram of the residuals stored in &lt;span class="monospace"&gt;runs_at_bats_df2&lt;/span&gt;. Make sure you choose an appropriate bin width for the distribution. What is the shape and center of the&amp;nbsp;residuals?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="conditions-for-using-a-linear-model"&gt;Conditions for using a linear&amp;nbsp;model&lt;/h2&gt;
+&lt;p&gt;Three conditions must be met in order for a linear model built using &lt;code&gt;lm()&lt;/code&gt; to be&amp;nbsp;reliable:&lt;/p&gt;
+&lt;div class="additional-questions"&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Linearity:&lt;/strong&gt; The relationship between the explanatory variable and the response variable must be&amp;nbsp;linear&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Nearly normal residuals:&lt;/strong&gt; The residuals should be nearly normal (i.e. follow a bell curve&amp;nbsp;shape)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Constant variability:&lt;/strong&gt; The variability of the points around the model line should be roughly&amp;nbsp;constant&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;Let’s walk through each of the three conditions and discuss what we can plot to help us assess whether the linear model is&amp;nbsp;reliable.&lt;/p&gt;
+&lt;h3 id="linearity"&gt;Linearity&lt;/h3&gt;
+&lt;p&gt;The plot we created at the beginning of the &lt;a href="#prediction-and-prediction-errors"&gt;prediction and prediction errors&lt;/a&gt; section already provides us with an approximate idea of whether the relationship between the explanatory and response variable is linear. However, there are two other types of plots that we can create that will help in our assessment, an &lt;strong&gt;observed versus predicted plot&lt;/strong&gt; and a &lt;strong&gt;residual versus predicted plot&lt;/strong&gt;. The code to make an observed versus predicted plot&amp;nbsp;is,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = runs)) +
+  geom_abline(slope = 1, intercept = 0, color = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and the code to make a residual versus predicted plot&amp;nbsp;is,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
+  geom_point(mapping = aes(x = pred, y = resid)) +
+  geom_ref_line(h = 0)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the points in either plot appear to follow a non-linear (curved) trend, then that’s a tell-tale sign that the condition for linearity has been&amp;nbsp;violated.&lt;/p&gt;
+&lt;ol start="6" class="example" type="1"&gt;
+&lt;li&gt;Create the &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots for the &lt;span class="monospace"&gt;runs ~ at_bats&lt;/span&gt; model. Interpret the plots and conclude whether the relationship between &lt;span class="monospace"&gt;runs&lt;/span&gt; and &lt;span class="monospace"&gt;at_bats&lt;/span&gt; is linear or&amp;nbsp;non-linear.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="nearly-normal-residuals"&gt;Nearly normal&amp;nbsp;residuals&lt;/h3&gt;
+&lt;p&gt;The histogram we created in the &lt;a href="#residuals"&gt;residuals&lt;/a&gt; section gives us a rough idea of whether the residuals are nearly normal, but we should have a more precise method for figuring this out. One such method is to build a Q-Q plot using &lt;code&gt;geom_qq()&lt;/code&gt;, which is designed to show us precisely where the distribution of residuals deviates from normality. A reference line should also be included in the Q-Q plot, which we can do by using &lt;code&gt;geom_qq_line()&lt;/code&gt;. Any points found on this line are following a normal distribution and any points away from the line are deviating from the normal&amp;nbsp;distribution.&lt;/p&gt;
+&lt;ol start="7" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Create a Q-Q plot of the model’s residuals using the following&amp;nbsp;code:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
+  geom_qq(mapping = aes(sample = resid)) +
+  geom_qq_line(mapping = aes(sample = resid))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on the resulting plot, does it appear that the condition that residuals must be nearly normal is&amp;nbsp;met?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="constant-variability"&gt;Constant&amp;nbsp;variability&lt;/h3&gt;
+&lt;p&gt;The residual versus predicted plot you created in &lt;strong&gt;Exercise 6&lt;/strong&gt; can be used to determine whether the variability of the points around the model line remain approximately constant. If the residual spread seems to increase or decrease as the predicted value changes, then this condition is&amp;nbsp;violated.&lt;/p&gt;
+&lt;ol start="8" class="example" type="1"&gt;
+&lt;li&gt;Interpret the residual versus predicted plot from &lt;strong&gt;Exercise 6&lt;/strong&gt; and conclude whether the constant variability condition is&amp;nbsp;met.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="additional-questions"&gt;Additional&amp;nbsp;questions&lt;/h2&gt;
+&lt;div class="additional-questions"&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Choose another traditional variable from &lt;span class="monospace"&gt;mlb11&lt;/span&gt; that you think might be a good predictor of &lt;span class="monospace"&gt;runs&lt;/span&gt;. Fit a linear model and create &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots (you do not need to check the conditions for using the linear model). Does your variable seem to predict &lt;span class="monospace"&gt;runs&lt;/span&gt; better than &lt;span class="monospace"&gt;at_bats&lt;/span&gt;? Determine this by comparing the &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; values (obtained using &lt;code&gt;glance()&lt;/code&gt;) for the two&amp;nbsp;models.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Now use one of the three newer variables, &lt;span class="monospace"&gt;new_onbase&lt;/span&gt;, &lt;span class="monospace"&gt;new_slug&lt;/span&gt;, and &lt;span class="monospace"&gt;new_obs&lt;/span&gt;, to build a linear model using the same method as before. These are the statistics used by the author of &lt;em&gt;Moneyball&lt;/em&gt; to predict a teams success. After fitting the model you should create &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots (you do not need to check the conditions for using the linear model) and also compare the new model’s &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; values (obtained using &lt;code&gt;glance()&lt;/code&gt;) with the others. Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you&amp;nbsp;investigated.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
+&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
+&lt;ol type="1"&gt;
+&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 9&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
+&lt;p&gt;This lab, &lt;em&gt;Moneyball&lt;/em&gt;, is a derivative of &lt;a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html"&gt;OpenIntro Lab 9 – Introduction to linear regression&lt;/a&gt; by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of &lt;span class="caps"&gt;UCLA&lt;/span&gt; Statistics, used under &lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;&lt;span class="caps"&gt;CC&lt;/span&gt; &lt;span class="caps"&gt;BY&lt;/span&gt;-&lt;span class="caps"&gt;SA&lt;/span&gt; 3.0&lt;/a&gt;. &lt;em&gt;Moneyball&lt;/em&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt; by James&amp;nbsp;Glasbrenner.&lt;/p&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 10 – Build and Explore a Temperature Database</title><link href="https://www.cds101.com/labs/lab-10-temperature-database/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-10-temperature-database/</id><summary type="html">Download, build, and explore a database of daily average temperatures from January 1995 to the present&amp;nbsp;day</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 11 – Mining the social web</title><link href="https://www.cds101.com/labs/lab-11-mining-the-social-web/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-11-mining-the-social-web/</id><summary type="html">Accessing the Twitter &lt;span class="caps"&gt;API&lt;/span&gt; using &lt;span style="monospace"&gt;rtweet&lt;/span&gt; and exploring what you can do with the harvested&amp;nbsp;data</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This week’s lab shows you how to access the Twitter &lt;span class="caps"&gt;API&lt;/span&gt; using the &lt;span class="monospace"&gt;rtweet&lt;/span&gt; package and what you can do with that harvested&amp;nbsp;data.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="installing-dependencies"&gt;Installing&amp;nbsp;dependencies&lt;/h2&gt;
@@ -5160,323 +5477,10 @@ get_friends(&amp;quot;CSS_GMU&amp;quot;) %&amp;gt;%
 &lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
 &lt;ol type="1"&gt;
 &lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 5&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 11&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
 &lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;. Lab instructions and exercises originally created by Joe Shaheen for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102. Updates to exercises and instructions for compatibility with the &lt;a href="https://github.com/mkearney/rtweet"&gt;&lt;span class="monospace"&gt;rtweet&lt;/span&gt;&lt;/a&gt; package by James Glasbrenner. Figures in the &lt;a href="#creating-an-app-on-the-twitter-api"&gt;Creating an App on the Twitter &lt;span class="caps"&gt;API&lt;/span&gt;&lt;/a&gt; section are from the &lt;a href="#rtweet-obtaining-access-tokens"&gt;&lt;em&gt;Obtaining and using access tokens&lt;/em&gt;&lt;/a&gt; &lt;span class="monospace"&gt;rtweet&lt;/span&gt;&amp;nbsp;vignette.&lt;/p&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 06 – Speed of light</title><link href="https://www.cds101.com/labs/lab-06-speed-of-light/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-06-speed-of-light/</id><summary type="html">&lt;span style="monospace"&gt;infer&lt;/span&gt; the speed of light using Simon Newcomb&amp;#8217;s famous&amp;nbsp;dataset</summary><content type="html">&lt;blockquote&gt;
-&lt;p&gt;This week’s lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb’s measurements of the speed of light. Through this, we will see how statistical methods can help us to put the scientific method into practice and provide you with hands-on experience with the kinds of data analysis a scientist will use after completing a series of experimental&amp;nbsp;measurements.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="natural-science-data-science"&gt;Natural science, data&amp;nbsp;science&lt;/h2&gt;
-&lt;p&gt;Many of the datasets we’ve worked through in our labs this semester have come from fields outside of the natural sciences. That doesn’t mean that the skills we’re building don’t have a useful application in fields such as physics, chemistry, and biology. For that reason, this week we will apply statistical methods to a dataset from the natural sciences that can be used to calculate the speed of&amp;nbsp;light.&lt;/p&gt;
-&lt;h2 id="about-this-weeks-dataset"&gt;About this week’s&amp;nbsp;dataset&lt;/h2&gt;
-&lt;p&gt;The astronomer and applied mathematician Simon Newcomb collected this dataset over three separate days between the dates of July 24, 1882 and September 5, 1882&lt;span class="citation" data-cites="stigler:robust Newcomb:1882"&gt; [1,2]&lt;/span&gt; in Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;. He performed the measurements using an apparatus design similar to Léon Foucault’s system of rotating mirrors&lt;span class="citation" data-cites="jaffe:1960"&gt; [3]&lt;/span&gt;, which allowed Newcomb to measure the time it took a beam of light to travel from Fort Myer on the west bank of the Potomac to a mirror located at the Washington monument and back&lt;span class="citation" data-cites="stigler:robust Carter:2002"&gt; [1,4]&lt;/span&gt;, corresponding to a distance of 7443.73 meters. This dataset contains 66 observations, which have been transformed so that the dataset could be analyzed as a series of integers. To convert a dataset value &lt;span class="math inline"&gt;\(t\)&lt;/span&gt; to the actual transit time &lt;span class="math inline"&gt;\(t_{meas}\)&lt;/span&gt; in seconds, use the&amp;nbsp;formula,&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[\text{t}_{\text{meas}}=\dfrac{\dfrac{\text{t}}{1000}+24.8}{1000000}\]&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id="visualizing-and-quantifying-the-distribution"&gt;Visualizing and quantifying the&amp;nbsp;distribution&lt;/h2&gt;
-&lt;p&gt;Let’s start by doing the usual practice of getting to know our dataset. There’s only one relevant variable in this dataset, &lt;span class="monospace"&gt;time&lt;/span&gt;, so it’s the distribution of the measured times that matter. Let’s appraise the distribution of time measurements by creating some&amp;nbsp;visualizations:&lt;/p&gt;
-&lt;ol class="example" type="1"&gt;
-&lt;li&gt;Visualize the dataset distribution as a boxplot — use &lt;code&gt;geom_boxplot(aes(x = &amp;quot;unfiltered&amp;quot;, y = time)) + coord_flip()&lt;/code&gt; — and as a probability mass function (&lt;span class="caps"&gt;PMF&lt;/span&gt;) — use &lt;code&gt;geom_histogram()&lt;/code&gt; with &lt;span class="monospace"&gt;y = ..density..&lt;/span&gt; inside &lt;code&gt;aes()&lt;/code&gt; — with a binwidth that allows you can see the full dataset (only identical numbers should have counts larger than 1). Describe the center, shape, and spread of the distribution (don’t forget to mention the&amp;nbsp;outliers).&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;One of the things you’ll immediately notice when visualizing this dataset is how pronounced the outliers are. The experimental setup involved a rapidly rotating mirror that had to be precisely tuned. Given that the speed of light is so high, small variations in the rotation speed could significantly impact the measured travel times. As such, it’s quite possible these outliers are due to experimental error. However, without further information we cannot be sure that this is the case. Thus, the best choice is to analyze two versions of the dataset, one with the outliers removed and one where we keep all data&amp;nbsp;points.&lt;/p&gt;
-&lt;ol start="2" class="example" type="1"&gt;
-&lt;li&gt;Create a second, filtered version of the dataset that removes the outliers that you see in the&amp;nbsp;distribution.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Another useful visualization for understanding a dataset is the cumulative distribution function (&lt;span class="caps"&gt;CDF&lt;/span&gt;), which creates a map from the distribution’s values to their respective percentiles. To plot the &lt;span class="caps"&gt;CDF&lt;/span&gt; for a data distribution, we can use the &lt;code&gt;geom_step()&lt;/code&gt; function in &lt;span class="monospace"&gt;ggplot2&lt;/span&gt;.&lt;/p&gt;
-&lt;ol start="3" class="example" type="1"&gt;
-&lt;li&gt;&lt;p&gt;Visualize the &lt;span class="caps"&gt;CDF&lt;/span&gt; for both the unfiltered and filtered versions of the dataset. The code for plotting the &lt;span class="caps"&gt;CDF&lt;/span&gt; for the unfiltered dataset would&amp;nbsp;be:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = newcomb) +
-  geom_step(
-    mapping = aes(x = time),
-    stat = &amp;quot;ecdf&amp;quot;
-  ) +
-  labs(y = &amp;quot;CDF&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;span class="caps"&gt;CDF&lt;/span&gt; for the filtered dataset can be visualized by slightly modifying the above code. Do you notice any changes in the &lt;span class="caps"&gt;CDF&lt;/span&gt; after removing the outliers from the original&amp;nbsp;dataset?&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Finally, to wrap up this initial exploration, quantify these distributions by computing their summary statistics. The following functions in R are useful for computing the summary statistics of a&amp;nbsp;dataset:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;mean()&lt;/code&gt;: Computes the&amp;nbsp;average&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;median()&lt;/code&gt;: Computes the&amp;nbsp;median&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;min()&lt;/code&gt;: Finds the minimum&amp;nbsp;value&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;max()&lt;/code&gt;: Finds the maximum&amp;nbsp;value&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;sd()&lt;/code&gt;: Computes the standard&amp;nbsp;deviation&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;IQR()&lt;/code&gt;: Computes the interquartile&amp;nbsp;range&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start="4" class="example" type="1"&gt;
-&lt;li&gt;&lt;p&gt;Calculate the following summary statistics for the filtered and unfiltered versions of the dataset: the mean, median, maximum, minimum, standard deviation, and the inter-quartile range (&lt;span class="caps"&gt;IQR&lt;/span&gt;). For the unfiltered dataset, this would&amp;nbsp;be:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb %&amp;gt;%
-  summarize(
-    mean = mean(time),
-    median = median(time),
-    sd = sd(time),
-    iqr = IQR(time),
-    min = min(time),
-    max = max(time),
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which summary statistics are sensitive to removing the outliers? Which ones are&amp;nbsp;not?&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="infering-a-trend"&gt;&lt;span class="monospace"&gt;infer&lt;/span&gt;ing a&amp;nbsp;trend&lt;/h2&gt;
-&lt;p&gt;Because there is a spread in the time measurements in Newcomb’s dataset, the measured time should be reported as a mean value with error bars. The error bars are typically found by calculating a confidence interval. A typical choice is a 95% confidence interval, which can be estimated using computational simulations that &lt;em&gt;resample&lt;/em&gt; the dataset. To perform our statistical resampling, we will use the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;-inspired &lt;a href="https://infer.netlify.com/"&gt;&lt;span class="monospace"&gt;infer&lt;/span&gt; package&lt;/a&gt;, which will help us to compute confidence intervals and perform hypothesis&amp;nbsp;tests.&lt;/p&gt;
-&lt;p&gt;To compute the confidence interval, we will need to generate the so-called &lt;em&gt;bootstrap distribution&lt;/em&gt;. We obtain the bootstrap simulation using the following&amp;nbsp;code:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap &amp;lt;- newcomb %&amp;gt;%
-  specify(formula = time ~ NULL) %&amp;gt;%
-  generate(reps = 10000, type = &amp;quot;bootstrap&amp;quot;) %&amp;gt;%
-  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To visualize the bootstrap distribution, we&amp;nbsp;run:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap %&amp;gt;%
-  visualize() +
-  labs(x = &amp;quot;average time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;What the bootstrap has done is sample &lt;em&gt;with replacement&lt;/em&gt; from the dataset distribution. The basic idea is that, if the underlying sample is representative, then we can sample directly from it &lt;em&gt;as if it were the true population&lt;/em&gt;. The number of samples we pull is equal to the number of observations in the dataset. After we resample the data, we complete the procedure by calculating the &lt;span class="monospace"&gt;mean&lt;/span&gt; of the simulated sample (or &lt;span class="monospace"&gt;median&lt;/span&gt;, &lt;span class="monospace"&gt;sd&lt;/span&gt;, or some other parameter), after which we then repeat the process multiple times until we end up with a distribution of means. We can then use the bootstrap sample to determine the confidence interval for the sample statistic of&amp;nbsp;interest.&lt;/p&gt;
-&lt;p&gt;The 95% confidence interval is defined as the fraction of the data in the bootstrap distribution that lies between the 2.5th and 97.5th percentiles, which we can compute as&amp;nbsp;follows:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_ci &amp;lt;- newcomb_bootstrap %&amp;gt;%
-  get_confidence_interval()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To visualize the confidence interval with respect to the bootstrap distribution, we&amp;nbsp;run:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_bootstrap %&amp;gt;%
-  visualize() +
-  shade_confidence_interval(endpoints = newcomb_ci) +
-  labs(x = &amp;quot;average time&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;ol start="5" class="example" type="1"&gt;
-&lt;li&gt;Using the above code, compute the 95% confidence interval for the unfiltered and filtered dataset using the bootstrap method and visualize both of them. Make sure that you also print out the values of the confidence interval. How does the confidence interval change when you exclude the outliers (the filtered&amp;nbsp;dataset)?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;We can also use &lt;span class="monospace"&gt;infer&lt;/span&gt; to perform a two-sided hypothesis test. The code for doing this is relatively similar, we just need to add an additional &lt;code&gt;hypothesize()&lt;/code&gt; function. Of course, in order to run a hypothesis test we need some sort of hypothesis to test against, which will allow us to define the &lt;strong&gt;null distribution&lt;/strong&gt;. We also need to select a significance level &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt;, which serves as a kind of evidence threshold that we use when determining whether or not we can reject the null hypothesis. A common choice for &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt; is 0.05, which is the value that we will&amp;nbsp;use.&lt;/p&gt;
-&lt;p&gt;Subsequent work on the speed of light has determined that, given the conditions of Newcomb’s setup, that this experiment should yield a “true” mean value of 33.02. With this value in hand, we can formalize the question of whether or not the gap separating our dataset’s distribution could have been generated by chance&amp;nbsp;alone.&lt;/p&gt;
-&lt;ol start="6" class="example" type="1"&gt;
-&lt;li&gt;Write down (in words) the &lt;strong&gt;null hypothesis&lt;/strong&gt; and the &lt;strong&gt;alternative hypothesis&lt;/strong&gt; for comparing this dataset against the “true” mean value of&amp;nbsp;33.02.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;We modify our code as follows in order to generate the &lt;strong&gt;null distribution&lt;/strong&gt; needed to perform the hypothesis&amp;nbsp;test:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_null &amp;lt;- newcomb %&amp;gt;%
-  specify(formula = time ~ NULL) %&amp;gt;%
-  hypothesize(null = &amp;quot;point&amp;quot;, mu = 33.02) %&amp;gt;%
-  generate(reps = 10000, type = &amp;quot;bootstrap&amp;quot;) %&amp;gt;%
-  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now that we have a null distribution, we can use it in combination with the experimental average for the speed of light to calculate the &lt;strong&gt;p-value&lt;/strong&gt;. The &lt;strong&gt;p-value&lt;/strong&gt; is simply the probability that, were we to repeat the experiment again, we would obtain a result that is the same &lt;strong&gt;or more extreme&lt;/strong&gt; than the reported experimental measurement. &lt;span class="monospace"&gt;infer&lt;/span&gt; provides us with a convenient way to calculate the observed value, you just take the above code block and remove the &lt;code&gt;hypothesize()&lt;/code&gt; and &lt;code&gt;generate()&lt;/code&gt; lines,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;average_light_speed &amp;lt;- newcomb %&amp;gt;%
-  specify(formula = time ~ NULL) %&amp;gt;%
-  calculate(stat = &amp;quot;mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now that we have our observed value, we can find the two-sided&amp;nbsp;p-value,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;newcomb_null %&amp;gt;%
-  get_p_value(obs_stat = average_light_speed, direction = &amp;quot;both&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If the computed p-value is less than 0.05, our significance level, then we reject the null hypothesis in favor of the alternative&amp;nbsp;hypothesis.&lt;/p&gt;
-&lt;ol start="7" class="example" type="1"&gt;
-&lt;li&gt;Use the &lt;span class="monospace"&gt;infer&lt;/span&gt; package to run the two-sided hypothesis test with &lt;span class="math inline"&gt;\(\alpha = 0.05\)&lt;/span&gt; between the ideal value of 33.02 and unfiltered and filtered datasets. Can we reject the null hypothesis for either version (filtered or unfiltered) of the&amp;nbsp;dataset?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="additional-questions"&gt;Additional&amp;nbsp;questions&lt;/h2&gt;
-&lt;div class="additional-questions"&gt;
-&lt;ul&gt;
-&lt;li&gt;From your analysis, does Newcomb’s dataset seem to agree with the “true” mean value of 33.02? Or is it inconsistent? Make reference to your confidence intervals of both the unfiltered and filtered datasets when answering these questions as well as your two-sided hypothesis test. Based on all this, how likely is it that a systematic bias exists within Newcomb’s&amp;nbsp;dataset?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
-&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
-&lt;ol type="1"&gt;
-&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 6&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
-&lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;. Exercises and instructions written by James Glasbrenner for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102.&lt;/p&gt;
-&lt;h2 id="references" class="unnumbered"&gt;References&lt;/h2&gt;
-&lt;div id="refs" class="references"&gt;
-&lt;div id="ref-stigler:robust"&gt;
-&lt;p&gt;[1] &lt;span class="caps"&gt;S. M.&lt;/span&gt; Stigler, “Do Robust Estimators Work with &lt;span class="caps"&gt;REAL&lt;/span&gt; Data? (With Discussion),” Annals of Statistics &lt;strong&gt;5&lt;/strong&gt;, 1055&amp;nbsp;(1977).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id="ref-Newcomb:1882"&gt;
-&lt;p&gt;[2] S. Newcomb, “Measures of the Velocity of Light Made Under the Direction of the Secretary of the Navy During the Years 1880-’82,” Astronomical Papers &lt;strong&gt;3&lt;/strong&gt;, 107&amp;nbsp;(1882).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id="ref-jaffe:1960"&gt;
-&lt;p&gt;[3] B. Jaffe, &lt;em&gt;Michelson and the Speed of Light&lt;/em&gt; (Doubleday; Company, Garden City, New York,&amp;nbsp;1960).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id="ref-Carter:2002"&gt;
-&lt;p&gt;[4] &lt;span class="caps"&gt;W. E.&lt;/span&gt; Carter and &lt;span class="caps"&gt;M. S.&lt;/span&gt; Carter, “The Newcomb-Michelson velocity of light experiments,” Eos, Transactions American Geophysical Union &lt;strong&gt;83&lt;/strong&gt;, 405&amp;nbsp;(2002).&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 07 – Moneyball</title><link href="https://www.cds101.com/labs/lab-07-moneyball/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-07-moneyball/</id><summary type="html">Build predictive models of baseball data, just like in the movie &lt;em&gt;Moneyball&lt;/em&gt;</summary><content type="html">&lt;blockquote&gt;
-&lt;p&gt;This week’s lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball&amp;nbsp;season.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="data-science-in-sports-and-at-the-movies"&gt;Data science in sports and at the&amp;nbsp;movies&lt;/h2&gt;
-&lt;p&gt;The movie &lt;a href="http://en.wikipedia.org/wiki/Moneyball_(film)"&gt;Moneyball&lt;/a&gt; focuses on the “quest for the secret of success in baseball”. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player’s ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the&amp;nbsp;team.&lt;/p&gt;
-&lt;h2 id="about-this-weeks-dataset"&gt;About this week’s&amp;nbsp;dataset&lt;/h2&gt;
-&lt;p&gt;This dataset is the data from the 2011 Major League Baseball (&lt;span class="caps"&gt;MLB&lt;/span&gt;) season, containing several different kinds of summary statistics for the different&amp;nbsp;teams.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class="header"&gt;
-&lt;th&gt;Variable&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;team&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Name of baseball team&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;runs&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of runs scored&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;at_bats&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of players at bat&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;hits&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of hits&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;homeruns&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of homeruns&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;bat_avg&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Team batting average&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;strikeouts&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of strikeouts&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;stolen_bases&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of bases stolen&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;wins&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Number of games won&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;new_onbase&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;On-base percentage&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="odd"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;new_slug&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;Slugging percentage (total bases divided by &lt;span class="monospace"&gt;at_bats&lt;/span&gt;)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class="even"&gt;
-&lt;td&gt;&lt;span class="monospace"&gt;new_obs&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;On-base plus slugging percentages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;The first seven variables, &lt;span class="monospace"&gt;at_bats&lt;/span&gt;, &lt;span class="monospace"&gt;hits&lt;/span&gt;, &lt;span class="monospace"&gt;homeruns&lt;/span&gt;, &lt;span class="monospace"&gt;bat_avg&lt;/span&gt;, &lt;span class="monospace"&gt;strikeouts&lt;/span&gt;, &lt;span class="monospace"&gt;stolen_bases&lt;/span&gt;, and &lt;span class="monospace"&gt;wins&lt;/span&gt;, are the &lt;a href="https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics"&gt;traditionally used variables&lt;/a&gt; for baseball statistics. The last three variables, &lt;span class="monospace"&gt;new_onbase&lt;/span&gt;, &lt;span class="monospace"&gt;new_slug&lt;/span&gt;, and &lt;span class="monospace"&gt;new_obs&lt;/span&gt;, are the suggested variables that the author of &lt;em&gt;Moneyball&lt;/em&gt; claims were better predictors of the &lt;span class="monospace"&gt;runs&lt;/span&gt;&amp;nbsp;variable.&lt;/p&gt;
-&lt;ol class="example" type="1"&gt;
-&lt;li&gt;What type of plot would you use to display the relationship between &lt;span class="monospace"&gt;runs&lt;/span&gt; and one of the other numerical variables? Plot this relationship using the variable &lt;span class="monospace"&gt;at_bats&lt;/span&gt; as the explanatory variable (horizontal axis). Does the relationship look linear? Explain what you’ve noticed in the plot that makes you think the relationship is linear (or not&amp;nbsp;linear).&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="building-a-linear-model"&gt;Building a linear&amp;nbsp;model&lt;/h2&gt;
-&lt;p&gt;R provides a straightforward way to build a least-squares linear regression model with the &lt;code&gt;lm()&lt;/code&gt; function. The term “least-squares” refers to the method used to find the linear model, which is to minimize the sum of the squared residuals, and the &lt;strong&gt;residual&lt;/strong&gt; is the leftover variation in the data after accounting for the model fit. As an example, to build a least-squares model of &lt;span class="monospace"&gt;runs&lt;/span&gt; using &lt;span class="monospace"&gt;at_bats&lt;/span&gt; as the explanatory variable, we&amp;nbsp;write,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model &amp;lt;- lm(runs ~ at_bats, data = mlb11)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The first argument in the function &lt;span class="monospace"&gt;lm&lt;/span&gt; is a formula that takes the form &lt;span class="monospace"&gt;response ~ explanatory&lt;/span&gt;. Here it can be read that we want to make a linear model of &lt;span class="monospace"&gt;runs&lt;/span&gt; as a function of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;. The second argument specifies that R should look in the &lt;span class="monospace"&gt;mlb11&lt;/span&gt; data frame to find the &lt;span class="monospace"&gt;runs&lt;/span&gt; and &lt;span class="monospace"&gt;at_bats&lt;/span&gt;&amp;nbsp;variables.&lt;/p&gt;
-&lt;p&gt;Having assigned the model to &lt;span class="monospace"&gt;runs_at_bats_model&lt;/span&gt;, we can use a couple of convenience functions from the handy &lt;span class="monospace"&gt;broom&lt;/span&gt; package — this was installed when we installed &lt;span class="monospace"&gt;tidyverse&lt;/span&gt; — to get a basic overview of the model. To get a data frame summarizing the model parameters, we use the &lt;code&gt;tidy()&lt;/code&gt; function,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model %&amp;gt;%
-  tidy()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This table contains the model coefficients, with the first column pertaining to the linear model’s y-intercept and the coefficient (slope) of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;. With this table, we can write down the formal expression for the least squares regression line for our linear model: &lt;span class="math display"&gt;\[\text{runs}(\text{at\_bats})=-2789.2429+0.6305\times\text{at\_bats}\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Additional information about the model, such as the model’s &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; paramter, can be obtained using the &lt;code&gt;glance()&lt;/code&gt; function:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_model %&amp;gt;%
-  glance()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; value represents the proportion of variability in the response variable that is explained by the explanatory variable. For this model, 37.3% of the variability in runs is explained by &lt;span class="monospace"&gt;at_bats&lt;/span&gt;.&lt;/p&gt;
-&lt;ol start="2" class="example" type="1"&gt;
-&lt;li&gt;Fit a new model that uses &lt;span class="monospace"&gt;homeruns&lt;/span&gt; to predict &lt;span class="monospace"&gt;runs&lt;/span&gt; and obtain the coefficients and other details about the model using &lt;code&gt;tidy()&lt;/code&gt; and &lt;code&gt;glance()&lt;/code&gt;. What do the intercept and the slope tell us about the relationship between the success of a team and the number of home runs its players hit during the&amp;nbsp;season?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="prediction-and-prediction-errors"&gt;Prediction and prediction&amp;nbsp;errors&lt;/h2&gt;
-&lt;p&gt;After building a model, we would like to know what it predicts and what the residuals look like. The &lt;span class="monospace"&gt;modelr&lt;/span&gt; package, which is part of the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;, provides us with a function for adding the predictions to our data frame. To get the predictions for the model &lt;span class="monospace"&gt;runs ~ at_bats&lt;/span&gt;,&amp;nbsp;run:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_df &amp;lt;- mlb11 %&amp;gt;%
-  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;First, let’s directly compare the model with the underlying data. We use &lt;span class="monospace"&gt;ggplot2&lt;/span&gt; to create a scatter plot and overlay the model line on&amp;nbsp;top,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df) +
-  geom_point(mapping = aes(x = at_bats, y = runs)) +
-  geom_line(
-    mapping = aes(x = at_bats, y = pred),
-    color = &amp;quot;indianred3&amp;quot;,  # color and size are used here to help the
-    size = 1               # the model line stand out.
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Although the &lt;span class="monospace"&gt;pred&lt;/span&gt; column in &lt;span class="monospace"&gt;runs_at_bats_df&lt;/span&gt; only corresponds to predictions for the input values of the &lt;span class="monospace"&gt;at_bats&lt;/span&gt; column, in general the model allows us to predict the value of &lt;span class="monospace"&gt;runs&lt;/span&gt; at &lt;strong&gt;any&lt;/strong&gt; value of &lt;span class="monospace"&gt;at_bats&lt;/span&gt;, including values that are outside the range &lt;span class="math inline"&gt;\([5417, 5710]\)&lt;/span&gt;. Predictions beyond the range of the observed data is referred to as &lt;em&gt;extrapolation&lt;/em&gt;, and making strong predictions based on extrapolation is not recommended. Predictions made within the range of the data are considered more&amp;nbsp;reliable.&lt;/p&gt;
-&lt;p&gt;You have a couple of options available if you want to make predictions at values of &lt;span class="monospace"&gt;at_bats&lt;/span&gt; not found in the &lt;span class="monospace"&gt;mlb11&lt;/span&gt; data frame. If you are interested in a few specific points, then you can build a data frame by hand and pipe it into &lt;code&gt;add_predictions()&lt;/code&gt;,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_more_pred &amp;lt;- tibble(   (  # Creates a data frame with a column
-  at_bats = combine(5400, 5650)        # named at_bats with two values, 5400
-) %&amp;gt;%                                  # and 5650
-  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If you instead want to check predictions for a collection of points at regularly-spaced intervals, you can use the &lt;code&gt;seq_range()&lt;/code&gt; function as&amp;nbsp;follows:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_seq_pred &amp;lt;- tibble(      # Creates a data frame with a column
-  at_bats = seq_range(                # named at_bats that has values
-    x = combine(5400, 5700),          # incrementing by 20 over the range
-    by = 20                           # [5400, 5700]
-  )
-) %&amp;gt;%
-  add_predictions(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
-&lt;ol start="3" class="example" type="1"&gt;
-&lt;li&gt;If a team manager saw the least squares regression line and not the actual data, how many runs would he or she predict for a team with 5,578 &lt;span class="monospace"&gt;at_bats&lt;/span&gt;? Is this an overestimate or an underestimate, and by how much? In other words, what is the residual for this&amp;nbsp;prediction?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="residuals"&gt;Residuals&lt;/h2&gt;
-&lt;p&gt;As discussed earlier, the prediction error is defined as the difference between the predicted value and the observed value is called the &lt;strong&gt;residual&lt;/strong&gt;. Visually, the residual is the vertical distance from the model line to each data&amp;nbsp;point.&lt;/p&gt;
-&lt;ol start="4" class="example" type="1"&gt;
-&lt;li&gt;&lt;p&gt;Use the following code to visualize the residuals connected to each data&amp;nbsp;point,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(runs_at_bats_df) +
-  geom_point(mapping = aes(x = at_bats, y = runs)) +
-  geom_line(
-    mapping = aes(x = at_bats, y = pred),
-    color = &amp;quot;indianred3&amp;quot;,
-    size = 1
-  ) +
-  geom_linerange(
-    mapping = aes(x = at_bats, ymin = pred, ymax = runs),
-    linetype = &amp;quot;dashed&amp;quot;
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which data point appears to have the smallest residual? Which data point appears to have the largest&amp;nbsp;residual?&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;It is typical to visualize how a model’s residuals are distributed using a histogram to get a sense of their center, shape, and overall spread. Before we can plot the histogram, we need to collect the residuals into a new column in our dataset. Just like for the predictions, &lt;span class="monospace"&gt;modelr&lt;/span&gt; provides the function &lt;code&gt;add_residuals()&lt;/code&gt; for this&amp;nbsp;purpose,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;runs_at_bats_df2 &amp;lt;- runs_at_bats_df %&amp;gt;%
-  add_residuals(runs_at_bats_model)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The residuals are added as a new column named &lt;span class="monospace"&gt;resid&lt;/span&gt;.&lt;/p&gt;
-&lt;ol start="5" class="example" type="1"&gt;
-&lt;li&gt;Create a histogram of the residuals stored in &lt;span class="monospace"&gt;runs_at_bats_df2&lt;/span&gt;. Make sure you choose an appropriate bin width for the distribution. What is the shape and center of the&amp;nbsp;residuals?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="conditions-for-using-a-linear-model"&gt;Conditions for using a linear&amp;nbsp;model&lt;/h2&gt;
-&lt;p&gt;Three conditions must be met in order for a linear model built using &lt;code&gt;lm()&lt;/code&gt; to be&amp;nbsp;reliable:&lt;/p&gt;
-&lt;div class="additional-questions"&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Linearity:&lt;/strong&gt; The relationship between the explanatory variable and the response variable must be&amp;nbsp;linear&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Nearly normal residuals:&lt;/strong&gt; The residuals should be nearly normal (i.e. follow a bell curve&amp;nbsp;shape)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Constant variability:&lt;/strong&gt; The variability of the points around the model line should be roughly&amp;nbsp;constant&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;p&gt;Let’s walk through each of the three conditions and discuss what we can plot to help us assess whether the linear model is&amp;nbsp;reliable.&lt;/p&gt;
-&lt;h3 id="linearity"&gt;Linearity&lt;/h3&gt;
-&lt;p&gt;The plot we created at the beginning of the &lt;a href="#prediction-and-prediction-errors"&gt;prediction and prediction errors&lt;/a&gt; section already provides us with an approximate idea of whether the relationship between the explanatory and response variable is linear. However, there are two other types of plots that we can create that will help in our assessment, an &lt;strong&gt;observed versus predicted plot&lt;/strong&gt; and a &lt;strong&gt;residual versus predicted plot&lt;/strong&gt;. The code to make an observed versus predicted plot&amp;nbsp;is,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
-  geom_point(mapping = aes(x = pred, y = runs)) +
-  geom_abline(slope = 1, intercept = 0, color = &amp;quot;red&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and the code to make a residual versus predicted plot&amp;nbsp;is,&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
-  geom_point(mapping = aes(x = pred, y = resid)) +
-  geom_ref_line(h = 0)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If the points in either plot appear to follow a non-linear (curved) trend, then that’s a tell-tale sign that the condition for linearity has been&amp;nbsp;violated.&lt;/p&gt;
-&lt;ol start="6" class="example" type="1"&gt;
-&lt;li&gt;Create the &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots for the &lt;span class="monospace"&gt;runs ~ at_bats&lt;/span&gt; model. Interpret the plots and conclude whether the relationship between &lt;span class="monospace"&gt;runs&lt;/span&gt; and &lt;span class="monospace"&gt;at_bats&lt;/span&gt; is linear or&amp;nbsp;non-linear.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="nearly-normal-residuals"&gt;Nearly normal&amp;nbsp;residuals&lt;/h3&gt;
-&lt;p&gt;The histogram we created in the &lt;a href="#residuals"&gt;residuals&lt;/a&gt; section gives us a rough idea of whether the residuals are nearly normal, but we should have a more precise method for figuring this out. One such method is to build a Q-Q plot using &lt;code&gt;geom_qq()&lt;/code&gt;, which is designed to show us precisely where the distribution of residuals deviates from normality. A reference line should also be included in the Q-Q plot, which we can do by using &lt;code&gt;geom_qq_line()&lt;/code&gt;. Any points found on this line are following a normal distribution and any points away from the line are deviating from the normal&amp;nbsp;distribution.&lt;/p&gt;
-&lt;ol start="7" class="example" type="1"&gt;
-&lt;li&gt;&lt;p&gt;Create a Q-Q plot of the model’s residuals using the following&amp;nbsp;code:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;ggplot(data = runs_at_bats_df2) +
-  geom_qq(mapping = aes(sample = resid)) +
-  geom_qq_line(mapping = aes(sample = resid))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Based on the resulting plot, does it appear that the condition that residuals must be nearly normal is&amp;nbsp;met?&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="constant-variability"&gt;Constant&amp;nbsp;variability&lt;/h3&gt;
-&lt;p&gt;The residual versus predicted plot you created in &lt;strong&gt;Exercise 6&lt;/strong&gt; can be used to determine whether the variability of the points around the model line remain approximately constant. If the residual spread seems to increase or decrease as the predicted value changes, then this condition is&amp;nbsp;violated.&lt;/p&gt;
-&lt;ol start="8" class="example" type="1"&gt;
-&lt;li&gt;Interpret the residual versus predicted plot from &lt;strong&gt;Exercise 6&lt;/strong&gt; and conclude whether the constant variability condition is&amp;nbsp;met.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="additional-questions"&gt;Additional&amp;nbsp;questions&lt;/h2&gt;
-&lt;div class="additional-questions"&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Choose another traditional variable from &lt;span class="monospace"&gt;mlb11&lt;/span&gt; that you think might be a good predictor of &lt;span class="monospace"&gt;runs&lt;/span&gt;. Fit a linear model and create &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots (you do not need to check the conditions for using the linear model). Does your variable seem to predict &lt;span class="monospace"&gt;runs&lt;/span&gt; better than &lt;span class="monospace"&gt;at_bats&lt;/span&gt;? Determine this by comparing the &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; values (obtained using &lt;code&gt;glance()&lt;/code&gt;) for the two&amp;nbsp;models.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;Now use one of the three newer variables, &lt;span class="monospace"&gt;new_onbase&lt;/span&gt;, &lt;span class="monospace"&gt;new_slug&lt;/span&gt;, and &lt;span class="monospace"&gt;new_obs&lt;/span&gt;, to build a linear model using the same method as before. These are the statistics used by the author of &lt;em&gt;Moneyball&lt;/em&gt; to predict a teams success. After fitting the model you should create &lt;strong&gt;observed versus predicted&lt;/strong&gt; and &lt;strong&gt;residual versus predicted&lt;/strong&gt; plots (you do not need to check the conditions for using the linear model) and also compare the new model’s &lt;span class="math inline"&gt;\(R^2\)&lt;/span&gt; values (obtained using &lt;code&gt;glance()&lt;/code&gt;) with the others. Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you&amp;nbsp;investigated.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
-&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
-&lt;ol type="1"&gt;
-&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 7&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
-&lt;p&gt;This lab, &lt;em&gt;Moneyball&lt;/em&gt;, is a derivative of &lt;a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html"&gt;OpenIntro Lab 9 – Introduction to linear regression&lt;/a&gt; by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of &lt;span class="caps"&gt;UCLA&lt;/span&gt; Statistics, used under &lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;&lt;span class="caps"&gt;CC&lt;/span&gt; &lt;span class="caps"&gt;BY&lt;/span&gt;-&lt;span class="caps"&gt;SA&lt;/span&gt; 3.0&lt;/a&gt;. &lt;em&gt;Moneyball&lt;/em&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt; by James&amp;nbsp;Glasbrenner.&lt;/p&gt;
 </content><category term="lab"></category></entry><entry><title>Mini-homework 1 – Can Twitter predict election results?</title><link href="https://www.cds101.com/assignments/minihw01-can-twitter-predict-election-results/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/assignments/minihw01-can-twitter-predict-election-results/</id><summary type="html">A mini-homework about a data science study that used Twitter data to predict election&amp;nbsp;outcomes.</summary><content type="html">&lt;h2 id="appearances-of-candidates-names-on-twitter-can-help-predict-election-results"&gt;Appearances of candidates’ names on Twitter can help predict election&amp;nbsp;results&lt;/h2&gt;
 &lt;p&gt;The promise of using data science to predict election results has been received a lot of attention over the last decade. A lot of attention has focused on using polls to create models and predict results, such as what Nate Silver does over at &lt;a href="http://fivethirtyeight.com"&gt;fivethirtyeight.com&lt;/a&gt;. Besides polls, other kinds of data have been focused on for making predictions about elections. Consider the following 2013 study by a group of researchers at Indiana University. They wanted to see if the appearances of candidates’ names on Twitter can help predict election&amp;nbsp;results.&lt;/p&gt;
 &lt;p&gt;The Washington Post picked this up in an editorial, written by one of the study’s&amp;nbsp;authors:&lt;/p&gt;
