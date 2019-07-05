@@ -1,4 +1,4 @@
-Title: Lab 9 – <em>Moneyball</em>
+Title: Lab 09 – <em>Moneyball</em>
 Author: Dr. Glasbrenner
 Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
