@@ -5086,7 +5086,7 @@ m014
 &lt;p&gt;[4] &lt;span class="caps"&gt;W. E.&lt;/span&gt; Carter and &lt;span class="caps"&gt;M. S.&lt;/span&gt; Carter, “The Newcomb-Michelson velocity of light experiments,” Eos, Transactions American Geophysical Union &lt;strong&gt;83&lt;/strong&gt;, 405&amp;nbsp;(2002).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 9 – Moneyball</title><link href="https://www.cds101.com/labs/lab-09-moneyball/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-09-moneyball/</id><summary type="html">Build predictive models of baseball data, just like in the movie &lt;em&gt;Moneyball&lt;/em&gt;</summary><content type="html">&lt;blockquote&gt;
+</content><category term="lab"></category></entry><entry><title>Lab 09 – Moneyball</title><link href="https://www.cds101.com/labs/lab-09-moneyball/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-09-moneyball/</id><summary type="html">Build predictive models of baseball data, just like in the movie &lt;em&gt;Moneyball&lt;/em&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This week’s lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball&amp;nbsp;season.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="data-science-in-sports-and-at-the-movies"&gt;Data science in sports and at the&amp;nbsp;movies&lt;/h2&gt;
