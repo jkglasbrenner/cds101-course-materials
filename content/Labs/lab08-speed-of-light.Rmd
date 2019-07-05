@@ -1,9 +1,9 @@
-Title: Lab 06 – Speed of light
+Title: Lab 08 – Speed of light
 Author: Dr. Glasbrenner
 Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
 Tags: lab
-Slug: lab-06-speed-of-light
+Slug: lab-08-speed-of-light
 Summary: <span style="monospace">infer</span> the speed of light using Simon Newcomb's famous dataset
 Show_summary: true
 Show_link: true
@@ -13,7 +13,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
-lab_name <- "Lab 6"
+lab_name <- "Lab 8"
 ```
 
 > This week's lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb's measurements of the speed of light.

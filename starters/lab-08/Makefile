@@ -6,7 +6,7 @@ COPY			=		cp
 
 R				=		Rscript
 
-RMD_FILENAME	=		lab06
+RMD_FILENAME	=		lab08
 HTML			=		$(RMD_FILENAME).html
 PDF				=		$(RMD_FILENAME).pdf
 MD				=		$(RMD_FILENAME).md

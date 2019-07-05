@@ -1,8 +1,8 @@
-# Lab 06: Speed of light
+# Lab 09: Moneyball
 
 ## Instructions
 
-**Lab instructions link:** <https://www.cds101.com/labs/lab-06-speed-of-light/>
+**Lab instructions link:** <https://www.cds101.com/labs/lab-09-moneyball/>
 
 When you're ready to submit, follow the directions in the [How to submit](#how-to-submit) section below.
 
@@ -14,7 +14,7 @@ Your lab will be graded for credit **after** you've completed both steps!
 1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
     If you do this right, then you will be able to view your completed file on the GitHub website.
 
-2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to _Lab 6_ posting on Blackboard.
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to _Lab 9_ posting on Blackboard.
 
 ## Cheatsheets
 
@@ -38,4 +38,3 @@ You are encouraged to review and keep the following cheatsheets handy while work
 [rmarkdown-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
 [data-import-cheatsheet]:         https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf
 [data-transformation-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
-

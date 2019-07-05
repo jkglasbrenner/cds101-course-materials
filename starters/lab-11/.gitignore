@@ -4,13 +4,13 @@
 # BEGIN ignore project files
 # ---------------------------
 
-lab07.tex
-lab07.pdf
-lab07.html
-lab07_files/bootstrap-*/*
-lab07_files/jquery-*/*
-lab07_files/navigation-*/*
-lab07_files/figure-html/
+lab11.tex
+lab11.pdf
+lab11.html
+lab11_files/bootstrap-*/*
+lab11_files/jquery-*/*
+lab11_files/navigation-*/*
+lab11_files/figure-html/
 
 # ---------------------------
 # BEGIN ignore basic files

@@ -1,5 +1,5 @@
 ---
-title: "Lab 07 — Moneyball"
+title: "Lab 09 — Moneyball"
 author: FirstName LastName
 date: "`r Sys.Date()`"
 documentclass: article

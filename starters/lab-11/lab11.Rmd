@@ -1,5 +1,5 @@
 ---
-title: "Lab 05 — Mining the social web"
+title: "Lab 11 — Mining the social web"
 author: FirstName LastName
 date: "`r Sys.Date()`"
 documentclass: article
