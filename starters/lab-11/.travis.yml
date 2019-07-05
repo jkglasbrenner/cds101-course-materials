@@ -10,5 +10,5 @@ notifications:
     on_failure: always
     on_success: never
 script:
-- make lab06.pdf
-- make lab06.html
+- make lab11.pdf
+- make lab11.html

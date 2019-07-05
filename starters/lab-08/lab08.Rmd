@@ -1,5 +1,5 @@
 ---
-title: "Lab 06 — Speed of light"
+title: "Lab 08 — Speed of light"
 author: FirstName LastName
 date: "`r Sys.Date()`"
 documentclass: article

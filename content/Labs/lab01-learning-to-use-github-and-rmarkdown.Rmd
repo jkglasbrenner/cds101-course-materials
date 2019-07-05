@@ -4,7 +4,7 @@ Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
 Tags: lab
 Slug: lab-01-learning-to-use-github-and-rmarkdown
-Summary: Introducing R, RStudio, GitHub and R Markdown!
+Summary: Introducing R, RStudio, GitHub and R Markdown
 Show_summary: true
 Show_link: true
 

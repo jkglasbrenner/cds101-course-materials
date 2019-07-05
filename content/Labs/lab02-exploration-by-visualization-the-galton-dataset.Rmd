@@ -4,7 +4,7 @@ Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
 Tags: lab
 Slug: lab-02-exploration-by-visualization-the-galton-dataset
-Summary: Explore the Galton dataset using data visualization.
+Summary: Explore the Galton dataset using data visualization
 Show_summary: true
 Show_link: true
 

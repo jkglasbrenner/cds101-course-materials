@@ -1,0 +1,20 @@
+Title: Lab 10 – Build and Explore a Temperature Database
+Author: Dr. Glasbrenner
+Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
+Date: 2019-01-01 00:00
+Tags: lab
+Slug: lab-10-temperature-database
+Summary: Download, build, and explore a database of daily average temperatures from January 1995 to the present day
+Show_summary: true
+Show_link: false
+
+```{r setup, include = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-2"></i>&nbsp;'
+icon_link <- '<i class="fas fa-link"></i>'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp;'
+lab_name <- "Lab 10"
+starter_file <- "lab10.Rmd"
+```

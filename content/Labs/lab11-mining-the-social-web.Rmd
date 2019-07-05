@@ -1,9 +1,9 @@
-Title: Lab 05 – Mining the social web
+Title: Lab 11 – Mining the social web
 Author: Dr. Glasbrenner
 Author_Image: https://www.gravatar.com/avatar/49802fdfa5a0e63b3d932a5179d41c1e
 Date: 2019-01-01 00:00
 Tags: lab
-Slug: lab-05-mining-the-social-web
+Slug: lab-11-mining-the-social-web
 Summary: Accessing the Twitter API using <span style="monospace">rtweet</span> and exploring what you can do with the harvested data
 Show_summary: true
 Show_link: true
@@ -13,7 +13,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
-lab_name <- "Lab 5"
+lab_name <- "Lab 11"
 ```
 
 > This week’s lab shows you how to access the Twitter API using the [rtweet]{.monospace} package and what you can do with that harvested data.
