@@ -102,7 +102,7 @@ Afterwards, we will analyze the dataset.
 @blackboard-style-gradebook.
     The data frame we obtain in exercise @separate-gradebook fulfills the tidy data principles, but it does not resemble how gradebooks are presented.
     For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment.
-    To represent our gradebook in this format, we need to use the `separate()` function to convert the rows of the [Assignment]{.monospace} column into their own columns.
+    To represent our gradebook in this format, we need to use the `spread()` function to convert the rows of the [Assignment]{.monospace} column into their own columns.
     Let's do that now for the sake of practice.
 
     The first thing we need to do is drop the [Category]{.monospace} column, which is typically stored as metadata and not visible in gradebooks.
@@ -113,7 +113,7 @@ Afterwards, we will analyze the dataset.
       select(...)
     ```
 
-    Now we are ready to use `separate()` to convert the rows in the [Assignment]{.monospace} column into multiple columns.
+    Now we are ready to use `spread()` to convert the rows in the [Assignment]{.monospace} column into multiple columns.
     A template code block for doing this is provided below,
 
     ```r
