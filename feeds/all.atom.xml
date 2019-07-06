@@ -1947,11 +1947,11 @@ Treatment
 &lt;p&gt;After you’ve obtained your tidy gradebook, take a look at the first several rows using the following code&amp;nbsp;block:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;tidy_gradebook %&amp;gt;%
   head()&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;The data frame we obtain in exercise 2 fulfills the tidy data principles, but it does not resemble how gradebooks are presented. For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment. To represent our gradebook in this format, we need to use the &lt;code&gt;separate()&lt;/code&gt; function to convert the rows of the &lt;span class="monospace"&gt;Assignment&lt;/span&gt; column into their own columns. Let’s do that now for the sake of&amp;nbsp;practice.&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;The data frame we obtain in exercise 2 fulfills the tidy data principles, but it does not resemble how gradebooks are presented. For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment. To represent our gradebook in this format, we need to use the &lt;code&gt;spread()&lt;/code&gt; function to convert the rows of the &lt;span class="monospace"&gt;Assignment&lt;/span&gt; column into their own columns. Let’s do that now for the sake of&amp;nbsp;practice.&lt;/p&gt;
 &lt;p&gt;The first thing we need to do is drop the &lt;span class="monospace"&gt;Category&lt;/span&gt; column, which is typically stored as metadata and not visible in gradebooks. &lt;strong&gt;Replace the ellipses &lt;span class="monospace"&gt;…&lt;/span&gt; in the code template below so that the &lt;span class="monospace"&gt;Category&lt;/span&gt; column is removed and all the other information&amp;nbsp;remains.&lt;/strong&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;gradebook_no_categories &amp;lt;- tidy_gradebook %&amp;gt;%
   select(...)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we are ready to use &lt;code&gt;separate()&lt;/code&gt; to convert the rows in the &lt;span class="monospace"&gt;Assignment&lt;/span&gt; column into multiple columns. A template code block for doing this is provided&amp;nbsp;below,&lt;/p&gt;
+&lt;p&gt;Now we are ready to use &lt;code&gt;spread()&lt;/code&gt; to convert the rows in the &lt;span class="monospace"&gt;Assignment&lt;/span&gt; column into multiple columns. A template code block for doing this is provided&amp;nbsp;below,&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;blackboard_gradebook &amp;lt;- gradebook_no_categories %&amp;gt;%
   spread(
     key = &amp;lt;key&amp;gt;,

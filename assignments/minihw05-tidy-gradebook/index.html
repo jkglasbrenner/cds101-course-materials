@@ -116,11 +116,11 @@
 <p>After you’ve obtained your tidy gradebook, take a look at the first several rows using the following code&nbsp;block:</p>
 <pre class="r"><code>tidy_gradebook %&gt;%
   head()</code></pre></li>
-<li><p>The data frame we obtain in exercise 2 fulfills the tidy data principles, but it does not resemble how gradebooks are presented. For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment. To represent our gradebook in this format, we need to use the <code>separate()</code> function to convert the rows of the <span class="monospace">Assignment</span> column into their own columns. Let’s do that now for the sake of&nbsp;practice.</p>
+<li><p>The data frame we obtain in exercise 2 fulfills the tidy data principles, but it does not resemble how gradebooks are presented. For example, gradebooks in Blackboard have each row correspond to a student and each column correspond to an assignment. To represent our gradebook in this format, we need to use the <code>spread()</code> function to convert the rows of the <span class="monospace">Assignment</span> column into their own columns. Let’s do that now for the sake of&nbsp;practice.</p>
 <p>The first thing we need to do is drop the <span class="monospace">Category</span> column, which is typically stored as metadata and not visible in gradebooks. <strong>Replace the ellipses <span class="monospace">…</span> in the code template below so that the <span class="monospace">Category</span> column is removed and all the other information&nbsp;remains.</strong></p>
 <pre class="r"><code>gradebook_no_categories &lt;- tidy_gradebook %&gt;%
   select(...)</code></pre>
-<p>Now we are ready to use <code>separate()</code> to convert the rows in the <span class="monospace">Assignment</span> column into multiple columns. A template code block for doing this is provided&nbsp;below,</p>
+<p>Now we are ready to use <code>spread()</code> to convert the rows in the <span class="monospace">Assignment</span> column into multiple columns. A template code block for doing this is provided&nbsp;below,</p>
 <pre class="r"><code>blackboard_gradebook &lt;- gradebook_no_categories %&gt;%
   spread(
     key = &lt;key&gt;,
