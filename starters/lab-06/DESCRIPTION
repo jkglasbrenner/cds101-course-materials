@@ -1,0 +1,5 @@
+Title: Lab 06 — Interactive Visualizations
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse
