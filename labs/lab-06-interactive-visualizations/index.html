@@ -90,7 +90,7 @@
 <h2 id="about-the-dataset">About the&nbsp;dataset</h2>
 <div class="callout primary">
 <p><span class="h4">Unique&nbsp;dataset</span></p>
-<p>This dataset was scraped by Dr. Glasbrenner in January 2019 and it is unique to <span class="caps">CDS</span>&nbsp;102!</p>
+<p>This dataset was scraped by Dr. Glasbrenner in January 2019 and it is original to <span class="caps">CDS</span>&nbsp;102!</p>
 </div>
 <p>You will be working with a dataset consisting of rental property information scraped on January 21, 2019 from <a href="https://www.carolinadesigns.com" class="uri">https://www.carolinadesigns.com</a>, which is a website people can use to book vacation rentals in North Carolina’s Outer Banks. The information collected for each property includes rental rates, its location, its features, and if any special amenities accompany the property. The website only provides rental rates for properties and dates that haven’t been booked yet, so missing values under the <span class="monospace">rate_[month]</span> columns were imputed using a predictive model trained on the available&nbsp;data.</p>
 <p>The table below provides descriptions of the dataset’s 63&nbsp;variables,</p>
@@ -374,7 +374,7 @@
 </ol>
 <p>One interesting thing we can do with the interactive map that we’re building is add points of interest. For example, the first ever <a href="https://www.duckdonuts.com/about-us/our-story/"><i class="fas fa-link"></i>Duck Donuts</a> store (which, appropriately enough, sells <a href="https://en.wikipedia.org/wiki/Doughnut"><i class="fas fa-link"></i>doughnuts</a>) opened in the Outer Banks, which could be one possible place to visit. We can display the location for the Duck Donuts store as a circle so that it looks different from the other markers. We can also add a pop-up to it that displays the street address for the&nbsp;store.</p>
 <ol start="9" class="example" type="1">
-<li><p>Copy the code you wrote for <strong>Exercise 8</strong> and add the <span class="monospace">duck_donuts</span> location marker with street address pop-up to it as&nbsp;follows,</p>
+<li><p>Copy the code you wrote for <strong>Exercise 8</strong> and add the Duck Donuts location marker with street address pop-up to it as&nbsp;follows,</p>
 <pre class="r"><code>&lt;code_from_previous_exercise&gt; %&gt;%
   addCircleMarkers(
     lat = 36.1633527,
