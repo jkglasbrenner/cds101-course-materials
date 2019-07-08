@@ -66,7 +66,388 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 06 – Interactive&nbsp;visualizations</h1>
 </header><div class="static-page-body">
-  
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab06.Rmd</span>. This lab shows you how to create interactive visualizations using the <span class="monospace">highcharter</span> and <span class="monospace">leaflet</span> packages. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab06.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
+<div class="callout secondary">
+<p><span class="h4">Note on <span class="caps">PDF</span>&nbsp;submissions</span></p>
+<p>Because of how they work, the interactive visualizations will not show up when you knit your R Markdown files to the <span class="caps">PDF</span> format. This is okay. You should still submit the <span class="caps">PDF</span> file for this assignment to&nbsp;Blackboard.</p>
+</div>
+<h2 id="what-are-interactive-visualizations">What are interactive&nbsp;visualizations?</h2>
+<p>This lab introduces you to interactive visualizations, which are a class of dynamic visualizations that satisify two criteria<span class="citation" data-cites="wiki:interactive-visualization"> [1]</span>,</p>
+<blockquote>
+<p><strong>Human input:</strong> control of some aspect of the visual representation of information, or of the information being represented, must be available to a&nbsp;human</p>
+<p><strong>Response time:</strong> changes made by the human must be incorporated into the visualization in a timely&nbsp;manner</p>
+</blockquote>
+<p>Compared to static visualizations, which are the type of visualization that we create using <span class="monospace">ggplot2</span>, interactive visualizations allow us to include additional information in the plots that make up our R Markdown reports. As Andy Kirk explains in <em>Data Visualisation: A Handbook for Data Driven Design</em>, interactive visualizations, when used in the right circumstances, offer many advantages<span class="citation" data-cites="kirk:data-visualisation-handbook:2016"> [2]</span>,</p>
+<blockquote>
+<p>It expands the physical limits of what you can show in a given&nbsp;space.</p>
+<p>It increases the quanity and broadens the variety of angles of analysis to serve different&nbsp;curiosities.</p>
+<p>It facilitates manipulations of the data displayed to handle varied&nbsp;interrogations.</p>
+<p>It increases the overall control and potential customisation of the&nbsp;experience.</p>
+<p>It amplifies your creative license and the scope for exploring different techniques for engaging&nbsp;users.</p>
+</blockquote>
+<p>Dashboards are a common way to implement an interactive visualization and also allow users to select the parts of a dataset they want to include in a plot. An example of a dashboard-based interactive visualization can be seen here: <a href="https://ajayk.shinyapps.io/csi_773/" class="uri">https://ajayk.shinyapps.io/csi_773/</a>. While we won’t be building a full dashboard, we will utilize two R packages, <span style="white-space: nowrap;"><a href="http://jkunst.com/highcharter/"><i class="fas fa-link"></i><span class="monospace">highcharter</span></a></span> and <span style="white-space: nowrap;"><a href="https://rstudio.github.io/leaflet/"><i class="fas fa-link"></i><span class="monospace">leaflet</span></a></span> to add interactivity to our R Markdown documents and enhance the way we explore a new&nbsp;dataset.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<div class="callout primary">
+<p><span class="h4">Unique&nbsp;dataset</span></p>
+<p>This dataset was scraped by Dr. Glasbrenner in January 2019 and it is unique to <span class="caps">CDS</span>&nbsp;102!</p>
+</div>
+<p>You will be working with a dataset consisting of rental property information scraped on January 21, 2019 from <a href="https://www.carolinadesigns.com" class="uri">https://www.carolinadesigns.com</a>, which is a website people can use to book vacation rentals in North Carolina’s Outer Banks. The information collected for each property includes rental rates, its location, its features, and if any special amenities accompany the property. The website only provides rental rates for properties and dates that haven’t been booked yet, so missing values under the <span class="monospace">rate_[month]</span> columns were imputed using a predictive model trained on the available&nbsp;data.</p>
+<p>The table below provides descriptions of the dataset’s 63&nbsp;variables,</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">property_number</span></td>
+<td>Numeric identifier for rental property</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">property_name</span></td>
+<td>Name of rental property</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">rate_[month]</span></td>
+<td>Median weekly rental rate for a given month. <span class="monospace">[month]</span> is the first three letters of a calandar month: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">latitude</span></td>
+<td>Latitude for a given property</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">longitude</span></td>
+<td>Longitude for a given property</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">region</span></td>
+<td>Region where property is located. The regions are Corolla, Duck, Kill Devil Hills, Kitty Hawk, Nags Head, and Southern Shores</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">waterfront</span></td>
+<td>Classifies the proximity of a property to the water. The classifications are oceanfront, semi-oceanfront, soundfront, and inland</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">check_in_day</span></td>
+<td>Indicates if the property’s check-in day is Friday, Saturday, or Sunday</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">beach_distance</span></td>
+<td>Distance the property is from the beach in yards</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">baths_full</span></td>
+<td>The number of full bathrooms a property has</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">baths_half</span></td>
+<td>The number of half bathrooms a property has</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">bed_[type]</span></td>
+<td>The number of beds of a certain type a property has. The values for <span class="monospace">[type]</span> are california_kings, daybeds, double_bunks, double_trundles, doubles, futons, kings, pyramid_bunks, queen_over_queens, queen_sleep_sofas, queens, rollaways, sleepsofas, trundles, twin_bunks, twin_sleep_sofas, and twins</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">number_dvd_players</span></td>
+<td>The number of <span class="caps">DVD</span> players a property has</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">number_highchairs</span></td>
+<td>The number of highchairs a property has</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">number_of_bedrooms</span></td>
+<td>The total number of bedrooms a property has</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">number_of_master_bedrooms</span></td>
+<td>The number of master bedrooms a property has</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">number_outdoor_showers</span></td>
+<td>The number of outdoor showers a property has</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">number_parking_spaces</span></td>
+<td>The number of parking spaces a property has</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">number_tvs</span></td>
+<td>The number of televisions a property has</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">elevator</span></td>
+<td>Indicates if the property has an elevator</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">home_theater</span></td>
+<td>Indicates if the property has a home theater room</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">media_room</span></td>
+<td>Indicates if the property has a media room</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">recreation_room</span></td>
+<td>Indicates if the property has a recreation room</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">seasonal_fireplace</span></td>
+<td>Indicates if the property has a fireplace</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">basketball_hoop</span></td>
+<td>Indicates if the property has a basketball hoop</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">volleyball_area</span></td>
+<td>Indicates if the property has an area to play volleyball</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">cabana</span></td>
+<td>Indicates if the property has a cabana</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">charcoal_grill</span></td>
+<td>Indicates if the property has a charcoal grill</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">gas_grill</span></td>
+<td>Indicates if the property has a gas grill</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">hot_tub</span></td>
+<td>Indicates if the property has a hot tub</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">special_events_welcome</span></td>
+<td>Indicates if the property allows guests to host a special events</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">two_dogs_welcome_with_fee</span></td>
+<td>Indicates if up to two dogs are allowed on a property if guests pay a special fee</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">community_pool_access</span></td>
+<td>Indicates if renting a property grants access to a community pool</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">community_tennis</span></td>
+<td>Indicates if renting a property grants access to community tennis courts</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">discounted_golf_fees</span></td>
+<td>Indicates if guests receive a discount at a local golf course</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">firm_4pm_check_in</span></td>
+<td>Indicates if a property will not allow guests to check-in earlier than 4pm</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a-data-driven-vacation">A data-driven&nbsp;vacation</h2>
+<p>Imagine that you are in charge of planning a vacation to the Outer Banks in the month of July and you want to put together a list of top rental options for your friends/family to review and vote on. You go to the rental property website and you find that there are over 300 rental properties available. Unfortunately the search tool does not let you easily compare and contrast your options and you have no desire to manually go through and read all the individual property pages. You realize that this is a perfect opportunity to put your data science skills to use, so you scrape the website and put together a tabular dataset with information on the rental properties that you can more easily explore. Since you need to both explore what’s available as well as summarize your findings for your friends/family, you decide to put together some interactive&nbsp;visualizations.</p>
+<h2 id="interactive-plots-using-highcharter">Interactive plots using <span class="monospace">highcharter</span></h2>
+<p>The <span class="monospace">highcharter</span> package is used to create interactive versions of the same types of plots we’ve created using <span class="monospace">ggplot2</span>. The syntax for creating a basic plot using <span class="monospace">highcharter</span> is also similar to <span class="monospace">ggplot2</span> and is summarized&nbsp;below,</p>
+<pre class="r"><code>data %&gt;%            # The dataset
+  hchart(
+    &quot;...&quot;,          # Plot type: &quot;scatter&quot;, &quot;line&quot;, &quot;column&quot;, etc.
+    hcaes(
+      x = ...,      # Variable on x-axis
+      y = ...,      # Variable on y-axis
+      group = ...   # Apply different colors for groups defined in variable
+    )
+  )</code></pre>
+<p>The ellipses <span class="monospace">…</span> are placeholders. Also note that, within the <code>hchart()</code> function, the <code>hcaes()</code> function plays a similar role to <code>aes()</code> in <span class="monospace">ggplot2</span>.</p>
+<ol class="example" type="1">
+<li><p>Let’s begin our exploration by creating a scatter plot that shows the rental rates for the month of July versus the number of bedrooms a property&nbsp;has,</p>
+<pre class="r"><code>obx %&gt;%
+  hchart(
+    &quot;scatter&quot;,
+    hcaes(
+      x = number_of_bedrooms,
+      y = rate_jul
+    )
+  )</code></pre>
+<p>If you hover the mouse cursor over the points, you should see a pop-up that lists the x (<span class="monospace">number_of_bedrooms</span>) and y (<span class="monospace">rate_jul</span>) values for the given point. Describe the trend that you see in this plot, and then use the pop-ups to figure out how many bedrooms the most expensive rental property has and how many bedrooms the least expensive rental property&nbsp;has.</p></li>
+</ol>
+<p>One of the things we would like to do in our data exploration is to narrow our search towards properties that will have a cheaper rental rate. We suspect that an important factor that will affect rental prices is the region where a property is&nbsp;located.</p>
+<ol start="2" class="example" type="1">
+<li><p>Use the following code template to help you compute some summary statistics about the July rental&nbsp;rates,</p>
+<pre class="r"><code>regions_summary &lt;- obx %&gt;%
+  group_by(...) %&gt;%
+  summarize(
+    rate_mean = round(mean(rate_jul)),
+    rate_minimum = min(rate_jul),
+    rate_maximum = max(rate_jul)
+  )</code></pre>
+<p>Fill in the ellipses <span class="monospace">…</span> so that you group over the different regions. Which region has the highest overall average rental rate? Which region has the lowest overall average rental&nbsp;rate?</p></li>
+</ol>
+<p>Let’s use the information we just computed in <strong>Exercise 2</strong> to make an interactive visualization that we could show to our friends/family. We will create a bar chart showing the average July rate for each region, which we will enhance by customizing what is displayed in the pop-up when we hover our mouse cursor over each bar. This will be done using the <code>hc_tooltip()</code> and <code>tooltip_table()</code> functions from <span class="monospace">highcharter</span>.</p>
+<ol start="3" class="example" type="1">
+<li><p>Fill in the ellipses <span class="monospace">…</span> in the following code template to create a bar chart the displays the average July rate for each&nbsp;region,</p>
+<pre class="r"><code>regions_summary %&gt;%
+  hchart(
+    &quot;column&quot;,
+    hcaes(
+      x = ...,
+      y = ...
+    )
+  ) %&gt;%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = tooltip_table(
+      x = combine(&quot;Region&quot;, &quot;Mean rate&quot;),
+      y = combine(&quot;{point.region}&quot;, &quot;{point.rate_mean}&quot;)
+    )
+  )</code></pre>
+<p>Hover your mouse over the bars for each region. Does the mean rate you see in the pop-up match the mean rate you computed in <strong>Exercise 2</strong>?</p></li>
+</ol>
+<p>The display information in the pop-up box is set using the vectors passed to the x (names) and y (values) keywords of the <code>tooltip_table()</code> function. Take special note of the vector passed to the y keyword, which contains text values with curly braces, <span class="monospace">“{point.region}”</span> and <span class="monospace">“{point.rate_mean}”</span>. This is a special syntax that says, for the data <em>point</em> you currently have your mouse hovering over, display the value for the variable <span class="monospace">region</span> or <span class="monospace">rate_mean</span>. Any variable in the <span class="monospace">regions_summary</span> data frame, not just <span class="monospace">region</span> and <span class="monospace">rate_mean</span>, can be displayed in the pop-up&nbsp;box.</p>
+<ol start="4" class="example" type="1">
+<li>The pop-up boxes for the visualization you created in <strong>Exercise 3</strong> currently list two pieces of information, the name of the region and the mean rate. While nice to see, this simply repeats what we are already looking at in the bar chart. The real power of interactive visualizations is when we can include additional information. Copy the code you wrote for <strong>Exercise 3</strong> and modify the vectors passed to the x and y keywords in <code>tooltip_table()</code> so that each pop-up contains two additional lines of information, the <em>Minimum rate</em> and <em>Maximum rate</em> for each&nbsp;region.</li>
+</ol>
+<p>We now have a nice interactive visualization that summarizes the average, minimum, and maximum rental rates that we can show our friends/family to show which regions contain the cheapest and most expensive rental properties. Let’s filter the dataset so that we can focus our search on properties in the region with the cheapest rates on&nbsp;average.</p>
+<ol start="5" class="example" type="1">
+<li>Use the <code>filter()</code> function to filter the dataset so that it only contains rental properties from the region with the cheapest July rates on average. Assign this filtered data frame to a variable called <span class="monospace">obx_region</span>.</li>
+</ol>
+<p>Let’s wrap up by updating the scatter plot we created in <strong>Exercise 1</strong> by using the filtered dataset <span class="monospace">obx_region</span> and customizing the pop-up message for each data&nbsp;point.</p>
+<ol start="6" class="example" type="1">
+<li><p>Complete the following code template to add pop-ups to the visualization that lists the following&nbsp;information,</p>
+<ul>
+<li><p>Property&nbsp;number</p></li>
+<li><p>Property&nbsp;name</p></li>
+<li><p>July&nbsp;rate</p></li>
+<li><p>Number of&nbsp;bedrooms</p></li>
+<li><p>Number of parking&nbsp;spaces</p></li>
+</ul>
+<pre class="r"><code>obx_region %&gt;%
+  hchart(
+    &quot;scatter&quot;,
+    hcaes(
+      x = number_of_bedrooms,
+      y = rate_jul,
+      group = waterfront
+    )
+  ) %&gt;%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = tooltip_table(
+      x = combine(...),
+      y = combine(...)
+    )
+  )</code></pre>
+<p>Does the <span class="monospace">waterfront</span> category (oceanfront, semi-oceanfront, soundfront, inland) affect the July rate? If so, which category contains the cheapest rates&nbsp;overall?</p></li>
+</ol>
+<p>Before we move on, let’s filter the dataset one more&nbsp;time.</p>
+<ol start="7" class="example" type="1">
+<li>After checking with your family/friends, you have determined that you will need a rental property with six bedrooms. Filter <span class="monospace">obx_region</span> so that it only contains properties with six bedrooms. <strong>In addition, if you determined in Exercise 6 that there is a <span class="monospace">waterfront</span> category that has cheaper overall rates, also filter the dataset to only include properties within this category.</strong> Assign the filtered dataset to a variable called <span class="monospace">obx_filtered</span>.</li>
+</ol>
+<h2 id="interactive-maps-using-leaflet">Interactive maps using <span class="monospace">leaflet</span></h2>
+<p>The <span class="monospace">leaflet</span> package lets us create interactive maps, which can be very useful when working with spatial data encoded as latitude and longitude values. The basic syntax for creating an interactive map using <span class="monospace">leaflet</span> is summarized&nbsp;below,</p>
+<pre class="r"><code>dataset %&gt;%
+  leaflet() %&gt;%
+  addTiles() %&gt;%
+  addMarkers(
+    lat = ~&lt;latitude_variable&gt;,
+    lng = ~&lt;longitude_variable&gt;
+  )</code></pre>
+<p>where <span class="monospace">&lt;latitude_variable&gt;</span> and <span class="monospace">&lt;longitude_variable&gt;</span> are&nbsp;placeholders.</p>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p>The tilde <span class="monospace">~</span> immediately before <span class="monospace">&lt;latitude_variable&gt;</span> and <span class="monospace">&lt;longitude_variable&gt;</span> are important and must be included. For example, you would write <span class="monospace">lat = ~lat_var</span> if <span class="monospace">lat_var</span> is the column containing the latitude&nbsp;values.</p>
+</div>
+<p>Our goal is to build an interactive map that our friends/family could browse that shows the properties that meet our filter criteria. We will adopt an iterative approach to building our map by adding features to it one step at a&nbsp;time.</p>
+<ol start="8" class="example" type="1">
+<li><p>Use the <span class="monospace">leaflet</span> syntax summarized above to create a basic interactive map showing the properties in <span class="monospace">obx_filtered</span>.</p>
+<div class="callout primary">
+<p><span class="h4">Hint</span></p>
+<p>The variables containing the location data for each property are named <span class="monospace">latitude</span> and <span class="monospace">longitude</span>.</p>
+</div></li>
+</ol>
+<p>One interesting thing we can do with the interactive map that we’re building is add points of interest. For example, the first ever <a href="https://www.duckdonuts.com/about-us/our-story/"><i class="fas fa-link"></i>Duck Donuts</a> store (which, appropriately enough, sells <a href="https://en.wikipedia.org/wiki/Doughnut"><i class="fas fa-link"></i>doughnuts</a>) opened in the Outer Banks, which could be one possible place to visit. We can display the location for the Duck Donuts store as a circle so that it looks different from the other markers. We can also add a pop-up to it that displays the street address for the&nbsp;store.</p>
+<ol start="9" class="example" type="1">
+<li><p>Copy the code you wrote for <strong>Exercise 8</strong> and add the <span class="monospace">duck_donuts</span> location marker with street address pop-up to it as&nbsp;follows,</p>
+<pre class="r"><code>&lt;code_from_previous_exercise&gt; %&gt;%
+  addCircleMarkers(
+    lat = 36.1633527,
+    lng = -75.7534337,
+    popup = &quot;Duck Donuts&lt;br&gt;1190 Duck Rd&lt;br&gt;Duck, NC 27949&quot;,
+    popupOptions = popupOptions(closeButton = FALSE)
+  ) %&gt;%
+  addPopups(
+    lat = 36.1633527,
+    lng = -75.7534337,
+    popup = &quot;Duck Donuts&lt;br&gt;1190 Duck Rd&lt;br&gt;Duck, NC 27949&quot;,
+    options = popupOptions(closeButton = FALSE)
+  )</code></pre></li>
+</ol>
+<p>We can add the same kind of pop-up that we used for the Duck Donuts marker to our regular property markers, which will allow a user to click the marker icon and see additional information about the property. Without this, our friends/family will not be able to understand which property corresponds with each&nbsp;icon.</p>
+<ol start="10" class="example" type="1">
+<li><p>Copy the code you wrote for <strong>Exercise 9</strong> and add a new input to the <code>addMarkers()</code> function called <span class="monospace">popup</span>,</p>
+<pre class="r"><code>addMarkers(
+  lat = ~&lt;latitude_variable&gt;,
+  lng = ~&lt;longitude_variable&gt;,
+  popup = ~paste0(
+    property_name,
+    &quot;&lt;br&gt;&quot;,
+    &quot;July weekly rate: $&quot;,
+    rate_jul,
+    &quot;&lt;br&gt;&quot;,
+    ...
+  )
+)</code></pre>
+<p>The ellipses <span class="monospace">…</span> is a placeholder. The pop-up message for each property is created by the inputs to the <code>paste0()</code> function, which concatenates the different inputs together into a single piece of text. You can see the pop-ups by clicking the markers for the different&nbsp;properties.</p>
+<p>Replace the ellipses with more inputs to the <code>paste0()</code> function so that the pop-up displays the following additional information about each&nbsp;property,</p>
+<ul>
+<li><p>Number of&nbsp;bedrooms</p></li>
+<li><p>Number of full&nbsp;bathrooms</p></li>
+<li><p>Number of parking&nbsp;spots</p></li>
+<li><p>Distance to the&nbsp;beach</p></li>
+<li><p>Latitude</p></li>
+<li><p>Longitude</p></li>
+</ul>
+<div class="callout secondary">
+<p><span class="h4">Important!</span></p>
+<p>The <span class="monospace">“&lt;br&gt;”</span> inputs are line breaks that will make text display on a new line. This is analogous to what happens in a text editor when you press the <kbd>Enter</kbd> key on your&nbsp;keyboard.</p>
+</div></li>
+</ol>
+<p>While there is always more that you could add to these interactive maps, this should be sufficient for your friends/family to browse and decide which properties they think are the most promising choices for your upcoming&nbsp;vacation.</p>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 6</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf">leaflet&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">data import/tidyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+<h2 id="credits">Credits</h2>
+<p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. The original idea for the lab along with the first version of the lab instructions were written by Ajay Kulkarni for <span class="caps">CDS</span>-102. Revised instructions and new exercises written by James&nbsp;Glasbrenner.</p>
+<h2 id="references" class="unnumbered">References</h2>
+<div id="refs" class="references">
+<div id="ref-wiki:interactive-visualization">
+<p>[1] Wikipedia contributors, “Interactive Visualization,”&nbsp;(2018).</p>
+</div>
+<div id="ref-kirk:data-visualisation-handbook:2016">
+<p>[2] A. Kirk, <em>Data Visualisation: A Handbook for Data Driven Design</em>, 1st ed. (Sage Publications, Los Angeles,&nbsp;2016).</p>
+</div>
+</div>
 
 </div>    </article>
     </div>

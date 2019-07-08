@@ -4960,7 +4960,388 @@ m014
 &lt;/div&gt;
 &lt;/div&gt;
 </content><category term="lab"></category></entry><entry><title>Lab 05 – Data cleaning</title><link href="https://www.cds101.com/labs/lab-05-data-cleaning/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-05-data-cleaning/</id><summary type="html">Clean a real-world dataset that lists cars that were towed or impounded by the Chicago Police&amp;nbsp;Department.</summary><content type="html">
-</content><category term="lab"></category></entry><entry><title>Lab 06 – Interactive visualizations</title><link href="https://www.cds101.com/labs/lab-06-interactive-visualizations/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-06-interactive-visualizations/</id><summary type="html">Explore &lt;span class="caps"&gt;OBX&lt;/span&gt; property rental data (a &lt;span class="caps"&gt;CDS&lt;/span&gt; 102 exclusive!) using interactive&amp;nbsp;visualizations</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 06 – Interactive visualizations</title><link href="https://www.cds101.com/labs/lab-06-interactive-visualizations/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Ajay Kulkarni, Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-06-interactive-visualizations/</id><summary type="html">Explore &lt;span class="caps"&gt;OBX&lt;/span&gt; property rental data (a &lt;span class="caps"&gt;CDS&lt;/span&gt; 102 exclusive!) using interactive&amp;nbsp;visualizations</summary><content type="html">&lt;h2 id="instructions"&gt;Instructions&lt;/h2&gt;
+&lt;p&gt;Obtain the GitHub repository you will use to complete the lab, which contains a starter file named &lt;span class="monospace"&gt;lab06.Rmd&lt;/span&gt;. This lab shows you how to create interactive visualizations using the &lt;span class="monospace"&gt;highcharter&lt;/span&gt; and &lt;span class="monospace"&gt;leaflet&lt;/span&gt; packages. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file &lt;span class="monospace"&gt;lab06.Rmd&lt;/span&gt;. Then, when you’re ready to submit, follow the directions in the &lt;a href="#how-to-submit"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;How to submit&lt;/a&gt; section&amp;nbsp;below.&lt;/p&gt;
+&lt;div class="callout secondary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Note on &lt;span class="caps"&gt;PDF&lt;/span&gt;&amp;nbsp;submissions&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Because of how they work, the interactive visualizations will not show up when you knit your R Markdown files to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format. This is okay. You should still submit the &lt;span class="caps"&gt;PDF&lt;/span&gt; file for this assignment to&amp;nbsp;Blackboard.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id="what-are-interactive-visualizations"&gt;What are interactive&amp;nbsp;visualizations?&lt;/h2&gt;
+&lt;p&gt;This lab introduces you to interactive visualizations, which are a class of dynamic visualizations that satisify two criteria&lt;span class="citation" data-cites="wiki:interactive-visualization"&gt; [1]&lt;/span&gt;,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Human input:&lt;/strong&gt; control of some aspect of the visual representation of information, or of the information being represented, must be available to a&amp;nbsp;human&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Response time:&lt;/strong&gt; changes made by the human must be incorporated into the visualization in a timely&amp;nbsp;manner&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Compared to static visualizations, which are the type of visualization that we create using &lt;span class="monospace"&gt;ggplot2&lt;/span&gt;, interactive visualizations allow us to include additional information in the plots that make up our R Markdown reports. As Andy Kirk explains in &lt;em&gt;Data Visualisation: A Handbook for Data Driven Design&lt;/em&gt;, interactive visualizations, when used in the right circumstances, offer many advantages&lt;span class="citation" data-cites="kirk:data-visualisation-handbook:2016"&gt; [2]&lt;/span&gt;,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It expands the physical limits of what you can show in a given&amp;nbsp;space.&lt;/p&gt;
+&lt;p&gt;It increases the quanity and broadens the variety of angles of analysis to serve different&amp;nbsp;curiosities.&lt;/p&gt;
+&lt;p&gt;It facilitates manipulations of the data displayed to handle varied&amp;nbsp;interrogations.&lt;/p&gt;
+&lt;p&gt;It increases the overall control and potential customisation of the&amp;nbsp;experience.&lt;/p&gt;
+&lt;p&gt;It amplifies your creative license and the scope for exploring different techniques for engaging&amp;nbsp;users.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Dashboards are a common way to implement an interactive visualization and also allow users to select the parts of a dataset they want to include in a plot. An example of a dashboard-based interactive visualization can be seen here: &lt;a href="https://ajayk.shinyapps.io/csi_773/" class="uri"&gt;https://ajayk.shinyapps.io/csi_773/&lt;/a&gt;. While we won’t be building a full dashboard, we will utilize two R packages, &lt;span style="white-space: nowrap;"&gt;&lt;a href="http://jkunst.com/highcharter/"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;&lt;span class="monospace"&gt;highcharter&lt;/span&gt;&lt;/a&gt;&lt;/span&gt; and &lt;span style="white-space: nowrap;"&gt;&lt;a href="https://rstudio.github.io/leaflet/"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;&lt;span class="monospace"&gt;leaflet&lt;/span&gt;&lt;/a&gt;&lt;/span&gt; to add interactivity to our R Markdown documents and enhance the way we explore a new&amp;nbsp;dataset.&lt;/p&gt;
+&lt;h2 id="about-the-dataset"&gt;About the&amp;nbsp;dataset&lt;/h2&gt;
+&lt;div class="callout primary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Unique&amp;nbsp;dataset&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This dataset was scraped by Dr. Glasbrenner in January 2019 and it is unique to &lt;span class="caps"&gt;CDS&lt;/span&gt;&amp;nbsp;102!&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;You will be working with a dataset consisting of rental property information scraped on January 21, 2019 from &lt;a href="https://www.carolinadesigns.com" class="uri"&gt;https://www.carolinadesigns.com&lt;/a&gt;, which is a website people can use to book vacation rentals in North Carolina’s Outer Banks. The information collected for each property includes rental rates, its location, its features, and if any special amenities accompany the property. The website only provides rental rates for properties and dates that haven’t been booked yet, so missing values under the &lt;span class="monospace"&gt;rate_[month]&lt;/span&gt; columns were imputed using a predictive model trained on the available&amp;nbsp;data.&lt;/p&gt;
+&lt;p&gt;The table below provides descriptions of the dataset’s 63&amp;nbsp;variables,&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style="width: 18%" /&gt;
+&lt;col style="width: 81%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;Variable&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;property_number&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Numeric identifier for rental property&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;property_name&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Name of rental property&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;rate_[month]&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Median weekly rental rate for a given month. &lt;span class="monospace"&gt;[month]&lt;/span&gt; is the first three letters of a calandar month: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;latitude&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Latitude for a given property&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;longitude&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Longitude for a given property&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;region&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Region where property is located. The regions are Corolla, Duck, Kill Devil Hills, Kitty Hawk, Nags Head, and Southern Shores&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;waterfront&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Classifies the proximity of a property to the water. The classifications are oceanfront, semi-oceanfront, soundfront, and inland&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;check_in_day&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property’s check-in day is Friday, Saturday, or Sunday&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;beach_distance&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Distance the property is from the beach in yards&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;baths_full&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of full bathrooms a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;baths_half&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of half bathrooms a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;bed_[type]&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of beds of a certain type a property has. The values for &lt;span class="monospace"&gt;[type]&lt;/span&gt; are california_kings, daybeds, double_bunks, double_trundles, doubles, futons, kings, pyramid_bunks, queen_over_queens, queen_sleep_sofas, queens, rollaways, sleepsofas, trundles, twin_bunks, twin_sleep_sofas, and twins&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_dvd_players&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of &lt;span class="caps"&gt;DVD&lt;/span&gt; players a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_highchairs&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of highchairs a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_of_bedrooms&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The total number of bedrooms a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_of_master_bedrooms&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of master bedrooms a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_outdoor_showers&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of outdoor showers a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_parking_spaces&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of parking spaces a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;number_tvs&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;The number of televisions a property has&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;elevator&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has an elevator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;home_theater&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a home theater room&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;media_room&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a media room&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;recreation_room&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a recreation room&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;seasonal_fireplace&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a fireplace&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;basketball_hoop&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a basketball hoop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;volleyball_area&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has an area to play volleyball&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;cabana&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a cabana&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;charcoal_grill&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a charcoal grill&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;gas_grill&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a gas grill&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;hot_tub&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property has a hot tub&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;special_events_welcome&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if the property allows guests to host a special events&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;two_dogs_welcome_with_fee&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if up to two dogs are allowed on a property if guests pay a special fee&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;community_pool_access&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if renting a property grants access to a community pool&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;community_tennis&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if renting a property grants access to community tennis courts&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;discounted_golf_fees&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if guests receive a discount at a local golf course&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;firm_4pm_check_in&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;Indicates if a property will not allow guests to check-in earlier than 4pm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="a-data-driven-vacation"&gt;A data-driven&amp;nbsp;vacation&lt;/h2&gt;
+&lt;p&gt;Imagine that you are in charge of planning a vacation to the Outer Banks in the month of July and you want to put together a list of top rental options for your friends/family to review and vote on. You go to the rental property website and you find that there are over 300 rental properties available. Unfortunately the search tool does not let you easily compare and contrast your options and you have no desire to manually go through and read all the individual property pages. You realize that this is a perfect opportunity to put your data science skills to use, so you scrape the website and put together a tabular dataset with information on the rental properties that you can more easily explore. Since you need to both explore what’s available as well as summarize your findings for your friends/family, you decide to put together some interactive&amp;nbsp;visualizations.&lt;/p&gt;
+&lt;h2 id="interactive-plots-using-highcharter"&gt;Interactive plots using &lt;span class="monospace"&gt;highcharter&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;span class="monospace"&gt;highcharter&lt;/span&gt; package is used to create interactive versions of the same types of plots we’ve created using &lt;span class="monospace"&gt;ggplot2&lt;/span&gt;. The syntax for creating a basic plot using &lt;span class="monospace"&gt;highcharter&lt;/span&gt; is also similar to &lt;span class="monospace"&gt;ggplot2&lt;/span&gt; and is summarized&amp;nbsp;below,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;data %&amp;gt;%            # The dataset
+  hchart(
+    &amp;quot;...&amp;quot;,          # Plot type: &amp;quot;scatter&amp;quot;, &amp;quot;line&amp;quot;, &amp;quot;column&amp;quot;, etc.
+    hcaes(
+      x = ...,      # Variable on x-axis
+      y = ...,      # Variable on y-axis
+      group = ...   # Apply different colors for groups defined in variable
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The ellipses &lt;span class="monospace"&gt;…&lt;/span&gt; are placeholders. Also note that, within the &lt;code&gt;hchart()&lt;/code&gt; function, the &lt;code&gt;hcaes()&lt;/code&gt; function plays a similar role to &lt;code&gt;aes()&lt;/code&gt; in &lt;span class="monospace"&gt;ggplot2&lt;/span&gt;.&lt;/p&gt;
+&lt;ol class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Let’s begin our exploration by creating a scatter plot that shows the rental rates for the month of July versus the number of bedrooms a property&amp;nbsp;has,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;obx %&amp;gt;%
+  hchart(
+    &amp;quot;scatter&amp;quot;,
+    hcaes(
+      x = number_of_bedrooms,
+      y = rate_jul
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you hover the mouse cursor over the points, you should see a pop-up that lists the x (&lt;span class="monospace"&gt;number_of_bedrooms&lt;/span&gt;) and y (&lt;span class="monospace"&gt;rate_jul&lt;/span&gt;) values for the given point. Describe the trend that you see in this plot, and then use the pop-ups to figure out how many bedrooms the most expensive rental property has and how many bedrooms the least expensive rental property&amp;nbsp;has.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One of the things we would like to do in our data exploration is to narrow our search towards properties that will have a cheaper rental rate. We suspect that an important factor that will affect rental prices is the region where a property is&amp;nbsp;located.&lt;/p&gt;
+&lt;ol start="2" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Use the following code template to help you compute some summary statistics about the July rental&amp;nbsp;rates,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;regions_summary &amp;lt;- obx %&amp;gt;%
+  group_by(...) %&amp;gt;%
+  summarize(
+    rate_mean = round(mean(rate_jul)),
+    rate_minimum = min(rate_jul),
+    rate_maximum = max(rate_jul)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fill in the ellipses &lt;span class="monospace"&gt;…&lt;/span&gt; so that you group over the different regions. Which region has the highest overall average rental rate? Which region has the lowest overall average rental&amp;nbsp;rate?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let’s use the information we just computed in &lt;strong&gt;Exercise 2&lt;/strong&gt; to make an interactive visualization that we could show to our friends/family. We will create a bar chart showing the average July rate for each region, which we will enhance by customizing what is displayed in the pop-up when we hover our mouse cursor over each bar. This will be done using the &lt;code&gt;hc_tooltip()&lt;/code&gt; and &lt;code&gt;tooltip_table()&lt;/code&gt; functions from &lt;span class="monospace"&gt;highcharter&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="3" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Fill in the ellipses &lt;span class="monospace"&gt;…&lt;/span&gt; in the following code template to create a bar chart the displays the average July rate for each&amp;nbsp;region,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;regions_summary %&amp;gt;%
+  hchart(
+    &amp;quot;column&amp;quot;,
+    hcaes(
+      x = ...,
+      y = ...
+    )
+  ) %&amp;gt;%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = tooltip_table(
+      x = combine(&amp;quot;Region&amp;quot;, &amp;quot;Mean rate&amp;quot;),
+      y = combine(&amp;quot;{point.region}&amp;quot;, &amp;quot;{point.rate_mean}&amp;quot;)
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hover your mouse over the bars for each region. Does the mean rate you see in the pop-up match the mean rate you computed in &lt;strong&gt;Exercise 2&lt;/strong&gt;?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The display information in the pop-up box is set using the vectors passed to the x (names) and y (values) keywords of the &lt;code&gt;tooltip_table()&lt;/code&gt; function. Take special note of the vector passed to the y keyword, which contains text values with curly braces, &lt;span class="monospace"&gt;“{point.region}”&lt;/span&gt; and &lt;span class="monospace"&gt;“{point.rate_mean}”&lt;/span&gt;. This is a special syntax that says, for the data &lt;em&gt;point&lt;/em&gt; you currently have your mouse hovering over, display the value for the variable &lt;span class="monospace"&gt;region&lt;/span&gt; or &lt;span class="monospace"&gt;rate_mean&lt;/span&gt;. Any variable in the &lt;span class="monospace"&gt;regions_summary&lt;/span&gt; data frame, not just &lt;span class="monospace"&gt;region&lt;/span&gt; and &lt;span class="monospace"&gt;rate_mean&lt;/span&gt;, can be displayed in the pop-up&amp;nbsp;box.&lt;/p&gt;
+&lt;ol start="4" class="example" type="1"&gt;
+&lt;li&gt;The pop-up boxes for the visualization you created in &lt;strong&gt;Exercise 3&lt;/strong&gt; currently list two pieces of information, the name of the region and the mean rate. While nice to see, this simply repeats what we are already looking at in the bar chart. The real power of interactive visualizations is when we can include additional information. Copy the code you wrote for &lt;strong&gt;Exercise 3&lt;/strong&gt; and modify the vectors passed to the x and y keywords in &lt;code&gt;tooltip_table()&lt;/code&gt; so that each pop-up contains two additional lines of information, the &lt;em&gt;Minimum rate&lt;/em&gt; and &lt;em&gt;Maximum rate&lt;/em&gt; for each&amp;nbsp;region.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We now have a nice interactive visualization that summarizes the average, minimum, and maximum rental rates that we can show our friends/family to show which regions contain the cheapest and most expensive rental properties. Let’s filter the dataset so that we can focus our search on properties in the region with the cheapest rates on&amp;nbsp;average.&lt;/p&gt;
+&lt;ol start="5" class="example" type="1"&gt;
+&lt;li&gt;Use the &lt;code&gt;filter()&lt;/code&gt; function to filter the dataset so that it only contains rental properties from the region with the cheapest July rates on average. Assign this filtered data frame to a variable called &lt;span class="monospace"&gt;obx_region&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let’s wrap up by updating the scatter plot we created in &lt;strong&gt;Exercise 1&lt;/strong&gt; by using the filtered dataset &lt;span class="monospace"&gt;obx_region&lt;/span&gt; and customizing the pop-up message for each data&amp;nbsp;point.&lt;/p&gt;
+&lt;ol start="6" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Complete the following code template to add pop-ups to the visualization that lists the following&amp;nbsp;information,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Property&amp;nbsp;number&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Property&amp;nbsp;name&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;July&amp;nbsp;rate&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Number of&amp;nbsp;bedrooms&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Number of parking&amp;nbsp;spaces&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r"&gt;&lt;code&gt;obx_region %&amp;gt;%
+  hchart(
+    &amp;quot;scatter&amp;quot;,
+    hcaes(
+      x = number_of_bedrooms,
+      y = rate_jul,
+      group = waterfront
+    )
+  ) %&amp;gt;%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = tooltip_table(
+      x = combine(...),
+      y = combine(...)
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Does the &lt;span class="monospace"&gt;waterfront&lt;/span&gt; category (oceanfront, semi-oceanfront, soundfront, inland) affect the July rate? If so, which category contains the cheapest rates&amp;nbsp;overall?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Before we move on, let’s filter the dataset one more&amp;nbsp;time.&lt;/p&gt;
+&lt;ol start="7" class="example" type="1"&gt;
+&lt;li&gt;After checking with your family/friends, you have determined that you will need a rental property with six bedrooms. Filter &lt;span class="monospace"&gt;obx_region&lt;/span&gt; so that it only contains properties with six bedrooms. &lt;strong&gt;In addition, if you determined in Exercise 6 that there is a &lt;span class="monospace"&gt;waterfront&lt;/span&gt; category that has cheaper overall rates, also filter the dataset to only include properties within this category.&lt;/strong&gt; Assign the filtered dataset to a variable called &lt;span class="monospace"&gt;obx_filtered&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="interactive-maps-using-leaflet"&gt;Interactive maps using &lt;span class="monospace"&gt;leaflet&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;span class="monospace"&gt;leaflet&lt;/span&gt; package lets us create interactive maps, which can be very useful when working with spatial data encoded as latitude and longitude values. The basic syntax for creating an interactive map using &lt;span class="monospace"&gt;leaflet&lt;/span&gt; is summarized&amp;nbsp;below,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;dataset %&amp;gt;%
+  leaflet() %&amp;gt;%
+  addTiles() %&amp;gt;%
+  addMarkers(
+    lat = ~&amp;lt;latitude_variable&amp;gt;,
+    lng = ~&amp;lt;longitude_variable&amp;gt;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;where &lt;span class="monospace"&gt;&amp;lt;latitude_variable&amp;gt;&lt;/span&gt; and &lt;span class="monospace"&gt;&amp;lt;longitude_variable&amp;gt;&lt;/span&gt; are&amp;nbsp;placeholders.&lt;/p&gt;
+&lt;div class="callout secondary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Important!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The tilde &lt;span class="monospace"&gt;~&lt;/span&gt; immediately before &lt;span class="monospace"&gt;&amp;lt;latitude_variable&amp;gt;&lt;/span&gt; and &lt;span class="monospace"&gt;&amp;lt;longitude_variable&amp;gt;&lt;/span&gt; are important and must be included. For example, you would write &lt;span class="monospace"&gt;lat = ~lat_var&lt;/span&gt; if &lt;span class="monospace"&gt;lat_var&lt;/span&gt; is the column containing the latitude&amp;nbsp;values.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Our goal is to build an interactive map that our friends/family could browse that shows the properties that meet our filter criteria. We will adopt an iterative approach to building our map by adding features to it one step at a&amp;nbsp;time.&lt;/p&gt;
+&lt;ol start="8" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Use the &lt;span class="monospace"&gt;leaflet&lt;/span&gt; syntax summarized above to create a basic interactive map showing the properties in &lt;span class="monospace"&gt;obx_filtered&lt;/span&gt;.&lt;/p&gt;
+&lt;div class="callout primary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Hint&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The variables containing the location data for each property are named &lt;span class="monospace"&gt;latitude&lt;/span&gt; and &lt;span class="monospace"&gt;longitude&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One interesting thing we can do with the interactive map that we’re building is add points of interest. For example, the first ever &lt;a href="https://www.duckdonuts.com/about-us/our-story/"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;Duck Donuts&lt;/a&gt; store (which, appropriately enough, sells &lt;a href="https://en.wikipedia.org/wiki/Doughnut"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;doughnuts&lt;/a&gt;) opened in the Outer Banks, which could be one possible place to visit. We can display the location for the Duck Donuts store as a circle so that it looks different from the other markers. We can also add a pop-up to it that displays the street address for the&amp;nbsp;store.&lt;/p&gt;
+&lt;ol start="9" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Copy the code you wrote for &lt;strong&gt;Exercise 8&lt;/strong&gt; and add the &lt;span class="monospace"&gt;duck_donuts&lt;/span&gt; location marker with street address pop-up to it as&amp;nbsp;follows,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;&amp;lt;code_from_previous_exercise&amp;gt; %&amp;gt;%
+  addCircleMarkers(
+    lat = 36.1633527,
+    lng = -75.7534337,
+    popup = &amp;quot;Duck Donuts&amp;lt;br&amp;gt;1190 Duck Rd&amp;lt;br&amp;gt;Duck, NC 27949&amp;quot;,
+    popupOptions = popupOptions(closeButton = FALSE)
+  ) %&amp;gt;%
+  addPopups(
+    lat = 36.1633527,
+    lng = -75.7534337,
+    popup = &amp;quot;Duck Donuts&amp;lt;br&amp;gt;1190 Duck Rd&amp;lt;br&amp;gt;Duck, NC 27949&amp;quot;,
+    options = popupOptions(closeButton = FALSE)
+  )&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We can add the same kind of pop-up that we used for the Duck Donuts marker to our regular property markers, which will allow a user to click the marker icon and see additional information about the property. Without this, our friends/family will not be able to understand which property corresponds with each&amp;nbsp;icon.&lt;/p&gt;
+&lt;ol start="10" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Copy the code you wrote for &lt;strong&gt;Exercise 9&lt;/strong&gt; and add a new input to the &lt;code&gt;addMarkers()&lt;/code&gt; function called &lt;span class="monospace"&gt;popup&lt;/span&gt;,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;addMarkers(
+  lat = ~&amp;lt;latitude_variable&amp;gt;,
+  lng = ~&amp;lt;longitude_variable&amp;gt;,
+  popup = ~paste0(
+    property_name,
+    &amp;quot;&amp;lt;br&amp;gt;&amp;quot;,
+    &amp;quot;July weekly rate: $&amp;quot;,
+    rate_jul,
+    &amp;quot;&amp;lt;br&amp;gt;&amp;quot;,
+    ...
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The ellipses &lt;span class="monospace"&gt;…&lt;/span&gt; is a placeholder. The pop-up message for each property is created by the inputs to the &lt;code&gt;paste0()&lt;/code&gt; function, which concatenates the different inputs together into a single piece of text. You can see the pop-ups by clicking the markers for the different&amp;nbsp;properties.&lt;/p&gt;
+&lt;p&gt;Replace the ellipses with more inputs to the &lt;code&gt;paste0()&lt;/code&gt; function so that the pop-up displays the following additional information about each&amp;nbsp;property,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Number of&amp;nbsp;bedrooms&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Number of full&amp;nbsp;bathrooms&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Number of parking&amp;nbsp;spots&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Distance to the&amp;nbsp;beach&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Latitude&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Longitude&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="callout secondary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Important!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;span class="monospace"&gt;“&amp;lt;br&amp;gt;”&lt;/span&gt; inputs are line breaks that will make text display on a new line. This is analogous to what happens in a text editor when you press the &lt;kbd&gt;Enter&lt;/kbd&gt; key on your&amp;nbsp;keyboard.&lt;/p&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;While there is always more that you could add to these interactive maps, this should be sufficient for your friends/family to browse and decide which properties they think are the most promising choices for your upcoming&amp;nbsp;vacation.&lt;/p&gt;
+&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
+&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
+&lt;ol type="1"&gt;
+&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 6&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="cheatsheets"&gt;Cheatsheets&lt;/h2&gt;
+&lt;p&gt;You are encouraged to review and keep the following cheatsheets handy while working on this&amp;nbsp;lab:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf"&gt;leaflet&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf"&gt;data import/tidyr&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf"&gt;dplyr&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf"&gt;ggplot2&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf"&gt;RStudio&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf"&gt;R Markdown&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf"&gt;R Markdown&amp;nbsp;reference&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
+&lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;. The original idea for the lab along with the first version of the lab instructions were written by Ajay Kulkarni for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102. Revised instructions and new exercises written by James&amp;nbsp;Glasbrenner.&lt;/p&gt;
+&lt;h2 id="references" class="unnumbered"&gt;References&lt;/h2&gt;
+&lt;div id="refs" class="references"&gt;
+&lt;div id="ref-wiki:interactive-visualization"&gt;
+&lt;p&gt;[1] Wikipedia contributors, “Interactive Visualization,”&amp;nbsp;(2018).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="ref-kirk:data-visualisation-handbook:2016"&gt;
+&lt;p&gt;[2] A. Kirk, &lt;em&gt;Data Visualisation: A Handbook for Data Driven Design&lt;/em&gt;, 1st ed. (Sage Publications, Los Angeles,&amp;nbsp;2016).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </content><category term="lab"></category></entry><entry><title>Lab 07 – Basketball and Hot Hands</title><link href="https://www.cds101.com/labs/lab-07-basketball-hot-hands/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-07-basketball-hot-hands/</id><summary type="html">Use randomized simulations to determine whether or not basketball players can have a &amp;#8220;hot&amp;nbsp;hand&amp;#8221;</summary><content type="html">
 </content><category term="lab"></category></entry><entry><title>Lab 08 – Speed of light</title><link href="https://www.cds101.com/labs/lab-08-speed-of-light/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-08-speed-of-light/</id><summary type="html">&lt;span style="monospace"&gt;infer&lt;/span&gt; the speed of light using Simon Newcomb&amp;#8217;s famous&amp;nbsp;dataset</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This week’s lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb’s measurements of the speed of light. Through this, we will see how statistical methods can help us to put the scientific method into practice and provide you with hands-on experience with the kinds of data analysis a scientist will use after completing a series of experimental&amp;nbsp;measurements.&lt;/p&gt;
