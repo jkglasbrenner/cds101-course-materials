@@ -1,9 +1,9 @@
 Title: Lab 06 – Interactive visualizations
-Author: Ajay Kulkarni, Dr. Glasbrenner
+Author: Dr. Glasbrenner, Ajay Kulkarni
 Date: 2019-01-01 00:00
 Tags: lab
 Slug: lab-06-interactive-visualizations
-Summary: Explore OBX property rental data (a CDS 102 exclusive!) using interactive visualizations
+Summary: Explore OBX property rental data (a CDS 102 original!) using interactive visualizations
 Show_summary: true
 Show_link: true
 
@@ -64,7 +64,7 @@ While we won't be building a full dashboard, we will utilize two R packages, <sp
 ::: {.callout .primary}
 [Unique dataset]{.h4}
 
-This dataset was scraped by Dr. Glasbrenner in January 2019 and it is unique to CDS 102!
+This dataset was scraped by Dr. Glasbrenner in January 2019 and it is original to CDS 102!
 :::
 
 You will be working with a dataset consisting of rental property information scraped on January 21, 2019 from <https://www.carolinadesigns.com>, which is a website people can use to book vacation rentals in North Carolina's Outer Banks.
@@ -310,7 +310,7 @@ We can display the location for the Duck Donuts store as a circle so that it loo
 We can also add a pop-up to it that displays the street address for the store.
 
 @duck-donuts-map.
-    Copy the code you wrote for **Exercise @basic-map-of-filtered-data** and add the [duck\_donuts]{.monospace} location marker with street address pop-up to it as follows,
+    Copy the code you wrote for **Exercise @basic-map-of-filtered-data** and add the Duck Donuts location marker with street address pop-up to it as follows,
     
     ```r
     <code_from_previous_exercise> %>%
