@@ -1,7 +1,7 @@
 rep_kfold_cv <- function(data, k, model, cv_reps) {
   full_data_pointer <- modelr::resample(data, 1:nrow(data))
 
-  repeated_data <- dplyr::data_frame(
+  repeated_data <- tibble::tibble(
     full_data = rep(list(full_data_pointer), cv_reps)
   )
 
