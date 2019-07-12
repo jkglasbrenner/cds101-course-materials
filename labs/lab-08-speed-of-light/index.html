@@ -66,24 +66,57 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 08 – Speed of&nbsp;light</h1>
 </header><div class="static-page-body">
-  <blockquote>
-<p>This week’s lab will show you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb’s measurements of the speed of light. Through this, we will see how statistical methods can help us to put the scientific method into practice and provide you with hands-on experience with the kinds of data analysis a scientist will use after completing a series of experimental&nbsp;measurements.</p>
-</blockquote>
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab08.Rmd</span>. This lab shows you how to apply statistical methods and resampling techniques to a dataset from the natural sciences, Simon Newcomb’s measurements of the speed of light. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab08.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
 <h2 id="natural-science-data-science">Natural science, data&nbsp;science</h2>
 <p>Many of the datasets we’ve worked through in our labs this semester have come from fields outside of the natural sciences. That doesn’t mean that the skills we’re building don’t have a useful application in fields such as physics, chemistry, and biology. For that reason, this week we will apply statistical methods to a dataset from the natural sciences that can be used to calculate the speed of&nbsp;light.</p>
-<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
-<p>The astronomer and applied mathematician Simon Newcomb collected this dataset over three separate days between the dates of July 24, 1882 and September 5, 1882<span class="citation" data-cites="stigler:robust Newcomb:1882"> [1,2]</span> in Washington, <span class="caps">DC</span>. He performed the measurements using an apparatus design similar to Léon Foucault’s system of rotating mirrors<span class="citation" data-cites="jaffe:1960"> [3]</span>, which allowed Newcomb to measure the time it took a beam of light to travel from Fort Myer on the west bank of the Potomac to a mirror located at the Washington monument and back<span class="citation" data-cites="stigler:robust Carter:2002"> [1,4]</span>, corresponding to a distance of 7443.73 meters. This dataset contains 66 observations, which have been transformed so that the dataset could be analyzed as a series of integers. To convert a dataset value <span class="math inline">\(t\)</span> to the actual transit time <span class="math inline">\(t_{meas}\)</span> in seconds, use the&nbsp;formula,</p>
-<p><span class="math display">\[\text{t}_{\text{meas}}=\dfrac{\dfrac{\text{t}}{1000}+24.8}{1000000}\]</span></p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The astronomer and applied mathematician Simon Newcomb collected this dataset over three separate days between the dates of July 24, 1882 and September 5, 1882<span class="citation" data-cites="stigler:robust Newcomb:1882"> [1,2]</span> in Washington, <span class="caps">DC</span>. He performed the measurements using an apparatus design similar to Léon Foucault’s system of rotating mirrors<span class="citation" data-cites="jaffe:1960"> [3]</span>, which allowed Newcomb to measure the time it took a beam of light to travel from Fort Myer on the west bank of the Potomac to a mirror located at the Washington monument and back<span class="citation" data-cites="stigler:robust Carter:2002"> [1,4]</span>, corresponding to a distance of 7443.73&nbsp;meters.</p>
+<p>The table below provides descriptions of the dataset’s 2&nbsp;variables,</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">trial</span></td>
+<td>The experimental trial number</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">time</span></td>
+<td>The observed time it took a beam of light to travel 7443.73 meters</td>
+</tr>
+</tbody>
+</table>
+<div class="callout primary">
+<p><span class="h4">Note</span></p>
+<p>The time measurements have been transformed so that the values could be logged as a series of integers. To convert a <span class="monospace">time</span> value from the dataset back to the actual transit time <span class="monospace">time<sub>meas</sub></span> in seconds, use the&nbsp;formula,</p>
+<p><span class="math display">\[\text{time}_{\text{meas}}=\dfrac{\dfrac{\text{time}}{1000}+24.8}{1000000}\]</span></p>
+</div>
 <h2 id="visualizing-and-quantifying-the-distribution">Visualizing and quantifying the&nbsp;distribution</h2>
-<p>Let’s start by doing the usual practice of getting to know our dataset. There’s only one relevant variable in this dataset, <span class="monospace">time</span>, so it’s the distribution of the measured times that matter. Let’s appraise the distribution of time measurements by creating some&nbsp;visualizations:</p>
+<p>Let’s start by doing the usual practice of getting to know our dataset. Since there’s only one relevant variable in this dataset, <span class="monospace">time</span>, let’s appraise the distribution of time measurements by creating some&nbsp;visualizations:</p>
 <ol class="example" type="1">
-<li>Visualize the dataset distribution as a boxplot — use <code>geom_boxplot(aes(x = &quot;unfiltered&quot;, y = time)) + coord_flip()</code> — and as a probability mass function (<span class="caps">PMF</span>) — use <code>geom_histogram()</code> with <span class="monospace">y = ..density..</span> inside <code>aes()</code> — with a binwidth that allows you can see the full dataset (only identical numbers should have counts larger than 1). Describe the center, shape, and spread of the distribution (don’t forget to mention the&nbsp;outliers).</li>
+<li><p>Visualize the <span class="monospace">time</span> distribution as a&nbsp;boxplot,</p>
+<pre class="r"><code>ggplot(newcomb) +
+  geom_boxplot(
+    mapping = aes(x = &quot;unfiltered&quot;, y = time)
+  ) +
+  coord_flip()</code></pre>
+<p>Then, for a different perspective, visualize the <span class="monospace">time</span> distribution as a <strong>probability mass function (<span class="caps">PMF</span>)</strong>.</p>
+<p>Describe the center, shape, and spread of the distribution (don’t forget to mention any outliers you&nbsp;see).</p>
+<div class="callout primary">
+<p><span class="h4">Hint</span></p>
+<p>The probability mass function can be created using <code>geom_histogram()</code> and by setting <span class="monospace">y = ..density..</span> inside the <code>aes()</code> function. Make sure that you choose a binwidth that allows you to see the full dataset, meaning only identical numbers should have counts larger than&nbsp;1!</p>
+</div></li>
 </ol>
 <p>One of the things you’ll immediately notice when visualizing this dataset is how pronounced the outliers are. The experimental setup involved a rapidly rotating mirror that had to be precisely tuned. Given that the speed of light is so high, small variations in the rotation speed could significantly impact the measured travel times. As such, it’s quite possible these outliers are due to experimental error. However, without further information we cannot be sure that this is the case. Thus, the best choice is to analyze two versions of the dataset, one with the outliers removed and one where we keep all data&nbsp;points.</p>
 <ol start="2" class="example" type="1">
-<li>Create a second, filtered version of the dataset that removes the outliers that you see in the&nbsp;distribution.</li>
+<li>Create a second, filtered version of the dataset that removes the outliers that you see in the distribution. Name this dataset <span class="monospace">newcomb_no_outliers</span>.</li>
 </ol>
-<p>Another useful visualization for understanding a dataset is the cumulative distribution function (<span class="caps">CDF</span>), which creates a map from the distribution’s values to their respective percentiles. To plot the <span class="caps">CDF</span> for a data distribution, we can use the <code>geom_step()</code> function in <span class="monospace">ggplot2</span>.</p>
+<p>Another useful visualization for understanding a dataset is the cumulative distribution function (<span class="caps">CDF</span>), which maps a distribution’s values to their respective percentiles. To plot the <span class="caps">CDF</span> for a data distribution, we can use the <code>geom_step()</code> function in <span class="monospace">ggplot2</span>.</p>
 <ol start="3" class="example" type="1">
 <li><p>Visualize the <span class="caps">CDF</span> for both the unfiltered and filtered versions of the dataset. The code for plotting the <span class="caps">CDF</span> for the unfiltered dataset would&nbsp;be:</p>
 <pre class="r"><code>ggplot(data = newcomb) +
@@ -117,7 +150,7 @@
 <p>Which summary statistics are sensitive to removing the outliers? Which ones are&nbsp;not?</p></li>
 </ol>
 <h2 id="infering-a-trend"><span class="monospace">infer</span>ing a&nbsp;trend</h2>
-<p>Because there is a spread in the time measurements in Newcomb’s dataset, the measured time should be reported as a mean value with error bars. The error bars are typically found by calculating a confidence interval. A typical choice is a 95% confidence interval, which can be estimated using computational simulations that <em>resample</em> the dataset. To perform our statistical resampling, we will use the <span class="monospace">tidyverse</span>-inspired <a href="https://infer.netlify.com/"><span class="monospace">infer</span> package</a>, which will help us to compute confidence intervals and perform hypothesis&nbsp;tests.</p>
+<p>Because there is a spread in the time measurements in Newcomb’s dataset, the measured time should be reported as a mean value with error bars. The error bars are typically found by calculating a confidence interval. A typical choice is a 95% confidence interval, which can be estimated using computational simulations that <em>resample</em> the dataset. To perform our statistical resampling, we will use the <span class="monospace">tidyverse</span>-inspired <a href="https://infer.netlify.com/"><i class="fas fa-link"></i><span class="monospace">infer</span> package</a>, which will help us to compute confidence intervals and perform hypothesis&nbsp;tests.</p>
 <p>To compute the confidence interval, we will need to generate the so-called <em>bootstrap distribution</em>. We obtain the bootstrap simulation using the following&nbsp;code:</p>
 <pre class="r"><code>newcomb_bootstrap &lt;- newcomb %&gt;%
   specify(formula = time ~ NULL) %&gt;%
@@ -127,8 +160,8 @@
 <pre class="r"><code>newcomb_bootstrap %&gt;%
   visualize() +
   labs(x = &quot;average time&quot;)</code></pre>
-<p>What the bootstrap has done is sample <em>with replacement</em> from the dataset distribution. The basic idea is that, if the underlying sample is representative, then we can sample directly from it <em>as if it were the true population</em>. The number of samples we pull is equal to the number of observations in the dataset. After we resample the data, we complete the procedure by calculating the <span class="monospace">mean</span> of the simulated sample (or <span class="monospace">median</span>, <span class="monospace">sd</span>, or some other parameter), after which we then repeat the process multiple times until we end up with a distribution of means. We can then use the bootstrap sample to determine the confidence interval for the sample statistic of&nbsp;interest.</p>
-<p>The 95% confidence interval is defined as the fraction of the data in the bootstrap distribution that lies between the 2.5th and 97.5th percentiles, which we can compute as&nbsp;follows:</p>
+<p>What the bootstrap has done is sample <em>with replacement</em> from the dataset distribution. The basic idea is that, if the underlying sample is representative, then we can sample directly from it <em>as if it were the true population</em>. The number of samples we pull is equal to the number of observations in the dataset. After we resample the data, we complete the procedure by calculating the <span class="monospace">mean</span> of the simulated sample (or <span class="monospace">median</span>, <span class="monospace">sd</span>, or some other parameter), after which we then repeat the process multiple times until we end up with a distribution of these computed means. We can then use the bootstrap sample to determine the confidence interval for the sample statistic of&nbsp;interest.</p>
+<p>The <span class="monospace">infer</span> package provides a convenience function <code>get_confidence_interval()</code> that makes it very easy for us to find the 95% confidence interval from the bootstrap&nbsp;distribution,</p>
 <pre class="r"><code>newcomb_ci &lt;- newcomb_bootstrap %&gt;%
   get_confidence_interval()</code></pre>
 <p>To visualize the confidence interval with respect to the bootstrap distribution, we&nbsp;run:</p>
@@ -137,10 +170,10 @@
   shade_confidence_interval(endpoints = newcomb_ci) +
   labs(x = &quot;average time&quot;)</code></pre>
 <ol start="5" class="example" type="1">
-<li>Using the above code, compute the 95% confidence interval for the unfiltered and filtered dataset using the bootstrap method and visualize both of them. Make sure that you also print out the values of the confidence interval. How does the confidence interval change when you exclude the outliers (the filtered&nbsp;dataset)?</li>
+<li>Using the above code, compute the 95% confidence interval for <strong>both</strong> the unfiltered and filtered dataset using the bootstrap method and visualize both of them. Make sure that you also print out the values of the confidence interval. How does the confidence interval change when you exclude the outliers (the filtered&nbsp;dataset)?</li>
 </ol>
 <p>We can also use <span class="monospace">infer</span> to perform a two-sided hypothesis test. The code for doing this is relatively similar, we just need to add an additional <code>hypothesize()</code> function. Of course, in order to run a hypothesis test we need some sort of hypothesis to test against, which will allow us to define the <strong>null distribution</strong>. We also need to select a significance level <span class="math inline">\(\alpha\)</span>, which serves as a kind of evidence threshold that we use when determining whether or not we can reject the null hypothesis. A common choice for <span class="math inline">\(\alpha\)</span> is 0.05, which is the value that we will&nbsp;use.</p>
-<p>Subsequent work on the speed of light has determined that, given the conditions of Newcomb’s setup, that this experiment should yield a “true” mean value of 33.02. With this value in hand, we can formalize the question of whether or not the gap separating our dataset’s distribution could have been generated by chance&nbsp;alone.</p>
+<p>Before we continue, we need to know what the null value for our hypothesis test will be. Subsequent work on measuring the speed of light has determined that, given the conditions of Newcomb’s setup, that this experiment should yield a “true” mean value of 33.02. This will serve as our null value. With this value in hand, we can formalize the question of whether or not the gap separating our dataset’s distribution could have been generated by chance&nbsp;alone.</p>
 <ol start="6" class="example" type="1">
 <li>Write down (in words) the <strong>null hypothesis</strong> and the <strong>alternative hypothesis</strong> for comparing this dataset against the “true” mean value of&nbsp;33.02.</li>
 </ol>
@@ -161,18 +194,26 @@
 <ol start="7" class="example" type="1">
 <li>Use the <span class="monospace">infer</span> package to run the two-sided hypothesis test with <span class="math inline">\(\alpha = 0.05\)</span> between the ideal value of 33.02 and unfiltered and filtered datasets. Can we reject the null hypothesis for either version (filtered or unfiltered) of the&nbsp;dataset?</li>
 </ol>
-<h2 id="additional-questions">Additional&nbsp;questions</h2>
-<div class="additional-questions">
-<ul>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<ol start="8" class="example" type="1">
 <li>From your analysis, does Newcomb’s dataset seem to agree with the “true” mean value of 33.02? Or is it inconsistent? Make reference to your confidence intervals of both the unfiltered and filtered datasets when answering these questions as well as your two-sided hypothesis test. Based on all this, how likely is it that a systematic bias exists within Newcomb’s&nbsp;dataset?</li>
-</ul>
-</div>
+</ol>
 <h2 id="how-to-submit">How to&nbsp;submit</h2>
 <p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
 <ol type="1">
 <li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
 <li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 8</em> posting on&nbsp;Blackboard.</p></li>
 </ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">data import/tidyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
 <h2 id="credits">Credits</h2>
 <p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
 <h2 id="references" class="unnumbered">References</h2>
