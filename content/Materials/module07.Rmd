@@ -68,6 +68,22 @@ vembedr::embed_youtube(id = "hjVjAzuMRDM", height = 325, width = 365, allowfulls
 vembedr::embed_youtube(id = "8wQ-uU611vI", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
 ```
 :::
+
+::: {.video-item}
+<p style="height: 50px">**05 - One-sided hypothesis tests using infer**</p>
+
+```{r inference-and-simulations-05-one-sided-hypothesis-tests-using-infer, echo = FALSE}
+vembedr::embed_youtube(id = "YmeQ9ThQw9M", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
+
+::: {.video-item}
+<p style="height: 50px">**06 - Two-sided hypothesis tests using infer**</p>
+
+```{r inference-and-simulations-06-two-sided-hypothesis-tests-using-infer, echo = FALSE}
+vembedr::embed_youtube(id = "E-uuJgpW6Vg", height = 325, width = 365, allowfullscreen = TRUE, frameborder = 0)
+```
+:::
 :::::
 
 [Slides]{.h2}
