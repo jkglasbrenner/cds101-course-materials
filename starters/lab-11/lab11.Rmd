@@ -38,8 +38,6 @@ knitr::opts_chunk$set(
 )
 # Load packages
 suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(fs))
-suppressPackageStartupMessages(library(glue))
 suppressPackageStartupMessages(library(lubridate))
 suppressPackageStartupMessages(library(rtweet))
 ```
@@ -65,6 +63,16 @@ suppressPackageStartupMessages(library(rtweet))
 
 
 ## Exercise 5
+
+
+
+
+## Exercise 6
+
+
+
+
+## Exercise 7
 
 
 
