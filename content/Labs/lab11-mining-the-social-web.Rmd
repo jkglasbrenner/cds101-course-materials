@@ -68,7 +68,7 @@ Fill in the form using the information provided below.
 If a form field is not listed, then that means you should leave it blank.
 
 ::: {.callout .secondary}
-[Important!]{.h4}
+[Naming your Twitter App]{.h4}
 
 In the **App name** field, replace [\<extra\>]{.monospace} with a sequence of letters or numbers of your choosing.
 :::
@@ -143,7 +143,66 @@ Once you have everything installed, launch RStudio and run the following in the 
 install.packages(c("remotes", "fs", "readr", "dplyr", "usethis", "httpuv", "rtweet"))
 ```
 
+After the package installation completes, run the following in the _Console_ pane to generate an authentication token on your local computer,
 
+```r
+source(url("http://data.cds101.com/configure_rtweet.R"))
+generate_token_on_local_computer()
+```
+
+You will see the following message display in your _Console_ pane,
+
+```markdown
+ℹ Generating Twitter token, login to your Twitter account and authorize rtweet.
+Requesting token on behalf of user...
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+```
+
+and a new tab will also open up in your default web browser where you will be asked to log into your Twitter account if you aren't already logged in.
+You will then see the following authorization message,
+
+```{r rtweet-twitter-authorize, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("img/rtweet_twitter_authorize.png")
+```
+
+Click the _Authorize app_ button and then return to RStudio, where you should see a message in the _Console_ pane that looks as follows, 
+
+```markdown
+Authentication complete.
+ℹ Your locally generated Twitter token was saved to the following location on your computer:
+  '/path/to/twitter_token.rds'
+  Upload this token to your home directory on RStudio Server.
+ℹ Then, on RStudio Server, activate the project for the 'Mining the Social Web' lab, and run the following in the Console window:
+  source("configure_rtweet.R")
+  use_uploaded_token_on_rstudio_server()
+```
+
+The line [/path/to/twitter\_token.rds]{.monospace} will be replaced with wherever the script saved your token on your computer.
+It should be located somewhere in your home folder.
+
+::: {.callout .secondary}
+[Where is my home folder?]{.h4}
+
+If you are having trouble locating your home folder, [`r icon_link`watch this video if you are using Windows 10][windows-home-folder] or [`r icon_link`read these directions if you are using macOS][mac-os-home-folder]
+:::
+
+From here we follow the directions printed out to us in the _Console_ pane.
+Upload the [twitter\_token.rds]{.monospace} file to your home directory on RStudio Server,
+
+```{r upload-twitter-token-rds, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("img/upload_twitter_token_rds.png")
+```
+
+Then, on RStudio Server, activate the project for the _Mining the Social Web_ lab, and run the following in the _Console_ pane,
+
+```r
+source("configure_rtweet.R")
+use_uploaded_token_on_rstudio_server()
+```
+
+If you have uploaded [twitter\_token.rds]{.monospace} to the correct location, the script will take care of the rest.
+Proceed to the section titled [`r icon_link`fetching data about users, their followers, and friends](#fetching-data-about-users-their-followers-and-friends).
 
 ## Fetching data about users, their followers, and friends
 
@@ -151,15 +210,17 @@ There are many things we can analyze using a social media platform.
 Like most things, we will start small by stepping through a basic analysis of a single Twitter account.
 Our example account will be [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which is the official Twitter account of the Computational Social Science program in George Mason's Computational & Data Sciences Department.
 
-We begin by fetching the basic account information for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which we will then save to disk for offline access, and then explore the variables returned to us.
-To ask the Twitter API for the account information belonging to the Computational Social Science program, we use:
+We begin by fetching the basic account information for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which we will then save to disk for offline access.
+We do this so that we don't have to constantly query the Twitter API (which has [`r icon_link`rate limits][twitter-api-rate-limits]) to access the same information.
+To query the Twitter API for the account information belonging to the Computational Social Science program and save it, we use:
+
 
 ```r
 lookup_users("CSS_GMU") %>%
-  write_rds(path = path("user_css_gmu", ext = "rds"))
+  write_rds("user_css_gmu.rds")
 ```
 
-This will write a file named [user\_css\_gmu.rds]{.monospace} into your project directory that contains the information we just collected.
+This will write a file named [user\_css\_gmu.rds]{.monospace} in your project directory that contains the information we just collected.
 To read it into R's memory, we run:
 
 ```r
@@ -207,12 +268,12 @@ Let's see how this works in practice.
     get_followers("CSS_GMU") %>%
       pull(user_id) %>%
       lookup_users() %>%
-      write_rds(path = path("css_gmu_followers", ext = "rds"))
+      write_rds("css_gmu_followers.rds")
     
     get_friends("CSS_GMU") %>%
       pull(user_id) %>%
       lookup_users() %>%
-      write_rds(path = path("css_gmu_friends", ext = "rds"))
+      write_rds("css_gmu_friends.rds")
     ```
     
     Like before, we've saved the data we collected to disk so that we have an offline copy.
@@ -365,10 +426,13 @@ Figures in the [Creating an App on the Twitter API](#creating-an-app-on-the-twit
 [r-devtools-github]:          https://github.com/r-lib/devtools
 [gmu-rstudio-server]:         https://rstudio.cos.gmu.edu
 [ggplot2-cheatsheet]:         https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[mac-os-home-folder]:         https://www.cnet.com/how-to/how-to-find-your-macs-home-folder-and-add-it-to-finder/
 [rstudio-cheatsheet]:         https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
 [rmarkdown-reference]:        https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[windows-home-folder]:        https://youtu.be/TphsACeMRd8
 [rmarkdown-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
 [data-import-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
 [twitter-developer-site]:     https://developer.twitter.com/en/apps
 [css-gmu-twitter-account]:    https://twitter.com/CSS_GMU
+[twitter-api-rate-limits]:    https://developer.twitter.com/en/docs/developer-utilities/rate-limit-status/api-reference/get-application-rate_limit_status
 [twitter-team-invite-issues]: https://twittercommunity.com/t/known-irregularity-some-developers-are-having-difficulties-inviting-team-members/126109
