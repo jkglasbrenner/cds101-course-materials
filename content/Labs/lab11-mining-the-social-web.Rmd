@@ -14,165 +14,136 @@ suppressPackageStartupMessages(library(tidyverse))
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
 lab_name <- "Lab 11"
+icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-2"></i>&nbsp;'
+icon_link <- '<i class="fas fa-link"></i>'
+icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
+icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp;'
+lab_name <- "Lab 11"
+starter_file <- "lab11.Rmd"
 ```
 
-> This week’s lab shows you how to access the Twitter API using the [rtweet]{.monospace} package and what you can do with that harvested data.
+## Instructions
 
-## Installing dependencies
+Obtain the GitHub repository you will use to complete the lab, which contains a starter file named [`r starter_file`]{.monospace}.
+This lab shows you how to access the Twitter API using the [rtweet]{.monospace} package and how to analyze the harvested data.
+Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file [`r starter_file`]{.monospace}.
+Then, when you're ready to submit, follow the directions in the [`r icon_link`How to submit](#how-to-submit) section below.
 
-This lab requires you to install a few extra packages into your RStudio environment, so let's take care of that first.
-First, we need to check if we need to install the [[devtools]{.monospace}][r-devtools-github] package, and install it if we don't have it:
+## Gathering data using an API
+
+Most of the datasets you've worked with during this course were stored in files that were easy to load using R.
+While this is convenient, it isn't always the case that a dataset will already have been gathered for you and you will need to collect the data yourself.
+For example, if you want to investigate current and ongoing trends taking place on the internet, you will need to find a way to extract relevant data from one or more websites.
+The general practice of gathering data from a website is called _web scraping_ and the amount of effort needed to scrape any given webpage depends on many factors.
+That's why it's always worth your while to check and see if a website has an **application programming interface**, also known as an **API**, which provides a convenient and structured way to access and interact with website data.
+[`r icon_link`Twitter][twitter-url] is an example of website with an API that is used by app developers and data scientists alike.
+The recommended way to access the Twitter API from R is by using the [tidyverse]{.monospace}-compatible package called [`r icon_link`[rtweet]{.monospace}][r-rtweet-github], which we will learn how to use during this lab.
+
+## [rtweet]{.monospace} setup instructions
+
+To access data from the Twitter API for this lab, you will need to configure your RStudio environment so that Twitter recognizes you as an authenticated user.
+There are two ways to configure [rtweet]{.monospace} so that it works on RStudio Server, both of which are detailed below.
+
+### Method 1: Create an App on developer.twitter.com
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+This is the recommended method for accessing the Twitter API from RStudio Server.
+However, it will only work if you have a valid Twitter account and the course instructor has been able to invite you to join the CDS 102 developer team.
+Unfortunately, [`r icon_link`there is a known issue where team invites fail for some users][twitter-team-invite-issues] and there is no timeline for when this problem will be fixed.
+If the instructor is unable to send you an team invitation, try following the instructions in [`r icon_link`Method 2](#method-2-generate-a-token-using-your-local-computer).
+:::
+
+This method will have you generate an authentication token by creating a Twitter App on [developer.twitter.com][twitter-developer-site].
+Don't worry, you're not actually developing an application, this just happens to be the easiest way to get one of these tokens.
+Navigate to <https://developer.twitter.com/en/apps>, login to your Twitter account, and click the **Create New App**.
+
+```{r twitter-developer-create-app, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("img/twitter_developer_create_app.png")
+```
+
+This will open a page where you will enter the necessary information for creating a new app.
+Fill in the form using the information provided below.
+If a form field is not listed, then that means you should leave it blank.
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+In the **App name** field, replace [\<extra\>]{.monospace} with a sequence of letters or numbers of your choosing.
+:::
+
+*   **App name:** [cds-102-lab-\<extra\>]{.monospace}
+
+*   **Application description:** [For completing a CDS 102 lab.]{.monospace}
+
+*   **Website URL:** [https<!-- breaklink -->://www.cds101.com]{.monospace}
+
+*   **Callback URLs:** [http<!-- breaklink -->://127.0.0.1:1410]{.monospace}
+
+*   **Tell us how this app will be used:** [This application is solely for educational purposes so that I can access the Twitter API as part of the CDS 102 course offered at George Mason University. I will be using the Twitter API to complete the following lab: https<!-- breaklink -->://www.cds101.com/labs/lab-11-mining-the-social-web/.]{.monospace}
+
+After filling in all the above information, the form will look as follows,
+
+```{r twitter-developer-app-details, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("img/twitter_developer_app_details.png")
+```
+
+To create the Twitter App, click the **Create** button.
+
+After creating the app, click the tab labeled **Keys and tokens** to retrieve your _consumer API keys_ and _access tokens_.
+The page will look something like this,
+
+```{r twitter-developer-keys-and-tokens, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("img/twitter_developer_keys_and_tokens.png")
+```
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+**Your consumer API keys and access tokens should never be shared with another person or commited to a GitHub repository.**
+:::
+
+Leave the **Keys and tokens** page open in a browser tab for the time being and switch over to [`r icon_link`RStudio Server][gmu-rstudio-server].
+Activate the project for this lab, then in the _Console_ pane run the following to start the [rtweet]{.monospace} configuration script,
 
 ```r
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
-}
+source("configure_rtweet.R")
+configure_rtweet_rstudio_server()
 ```
 
-We also need to install the [fs]{.monospace} package from the extended [tidyverse]{.monospace} to help with constructing paths to files that are compatible with any operating system:
+You will be prompted to enter the following information,
+
+```markdown
+Enter your twitter app name:
+Enter your twitter consumer api key:
+Enter your twitter consumer api secret key:
+Enter your twitter access token:
+Enter your twitter access token secret:
+```
+    
+The _twitter app name_ should exactly match the _app name_ you entered in the application creation form.
+The rest of the information can be copied and pasted directly from the **Keys and tokens** page you have open in your other browser tab.
+When you have entered all the information, you will be asked to confirm that what you entered is correct.
+If it is, type <kbd>y</kbd> and press <kbd>Enter</kbd> and the script will take care of the rest for you.
+Proceed to the section titled [`r icon_link`fetching data about users, their followers, and friends](#fetching-data-about-users-their-followers-and-friends).
+
+### Method 2: Generate a token using your local computer
+
+::: {.callout .secondary}
+[Important!]{.h4}
+
+This method should only be used if you are unable to complete [`r icon_link`Method 1](#method-1-create-an-app-on-developer.twitter.com).
+:::
+
+This method requires that you have R and RStudio installed on your local computer, for a list of what applications you need to install consult your course syllabus.
+Once you have everything installed, launch RStudio and run the following in the _Console_ pane to install the R packages you will need,
 
 ```r
-install.packages("fs")
+install.packages(c("remotes", "fs", "readr", "dplyr", "usethis", "httpuv", "rtweet"))
 ```
 
-Once [[devtools]{.monospace}][r-devtools-github] and [[fs]{.monospace}][r-fs-github] are installed, run the following code to install the latest version of the [[rtweet]{.monospace}][r-rtweet-github] package:
 
-```r
-devtools::install_github("mkearney/rtweet")
-```
-
-We also run the following code in our *Console* window in order to create an [.Renviron]{.monospace} file and the folders where we will be saving our **Twitter authentication token**.
-
-```r
-location_to_save_token <- fs::path(fs::path_home(), ".config", "R", "twitter")
-token_file <- fs::path(location_to_save_token, "twitter_token", ext="rds")
-fs::dir_create(path = location_to_save_token, recursive = TRUE)
-
-renviron_file <- fs::path(fs::path_home(), ".Renviron")
-fs::file_create(path = renviron_file)
-fs::file_chmod(path = renviron_file, mode = "600")
-
-if (!stringr::str_detect(readr::read_file(file = renviron_file), "TWITTER_APP=")) {
-  readr::write_file(
-    x = glue::glue(
-      "TWITTER_APP=rtweet_tokens\n",
-      "TWITTER_CONSUMER_KEY=\n",
-      "TWITTER_CONSUMER_SECRET=\n",
-      "TWITTER_ACCESS_TOKEN=\n",
-      "TWITTER_ACCESS_TOKEN_SECRET=\n\n"
-    ),
-    path = fs::path(fs::path_home(), ".Renviron"),
-    append = TRUE
-  )
-}
-
-if (!stringr::str_detect(readr::read_file(file = renviron_file), "TWITTER_PAT=")) {
-  readr::write_file(
-    x = glue::glue("TWITTER_PAT={token_file}\n\n"),
-    path = fs::path(fs::path_home(), ".Renviron"),
-    append = TRUE
-  )
-}
-
-file.edit(renviron_file)
-```
-
-The [.Renviron]{.monospace} file should have opened up in your editing pane.
-Leave it open for now, we will be adding information to it shortly.
-
-Next, we turn to getting ourselves set up to access the Twitter API.
-
-## Creating an App on the Twitter API
-
-The official method for accessing Twitter data is through their API --- the acronym API means **application programming interface** --- that can only be used if you have an **authentication token**.
-The procedure for obtaining an authentication token is straightforward, you just need to have a registered Twitter account.
-If you have not already, [create your Twitter account now][twitter-url] and log into your account.
-
-::::: {.callout .primary}
-**Phone verification:** The Twitter apps page may require that you have a valid cell phone number associated with your Twitter account that is also **verified**.
-To double check whether you've associated a phone number with your Twitter account and validated it, navigate to https://twitter.com and click on your profile picture in the top right hand corner, click [Settings and privacy]{.monospace}, and then click [Mobile]{.monospace} on the menubar on the left.
-On this page you can enter your cell phone number and then verify it by entering the code you receive in a text message from Twitter.
-:::::
-
-The way we will get an authentication token for the Twitter API is by creating a Twitter app.
-Navigate to https://apps.twitter.com and click **Create New App**.
-This will open a page where you will create a new app by providing a Name, Description, and Website of your choosing, similar to the screenshot below:
-
-```{r creating-twitter-app-token, echo = FALSE}
-knitr::include_graphics("img/twitter_app_rtweet_token.png")
-```
-
-In the input boxes where it asks you to provide a **Name**, **Description**, and **Website**, use the following:
-
-*   **Name:** [cds-102-lab-\<extra\>]{.monospace}
-
-*   **Description:** [CDS 102 lab]{.monospace}
-
-*   **Website:** [http<!-- breaklink -->://cds101.com]{.monospace}
-
-*   **Callback URL:** [http<!-- breaklink -->://127.0.0.1:1410]{.monospace}
-
-*   <i class="fas fa-check-square"></i> Yes, I have read and agree to the Twitter Developer Agreement
-
-:::::{.callout .primary}
-*   In **Name**, replace [\<extra\>]{.monospace} with a sequence of letters or numbers of your choosing
-
-*   The setting for **Callback URL** is recommended by the [[rtweet]{.monospace}][r-rtweet-github] developers
-
-*   Check the box next to the **Developer Agreement**
-:::::
-
-Once you have filled in all the boxes in the way shown above, click on **Create your Twitter Application** button.
-
-```{r twitter-app-token-created, echo = FALSE}
-knitr::include_graphics("img/twitter_app_rtweet_created.png")
-```
-
-After creating the app, click the tab labeled **Keys and Access Tokens** to retrieve your consumer (api) and secret keys.
-The top of the page will look like this:
-
-```{r twitter-app-token-keys, echo = FALSE}
-knitr::include_graphics("img/twitter_app_token_keys.png")
-```
-
-You will now need to copy and paste the codes for the **Consumer Key**, **Consumer Secret**, **Access Token**, and **Access Token Secret** into the [.Renviron]{.monospace} file that we opened at the very end of the previous section.
-Copy each of these codes, match it to one of the four keywords in the [.Renviron]{.monospace} file, and paste your copied code in the space immediately to the right of the equals [=]{.monospace} sign.
-Then, in the RStudio menubar, click **Session**, then click **Restart R**.
-
-## Connecting your R session to Twitter
-
-Now that we have the authentication token codes saved to our account, let's connect R and [rtweet]{.monospace} using the following code:
-
-```r
-twitter_token <- rtweet::create_token(
-  app = Sys.getenv("TWITTER_APP"),
-  consumer_key = Sys.getenv("TWITTER_CONSUMER_KEY"),
-  consumer_secret = Sys.getenv("TWITTER_CONSUMER_SECRET"),
-  access_token = Sys.getenv("TWITTER_ACCESS_TOKEN"),
-  access_secret = Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET"),
-  set_renv = FALSE
-)
-```
-
-Running the above command will complete the connection process and now you can start using the Twitter API!
-Before we start, let's perform one last configuration that will make it so that you do not need to re-run the above code each time you close and re-open RStudio:
-
-```r
-location_to_save_token <- fs::path(fs::path_home(), ".config", "R", "twitter")
-token_file <- fs::path(location_to_save_token, "twitter_token", ext="rds")
-fs::dir_create(path = location_to_save_token, recursive = TRUE)
-readr::write_rds(x = twitter_token, path = token_file)
-fs::file_chmod(path = token_file, mode = "600")
-```
-
-This code saves the configuration information about your Twitter authentication tokens and should be automatically loaded for you the next time you restart RStudio.
-
-:::::{.callout .primary}
-**Keep your access token codes private:** It may seem like it would be more convenient to just store the consumer key, consumer secret, access token, and access token secret directly inside your RMarkdown file.
-Do not do this!
-These codes will give *anyone* that has them direct access to and control over your account.
-Therefore you should store the token codes somewhere safe in your RStudio Server account, which the above instructions helped you accomplish.
-:::::
 
 ## Fetching data about users, their followers, and friends
 
@@ -363,6 +334,22 @@ Your lab will be graded for credit **after** you've completed both steps!
 
 2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
 
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this lab:
+
+*   [data import/tidyr cheatsheet][data-import-cheatsheet]
+
+*   [dplyr cheatsheet][dplyr-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
 ## Credits
 
 This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
@@ -370,9 +357,18 @@ Lab instructions and exercises originally created by Joe Shaheen for CDS-102.
 Updates to exercises and instructions for compatibility with the [[rtweet]{.monospace}][r-rtweet-github] package by James Glasbrenner.
 Figures in the [Creating an App on the Twitter API](#creating-an-app-on-the-twitter-api) section are from the [*Obtaining and using access tokens*](#rtweet-obtaining-access-tokens) [rtweet]{.monospace} vignette.
 
-[cc-by-sa-4]:              http://creativecommons.org/licenses/by-sa/4.0/
-[twitter-url]:             https://twitter.com
-[r-fs-github]:             https://github.com/r-lib/fs
-[r-rtweet-github]:         https://github.com/mkearney/rtweet
-[r-devtools-github]:       https://github.com/r-lib/devtools
-[css-gmu-twitter-account]: https://twitter.com/CSS_GMU
+[cc-by-sa-4]:                 http://creativecommons.org/licenses/by-sa/4.0/
+[twitter-url]:                https://twitter.com
+[r-fs-github]:                https://github.com/r-lib/fs
+[r-rtweet-github]:            https://github.com/mkearney/rtweet
+[dplyr-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+[r-devtools-github]:          https://github.com/r-lib/devtools
+[gmu-rstudio-server]:         https://rstudio.cos.gmu.edu
+[ggplot2-cheatsheet]:         https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[rstudio-cheatsheet]:         https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:        https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
+[twitter-developer-site]:     https://developer.twitter.com/en/apps
+[css-gmu-twitter-account]:    https://twitter.com/CSS_GMU
+[twitter-team-invite-issues]: https://twittercommunity.com/t/known-irregularity-some-developers-are-having-difficulties-inviting-team-members/126109
