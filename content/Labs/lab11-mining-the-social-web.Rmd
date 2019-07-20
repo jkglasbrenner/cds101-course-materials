@@ -11,9 +11,6 @@ Show_link: true
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 
-icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-16"></i>&nbsp;'
-icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
-lab_name <- "Lab 11"
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-2"></i>&nbsp;'
 icon_link <- '<i class="fas fa-link"></i>'
 icon_github <- '<i class="fab fa-github-alt" data-fa-transform="grow-16"></i>&nbsp;'
@@ -37,7 +34,7 @@ For example, if you want to investigate current and ongoing trends taking place 
 The general practice of gathering data from a website is called _web scraping_ and the amount of effort needed to scrape any given webpage depends on many factors.
 That's why it's always worth your while to check and see if a website has an **application programming interface**, also known as an **API**, which provides a convenient and structured way to access and interact with website data.
 [`r icon_link`Twitter][twitter-url] is an example of website with an API that is used by app developers and data scientists alike.
-The recommended way to access the Twitter API from R is by using the [tidyverse]{.monospace}-compatible package called [`r icon_link`[rtweet]{.monospace}][r-rtweet-github], which we will learn how to use during this lab.
+The recommended way to access the Twitter API from R is by using the [tidyverse]{.monospace}-compatible package called [`r icon_link`[rtweet]{.monospace}][r-rtweet], which we will learn how to use during this lab.
 
 ## [rtweet]{.monospace} setup instructions
 
@@ -101,7 +98,7 @@ knitr::include_graphics("img/twitter_developer_keys_and_tokens.png")
 ::: {.callout .secondary}
 [Important!]{.h4}
 
-**Your consumer API keys and access tokens should never be shared with another person or commited to a GitHub repository.**
+**Your consumer API keys and access tokens should never be shared with another person or committed to a GitHub repository.**
 :::
 
 Leave the **Keys and tokens** page open in a browser tab for the time being and switch over to [`r icon_link`RStudio Server][gmu-rstudio-server].
@@ -136,7 +133,8 @@ Proceed to the section titled [`r icon_link`fetching data about users, their fol
 This method should only be used if you are unable to complete [`r icon_link`Method 1](#method-1-create-an-app-on-developer.twitter.com).
 :::
 
-This method requires that you have R and RStudio installed on your local computer, for a list of what applications you need to install consult your course syllabus.
+This method requires that you have R and RStudio installed on your local computer.
+Consult the course syllabus for a list of what applications you will need to install.
 Once you have everything installed, launch RStudio and run the following in the _Console_ pane to install the R packages you will need,
 
 ```r
@@ -206,39 +204,32 @@ Proceed to the section titled [`r icon_link`fetching data about users, their fol
 
 ## Fetching data about users, their followers, and friends
 
-There are many things we can analyze using a social media platform.
+There are many things we can analyze on a social media platform like Twitter.
 Like most things, we will start small by stepping through a basic analysis of a single Twitter account.
-Our example account will be [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which is the official Twitter account of the Computational Social Science program in George Mason's Computational & Data Sciences Department.
+Our example account will be [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which is the official Twitter account of the Computational Social Science program in George Mason University's Computational & Data Sciences Department.
 
-We begin by fetching the basic account information for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which we will then save to disk for offline access.
-We do this so that we don't have to constantly query the Twitter API (which has [`r icon_link`rate limits][twitter-api-rate-limits]) to access the same information.
-To query the Twitter API for the account information belonging to the Computational Social Science program and save it, we use:
+@query-user-data.
+    Let's begin by fetching the basic account information for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], which we will then save to disk for offline access.
+    We do this so that we don't have to query the Twitter API (which has [`r icon_link`rate limits][twitter-api-rate-limits]) every time we want to access this information.
+    To get this data and save it, **run the following in the _Console_ pane**,
 
+    ```r
+    lookup_users("CSS_GMU") %>%
+      write_rds("user_css_gmu.rds")
+    ```
 
-```r
-lookup_users("CSS_GMU") %>%
-  write_rds("user_css_gmu.rds")
-```
+    This will write a file named [user\_css\_gmu.rds]{.monospace} in your project directory that contains the information we just queried.
+    To load the data you just requested, place the following code block in your R Markdown file,
 
-This will write a file named [user\_css\_gmu.rds]{.monospace} in your project directory that contains the information we just collected.
-To read it into R's memory, we run:
-
-```r
-user_css_gmu <- read_rds("user_css_gmu.rds")
-```
+    ```r
+    user_css_gmu <- read_rds("user_css_gmu.rds")
+    ```
 
 Now let's take a look at the information we just gathered about [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account].
 Perhaps we can learn something about the account just by looking at the different variables.
-Run the following to get a full list of the variables you can look at that are related to the account:
 
-```r
-user_css_gmu %>%
-  users_data() %>%
-  names()
-```
-    
 @.
-    Let's focus on the following variables associated with the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account:
+    Let's focus on the following variables associated with the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account,
     
     ```r
     user_css_gmu %>%
@@ -249,20 +240,30 @@ user_css_gmu %>%
         favourites_count,
         followers_count,
         friends_count,
-        account_lang
+        location
       ) %>%
       glimpse(width = 200)
     ```
     
     What do these variables describe and why might they be interesting to know?
-    What other variables do you see after running the `names()` function that would be of interest to a data scientist?
+    
+    Next, run the following to get a full list of the variables for the account,
+    
+    ```r
+    user_css_gmu %>%
+      users_data() %>%
+      names()
+    ```
+    
+    What other variables do you see that would be of interest to a data scientist?
 
-On social media platforms such as Twitter, we can learn a lot about an individual user by looking at the people that user follows (we'll call these *friends*) as well as the people that follow the user (we'll call these *followers*), and by studying the attributes and behaviors that emerge when these users interact with one another.
-Thus, while knowing an account's personal attributes can be very useful, we can infer additional information about a user by analyzing the account's friends and followers.
+On social media platforms such as Twitter, we can learn a lot about an individual user by looking at the people that user follows (we'll call these **friends**) as well as the people that follow the user (we'll call these **followers**), and by studying the attributes and behaviors that emerge when these users interact with one another.
 Let's see how this works in practice.
 
 @.
-    We need to fetch the friends and followers of the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account using the `get_followers()` and `get_friends()` functions from [rtweet]{.monospace} as follows:
+    We need to fetch the friends and followers of the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account using the `get_followers()` and `get_friends()` functions from [rtweet]{.monospace}.
+    Like before, we will save the results to a file so that we don't need to keep sending queries to the Twitter API.
+    Run the following in the _Console_ pane,
     
     ```r
     get_followers("CSS_GMU") %>%
@@ -276,23 +277,26 @@ Let's see how this works in practice.
       write_rds("css_gmu_friends.rds")
     ```
     
-    Like before, we've saved the data we collected to disk so that we have an offline copy.
-
-    Do you understand what the above code is actually doing?
-    Figure out what `get_followers()` and `get_friends()` are doing specifically, and what the `lookup_users()` function is doing in the above code, and explain it.
-    Then, write the code that you need to read the [rds]{.monospace} files into R so that you can work with the data.
+    Let's pause for a moment.
+    Do you understand what the above code is doing?
+    Using the skills you've developed over the semester, figure out what `get_followers()` and `get_friends()` are doing **and explain it**.
+    The `pull()` function is then grabbing the contents of a column named [user_id]{.monospace} and passing it into `lookup_users()`.
+    Figure out what the `lookup_users()` function is doing in the above code, **and explain it.**
+    
+    After you write your explanations, create a code block that loads the data you just saved to the [.rds]{.monospace} files.
     Assign the followers data to the variable [css\_gmu\_followers]{.monospace} and the friends data to the variable [css\_gmu\_friends]{.monospace}.
+    Use the last code block from **Exercise @query-user-data** for reference.
 
 ## Visualizing Twitter data
 
-One of the conveniences of the [rtweet]{.monospace} package is that it stores Twitter data in the [tibble]{.monospace} data frame format, so all of the [tidyverse]{.monospace} tools we've learned to use so far can be used for analysis.
+One of the conveniences of the [rtweet]{.monospace} package is that it returns Twitter data in the [tibble]{.monospace} format, so it is fully compatible with our [tidyverse]{.monospace} tools.
 Let's work through a few examples of what you can do to analyze this data.
 
 One of the questions we can ask of our data is if there is a relationship between how often [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]'s followers tweet and the number of followers they have.
-While we're at it, we can also ask: what language do they write their tweets in?
+While we're at it, we can also ask: are the more active and connected accounts more or less likely to list a website link on their profile page?
 
 @.
-    Use the following command to get an answer to these questions:
+    Use the following code to create a scatter plot that shows the number of followers an account has as a function of the number of tweets it has posted,
     
     ```r
     css_gmu_followers %>%
@@ -302,7 +306,7 @@ While we're at it, we can also ask: what language do they write their tweets in?
         mapping = aes(
           x = statuses_count,
           y = followers_count,
-          color = account_lang
+          color = is.na(profile_url)
         )
       ) +
       scale_x_log10() +
@@ -312,13 +316,17 @@ While we're at it, we can also ask: what language do they write their tweets in?
     
     Notice that we have set our plot to have a log-scale on both axes.
     Why would we want to do that?
-    Also, what does this graph tell us about the accounts that follow [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], and by consequence, what does all this say about [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]?
+    Also, explain what a [TRUE]{.monospace} value for `is.na(profile_url)` means.
+    
+    Next, based on what you see, explain what this graph tells us about the accounts that follow [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account].
+    Would you expect to see the same kind of trend if you sampled another Twitter account at random and looked at its followers?
+    If so, why would you expect that?
+    If not, what is it about the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account that makes it different?
 
-The ages of the accounts for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]'s friends and followers could contain meaningful patterns and be of interest to us.
-For example, it may be that the patterns in the account ages for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] look different from accounts not associated with a University.
+The account creation dates for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]'s friends and followers is another kind of data that can contain meaningful patterns and be of interest to us.
     
 @.
-    Use the following command to create a visualization that looks at the account creation date for followers of [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]:
+    Use the following command to visualize the distribution of account creation dates for followers of [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account],
 
     ```r
     css_gmu_followers %>%
@@ -330,26 +338,31 @@ For example, it may be that the patterns in the account ages for [[\@CSS\_GMU]{.
       )
     ```
 
-    Describe the distribution of ages of the accounts that follow [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account], and what can we infer about the account [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] itself?
+    Describe any interesting features you notice in the distribution and provide a possible explanation for _why_ those features might be there.
+    Is there anything about the account [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] itself that explains why the distribution of account creation dates of its followers looks this way?
 
 Of course, it wouldn't make sense for us to interact with the Twitter API if we don't grab some actual tweets!
 To request tweets for a specific account, we use the `get_timeline()` function.
-For example, to request all the tweets by the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account we use the following command:
 
-```r
-get_timeline(user = "CSS_GMU", n = 500) %>%
-  write_rds(path = path("css_gmu_all_tweets", ext = "rds"))
-```
-    
-As usual, we save the tweets to disk so that we have an offline copy.
-After saving them, we load the tweets and assign them to the variable [css\_gmu\_tweets]{.monospace}:
-
-```r
-css_gmu_tweets <- read_rds("css_gmu_all_tweets.rds")
-```
-    
 @.
-    Create a timeline plot of [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]'s monthly tweeting frequency since the account was first created using the following code:
+    Fetch and save all the tweets by the [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account] account by running the following command in the _Console_ pane,
+    
+    ```r
+    get_timeline(user = "CSS_GMU", n = 500) %>%
+      write_rds("css_gmu_all_tweets.rds")
+    ```
+        
+    Then, place the following code block in your R Markdown file to load the data you just requested,
+    
+    ```r
+    css_gmu_tweets <- read_rds("css_gmu_all_tweets.rds")
+    ```
+
+A tweet history such as the one we just collected is an example of _time series data_.
+A common method for summarizing time series data is to create a timeline plot, which in this context would let us know if there are periods of time where a Twitter account was more active.
+
+@.
+    Use the following code to create a timeline plot for [[\@CSS\_GMU]{.monospace}][css-gmu-twitter-account]'s monthly tweeting frequency that goes all the way back to the day the account was first created,
 
     ```r
     css_gmu_tweets %>%
@@ -366,23 +379,22 @@ css_gmu_tweets <- read_rds("css_gmu_all_tweets.rds")
     ```
     
     You'll notice that there's a cyclical pattern to the tweet frequency for this account.
-    Explain why this might be happening by suggesting a reasonable hypothesis for the mechanism behind this cyclic behavior.
+    Write down a plausible explanation for why this account would have a cyclical tweeting history.
     
 ## Choose your own adventure
 
 Now it's your turn to tell a story.
 Pick a Twitter account, any account, and explore it using the tools that were just introduced to you.
-Your exploratory analysis should be encapsulated in no less than 4 -- 6 separate plots, which you will then interpret and weave into a coherent narrative about your chosen account.
+Your exploratory analysis should include no less than 4 separate plots that you interpret and weave into a coherent story about your chosen account.
 This is an open-ended lab report, so go ahead and have some fun with it!
 
-:::{.callout .primary}
 **The grading will be heavily weighted towards this section and what you submit for this part of the lab.**
-:::
 
-:::{.callout .secondary}
-*   While your story should start with one Twitter account, you are welcome to branch outward by looking at the attributes of the account's friends and followers to enrich and extend your analysis.
+::: {.callout .primary}
+[Note]{.h4}
 
-*   You are welcome to use any of the available functions in [rtweet]{.monospace}, even if they weren't shown in the exercises.
+While your story should start with one Twitter account, you are welcome to branch outward by looking at the attributes of the account's friends and followers to enrich and extend your analysis.
+You are welcome to use any of the available functions in [rtweet]{.monospace}, even if they weren't shown in the exercises.
 :::
 
 ## How to submit
@@ -413,17 +425,14 @@ You are encouraged to review and keep the following cheatsheets handy while work
 
 ## Credits
 
-This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+This lab is licensed under a [`r icon_link`Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
 Lab instructions and exercises originally created by Joe Shaheen for CDS-102.
-Updates to exercises and instructions for compatibility with the [[rtweet]{.monospace}][r-rtweet-github] package by James Glasbrenner.
-Figures in the [Creating an App on the Twitter API](#creating-an-app-on-the-twitter-api) section are from the [*Obtaining and using access tokens*](#rtweet-obtaining-access-tokens) [rtweet]{.monospace} vignette.
+Updates to exercises and instructions for compatibility with the [`r icon_link`[rtweet]{.monospace}][r-rtweet] package by James Glasbrenner.
 
+[r-rtweet]:                   https://rtweet.info
 [cc-by-sa-4]:                 http://creativecommons.org/licenses/by-sa/4.0/
 [twitter-url]:                https://twitter.com
-[r-fs-github]:                https://github.com/r-lib/fs
-[r-rtweet-github]:            https://github.com/mkearney/rtweet
 [dplyr-cheatsheet]:           https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
-[r-devtools-github]:          https://github.com/r-lib/devtools
 [gmu-rstudio-server]:         https://rstudio.cos.gmu.edu
 [ggplot2-cheatsheet]:         https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
 [mac-os-home-folder]:         https://www.cnet.com/how-to/how-to-find-your-macs-home-folder-and-add-it-to-finder/
