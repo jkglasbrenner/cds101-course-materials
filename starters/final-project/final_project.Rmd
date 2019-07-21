@@ -47,7 +47,10 @@ suppressPackageStartupMessages(library(infer))
 suppressPackageStartupMessages(library(modelr))
 suppressPackageStartupMessages(library(broom))
 # Load dataset
-college <- read_rds("college.rds")
+college <- read_rds("college.rds") %>%
+  type_convert(
+    na=combine("", "NA", "PrivacySuppressed")
+  )
 # Set seed
 set.seed(98261936)
 ```
