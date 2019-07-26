@@ -50,6 +50,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 | [`lab-05`](lab-04) | [Lab 05 – Data cleaning][lab-05]                                    |
 | [`lab-08`](lab-08) | [Lab 08 – Speed of light][lab-08]                                   |
 | [`lab-09`](lab-09) | [Lab 09 – Moneyball][lab-09]                                        |
+| [`lab-10`](lab-10) | [Lab 10 – Build and Explore a Temperature Database][lab-10]         |
 | [`lab-11`](lab-11) | [Lab 11 – Mining the social web][lab-11]                            |
 
 [lab-01]: https://www.cds101.com/labs/lab-01-learning-to-use-github-and-rmarkdown/
@@ -59,4 +60,5 @@ Each folder contains the starter files of a separate assignment and the list of 
 [lab-05]: https://www.cds101.com/labs/lab-05-data-cleaning/
 [lab-08]: https://www.cds101.com/labs/lab-08-speed-of-light/
 [lab-09]: https://www.cds101.com/labs/lab-09-moneyball/
+[lab-10]: https://www.cds101.com/labs/lab-10-temperature-database/
 [lab-11]: https://www.cds101.com/labs/lab-11-mining-the-social-web/
