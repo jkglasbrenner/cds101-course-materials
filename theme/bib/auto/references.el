@@ -8,8 +8,6 @@
     "Robinson:Cleaning:2015"
     "hanley:2004"
     "jaffe:1960"
-    "kirk:data-visualisation-handbook:2016"
-    "stigler:robust"
-    "wiki:interactive-visualization"))
+    "stigler:robust"))
  :bibtex)
 

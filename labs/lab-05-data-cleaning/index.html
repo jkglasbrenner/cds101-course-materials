@@ -66,7 +66,172 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 05 – Data&nbsp;cleaning</h1>
 </header><div class="static-page-body">
-  
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab05.Rmd</span>. This lab guides you through the process of cleaning a real-world dataset that lists cars that were towed or impounded by the Chicago Police Department. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab05.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
+<h2 id="what-is-data-cleaning">What is data&nbsp;cleaning?</h2>
+<p>Data cleaning is the process of detecting and fixing mistakes and inaccurate records within a given dataset and stripping away extraneous formatting from raw input data. Mistakes and extraneous formatting appear for a variety of reasons, including data entry errors (typos), inconsistencies during format conversion, unexpected input, coding errors, and the list goes on. Data cleaning and organizing takes up a large portion of a data scientist’s time, as each dataset is unique and will require its own custom cleaning workflow. Without data cleaning, these spurious entries in the dataset would affect the data trends and could lead to incorrect&nbsp;conclusions.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
+<p>The City of Chicago has a data portal where you can access information about the city, which includes a list of vehicles that have been towed and impounded within the last 90 days. Illegally parked vehicles, abandoned vehicles and vehicles used for illegal activities may be towed by the Chicago Police Department, the Department of Streets and Sanitation, the Department of Revenue, Aviation and the office of the City Clerk. After a tow request is issued, an inventory number is assigned by the Department of Streets and Sanitation and a truck is dispatched to tow the requested vehicle to a City auto&nbsp;pound.</p>
+<p>The dataset you will be working with was retrieved on May 30, 2018. The table below provides descriptions of the dataset’s 10&nbsp;variables,</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="monospace">Tow Date</span></td>
+<td>The data the vehicle was towed</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Make</span></td>
+<td>Vehicle manufacturer</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Style</span></td>
+<td>Two-letter abbreviation of the vehicle’s body type</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Model</span></td>
+<td>Vehicle product name</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Color</span></td>
+<td>Vehicle’s color</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Plate</span></td>
+<td>Vehicle’s license plate number</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">State</span></td>
+<td>License plate’s state</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Towed to Address</span></td>
+<td>Address where car is impounded</td>
+</tr>
+<tr class="odd">
+<td><span class="monospace">Tow Facility Phone</span></td>
+<td>Phone number of auto pound</td>
+</tr>
+<tr class="even">
+<td><span class="monospace">Inventory Number</span></td>
+<td>Identification number for towed vehicle</td>
+</tr>
+</tbody>
+</table>
+<h2 id="renaming-the-variables">Renaming the&nbsp;variables</h2>
+<p>Although no general recipe exists for cleaning datasets, there are a few standard checks and procedures you can follow as part of the cleanup process. First among those is renaming the variables (columns) within a dataset. Many datasets will come with variable names that are either hard to read due to abbreviations or are hard to use in R programs due to spaces or unusual symbols. For this reason, it is good practice to standardize the variable names. One such standard is called “snake case”, which is where you make all letters lowercase and you represent the spaces with underscores <span class="monospace">_</span>. So, for example, the variable <span class="monospace">Tow Date</span> in our dataset would become <span class="monospace">tow_date</span>.</p>
+<p>When we load the <span class="monospace">tidyverse</span> package, it provides us with the <code>rename()</code> function. We would use <code>rename()</code> as follows in order to change <span class="monospace">Tow Date</span> to <span class="monospace">tow_date</span>:</p>
+<pre class="r"><code>towed %&gt;%
+  rename(tow_date = `Tow Date`)</code></pre>
+<p>The new name goes to the left of the equals sign, and the old name goes to the right. You can rename several columns at once in the same <code>rename()</code> command using commas. The general format for renaming several columns at once&nbsp;is:</p>
+<pre class="r"><code>dataset %&gt;%
+  rename(
+    new_name1 = old_name1,
+    new_name2 = old_name2,
+    ...
+  )</code></pre>
+<ol class="example" type="1">
+<li>Use <code>rename()</code> to rename <strong>all</strong> 10 variables in the dataset so that they all conform to the “snake case” format. Assign the renamed dataset to a variable named <span class="monospace">towed_renamed</span>.</li>
+</ol>
+<h2 id="fixing-data-types">Fixing data&nbsp;types</h2>
+<p>Sometimes the data importer does not assign an appropriate data type to one or more columns. In this dataset, the <span class="monospace">tow_date</span> column is the character data type, but it should be the <span class="monospace">date</span> data type. Let’s fix&nbsp;that.</p>
+<ol start="2" class="example" type="1">
+<li><p>The <span class="monospace">lubridate</span> package has been loaded at the top of your R Markdown document, which provides you with helpful functions for working with dates. The <code>mdy()</code> function from <span class="monospace">lubridate</span> can be used to fix the <span class="monospace">tow_date</span> data type. You need to pair <code>mdy()</code> with <span class="monospace">mutate()</span> in order to fix the data&nbsp;type:</p>
+<pre class="r"><code>towed_renamed %&gt;%
+  mutate(tow_date = mdy(tow_date))</code></pre>
+<p>Assign the result to a variable name <span class="monospace">towed_renamed_2</span>.</p></li>
+</ol>
+<h2 id="checking-for-discrepancies-and-fixing-them">Checking for discrepancies and fixing&nbsp;them</h2>
+<p>Now that we’ve renamed our variables into the convenient snake case format and fixed the data types, let’s turn to looking for discrepancies in the dataset. Discrepancies refer to mistakes in data entry, which can be mispellings, inconsistent labeling, and other kinds of typos. For relatively small data sets like this one, we can look for discrepancies by asking R to count the number of occurrences of unique values within each categorical variable. The general idea is that entries that have a low count are more likely to be a typo than entries with a high count, especially if the category closely resembles another category with a higher count. The template for doing this using the <code>count()</code> function is provided&nbsp;below,</p>
+<pre class="r"><code>dataset %&gt;%
+  count(
+    column_1_to_count,
+    column_2_to_count,
+    ...
+  )</code></pre>
+<ol start="3" class="example" type="1">
+<li>Use <code>count()</code> to count the unique values of the <span class="monospace">make</span> column in <span class="monospace">towed_renamed_2</span> and assign the results to <span class="monospace">tow_make_count</span>. How many unique values are there in the <span class="monospace">make</span> column? Are there any categories that only have a count of&nbsp;1?</li>
+</ol>
+<p>While we could manually inspect the table we just created in <span class="monospace">tow_make_count</span>, it helps to make a visualization to aid us in our cleaning. We can create a bar chart that shows the counts for each category under <span class="monospace">make</span>. Because there are a lot of unique entries, let’s split <span class="monospace">tow_make_count</span> into four&nbsp;subsets.</p>
+<ol start="4" class="example" type="1">
+<li><p>We can use <code>slice()</code> to help us divide the dataset into four relatively equal pieces. To slice off the first 20 entries of the dataset, we would&nbsp;run:</p>
+<pre class="r"><code>tow_make_count_1 &lt;- tow_make_count %&gt;%
+  slice(1:20)</code></pre>
+<p>Slicing rows 21 through 40 would use <code>slice(21:40)</code> instead of <code>slice(1:20)</code>, and so&nbsp;on.</p>
+<p><strong>For this exercise, slice the dataset into four groups of 20 (or less) rows, which are assigned to variables <span class="monospace">tow_make_count_1</span>, <span class="monospace">tow_make_count_2</span>, <span class="monospace">tow_make_count_3</span>, and <span class="monospace">tow_make_count_4</span>.</strong></p></li>
+</ol>
+<p>Now that the dataset is split up, we can create a bar chart visualization for each one. For the first 20 rows, we would&nbsp;run:</p>
+<pre class="r"><code>ggplot(data = tow_make_count_1) +
+  geom_col(
+    mapping = aes(x = fct_rev(make), y = n)
+  ) +
+  coord_flip() +
+  xlab(&quot;Make&quot;) +
+  ylab(&quot;count&quot;)</code></pre>
+<p>The <code>fct_rev()</code> that surrounds <span class="monospace">make</span> is needed so that the <span class="monospace">make</span> variable is sorted in alphabetical order from top to&nbsp;bottom.</p>
+<ol start="5" class="example" type="1">
+<li>Create bar chart visualizations for <span class="monospace">tow_make_count_1</span>, <span class="monospace">tow_make_count_2</span>, <span class="monospace">tow_make_count_3</span> and <span class="monospace">tow_make_count_4</span>, using the above code as a template for getting&nbsp;started.</li>
+</ol>
+<p>If you look at the visualizations of the four groups of <span class="monospace">tow_make_count</span>, you may see some obvious problems. For example, for <em>Dodge</em> automobiles, the code should be <span class="monospace"><span class="caps">DODG</span></span>, however, there is an erroneous <span class="monospace"><span class="caps">DODD</span></span> entry in the dataset that should be <span class="monospace"><span class="caps">DODG</span></span>. This is an example of what we need to fix, and we can use the <code>recode()</code> function in order to do&nbsp;it:</p>
+<pre class="r"><code>towed_renamed_2 %&gt;%
+  mutate(
+    make = recode(
+      make,
+      DODD = &quot;DODG&quot;
+    )
+  )</code></pre>
+<p>Just like the <code>rename()</code> function, we can apply multiple recodes to fix the misspellings. The general format&nbsp;is:</p>
+<pre class="r"><code>towed_renamed_2 %&gt;%
+  mutate(
+    make = recode(
+      make,
+      MISPELLED1 = &quot;CORRECTED1&quot;,
+      MISPELLED2 = &quot;CORRECTED2&quot;,
+      MISPELLED3 = &quot;CORRECTED3&quot;,
+      ...
+    )
+  )</code></pre>
+<ol start="6" class="example" type="1">
+<li>Correct two misspellings, <span class="monospace">“<span class="caps">DODD</span>”</span> into <span class="monospace">“<span class="caps">DODG</span>”</span> and <span class="monospace">“<span class="caps">BUCI</span>”</span> into <span class="monospace">“<span class="caps">BUIC</span>”</span>, and assign the result to <span class="monospace">towed_partial_clean</span>.</li>
+</ol>
+<p>While some of the mistakes may be obvious, not all of them may be. It would be helpful if we had a standardized list of automobile make codes to reference. This is an example of the need to bring in outside information during a data science project, for unless you are already familiar with these codes, you won’t know when you have a standard abbreviation and and when you may have a misspelling. In your starter repository, you have been provided with the file <span class="monospace"><span class="caps">VTR</span>-249.pdf</span>, which contains a list of standard abbreviations for vehicle makes and body styles put together by the Texas Department of Motor Vehicles. <a href="https://drive.google.com/file/d/1GidzFxbRCnaDWBk5CBa5ct2jIuDKQy_t"><i class="fas fa-link"></i>You can also access a copy of <span class="monospace"><span class="caps">VTR</span>-249.pdf</span> by clicking this&nbsp;link.</a></p>
+<ol start="7" class="example" type="1">
+<li>Practice using the guide by opening the <span class="caps">PDF</span> file <span class="monospace"><span class="caps">VTR</span>-249.pdf</span> and checking whether the <em>Jaguar</em> make of automobile should be encoded as <span class="monospace">“<span class="caps">JAG</span>”</span> or <span class="monospace">“<span class="caps">JAGU</span>”</span>. Write down whether we should use <span class="monospace">“<span class="caps">JAG</span>”</span> or <span class="monospace">“<span class="caps">JAGU</span>”</span>.</li>
+</ol>
+<p>Now it’s time to put all of these pieces together and to clean the rest of the <span class="monospace">make</span> column in <span class="monospace">towed_partial_clean</span>. You will need to reference the four bar charts you created earlier as well as the file <span class="monospace"><span class="caps">VTR</span>-249.pdf</span> while doing&nbsp;this.</p>
+<ol start="8" class="example" type="1">
+<li>Clean the rest of the <span class="monospace">make</span> column by using your bar chart visualizations and the file <span class="monospace"><span class="caps">VTR</span>-249.pdf</span> to identify the misspellings. Use <code>recode()</code> to fix the misspellings as you were shown in the previous exercises. Assign the final result to <span class="monospace">towed_make_clean</span>.</li>
+</ol>
+<p>From here, we would also want to check the remaining columns, including the <span class="monospace">style</span> and <span class="monospace">model</span> columns, for mistakes. However, you’ve done enough data cleaning for one lab, as you can see data cleaning is tedious (and necessary)&nbsp;work!</p>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<p>Now that your dataset has been cleaned, let’s ask a couple of basic questions about it so that we can explore the&nbsp;data.</p>
+<ol start="9" class="example" type="1">
+<li><p>Which <span class="monospace">make</span> of automobile was impounded the most often in this&nbsp;dataset?</p></li>
+<li><p>Which day had the most cars impounded? Which day had the least cars&nbsp;impounded?</p></li>
+</ol>
+<h2 id="how-to-submit">How to&nbsp;submit</h2>
+<p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
+<ol type="1">
+<li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
+<li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 5</em> posting on&nbsp;Blackboard.</p></li>
+</ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">data import/tidyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
+<h2 id="credits">Credits</h2>
+<p>This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Exercises and instructions written by James Glasbrenner for <span class="caps">CDS</span>-102.</p>
 
 </div>    </article>
     </div>
