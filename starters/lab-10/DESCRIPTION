@@ -1,0 +1,7 @@
+Title: Lab 10 — Build and Explore a Temperature Database
+Depends:
+  R (>= 3.5)
+Imports:
+  tidyverse,
+  curl,
+  fs
