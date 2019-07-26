@@ -5878,7 +5878,388 @@ m014
 &lt;/ol&gt;
 &lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
 &lt;p&gt;This lab, &lt;em&gt;Moneyball&lt;/em&gt;, is a derivative of &lt;a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html"&gt;OpenIntro Lab 9 – Introduction to linear regression&lt;/a&gt; by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of &lt;span class="caps"&gt;UCLA&lt;/span&gt; Statistics, used under &lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;&lt;span class="caps"&gt;CC&lt;/span&gt; &lt;span class="caps"&gt;BY&lt;/span&gt;-&lt;span class="caps"&gt;SA&lt;/span&gt; 3.0&lt;/a&gt;. &lt;em&gt;Moneyball&lt;/em&gt; is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt; by James&amp;nbsp;Glasbrenner.&lt;/p&gt;
-</content><category term="lab"></category></entry><entry><title>Lab 10 – Build and Explore a Temperature Database</title><link href="https://www.cds101.com/labs/lab-10-temperature-database/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-10-temperature-database/</id><summary type="html">Download, build, and explore a database of daily average temperatures from January 1995 to the present&amp;nbsp;day</summary><content type="html">
+</content><category term="lab"></category></entry><entry><title>Lab 10 – Build and Explore a Temperature Database</title><link href="https://www.cds101.com/labs/lab-10-temperature-database/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-10-temperature-database/</id><summary type="html">Download, build, and explore a database of daily average temperatures from January 1995 to the present&amp;nbsp;day</summary><content type="html">&lt;h2 id="instructions"&gt;Instructions&lt;/h2&gt;
+&lt;p&gt;Obtain the GitHub repository you will use to complete the lab, which contains a starter file named &lt;span class="monospace"&gt;lab10.Rmd&lt;/span&gt;. This lab guides you through the process of building an automated pipeline to download and clean a series of files in order to build a database of average daily temperatures for you to explore. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file &lt;span class="monospace"&gt;lab10.Rmd&lt;/span&gt;. Then, when you’re ready to submit, follow the directions in the &lt;a href="#how-to-submit"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;How to submit&lt;/a&gt; section&amp;nbsp;below.&lt;/p&gt;
+&lt;h2 id="simplify-your-life-with-automation"&gt;Simplify your life with&amp;nbsp;automation&lt;/h2&gt;
+&lt;p&gt;Many problems in data science are solved using a series of repetitive and predictable tasks. Perhaps you’ve noticed this yourself as you’ve completed the labs in this course, for example when you’re asked to create data visualizations for several different columns in a dataset or you’re asked to apply the same general sequence of data transformations with slight modifications. Maybe you’ve found an interesting dataset that is split into dozens of different files that you have to download individually and then try and combine. From start to finish, there can be many times you think to yourself “this is just the same code from before with one change, why do I need to do this again?” It is when these moments and patterns show up that it is worth considering the question, “can I automate&amp;nbsp;this?”&lt;/p&gt;
+&lt;p&gt;Learning how to use R to automate even a small subset of your data science brings with it many benefits, such&amp;nbsp;as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Writing less code to complete a data science&amp;nbsp;problem&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Reducing the number of errors that can be introduced through copying and pasting code that you then manually&amp;nbsp;edit&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Making it easier to fetch updates from a data source and integrate them into your existing&amp;nbsp;database&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So why haven’t we been using these ideas since the beginning of the course? It is because, in practice, automating your work requires the use of computer programming concepts that are more advanced. This can get in the way of learning the basics of data science, such as visualization, data transformations, statistical analysis, and writing reports to summarize and present your work. Also, early on in the course when you are asked to complete simpler exercises, applying automation may appear (and indeed be) unnecessary, and just add to the confusion of why we should bother with it. Now that you have some experience with R and the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;, it is worth stepping through a straightforward, real-world example that demonstrates how this can be used to your&amp;nbsp;benefit.&lt;/p&gt;
+&lt;p&gt;For this lab, we will put together an automated pipeline to download, read, and combine the data files from the &lt;em&gt;University of Dayton - Environmental Protection Agency Average Daily Temperature Archive&lt;/em&gt;, &lt;a href="http://academic.udayton.edu/kissock/http/Weather/default.htm" class="uri"&gt;http://academic.udayton.edu/kissock/http/Weather/default.htm&lt;/a&gt;. After we assemble our pipeline to acquire our data, we will then explore our new dataset using our familiar &lt;span class="monospace"&gt;tidyverse&lt;/span&gt;&amp;nbsp;tools.&lt;/p&gt;
+&lt;p&gt;Let’s&amp;nbsp;begin!&lt;/p&gt;
+&lt;h2 id="about-the-dataset"&gt;About the&amp;nbsp;dataset&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://academic.udayton.edu/kissock/http/Weather/default.htm"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;The Average Daily Temperature Archive&lt;/a&gt; reports the average daily temperature from January 1995 to the present day for 157 &lt;span class="caps"&gt;U.S.&lt;/span&gt; and 167 international cities and are updated on a regular basis. Source data are from the Global Summary of the Day (&lt;span class="caps"&gt;GSOD&lt;/span&gt;) database archived by the &lt;a href="https://www.ncdc.noaa.gov/"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;National Centers for Environmental Information&lt;/a&gt; (formerly the National Climatic Data Center). The average daily temperatures posted on this site are computed from 24 hourly temperature readings in the &lt;a href="ftp://ftp.ncdc.noaa.gov/pub/data/gsod/"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;Global Summary of the Day (&lt;span class="caps"&gt;GSOD&lt;/span&gt;) data&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As part of this lab, you will be walked through the procedure of downloading the data files and reading them into R. The data files themselves are plain text and format the data into four columns. The table below provides descriptions for the 4 variables stored within each&amp;nbsp;file,&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style="width: 8%" /&gt;
+&lt;col style="width: 91%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;Column&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;1&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;integer between 1 – 12 (January – December) corresponding to the month&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;2&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;integer between 1 – 31 corresponding to the calendar day in a given month&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;3&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;integer between 1995 – 2018 indicating the year&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="monospace"&gt;4&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;the average daily temperature for the given day&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Temperature values (column 4) of &lt;span class="monospace"&gt;-99&lt;/span&gt; indicate that the measurement for that day is&amp;nbsp;unknown.&lt;/p&gt;
+&lt;h2 id="downloading-the-dataset"&gt;Downloading the&amp;nbsp;dataset&lt;/h2&gt;
+&lt;p&gt;Downloading a file from a website using R is straightforward, you just need to know the file &lt;span class="caps"&gt;URL&lt;/span&gt;.&lt;/p&gt;
+&lt;ol class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Go to the website hosting the dataset, &lt;a href="http://academic.udayton.edu/kissock/http/Weather/default.htm" class="uri"&gt;http://academic.udayton.edu/kissock/http/Weather/default.htm&lt;/a&gt;, and look for a link on the page labeled “All sites (in single 10 &lt;span class="caps"&gt;MB&lt;/span&gt; file)”. Right-click on this link and choose the option &lt;em&gt;Copy link address&lt;/em&gt; (depending on your web browser, this option may instead be called &lt;em&gt;Copy link&lt;/em&gt;, &lt;em&gt;Copy link location&lt;/em&gt;, or similar). Then, go back to your R Markdown report file in RStudio Server and assign the link to a variable named &lt;span class="monospace"&gt;allsites_zip_url&lt;/span&gt;, like&amp;nbsp;so:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;allsites_zip_url &amp;lt;- &amp;quot;http://dataset.url/goes/here&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that the pasted link needs to be placed in quotation&amp;nbsp;marks.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now that we have the &lt;span class="caps"&gt;URL&lt;/span&gt;, we need to specify where we want to download the file. We will use the convenient &lt;span class="monospace"&gt;fs&lt;/span&gt; package to deal with filenames and directories, which is already loaded for you in the setup block of your R Markdown lab report. We will be downloading the file to the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder, which should already be part of your lab report&amp;nbsp;repository.&lt;/p&gt;
+&lt;ol start="2" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;To specify the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder for later use, put the following code in your R Markdown lab report and run&amp;nbsp;it:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;data_dir &amp;lt;- path(&amp;quot;data&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now that we have the download folder to use, we also need to give the name of the file we are downloading, and tell R that we will want that file to be located &lt;em&gt;inside&lt;/em&gt; the &lt;span class="monospace"&gt;data/&lt;/span&gt;&amp;nbsp;folder:&lt;/p&gt;
+&lt;ol start="3" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;To specify the name of the file we are downloading and to have it end up inside the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder, put the following code in your R Markdown report and run&amp;nbsp;it:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;allsites_zip_path &amp;lt;- path(data_dir, &amp;quot;allsites&amp;quot;, ext = &amp;quot;zip&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In a second code block, run &lt;span class="monospace"&gt;allsites_zip_path&lt;/span&gt; to confirm that you see &lt;span class="monospace"&gt;data/allsites.zip&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now it’s time to download the&amp;nbsp;file.&lt;/p&gt;
+&lt;ol start="4" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;To download the file, put the following code in your R Markdown report and run&amp;nbsp;it:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;if (!file_exists(allsites_zip_path)) {
+  allsites_zip_url %&amp;gt;%
+    curl_download(destfile = allsites_zip_path)
+}&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When the code block has finished running, verify that it worked by going into your files browser in the lower-right window of RStudio and clicking on the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder. You should see a file named &lt;span class="monospace"&gt;allsites.zip&lt;/span&gt; that is approximately 13.7 &lt;span class="caps"&gt;MB&lt;/span&gt; in&amp;nbsp;size.&lt;/p&gt;
+&lt;p&gt;What is going on in the code block that you just ran? The &lt;code&gt;curl_download()&lt;/code&gt; function comes from the &lt;span class="monospace"&gt;curl&lt;/span&gt; package that was also pre-loaded in your R Markdown setup block. This function does what it says, it downloads things. You are downloading the file located at &lt;span class="monospace"&gt;allsites_zip_url&lt;/span&gt; and saving it to the location &lt;span class="monospace"&gt;allsites_zip_path&lt;/span&gt; (&lt;span class="monospace"&gt;destfile&lt;/span&gt; is short for “destination&amp;nbsp;file”).&lt;/p&gt;
+&lt;ol start="5" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;What about the part &lt;code&gt;if (!file_exists(allsites_zip_path))&lt;/code&gt;? First, try running the code block from Exercise 4 again. You should notice that the block seems to run a lot faster this&amp;nbsp;time.&lt;/p&gt;
+&lt;p&gt;Next, in a new code block below Exercise 5 in your lab report,&amp;nbsp;run,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;file_exists(allsites_zip_path)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, in another new code block,&amp;nbsp;run&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;!file_exists(allsites_zip_path)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on what these these code blocks are giving you, and the fact that the code block in Exercise 4 now runs faster, &lt;strong&gt;explain what the full line &lt;code&gt;if (!file_exists(allsites_zip_path))&lt;/code&gt; is doing in the&amp;nbsp;code.&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="unzipping-the-data-files"&gt;Unzipping the data&amp;nbsp;files&lt;/h2&gt;
+&lt;p&gt;We have our &lt;span class="monospace"&gt;allsites.zip&lt;/span&gt; file, which is a file in the zip format. We need to “unzip” this file in order to access the many files that are contained within&amp;nbsp;it.&lt;/p&gt;
+&lt;ol start="6" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;In a code block, run the following&amp;nbsp;code:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;allsites_zip_path %&amp;gt;%
+  unzip(exdir = data_dir)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder again in your Files tab in the lower-right side of RStudio Server. What has happened after you ran this&amp;nbsp;command?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="extracting-information-from-a-file-name"&gt;Extracting information from a file&amp;nbsp;name&lt;/h2&gt;
+&lt;p&gt;There are a lot of data files contained in this zip file, so let’s just focus on one for&amp;nbsp;now.&lt;/p&gt;
+&lt;ol start="7" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Specify the data file for Huntsville, Alabama by running the following code&amp;nbsp;block:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;data_file &amp;lt;- path(data_dir, &amp;quot;ALHUNTSV&amp;quot;, ext = &amp;quot;txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you run &lt;span class="monospace"&gt;data_file&lt;/span&gt; in your &lt;em&gt;Console&lt;/em&gt; window, you’ll&amp;nbsp;get&lt;/p&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1] “data/&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;.txt”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;as output. There are some convenience functions available for interacting with the &lt;span class="monospace"&gt;path&lt;/span&gt; format. The &lt;code&gt;path_file()&lt;/code&gt; function returns &lt;strong&gt;just&lt;/strong&gt; the filename part of a path. For&amp;nbsp;example:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;example_file_path &amp;lt;- path(&amp;quot;content&amp;quot;, &amp;quot;datafile&amp;quot;, ext = &amp;quot;txt&amp;quot;)
+example_file_path %&amp;gt;%
+  path_file()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1]&amp;nbsp;“datafile.txt”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If we wanted the directory part of the path, we use &lt;code&gt;path_dir()&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;example_file_path %&amp;gt;%
+  path_dir()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1]&amp;nbsp;“content”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If we wanted to remove the &lt;span class="monospace"&gt;.txt&lt;/span&gt; extension, we use &lt;code&gt;path_ext_remove()&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;example_file_path %&amp;gt;%
+  path_ext_remove()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1]&amp;nbsp;“content/datafile”&lt;/span&gt;&lt;/p&gt;
+&lt;ol start="8" class="example" type="1"&gt;
+&lt;li&gt;Apply two of the &lt;span class="monospace"&gt;path_&lt;/span&gt; functions to reduce the &lt;span class="monospace"&gt;data_file&lt;/span&gt; file path from &lt;span class="monospace"&gt;data/&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;.txt&lt;/span&gt; to &lt;span class="monospace"&gt;&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;&lt;/span&gt;. Assign the result to &lt;span class="monospace"&gt;data_file_name&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The file names tell us the locations where the temperature measurements come from. If the location is in the United States, then the first two letters are the two-letter abbreviation for a state and the remaining six letters give the city. So, for &lt;span class="monospace"&gt;&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;.txt&lt;/span&gt;, the first two letters are &lt;span class="monospace"&gt;&lt;span class="caps"&gt;AL&lt;/span&gt;&lt;/span&gt; for Alabama, and the last six letters are &lt;span class="monospace"&gt;&lt;span class="caps"&gt;HUNTSV&lt;/span&gt;&lt;/span&gt;, for Huntsville. For international locations, the first two letters are a two-letter country code and the last six are still a city name, for example &lt;span class="monospace"&gt;&lt;span class="caps"&gt;AUPERTH&lt;/span&gt;.txt&lt;/span&gt; contains temperature measurements from Perth, Australia. Because we will ultimately want to use &lt;strong&gt;all&lt;/strong&gt; of the files in the &lt;span class="monospace"&gt;data/&lt;/span&gt; directory, we should have a method for extracting the city name and the state/country codes directly from the&amp;nbsp;filenames.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;str_sub()&lt;/code&gt; function from the &lt;span class="monospace"&gt;stringr&lt;/span&gt; package allows us to extract text based on the location of the letters. For example, let’s consider the small string of text &lt;span class="monospace"&gt;“&lt;span class="caps"&gt;CDS102&lt;/span&gt;”&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cds102 &amp;lt;- &amp;quot;CDS102&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The course code &lt;span class="caps"&gt;CDS&lt;/span&gt; starts on the first letter and ends on the third letter. To get this part of the text using &lt;code&gt;str_sub()&lt;/code&gt;, I would&amp;nbsp;run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cds102 %&amp;gt;%
+  str_sub(start = 1, end = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1] “&lt;span class="caps"&gt;CDS&lt;/span&gt;”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The course number starts on the fourth letter and then goes to the end. Note that, if the part of the string you are grabbing goes to the end, you don’t need to specify the &lt;span class="monospace"&gt;end =&lt;/span&gt; keyword. So, to get the &lt;span class="monospace"&gt;“102”&lt;/span&gt; part of the text using &lt;code&gt;str_sub()&lt;/code&gt;, I would&amp;nbsp;run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cds102 %&amp;gt;%
+  str_sub(start = 4)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span class="monospace"&gt;## [1]&amp;nbsp;“102”&lt;/span&gt;&lt;/p&gt;
+&lt;ol start="9" class="example" type="1"&gt;
+&lt;li&gt;Apply &lt;code&gt;str_sub()&lt;/code&gt; to &lt;span class="monospace"&gt;data_file_name&lt;/span&gt; in order to extract the first two letters &lt;span class="monospace"&gt;&lt;span class="caps"&gt;AL&lt;/span&gt;&lt;/span&gt;, and assign this to the variable &lt;span class="monospace"&gt;file_state&lt;/span&gt;. Then, apply &lt;code&gt;str_sub()&lt;/code&gt; again in order to extract the remaining letters &lt;span class="monospace"&gt;&lt;span class="caps"&gt;HUNTSV&lt;/span&gt;&lt;/span&gt; and assign this to the variable &lt;span class="monospace"&gt;file_city&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="read-a-data-file-label-the-dataset"&gt;Read a data file, label the&amp;nbsp;dataset&lt;/h2&gt;
+&lt;p&gt;The data in &lt;span class="monospace"&gt;&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;.txt&lt;/span&gt; is not structured in the conventional csv format. If we look at the first few lines of the&amp;nbsp;file,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;data_file %&amp;gt;%
+  read_lines(n_max = 5) %&amp;gt;%
+  str_flatten(collapse = &amp;quot;\n&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="markdown"&gt;&lt;code&gt; 1             1             1995         48.8
+ 1             2             1995         32.1
+ 1             3             1995         31.2
+ 1             4             1995         32.5
+ 1             5             1995         21.1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;we see that there are four columns of data separated by spaces. Because the separation of the spaces is predictable, we will want to use the &lt;code&gt;read_table()&lt;/code&gt; function to read this file. Since this data file does not specify the column names at the top of the file, we will need to input those&amp;nbsp;manually.&lt;/p&gt;
+&lt;ol start="10" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Review the &lt;a href="#about-the-dataset"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;about the dataset&lt;/a&gt; section and list the column names for &lt;span class="monospace"&gt;&lt;span class="caps"&gt;ALHUNTSV&lt;/span&gt;.txt&lt;/span&gt; as inputs to the &lt;code&gt;combine()&lt;/code&gt; function. As a reminder, the template for using &lt;code&gt;combine()&lt;/code&gt; is,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;combine(&amp;quot;column name 1&amp;quot;, &amp;quot;column name 2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assign this to a variable named &lt;span class="monospace"&gt;col_names&lt;/span&gt;. Then, below &lt;span class="monospace"&gt;col_names&lt;/span&gt; in the same code block,&amp;nbsp;write:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;alhuntsv &amp;lt;- data_file %&amp;gt;%
+  read_table(col_names = col_names) %&amp;gt;%
+  mutate(
+    state = ...,
+    city = ...
+  ) %&amp;gt;%
+  mutate(
+    date = make_date(
+      year = ...,
+      month = ...,
+      day = ...
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;You will need to replace the elipses &lt;span class="monospace"&gt;…&lt;/span&gt; to make this work.&lt;/strong&gt; The first &lt;code&gt;mutate()&lt;/code&gt; is used to label the dataset with the city and state where the temperature data was measured. Fill those inputs in using a variable you assigned earlier in the lab. The second &lt;code&gt;mutate()&lt;/code&gt; creates a column with the &lt;span class="monospace"&gt;date&lt;/span&gt; data type using the &lt;code&gt;make_date()&lt;/code&gt; function from the &lt;span class="monospace"&gt;lubridate&lt;/span&gt; package. Fill in the column names (these are what you listed in &lt;span class="monospace"&gt;col_names&lt;/span&gt;) that correspond to the year, month, and day of the temperature&amp;nbsp;measurements.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One data file down, only 324 more to&amp;nbsp;go!&lt;/p&gt;
+&lt;h2 id="user-defined-functions"&gt;User-defined&amp;nbsp;functions&lt;/h2&gt;
+&lt;p&gt;Before we can continue, we need to take a detour and learn about the concept of &lt;strong&gt;user-defined functions&lt;/strong&gt;, which are the fundamental building blocks for automation. We’ve made use of many different functions during this course that were either pre-loaded by R or were loaded after running &lt;code&gt;library(tidyverse)&lt;/code&gt;. Any command that you run that has parentheses where you specify inputs, such as &lt;code&gt;ggplot()&lt;/code&gt;, &lt;code&gt;filter()&lt;/code&gt;, &lt;code&gt;mutate()&lt;/code&gt;, &lt;code&gt;mean()&lt;/code&gt;, etc. are functions. We’ve managed to accomplish a lot simply by relying on these pre-loaded functions! Now it’s time for you to create your&amp;nbsp;own.&lt;/p&gt;
+&lt;p&gt;Functions that you create are known as &lt;strong&gt;user-defined functions&lt;/strong&gt;, and an example of a simple user-defined function is as&amp;nbsp;follows:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;add &amp;lt;- function(number1, number2) {
+  result &amp;lt;- number1 + number2
+  cat(number1, &amp;quot;plus&amp;quot;, number2, &amp;quot;equals&amp;quot;, result, &amp;quot;\n&amp;quot;)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This creates a user-defined function called &lt;code&gt;add()&lt;/code&gt; that requires two inputs, &lt;span class="monospace"&gt;number1&lt;/span&gt; and &lt;span class="monospace"&gt;number2&lt;/span&gt;. It then adds those numbers and prints a sentence that summarizes the computation. Try it&amp;nbsp;out!&lt;/p&gt;
+&lt;ol start="11" class="example" type="1"&gt;
+&lt;li&gt;Copy and paste the code that defines the &lt;code&gt;add()&lt;/code&gt; function into a code block and run the block. Create a second code block and run &lt;code&gt;add(4, 6)&lt;/code&gt; and verify that you get some output. Then, right below &lt;code&gt;add(4, 6)&lt;/code&gt;, type &lt;code&gt;add()&lt;/code&gt; again and fill in your own two inputs and execute&amp;nbsp;it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Although this isn’t the most useful function that you can create, it does illustrate the basic procedure for creating a user-defined function in R. Let’s review what we just&amp;nbsp;did:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;We named our function &lt;code&gt;add()&lt;/code&gt; in the same way that we’ve saved outputs to variables in previous labs, by using the &lt;span class="monospace"&gt;&amp;lt;-&lt;/span&gt;&amp;nbsp;symbol&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We indicate that we are creating a user-defined function by using the word &lt;span class="monospace"&gt;function&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The function inputs (these are also called &lt;strong&gt;arguments&lt;/strong&gt;) are provided in the parentheses immediately following the word &lt;span class="monospace"&gt;function&lt;/span&gt;, i.e. &lt;span class="monospace"&gt;number1&lt;/span&gt; and &lt;span class="monospace"&gt;number2&lt;/span&gt; in &lt;code&gt;function(number1, number2)&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The code that the user-defined function will run is put between two curly braces, &lt;span class="monospace"&gt;{&lt;/span&gt; and &lt;span class="monospace"&gt;}&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The region between &lt;span class="monospace"&gt;{&lt;/span&gt; and &lt;span class="monospace"&gt;}&lt;/span&gt; is known as the &lt;strong&gt;function body&lt;/strong&gt;, and you write code within the function body in the same way that you write code in an R Markdown code&amp;nbsp;block&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The inputs, in this case &lt;span class="monospace"&gt;number1&lt;/span&gt; and &lt;span class="monospace"&gt;number2&lt;/span&gt;, should be used somewhere in the function&amp;nbsp;body&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When you run &lt;code&gt;add(4, 6)&lt;/code&gt;, the function automatically knows to substitute &lt;span class="monospace"&gt;4&lt;/span&gt; wherever &lt;span class="monospace"&gt;number1&lt;/span&gt; is and &lt;span class="monospace"&gt;6&lt;/span&gt; wherever &lt;span class="monospace"&gt;number2&lt;/span&gt; is, so the&amp;nbsp;line,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;result &amp;lt;- number1 + number2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;result &amp;lt;- 4 + 6&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What if we wanted to access the result of &lt;code&gt;add(4, 6)&lt;/code&gt;, which is &lt;span class="monospace"&gt;10&lt;/span&gt;? Maybe after we run &lt;code&gt;add(4, 6)&lt;/code&gt; the variable &lt;span class="monospace"&gt;result&lt;/span&gt; becomes defined. In your &lt;em&gt;Console&lt;/em&gt; window, type &lt;code&gt;add(4, 6)&lt;/code&gt;, then type &lt;code&gt;result&lt;/code&gt;. I suspect that you’ll see the&amp;nbsp;following:&lt;/p&gt;
+&lt;pre class="markdown"&gt;&lt;code&gt;&amp;gt; add(4, 6)
+4 plus 6 equals 10 
+&amp;gt; result
+Error: object &amp;#39;result&amp;#39; not found&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So it seems like the variable &lt;span class="monospace"&gt;result&lt;/span&gt; is “forgotten” after &lt;code&gt;add()&lt;/code&gt; is run. Instead, maybe we could try to save the result variable using &lt;span class="monospace"&gt;&amp;lt;-&lt;/span&gt; symbol. In your &lt;em&gt;Console&lt;/em&gt; window,&amp;nbsp;type,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;add_result &amp;lt;- add(4, 6)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then type &lt;span class="monospace"&gt;add_result&lt;/span&gt;. When you do this, I suspect you’ll get a &lt;span class="monospace"&gt;&lt;span class="caps"&gt;NULL&lt;/span&gt;&lt;/span&gt; instead of a &lt;span class="monospace"&gt;10&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;As you now see, the &lt;code&gt;add()&lt;/code&gt; function, as written, is not allowing us to access the value of &lt;span class="monospace"&gt;10&lt;/span&gt; when we try to save it. How do we fix this? It turns out that the fix is straightforward, we just need to put the word &lt;span class="monospace"&gt;result&lt;/span&gt; on the last line of the function&amp;nbsp;body:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;add_fix &amp;lt;- function(number1, number2) {
+  result &amp;lt;- number1 + number2
+  cat(number1, &amp;quot;plus&amp;quot;, number2, &amp;quot;equals&amp;quot;, result, &amp;quot;\n&amp;quot;)
+  result
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s try it&amp;nbsp;out.&lt;/p&gt;
+&lt;ol start="12" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Copy and paste the code that defines the function &lt;code&gt;add_fix()&lt;/code&gt; into your R Markdown file. Then, create a second code block and&amp;nbsp;run&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;add_result &amp;lt;- add_fix(4, 6)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check the value inside of &lt;span class="monospace"&gt;add_result&lt;/span&gt; to confirm that it is equal to &lt;span class="monospace"&gt;10&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This demonstrates how we are able to &lt;strong&gt;return&lt;/strong&gt; values from user-defined functions that we can save for later use. The last thing we execute within the function body is what the function returns, and whatever is returned is what we can save for later use with the &lt;span class="monospace"&gt;&amp;lt;-&lt;/span&gt; symbol. All other variables used in the function body are&amp;nbsp;forgotten.&lt;/p&gt;
+&lt;p&gt;If you still don’t feel like you could make a user-defined function on your own without guidance, that’s okay! It takes time and practice to get used to them. Since this is still a new concept, you’ll continue to be given hints and provided with templates to help you&amp;nbsp;out.&lt;/p&gt;
+&lt;p&gt;Let’s consider another example based on the &lt;span class="monospace"&gt;mpg&lt;/span&gt; dataset. If you were given this dataset for a lab, you might be asked to create a density plot for the &lt;span class="monospace"&gt;hwy&lt;/span&gt;, &lt;span class="monospace"&gt;cty&lt;/span&gt;, and &lt;span class="monospace"&gt;displ&lt;/span&gt; variables. Up until now, you would create three different code blocks to complete this task that might look like&amp;nbsp;this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#96;&amp;#96;&amp;#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = hwy)
+  )
+&amp;#96;&amp;#96;&amp;#96;
+
+&amp;#96;&amp;#96;&amp;#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = cty)
+  )
+&amp;#96;&amp;#96;&amp;#96;
+
+&amp;#96;&amp;#96;&amp;#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = displ)
+  )
+&amp;#96;&amp;#96;&amp;#96;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These three blocks of code are nearly identical, with the only difference between them being the input for the &lt;code&gt;aes()&lt;/code&gt; function. This seems like a good candidate for a user-defined function! If I asked you to build one yourself based on what we’ve seen so far, you might try&amp;nbsp;this:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# SPOILER ALERT: This function won&amp;#39;t work
+mpg_density_plot &amp;lt;- function(variable) {
+  ggplot(data = mpg) +
+    geom_density(
+      mapping = aes(x = variable)
+    )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you defined this function and then ran &lt;code&gt;mpg_density_plot(hwy)&lt;/code&gt;, instead of getting a visualization, you’ll get the disappointing&amp;nbsp;message:&lt;/p&gt;
+&lt;pre class="markdown"&gt;&lt;code&gt;Error in FUN(X[[i]], ...) : object &amp;#39;hwy&amp;#39; not found&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Like so many other cases, &lt;span class="monospace"&gt;tidyverse&lt;/span&gt; functions have their own way of doing things compared to regular R, and this includes how you can specify &lt;strong&gt;unquoted variables&lt;/strong&gt; in a user-defined function. Without special handling, what R will do here is check to see if &lt;span class="monospace"&gt;hwy&lt;/span&gt; is a variable that stores a value. If it doesn’t, then it just prints an error message and stops. If you want to be able to run &lt;code&gt;mpg_density_plot(hwy)&lt;/code&gt; without getting an error message, you need to modify the function definition to the&amp;nbsp;following:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Unlike before, this function will now work
+mpg_density_plot &amp;lt;- function(variable) {
+  user_input &amp;lt;- rlang::enquo(variable)
+  ggplot(data = mpg) +
+    geom_density(
+      mapping = aes(x = !!user_input)
+    )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s try this&amp;nbsp;out.&lt;/p&gt;
+&lt;ol start="13" class="example" type="1"&gt;
+&lt;li&gt;Copy and paste the code that defines the corrected &lt;span class="monospace"&gt;mpg_density_plot&lt;/span&gt; function into a code block and run the block. Then, create three more code blocks and use &lt;span class="monospace"&gt;mpg_density_plot&lt;/span&gt; to create density plots for the &lt;span class="monospace"&gt;hwy&lt;/span&gt;, &lt;span class="monospace"&gt;cty&lt;/span&gt;, and &lt;span class="monospace"&gt;displ&lt;/span&gt;&amp;nbsp;variables.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The line &lt;code&gt;user_input &amp;lt;- rlang::enquo(variable)&lt;/code&gt; converts the word you give as input to &lt;span class="monospace"&gt;mpg_density_plot&lt;/span&gt; into a special format that is used in the &lt;span class="monospace"&gt;tidyverse&lt;/span&gt; packages. When that word later needs to be used to specify a column name in a dataset, you put two exclamation points in front of it, i.e. &lt;code&gt;aes(x = !!user_input)&lt;/code&gt;. This would also be what you would have to do if you wanted to use a command from &lt;span class="monospace"&gt;dplyr&lt;/span&gt;, such as &lt;code&gt;select()&lt;/code&gt;,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mpg_select &amp;lt;- function(column) {
+  user_input &amp;lt;- rlang::enquo(column)
+  mpg %&amp;gt;%
+    select(!!user_input)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This allows us to select a single column like&amp;nbsp;so:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mpg_select(hwy)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align:left;"&gt;
+hwy
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+29
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+29
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+31
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+30
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt;
+…
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Again, don’t worry right now if this business with &lt;code&gt;rlang::enquo()&lt;/code&gt; and &lt;span class="monospace"&gt;!!&lt;/span&gt; doesn’t make total sense to you. This example was meant to show you what is required if you want to specify column names in the inputs to your user-defined function. That way you have a reference to come back to in case you ever need to do&amp;nbsp;this!&lt;/p&gt;
+&lt;h2 id="function-to-read-a-data-file"&gt;Function to read a data&amp;nbsp;file&lt;/h2&gt;
+&lt;p&gt;Now that we’ve learned a bit about what functions are, let’s take what we did in the &lt;a href="#extracting-information-from-a-file-name"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;extracting information from a file name&lt;/a&gt; and &lt;a href="#read-a-data-file-label-the-dataset"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;read a data file, label the dataset&lt;/a&gt; sections and combine this code into a single&amp;nbsp;function.&lt;/p&gt;
+&lt;ol start="14" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;The structure for our user-defined function &lt;code&gt;read_data_file()&lt;/code&gt; is as&amp;nbsp;follows:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;read_data_file &amp;lt;- function(data_file) {
+  # file_state &amp;lt;- Code to get two-letter state/country code from filename
+  # file_city &amp;lt;- Code to get city names from filename
+  # col_names &amp;lt;- Code to list column names
+  # temperature_data_frame &amp;lt;- Code to read and label the data
+
+  temperature_data_frame
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using the results of Exercises 8, 9, and 10, replace the first four line comments in the function body with working code. &lt;strong&gt;When the function is implemented correctly, running &lt;code&gt;read_data_file(path(data_dir, &amp;quot;ALHUNTSV&amp;quot;, ext = &amp;quot;txt&amp;quot;))&lt;/code&gt; should produce the same output as running &lt;span class="monospace"&gt;alhuntsv&lt;/span&gt; in the &lt;em&gt;Console&lt;/em&gt;&amp;nbsp;pane.&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="read-all-the-data-files"&gt;Read all the data&amp;nbsp;files&lt;/h2&gt;
+&lt;p&gt;Now that we have &lt;code&gt;read_data_file()&lt;/code&gt; defined, we’re ready to read and combine the rest of the data files together into one large data frame. To do this, we will need a list of all the data files in the &lt;span class="monospace"&gt;data/&lt;/span&gt; folder. The &lt;span class="monospace"&gt;fs&lt;/span&gt; package, like usual, provides us with a convenient function, the &lt;code&gt;dir_ls()&lt;/code&gt; function, that lists of all the files in a given folder. To list our files, we simply need to&amp;nbsp;run,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;data_files &amp;lt;- data_dir %&amp;gt;%
+  dir_ls(glob = &amp;quot;*.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;span class="monospace"&gt;glob = &amp;#8220;*.txt&amp;#8221;&lt;/span&gt; input tells &lt;code&gt;dir_ls()&lt;/code&gt; to only list files ending with &lt;code&gt;.txt&lt;/code&gt;, which are our temperature data&amp;nbsp;files.&lt;/p&gt;
+&lt;p&gt;Now we need a way to apply &lt;code&gt;read_data_file()&lt;/code&gt; to every file listed in &lt;span class="monospace"&gt;data_files&lt;/span&gt;, which will produce a series of data frames containing the temperature data for every location. We then need to take those data frames and bind all the rows together to create a single data frame we can use. Lucky for us, &lt;span class="monospace"&gt;tidyverse&lt;/span&gt; loads a very convenient function that can do exactly this, the &lt;code&gt;map_dfr()&lt;/code&gt; function,&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;temperature_df &amp;lt;- data_files %&amp;gt;%
+  map_dfr(read_data_file) %&amp;gt;%
+  mutate(
+    temperature = if_else(
+      near(temperature, -99),
+      as.numeric(NA),
+      temperature
+    )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="15" class="example" type="1"&gt;
+&lt;li&gt;&lt;p&gt;Copy and run the code for creating &lt;span class="monospace"&gt;data_files&lt;/span&gt; and then &lt;span class="monospace"&gt;temperature_df&lt;/span&gt;. Verify that &lt;span class="monospace"&gt;temperature_df&lt;/span&gt; has more than 2.7 million&amp;nbsp;rows.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;mutate()&lt;/code&gt; function is creating a new column called temperature and is using the &lt;code&gt;if_else()&lt;/code&gt; function to replace any temperature values equal to &lt;span class="monospace"&gt;-99&lt;/span&gt; with &lt;code&gt;NA&lt;/code&gt;. Explain why we want to do&amp;nbsp;this.&lt;/p&gt;
+&lt;div class="callout primary"&gt;
+&lt;p&gt;&lt;span class="h4"&gt;Hint&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If you are having trouble remembering what a value of &lt;span class="monospace"&gt;-99&lt;/span&gt; means, go back and read the &lt;a href="#about-the-dataset"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;about the dataset&lt;/a&gt;&amp;nbsp;section.&lt;/p&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="explore-your-new-temperature-database"&gt;Explore your new temperature&amp;nbsp;database&lt;/h2&gt;
+&lt;p&gt;Now that we have all our data in one place, we should take a look at what’s in it. First, let’s remove the &lt;span class="monospace"&gt;&lt;span class="caps"&gt;NA&lt;/span&gt;&lt;/span&gt; values in the &lt;span class="monospace"&gt;temperature&lt;/span&gt; column, as those rows represent missing measurements and so we don’t need to keep them for our analysis. We should also remove the year 2018 from the dataset, as the data collection for the year is still in&amp;nbsp;progress.&lt;/p&gt;
+&lt;ol start="16" class="example" type="1"&gt;
+&lt;li&gt;Use &lt;code&gt;filter()&lt;/code&gt; and &lt;code&gt;is.na()&lt;/code&gt; to remove the &lt;span class="monospace"&gt;&lt;span class="caps"&gt;NA&lt;/span&gt;&lt;/span&gt; values from the &lt;span class="monospace"&gt;temperature&lt;/span&gt; column. Then use filter to remove data for the year 2019. Assign the result to &lt;span class="monospace"&gt;temperature_df_filtered&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let’s start with a query for the temperature data for Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="17" class="example" type="1"&gt;
+&lt;li&gt;Filter &lt;span class="monospace"&gt;temperature_df_filtered&lt;/span&gt; to only contain the temperature data for Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;. To figure out the filename for Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;, check here: &lt;a href="http://academic.udayton.edu/kissock/http/Weather/citylistUS.htm" class="uri"&gt;http://academic.udayton.edu/kissock/http/Weather/citylistUS.htm&lt;/a&gt;. Assign the filtered dataset to &lt;span class="monospace"&gt;washdc&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let’s create a visualization showing the average daily temperatures as a function of time for Washington, &lt;span class="caps"&gt;DC&lt;/span&gt;.&lt;/p&gt;
+&lt;ol start="18" class="example" type="1"&gt;
+&lt;li&gt;Make a scatter plot of your &lt;span class="monospace"&gt;washdc&lt;/span&gt; dataset using &lt;span class="monospace"&gt;date&lt;/span&gt; for the horizontal axis and &lt;span class="monospace"&gt;temperature&lt;/span&gt; for the vertical axis. After you’ve created the plot, explain why you see the daily average temperatures consistently oscillating between higher and lower temperatures as a function of&amp;nbsp;time.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let’s see if the average and median temperatures per year in Washington, &lt;span class="caps"&gt;DC&lt;/span&gt; have stayed&amp;nbsp;consistent.&lt;/p&gt;
+&lt;ol start="19" class="example" type="1"&gt;
+&lt;li&gt;Take &lt;span class="monospace"&gt;washdc&lt;/span&gt; and group by the &lt;span class="monospace"&gt;year&lt;/span&gt; column. Then, within this group, calculate both the mean (average) temperature and the median (middle) temperature. Assign this result to a variable called &lt;span class="monospace"&gt;washdc_year&lt;/span&gt;. Then, create two separate scatter plots, one plotting &lt;span class="monospace"&gt;year&lt;/span&gt; along the horizontal axis and the mean temperature per year along the vertical axis and the other plotting &lt;span class="monospace"&gt;year&lt;/span&gt; along the horizontal axis and the median temperature per year for the vertical axis. Also include &lt;code&gt;geom_smooth()&lt;/code&gt; on each of these plots. Describe the trends you&amp;nbsp;see.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finally, let’s take a more global view of the data and look at the average and median temperatures per year across the entire&amp;nbsp;dataset.&lt;/p&gt;
+&lt;ol start="20" class="example" type="1"&gt;
+&lt;li&gt;Take &lt;span class="monospace"&gt;temperature_df_filtered&lt;/span&gt; and group by the &lt;span class="monospace"&gt;year&lt;/span&gt; column. Then, within this group, calculate both the mean (average) temperature and the median (middle) temperature. Assign this result to a variable called &lt;span class="monospace"&gt;world_year&lt;/span&gt;. Then, create two separate scatter plots, one plotting &lt;span class="monospace"&gt;year&lt;/span&gt; along the horizontal axis and the mean temperature per year along the vertical axis and the other plotting &lt;span class="monospace"&gt;year&lt;/span&gt; along the horizontal axis and the median temperature per year for the vertical axis. Also include &lt;code&gt;geom_smooth()&lt;/code&gt; on each of these plots. Describe the trends you&amp;nbsp;see.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There’s plenty more you could do with this dataset, but that’s enough for&amp;nbsp;now.&lt;/p&gt;
+&lt;h2 id="how-to-submit"&gt;How to&amp;nbsp;submit&lt;/h2&gt;
+&lt;p&gt;To submit your lab, follow the two steps below. Your lab will be graded for credit &lt;strong&gt;after&lt;/strong&gt; you’ve completed both&amp;nbsp;steps!&lt;/p&gt;
+&lt;ol type="1"&gt;
+&lt;li&gt;&lt;p&gt;Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&amp;nbsp;website.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Knit your R Markdown document to the &lt;span class="caps"&gt;PDF&lt;/span&gt; format, export (download) the &lt;span class="caps"&gt;PDF&lt;/span&gt; file from RStudio Server, and then upload it to &lt;em&gt;Lab 10&lt;/em&gt; posting on&amp;nbsp;Blackboard.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="cheatsheets"&gt;Cheatsheets&lt;/h2&gt;
+&lt;p&gt;You are encouraged to review and keep the following cheatsheets handy while working on this&amp;nbsp;lab:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf"&gt;data import/tidyr&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf"&gt;dplyr&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf"&gt;ggplot2&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf"&gt;RStudio&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf"&gt;R Markdown&amp;nbsp;cheatsheet&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf"&gt;R Markdown&amp;nbsp;reference&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="credits"&gt;Credits&lt;/h2&gt;
+&lt;p&gt;This lab is licensed under a &lt;a href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;. Exercises and instructions written by James Glasbrenner for &lt;span class="caps"&gt;CDS&lt;/span&gt;-102.&lt;/p&gt;
 </content><category term="lab"></category></entry><entry><title>Lab 11 – Mining the social web</title><link href="https://www.cds101.com/labs/lab-11-mining-the-social-web/" rel="alternate"></link><published>2019-01-01T00:00:00-05:00</published><updated>2019-01-01T00:00:00-05:00</updated><author><name>Dr. Glasbrenner</name></author><id>tag:www.cds101.com,2019-01-01:/labs/lab-11-mining-the-social-web/</id><summary type="html">Accessing the Twitter &lt;span class="caps"&gt;API&lt;/span&gt; using &lt;span style="monospace"&gt;rtweet&lt;/span&gt; and exploring what you can do with the harvested&amp;nbsp;data</summary><content type="html">&lt;h2 id="instructions"&gt;Instructions&lt;/h2&gt;
 &lt;p&gt;Obtain the GitHub repository you will use to complete the lab, which contains a starter file named &lt;span class="monospace"&gt;lab11.Rmd&lt;/span&gt;. This lab shows you how to access the Twitter &lt;span class="caps"&gt;API&lt;/span&gt; using the &lt;span class="monospace"&gt;rtweet&lt;/span&gt; package and how to analyze the harvested data. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file &lt;span class="monospace"&gt;lab11.Rmd&lt;/span&gt;. Then, when you’re ready to submit, follow the directions in the &lt;a href="#how-to-submit"&gt;&lt;i class="fas fa-link"&gt;&lt;/i&gt;How to submit&lt;/a&gt; section&amp;nbsp;below.&lt;/p&gt;
 &lt;h2 id="gathering-data-using-an-api"&gt;Gathering data using an &lt;span class="caps"&gt;API&lt;/span&gt;&lt;/h2&gt;
