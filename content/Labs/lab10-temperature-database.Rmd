@@ -6,10 +6,11 @@ Tags: lab
 Slug: lab-10-temperature-database
 Summary: Download, build, and explore a database of daily average temperatures from January 1995 to the present day
 Show_summary: true
-Show_link: false
+Show_link: true
 
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(fs))
 
 icon_pdf <- '<i class="fas fa-file-pdf" data-fa-transform="grow-2"></i>&nbsp;'
 icon_link <- '<i class="fas fa-link"></i>'
@@ -18,3 +19,699 @@ icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp
 lab_name <- "Lab 10"
 starter_file <- "lab10.Rmd"
 ```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the lab, which contains a starter file named [`r starter_file`]{.monospace}.
+This lab guides you through the process of building an automated pipeline to download and clean a series of files in order to build a database of average daily temperatures for you to explore.
+Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file [`r starter_file`]{.monospace}.
+Then, when you're ready to submit, follow the directions in the [`r icon_link`How to submit](#how-to-submit) section below.
+
+## Simplify your life with automation
+
+Many problems in data science are solved using a series of repetitive and predictable tasks.
+Perhaps you've noticed this yourself as you've completed the labs in this course, for example when you're asked to create data visualizations for several different columns in a dataset or you're asked to apply the same general sequence of data transformations with slight modifications.
+Maybe you've found an interesting dataset that is split into dozens of different files that you have to download individually and then try and combine.
+From start to finish, there can be many times you think to yourself "this is just the same code from before with one change, why do I need to do this again?"
+It is when these moments and patterns show up that it is worth considering the question, "can I automate this?"
+
+Learning how to use R to automate even a small subset of your data science brings with it many benefits, such as:
+
+*   Writing less code to complete a data science problem
+
+*   Reducing the number of errors that can be introduced through copying and pasting code that you then manually edit
+
+*   Making it easier to fetch updates from a data source and integrate them into your existing database
+
+So why haven't we been using these ideas since the beginning of the course?
+It is because, in practice, automating your work requires the use of computer programming concepts that are more advanced.
+This can get in the way of learning the basics of data science, such as visualization, data transformations, statistical analysis, and writing reports to summarize and present your work.
+Also, early on in the course when you are asked to complete simpler exercises, applying automation may appear (and indeed be) unnecessary, and just add to the confusion of why we should bother with it.
+Now that you have some experience with R and the [tidyverse]{.monospace}, it is worth stepping through a straightforward, real-world example that demonstrates how this can be used to your benefit.
+
+For this lab, we will put together an automated pipeline to download, read, and combine the data files from the *University of Dayton - Environmental Protection Agency Average Daily Temperature Archive*, <http://academic.udayton.edu/kissock/http/Weather/default.htm>.
+After we assemble our pipeline to acquire our data, we will then explore our new dataset using our familiar [tidyverse]{.monospace} tools.
+
+Let's begin!
+
+## About the dataset
+
+[`r icon_link`The Average Daily Temperature Archive][dayton-url] reports the average daily temperature from January 1995 to the present day for 157 U.S. and 167 international cities and are updated on a regular basis.
+Source data are from the Global Summary of the Day (GSOD) database archived by the [`r icon_link`National Centers for Environmental Information][ncei-url] (formerly the National Climatic Data Center).
+The average daily temperatures posted on this site are computed from 24 hourly temperature readings in the [`r icon_link`Global Summary of the Day (GSOD) data][gsod-ftp-url].
+
+As part of this lab, you will be walked through the procedure of downloading the data files and reading them into R.
+The data files themselves are plain text and format the data into four columns.
+The table below provides descriptions for the 4 variables stored within each file,
+
+| Column               | Description                                                               |
+| ------               | ------------------------------------------------------------------        |
+| [1]{.monospace}      | integer between 1 – 12 (January – December) corresponding to the month    |
+| [2]{.monospace}      | integer between 1 – 31 corresponding to the calendar day in a given month |
+| [3]{.monospace}      | integer between 1995 – 2018 indicating the year                           |
+| [4]{.monospace}      | the average daily temperature for the given day                           |
+
+Temperature values (column 4) of [-99]{.monospace} indicate that the measurement for that day is unknown.
+
+## Downloading the dataset
+
+Downloading a file from a website using R is straightforward, you just need to know the file URL.
+
+@.  
+    Go to the website hosting the dataset, <http://academic.udayton.edu/kissock/http/Weather/default.htm>, and look for a link on the page labeled "All sites (in single 10 MB file)".
+    Right-click on this link and choose the option _Copy link address_ (depending on your web browser, this option may instead be called _Copy link_, _Copy link location_, or similar).
+    Then, go back to your R Markdown report file in RStudio Server and assign the link to a variable named [allsites\_zip\_url]{.monospace}, like so:
+    
+    ```r
+    allsites_zip_url <- "http://dataset.url/goes/here"
+    ```
+    
+    Note that the pasted link needs to be placed in quotation marks.
+    
+Now that we have the URL, we need to specify where we want to download the file.
+We will use the convenient [fs]{.monospace} package to deal with filenames and directories, which is already loaded for you in the setup block of your R Markdown lab report.
+We will be downloading the file to the [data/]{.monospace} folder, which should already be part of your lab report repository.
+
+@.  
+    To specify the [data/]{.monospace} folder for later use, put the following code in your R Markdown lab report and run it:
+
+    ```r
+    data_dir <- path("data")
+    ```
+    
+Now that we have the download folder to use, we also need to give the name of the file we are downloading, and tell R that we will want that file to be located *inside* the [data/]{.monospace} folder:
+
+@.
+    To specify the name of the file we are downloading and to have it end up inside the [data/]{.monospace} folder, put the following code in your R Markdown report and run it:
+
+    ```r
+    allsites_zip_path <- path(data_dir, "allsites", ext = "zip")
+    ```
+    
+    In a second code block, run [allsites\_zip\_path]{.monospace} to confirm that you see [data/allsites.zip]{.monospace}.
+
+Now it's time to download the file.
+
+@curl-download-exercise.
+    To download the file, put the following code in your R Markdown report and run it:
+
+    ```r
+    if (!file_exists(allsites_zip_path)) {
+      allsites_zip_url %>%
+        curl_download(destfile = allsites_zip_path)
+    }
+    ```
+    
+When the code block has finished running, verify that it worked by going into your files browser in the lower-right window of RStudio and clicking on the [data/]{.monospace} folder.
+You should see a file named [allsites.zip]{.monospace} that is approximately 13.7 MB in size.
+
+What is going on in the code block that you just ran?
+The `curl_download()` function comes from the [curl]{.monospace} package that was also pre-loaded in your R Markdown setup block.
+This function does what it says, it downloads things.
+You are downloading the file located at [allsites\_zip\_url]{.monospace} and saving it to the location [allsites\_zip\_path]{.monospace} ([destfile]{.monospace} is short for "destination file").
+
+@what-if-means.
+    What about the part `if (!file_exists(allsites_zip_path))`?
+    First, try running the code block from Exercise @curl-download-exercise again.
+    You should notice that the block seems to run a lot faster this time.
+    
+    Next, in a new code block below Exercise @what-if-means in your lab report, run,
+    
+    ```r
+    file_exists(allsites_zip_path)
+    ```
+    
+    Then, in another new code block, run
+    
+    ```r
+    !file_exists(allsites_zip_path)
+    ```
+    
+    Based on what these these code blocks are giving you, and the fact that the code block in Exercise @curl-download-exercise now runs faster, **explain what the full line `if (!file_exists(allsites_zip_path))` is doing in the code.**
+
+## Unzipping the data files
+
+We have our [allsites.zip]{.monospace} file, which is a file in the zip format.
+We need to "unzip" this file in order to access the many files that are contained within it.
+
+@.  
+    In a code block, run the following code:
+
+    ```r
+    allsites_zip_path %>%
+      unzip(exdir = data_dir)
+    ```
+    
+    Check the [data/]{.monospace} folder again in your Files tab in the lower-right side of RStudio Server.
+    What has happened after you ran this command?
+
+## Extracting information from a file name
+
+There are a lot of data files contained in this zip file, so let's just focus on one for now.
+
+@.  
+    Specify the data file for Huntsville, Alabama by running the following code block:
+
+    ```r
+    data_file <- path(data_dir, "ALHUNTSV", ext = "txt")
+    ```
+    
+If you run [data\_file]{.monospace} in your _Console_ window, you'll get
+
+```{r data-alhuntsv-txt-filename, echo = FALSE, results = 'asis'}
+cat(
+  paste0(
+    "[## [1] \"",
+    path("data", "ALHUNTSV", ext = "txt"),
+    "\"]{.monospace}"
+  )
+)
+```
+
+as output.
+There are some convenience functions available for interacting with the [path]{.monospace} format.
+The `path_file()` function returns **just** the filename part of a path.
+For example:
+
+```r
+example_file_path <- path("content", "datafile", ext = "txt")
+example_file_path %>%
+  path_file()
+```
+
+```{r path-file-example, echo = FALSE, results = 'asis'}
+example_file_path <- path("content", "datafile", ext = "txt")
+cat(
+  paste0(
+    "[## [1] \"",
+    path_file(example_file_path),
+    "\"]{.monospace}"
+  )
+)
+```
+
+If we wanted the directory part of the path, we use `path_dir()`:
+
+```r
+example_file_path %>%
+  path_dir()
+```
+
+```{r path-dir-example, echo = FALSE, results = 'asis'}
+cat(
+  paste0(
+    "[## [1] \"",
+    path_dir(example_file_path),
+    "\"]{.monospace}"
+  )
+)
+```
+
+If we wanted to remove the [.txt]{.monospace} extension, we use `path_ext_remove()`:
+
+```r
+example_file_path %>%
+  path_ext_remove()
+```
+
+```{r path-ext-remove-example, echo = FALSE, results = 'asis'}
+cat(
+  paste0(
+    "[## [1] \"",
+    path_ext_remove(example_file_path),
+    "\"]{.monospace}"
+  )
+)
+```
+
+@path-file-cleanup.
+    Apply two of the [path\_]{.monospace} functions to reduce the [data\_file]{.monospace} file path from [data/ALHUNTSV.txt]{.monospace} to [ALHUNTSV]{.monospace}.
+    Assign the result to [data\_file\_name]{.monospace}.
+
+The file names tell us the locations where the temperature measurements come from.
+If the location is in the United States, then the first two letters are the two-letter abbreviation for a state and the remaining six letters give the city.
+So, for [ALHUNTSV.txt]{.monospace}, the first two letters are [AL]{.monospace} for Alabama, and the last six letters are [HUNTSV]{.monospace}, for Huntsville.
+For international locations, the first two letters are a two-letter country code and the last six are still a city name, for example [AUPERTH.txt]{.monospace} contains temperature measurements from Perth, Australia.
+Because we will ultimately want to use **all** of the files in the [data/]{.monospace} directory, we should have a method for extracting the city name and the state/country codes directly from the filenames.
+
+The `str_sub()` function from the [stringr]{.monospace} package allows us to extract text based on the location of the letters.
+For example, let's consider the small string of text ["CDS102"]{.monospace}.
+
+```{r cds102-string-example}
+cds102 <- "CDS102"
+```
+
+The course code CDS starts on the first letter and ends on the third letter.
+To get this part of the text using `str_sub()`, I would run:
+
+```r
+cds102 %>%
+  str_sub(start = 1, end = 3)
+```
+
+```{r cds102-string-example-get-cds, echo = FALSE, results = 'asis'}
+cat(
+  paste0(
+    "[## [1] \"",
+    str_sub(cds102, start = 1, end = 3),
+    "\"]{.monospace}"
+  )
+)
+```
+
+The course number starts on the fourth letter and then goes to the end.
+Note that, if the part of the string you are grabbing goes to the end, you don't need to specify the [end =]{.monospace} keyword.
+So, to get the ["102"]{.monospace} part of the text using `str_sub()`, I would run:
+
+```r
+cds102 %>%
+  str_sub(start = 4)
+```
+
+```{r cds102-string-example-get-102, echo = FALSE, results = 'asis'}
+cat(
+  paste0(
+    "[## [1] \"",
+    str_sub(cds102, start = 4),
+    "\"]{.monospace}"
+  )
+)
+```
+
+@get-city-state-codes.
+    Apply `str_sub()` to [data\_file\_name]{.monospace} in order to extract the first two letters [AL]{.monospace}, and assign this to the variable [file\_state]{.monospace}.
+    Then, apply `str_sub()` again in order to extract the remaining letters [HUNTSV]{.monospace} and assign this to the variable [file\_city]{.monospace}.
+
+## Read a data file, label the dataset
+
+The data in [ALHUNTSV.txt]{.monospace} is not structured in the conventional csv format.
+If we look at the first few lines of the file,
+
+```r
+data_file %>%
+  read_lines(n_max = 5) %>%
+  str_flatten(collapse = "\n")
+```
+
+```markdown
+ 1             1             1995         48.8
+ 1             2             1995         32.1
+ 1             3             1995         31.2
+ 1             4             1995         32.5
+ 1             5             1995         21.1
+```
+
+we see that there are four columns of data separated by spaces.
+Because the separation of the spaces is predictable, we will want to use the `read_table()` function to read this file.
+Since this data file does not specify the column names at the top of the file, we will need to input those manually.
+
+@data-file-read-table.
+    Review the [`r icon_link`about the dataset](#about-the-dataset) section and list the column names for [ALHUNTSV.txt]{.monospace} as inputs to the `combine()` function.
+    As a reminder, the template for using `combine()` is,
+    
+    ```r
+    combine("column name 1", "column name 2")
+    ```
+    
+    Assign this to a variable named [col\_names]{.monospace}.
+    Then, below [col\_names]{.monospace} in the same code block, write:
+
+    ```r
+    alhuntsv <- data_file %>%
+      read_table(col_names = col_names) %>%
+      mutate(
+        state = ...,
+        city = ...
+      ) %>%
+      mutate(
+        date = make_date(
+          year = ...,
+          month = ...,
+          day = ...
+        )
+      )
+    ```
+    
+    **You will need to replace the elipses [...]{.monospace} to make this work.**
+    The first `mutate()` is used to label the dataset with the city and state where the temperature data was measured.
+    Fill those inputs in using a variable you assigned earlier in the lab.
+    The second `mutate()` creates a column with the [date]{.monospace} data type using the `make_date()` function from the [lubridate]{.monospace} package.
+    Fill in the column names (these are what you listed in [col\_names]{.monospace}) that correspond to the year, month, and day of the temperature measurements.
+    
+One data file down, only 324 more to go!
+
+## User-defined functions
+
+Before we can continue, we need to take a detour and learn about the concept of **user-defined functions**, which are the fundamental building blocks for automation.
+We've made use of many different functions during this course that were either pre-loaded by R or were loaded after running `library(tidyverse)`.
+Any command that you run that has parentheses where you specify inputs, such as `ggplot()`, `filter()`, `mutate()`, `mean()`, etc. are functions.
+We've managed to accomplish a lot simply by relying on these pre-loaded functions!
+Now it's time for you to create your own.
+
+Functions that you create are known as **user-defined functions**, and an example of a simple user-defined function is as follows:
+
+```r
+add <- function(number1, number2) {
+  result <- number1 + number2
+  cat(number1, "plus", number2, "equals", result, "\n")
+}
+```
+
+This creates a user-defined function called `add()` that requires two inputs, [number1]{.monospace} and [number2]{.monospace}.
+It then adds those numbers and prints a sentence that summarizes the computation.
+Try it out!
+
+@.  
+    Copy and paste the code that defines the `add()` function into a code block and run the block.
+    Create a second code block and run `add(4, 6)` and verify that you get some output.
+    Then, right below `add(4, 6)`, type `add()` again and fill in your own two inputs and execute it.
+
+Although this isn't the most useful function that you can create, it does illustrate the basic procedure for creating a user-defined function in R.
+Let's review what we just did:
+
+*   We named our function `add()` in the same way that we've saved outputs to variables in previous labs, by using the [<-]{.monospace} symbol
+
+*   We indicate that we are creating a user-defined function by using the word [function]{.monospace}
+
+*   The function inputs (these are also called **arguments**) are provided in the parentheses immediately following the word [function]{.monospace}, i.e. [number1]{.monospace} and [number2]{.monospace} in `function(number1, number2)`
+
+*   The code that the user-defined function will run is put between two curly braces, [\{]{.monospace} and [\}]{.monospace}.
+
+*   The region between [\{]{.monospace} and [\}]{.monospace} is known as the **function body**, and you write code within the function body in the same way that you write code in an R Markdown code block
+
+*   The inputs, in this case [number1]{.monospace} and [number2]{.monospace}, should be used somewhere in the function body
+
+*   When you run `add(4, 6)`, the function automatically knows to substitute [4]{.monospace} wherever [number1]{.monospace} is and [6]{.monospace} wherever [number2]{.monospace} is, so the line,
+
+    ```r
+    result <- number1 + number2
+    ```
+    
+    becomes
+    
+    ```r
+    result <- 4 + 6
+    ```
+
+What if we wanted to access the result of `add(4, 6)`, which is [10]{.monospace}?
+Maybe after we run `add(4, 6)` the variable [result]{.monospace} becomes defined.
+In your _Console_ window, type `add(4, 6)`, then type `result`.
+I suspect that you'll see the following:
+
+```markdown
+> add(4, 6)
+4 plus 6 equals 10 
+> result
+Error: object 'result' not found
+```
+
+So it seems like the variable [result]{.monospace} is "forgotten" after `add()` is run.
+Instead, maybe we could try to save the result variable using [<-]{.monospace} symbol.
+In your _Console_ window, type,
+
+```r
+add_result <- add(4, 6)
+```
+
+then type [add\_result]{.monospace}.
+When you do this, I suspect you'll get a [NULL]{.monospace} instead of a [10]{.monospace}.
+    
+As you now see, the `add()` function, as written, is not allowing us to access the value of [10]{.monospace} when we try to save it.
+How do we fix this?
+It turns out that the fix is straightforward, we just need to put the word [result]{.monospace} on the last line of the function body:
+
+```r
+add_fix <- function(number1, number2) {
+  result <- number1 + number2
+  cat(number1, "plus", number2, "equals", result, "\n")
+  result
+}
+```
+
+Let's try it out.
+
+@.  
+    Copy and paste the code that defines the function `add_fix()` into your R Markdown file.
+    Then, create a second code block and run
+    
+    ```r
+    add_result <- add_fix(4, 6)
+    ```
+    
+    Check the value inside of [add\_result]{.monospace} to confirm that it is equal to [10]{.monospace}.
+    
+This demonstrates how we are able to **return** values from user-defined functions that we can save for later use.
+The last thing we execute within the function body is what the function returns, and whatever is returned is what we can save for later use with the [<-]{.monospace} symbol.
+All other variables used in the function body are forgotten.
+
+If you still don't feel like you could make a user-defined function on your own without guidance, that's okay!
+It takes time and practice to get used to them.
+Since this is still a new concept, you'll continue to be given hints and provided with templates to help you out.
+
+Let's consider another example based on the [mpg]{.monospace} dataset.
+If you were given this dataset for a lab, you might be asked to create a density plot for the [hwy]{.monospace}, [cty]{.monospace}, and [displ]{.monospace} variables.
+Up until now, you would create three different code blocks to complete this task that might look like this:
+
+<pre><code>&#96;&#96;&#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = hwy)
+  )
+&#96;&#96;&#96;
+
+&#96;&#96;&#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = cty)
+  )
+&#96;&#96;&#96;
+
+&#96;&#96;&#96;{r}
+ggplot(data = mpg) +
+  geom_density(
+    mapping = aes(x = displ)
+  )
+&#96;&#96;&#96;</code></pre>
+
+These three blocks of code are nearly identical, with the only difference between them being the input for the `aes()` function.
+This seems like a good candidate for a user-defined function!
+If I asked you to build one yourself based on what we've seen so far, you might try this:
+
+```r
+# SPOILER ALERT: This function won't work
+mpg_density_plot <- function(variable) {
+  ggplot(data = mpg) +
+    geom_density(
+      mapping = aes(x = variable)
+    )
+}
+```
+
+If you defined this function and then ran `mpg_density_plot(hwy)`, instead of getting a visualization, you'll get the disappointing message:
+
+```markdown
+Error in FUN(X[[i]], ...) : object 'hwy' not found
+```
+    
+Like so many other cases, [tidyverse]{.monospace} functions have their own way of doing things compared to regular R, and this includes how you can specify **unquoted variables** in a user-defined function.
+Without special handling, what R will do here is check to see if [hwy]{.monospace} is a variable that stores a value.
+If it doesn't, then it just prints an error message and stops.
+If you want to be able to run `mpg_density_plot(hwy)` without getting an error message, you need to modify the function definition to the following: 
+
+```r
+# Unlike before, this function will now work
+mpg_density_plot <- function(variable) {
+  user_input <- rlang::enquo(variable)
+  ggplot(data = mpg) +
+    geom_density(
+      mapping = aes(x = !!user_input)
+    )
+}
+```
+
+Let's try this out.
+
+@.  
+    Copy and paste the code that defines the corrected [mpg\_density\_plot]{.monospace} function into a code block and run the block.
+    Then, create three more code blocks and use [mpg\_density\_plot]{.monospace} to create density plots for the [hwy]{.monospace}, [cty]{.monospace}, and [displ]{.monospace} variables.
+
+The line `user_input <- rlang::enquo(variable)` converts the word you give as input to [mpg\_density\_plot]{.monospace} into a special format that is used in the [tidyverse]{.monospace} packages.
+When that word later needs to be used to specify a column name in a dataset, you put two exclamation points in front of it, i.e. `aes(x = !!user_input)`.
+This would also be what you would have to do if you wanted to use a command from [dplyr]{.monospace}, such as `select()`,
+
+```{r mpg-select-function}
+mpg_select <- function(column) {
+  user_input <- rlang::enquo(column)
+  mpg %>%
+    select(!!user_input)
+}
+```
+
+This allows us to select a single column like so:
+
+```r
+mpg_select(hwy)
+```
+
+```{r, echo = FALSE}
+mpg_select(hwy) %>%
+  head() %>%
+  rbind("...") %>%
+  knitr::kable()
+```
+
+Again, don't worry right now if this business with `rlang::enquo()` and [!!]{.monospace} doesn't make total sense to you.
+This example was meant to show you what is required if you want to specify column names in the inputs to your user-defined function.
+That way you have a reference to come back to in case you ever need to do this!
+
+## Function to read a data file
+
+Now that we've learned a bit about what functions are, let's take what we did in the [`r icon_link`extracting information from a file name](#extracting-information-from-a-file-name) and [`r icon_link`read a data file, label the dataset](#read-a-data-file-label-the-dataset) sections and combine this code into a single function.
+
+@.  
+    The structure for our user-defined function `read_data_file()` is as follows:
+
+    ```r
+    read_data_file <- function(data_file) {
+      # file_state <- Code to get two-letter state/country code from filename
+      # file_city <- Code to get city names from filename
+      # col_names <- Code to list column names
+      # temperature_data_frame <- Code to read and label the data
+      
+      temperature_data_frame
+    }
+    ```
+    
+    Using the results of Exercises @path-file-cleanup, @get-city-state-codes, and @data-file-read-table, replace the first four line comments in the function body with working code.
+    **When the function is implemented correctly, running `read_data_file(path(data_dir, "ALHUNTSV", ext = "txt"))` should produce the same output as running [alhuntsv]{.monospace} in the _Console_ pane.**
+
+## Read all the data files
+
+Now that we have `read_data_file()` defined, we're ready to read and combine the rest of the data files together into one large data frame.
+To do this, we will need a list of all the data files in the [data/]{.monospace} folder.
+The [fs]{.monospace} package, like usual, provides us with a convenient function, the `dir_ls()` function, that lists of all the files in a given folder.
+To list our files, we simply need to run,
+
+```r
+data_files <- data_dir %>%
+  dir_ls(glob = "*.txt")
+```
+
+The [glob = "*.txt"]{.monospace} input tells `dir_ls()` to only list files ending with `.txt`, which are our temperature data files.
+
+Now we need a way to apply `read_data_file()` to every file listed in [data\_files]{.monospace}, which will produce a series of data frames containing the temperature data for every location.
+We then need to take those data frames and bind all the rows together to create a single data frame we can use.
+Lucky for us, [tidyverse]{.monospace} loads a very convenient function that can do exactly this, the `map_dfr()` function,
+
+```r
+temperature_df <- data_files %>%
+  map_dfr(read_data_file) %>%
+  mutate(
+    temperature = if_else(
+      near(temperature, -99),
+      as.numeric(NA),
+      temperature
+    )
+  )
+```
+
+@.  
+    Copy and run the code for creating [data\_files]{.monospace} and then [temperature\_df]{.monospace}.
+    Verify that [temperature\_df]{.monospace} has more than 2.7 million rows.
+    
+    The `mutate()` function is creating a new column called temperature and is using the `if_else()` function to replace any temperature values equal to [-99]{.monospace} with `NA`.
+    Explain why we want to do this.
+    
+    ::: {.callout .primary}
+    [Hint]{.h4}
+    
+    If you are having trouble remembering what a value of [-99]{.monospace} means, go back and read the [`r icon_link`about the dataset](#about-the-dataset) section.
+    :::
+
+## Explore your new temperature database
+
+Now that we have all our data in one place, we should take a look at what's in it.
+First, let's remove the [NA]{.monospace} values in the [temperature]{.monospace} column, as those rows represent missing measurements and so we don't need to keep them for our analysis.
+We should also remove the year 2018 from the dataset, as the data collection for the year is still in progress.
+
+@.  
+    Use `filter()` and `is.na()` to remove the [NA]{.monospace} values from the [temperature]{.monospace} column.
+    Then use filter to remove data for the year 2019.
+    Assign the result to [temperature\_df\_filtered]{.monospace}.
+
+Let's start with a query for the temperature data for Washington, DC.
+
+@.
+    Filter [temperature\_df\_filtered]{.monospace} to only contain the temperature data for Washington, DC.
+    To figure out the filename for Washington, DC, check here: <http://academic.udayton.edu/kissock/http/Weather/citylistUS.htm>.
+    Assign the filtered dataset to [washdc]{.monospace}.
+    
+Let's create a visualization showing the average daily temperatures as a function of time for Washington, DC.
+
+@.  
+    Make a scatter plot of your [washdc]{.monospace} dataset using [date]{.monospace} for the horizontal axis and [temperature]{.monospace} for the vertical axis.
+    After you've created the plot, explain why you see the daily average temperatures consistently oscillating between higher and lower temperatures as a function of time.
+    
+Let's see if the average and median temperatures per year in Washington, DC have stayed consistent.
+
+@.  
+    Take [washdc]{.monospace} and group by the [year]{.monospace} column.
+    Then, within this group, calculate both the mean (average) temperature and the median (middle) temperature.
+    Assign this result to a variable called [washdc\_year]{.monospace}.
+    Then, create two separate scatter plots, one plotting [year]{.monospace} along the horizontal axis and the mean temperature per year along the vertical axis and the other plotting [year]{.monospace} along the horizontal axis and the median temperature per year for the vertical axis.
+    Also include `geom_smooth()` on each of these plots.
+    Describe the trends you see.
+
+Finally, let's take a more global view of the data and look at the average and median temperatures per year across the entire dataset.
+
+@.  
+    Take [temperature\_df\_filtered]{.monospace} and group by the [year]{.monospace} column.
+    Then, within this group, calculate both the mean (average) temperature and the median (middle) temperature.
+    Assign this result to a variable called [world\_year]{.monospace}.
+    Then, create two separate scatter plots, one plotting [year]{.monospace} along the horizontal axis and the mean temperature per year along the vertical axis and the other plotting [year]{.monospace} along the horizontal axis and the median temperature per year for the vertical axis.
+    Also include `geom_smooth()` on each of these plots.
+    Describe the trends you see.
+    
+There's plenty more you could do with this dataset, but that's enough for now.
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this lab:
+
+*   [data import/tidyr cheatsheet][data-import-cheatsheet]
+
+*   [dplyr cheatsheet][dplyr-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+## Credits
+
+This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+Exercises and instructions written by James Glasbrenner for CDS-102.
+
+[ncei-url]:               https://www.ncdc.noaa.gov/ 
+[cc-by-sa-4]:             http://creativecommons.org/licenses/by-sa/4.0/
+[dayton-url]:             http://academic.udayton.edu/kissock/http/Weather/default.htm
+[gsod-ftp-url]:           ftp://ftp.ncdc.noaa.gov/pub/data/gsod/
+[dplyr-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+[ggplot2-cheatsheet]:     https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[rstudio-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:    https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[rmarkdown-cheatsheet]:   https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
