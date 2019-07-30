@@ -49,6 +49,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 | [`lab-04`](lab-04) | [Lab 04 – Tidying your dataset][lab-04]                             |
 | [`lab-05`](lab-05) | [Lab 05 – Data cleaning][lab-05]                                    |
 | [`lab-06`](lab-06) | [Lab 06 – Interactive visualizations][lab-06]                       |
+| [`lab-07`](lab-07) | [Lab 07 – Basketball and Hot Hands][lab-07]                         |
 | [`lab-08`](lab-08) | [Lab 08 – Speed of light][lab-08]                                   |
 | [`lab-09`](lab-09) | [Lab 09 – Moneyball][lab-09]                                        |
 | [`lab-10`](lab-10) | [Lab 10 – Build and Explore a Temperature Database][lab-10]         |
@@ -60,6 +61,7 @@ Each folder contains the starter files of a separate assignment and the list of 
 [lab-04]: https://www.cds101.com/labs/lab-04-tidying-your-dataset/
 [lab-05]: https://www.cds101.com/labs/lab-05-data-cleaning/
 [lab-06]: https://www.cds101.com/labs/lab-06-interactive-visualizations/
+[lab-07]: https://www.cds101.com/labs/lab-07-basketball-hot-hands/
 [lab-08]: https://www.cds101.com/labs/lab-08-speed-of-light/
 [lab-09]: https://www.cds101.com/labs/lab-09-moneyball/
 [lab-10]: https://www.cds101.com/labs/lab-10-temperature-database/
