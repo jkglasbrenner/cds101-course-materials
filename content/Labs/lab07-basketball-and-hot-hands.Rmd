@@ -55,16 +55,16 @@ The table below provides descriptions of the dataset's 6 variables,
 
 ## Defining a shooting streak
 
-If you inspect the [shot]{.monospace} column, you'll quickly find that looking at a string of [H]{.monospace}'s and [M]{.monospace}'s makes it be difficult to gauge whether or not it seems like Kobe was shooting with a hot hand.
-To make any progress, we will need to define what we mean when we say a player has a hot hand. 
-For the purposes of our investigation, we will base our hot hand definition on the belief that hot hand shooters tend to go on shooting streaks, where the length of a shooting streak is defined as the *number of consecutive baskets a player makes until a miss occurs*.
+If you inspect the [shot]{.monospace} column, you'll quickly find that inspecting a string of [H]{.monospace}'s and [M]{.monospace}'s by eye makes it be difficult to gauge whether or not it seems like Kobe was shooting with a hot hand.
+To make any progress we will need to define what we mean when we say a player has a hot hand. 
+For the purposes of our investigation, we will base our hot hand definition on the belief that hot hand shooters tend to go on shooting streaks, where the length of a shooting streak is defined as the _number of consecutive baskets a player makes until a miss occurs_.
 
-For example, in Game 1 Kobe had the following sequence of hits and misses from his nine shot attempts in the first quarter:
+For example, in Game 1 Kobe Bryant had the following sequence of hits and misses from his nine shot attempts in the first quarter:
 
     H M | M | H H M | M | M | M
 
 You can verify this by viewing the first 8 rows of the dataset using `View()`.
-Within these nine shot attempts, there are six streaks, which are separated by a [|]{.monospace} above.
+Within these nine shot attempts there are six streaks, which are separated by a [|]{.monospace} above.
 The lengths of each streak are one, zero, two, zero, zero, zero (in order of occurrence).
 
 @.
@@ -99,21 +99,21 @@ This function has been loaded automatically for you in your R Markdown report fi
 We've shown that Kobe had some long shooting streaks, but are they long enough to support the belief that he had a hot hand?
 What can we compare them to?
 
-To answer these questions, let's return to the idea of _independence_.
+To address these questions we will need to make use of the concept of _independence_.
 Two processes are independent if the outcome of one process doesn't affect the outcome of the second.
-If each shot that a player takes is an independent process, then that means that making or missing your first shot **will not** affect the probability that you will make or miss your second shot.
-
+So if each shot that a player takes is an independent process, then that means that making or missing your first shot **will not** affect the probability that you will make or miss your second shot.
 Conversely, a shooter with a hot hand will have shots that are **not** independent of one another.
 Specifically, if the shooter makes his first shot, the hot hand model says he will have a _higher_ probability of making his second shot.
 
 Let's suppose for a moment that the hot hand model is valid for Kobe.
-During his career, the percentage of time Kobe makes a basket (i.e. his shooting percentage) is about 45%, or in probability notation,
+During his career, the percentage of times that Kobe makes a basket (i.e. his shooting percentage) is about 45%, or in probability notation,
 $$P(\text{shot 1 = H}) = 0.45$$
 If he makes the first shot and has a hot hand (remember, this would mean that shots are **not** independent), then the probability that he makes his second shot would go up to, let's say, 60%,
 $$P(\text{shot 2 = H} \, | \, \text{shot 1 = H}) = 0.60$$
 As a result of these increased probabilites, you'd expect Kobe to have longer streaks.
+
 Compare this to the skeptical perspective where Kobe does *not* have a hot hand, where each shot is independent of the next.
-If he hit his first shot, the probability that he makes the second is still 0.45.
+If he hit his first shot, the probability that he makes the second would still be 0.45,
 $$P(\text{shot 2 = H} \, | \, \text{shot 1 = H}) = 0.45$$
 In other words, making the first shot did nothing to affect the probability that he'd make his second shot.
 If Kobe's shots are independent, then he'd have the same probability of hitting every shot regardless of his past shots: 45%.
@@ -125,23 +125,18 @@ We can compare his streak lengths to someone without a hot hand: an independent 
 
 While we don't have any data from a shooter we know to have independent shots, this sort of data is easy to simulate in R using a package called [infer]{.monospace}.
 In a simulation, you set the ground rules of a random process and then the computer uses random numbers to generate an outcome that adheres to those rules.
-As a simple example, let's simulate flipping a fair coin, which has a 50% chance of coming up heads and a 50% chance of coming up tails.
-Our [infer]{.monospace} template for flipping a coin is as follows,
+As a simple example let's simulate 100 flips of a fair coin, which has a 50% chance of coming up heads and a 50% chance of coming up tails.
+Our [infer]{.monospace} template for this simulation is as follows,
 
 ```r
 probability_heads <- 0.5
-number_of_reps <- 50
 
-tibble(outcome = combine("heads", "tails")) %>%
+tibble(outcome = rep(combine("heads", "tails"), each = 50)) %>%
   specify(outcome ~ NULL, success = "heads") %>%
   hypothesize(null = "point", p = probability_heads) %>%
-  generate(reps = number_of_reps, type = "simulate") %>%
-  calculate(stat = "count") %>%
-  summarize(
-    num_coin_flips = 2 * number_of_reps,
-    num_heads = sum(stat),
-    num_tails = num_coin_flips - num_heads
-  )
+  generate(reps = 1, type = "simulate") %>%
+  ungroup() %>%
+  count(outcome)
 ```
 
 @sim-fair-coin.
@@ -160,9 +155,9 @@ How could we do this?
 @.
     Copy and paste the code block from **Exercise @sim-fair-coin** and adjust the value for [probability_heads]{.monospace} from [0.5]{.monospace} to [0.2]{.monospace}, which is how we tell R that we want the probability of flipping heads to be 20%.
     Run the code block.
-    In your simulation of flipping the unfair coin 100 times, how many flips came up heads?
+    In your simulation of 100 flips of the unfair coin, how many flips came up heads?
     
-    If you wanted the probability of **flipping tails** to be 40%, what should you set [probability_heads]{.monospace} equal to?
+    If you wanted the probability of **flipping tails** to be 45%, what should you set [probability_heads]{.monospace} equal to?
 
 ## Simulating the Independent Shooter
 
@@ -180,29 +175,31 @@ sim_basket <- kobe_basket %>%
   transmute(shot = as.character(shot))
 ```
 
-To make a valid comparison between Kobe and our simulated independent shooter, we need to align both their shooting percentage and the number of attempted shots.
+Notice here that the dataset [kobe_basket]{.monospace} is being piped into `specify()`.
+This does two things, (1) it will ensure that our shot outcomes will be labeled as either [H]{.monospace} or [M]{.monospace}, and (2) it will ensure that our simulated independent shooter will take 133 shots, the same number of shots that Kobe Bryant takes in this dataset.
+
 
 @.
+    To make a valid comparison between Kobe and our simulated independent shooter, we need to align their shooting percentages.
     What change needs to be made to the code template so that it reflects a shooting percentage of 45%?
     Make this adjustment, then run a simulation to sample 133 shots.
-    Assign the output of this simulation to [sim_basket]{.monospace}.
+    This will assign the output of this simulation to [sim_basket]{.monospace}.
 
 With the results of the simulation saved as [sim_basket]{.monospace}, we have the data necessary to compare Kobe to our independent shooter.
-
-Both data sets represent the results of 133 shot attempts, each with the same shooting percentage of 45%.
+Both datasets represent the results of 133 shot attempts, each with the same shooting percentage of 45%.
 We know that our simulated data is from a shooter that has independent shots.
 That is, we know the simulated shooter does not have a hot hand.
 
 ## Additional exercises
 
 @.
-    Using `calc_streak()`, compute the streak lengths of [sim_basket]{.monospace}, and assign the results to a variable named [sim_streak]{.monospace}.
+    Using `calc_streak()`, compute the streak lengths for the simulated independent shooter saved to [sim_basket]{.monospace}.
+    Assign the results of `calc_streak()` to a variable named [sim_streak]{.monospace}.
 
 @.
-    Describe the distribution of streak lengths.
-    What is the typical streak length for this simulated independent shooter with a 45% shooting percentage?
+    Visualize the distribution of simulated streak lengths and discuss it.
+    Based on your results, what is the typical streak length for this simulated independent shooter with a 45% shooting percentage?
     How long is the player's longest streak of baskets in 133 shots?
-    Make sure to include a plot in your answer.
 
 @.
     If you were to run the simulation of the independent shooter a second time, how would you expect its streak distribution to compare to the distribution from the question above?
