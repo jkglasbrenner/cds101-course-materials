@@ -66,13 +66,13 @@
 <header class="static-page-header">
   <h1 class="static-page-title">Lab 09 – <em>Moneyball</em></h1>
 </header><div class="static-page-body">
-  <blockquote>
-<p>This week’s lab will show you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball&nbsp;season.</p>
-</blockquote>
+  <h2 id="instructions">Instructions</h2>
+<p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab09.Rmd</span>. This lab shows you how to build predictive models using linear regression and data collected on the 2011 Major League Baseball season. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab09.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
 <h2 id="data-science-in-sports-and-at-the-movies">Data science in sports and at the&nbsp;movies</h2>
-<p>The movie <a href="http://en.wikipedia.org/wiki/Moneyball_(film)">Moneyball</a> focuses on the “quest for the secret of success in baseball”. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player’s ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the&nbsp;team.</p>
-<h2 id="about-this-weeks-dataset">About this week’s&nbsp;dataset</h2>
+<p>The movie <a href="http://en.wikipedia.org/wiki/Moneyball_(film)"><i class="fas fa-link"></i>Moneyball</a> focuses on the “quest for the secret of success in baseball”. It follows a low-budget team, the Oakland Athletics, who believed that underused statistics, such as a player’s ability to get on base, better predict the ability to score runs than typical statistics like home runs, RBIs (runs batted in), and batting average. Obtaining players who excelled in these underused statistics turned out to be much more affordable for the&nbsp;team.</p>
+<h2 id="about-the-dataset">About the&nbsp;dataset</h2>
 <p>This dataset is the data from the 2011 Major League Baseball (<span class="caps">MLB</span>) season, containing several different kinds of summary statistics for the different&nbsp;teams.</p>
+<p>The table below provides descriptions of the dataset’s 12&nbsp;variables,</p>
 <table>
 <thead>
 <tr class="header">
@@ -131,7 +131,8 @@
 </tr>
 </tbody>
 </table>
-<p>The first seven variables, <span class="monospace">at_bats</span>, <span class="monospace">hits</span>, <span class="monospace">homeruns</span>, <span class="monospace">bat_avg</span>, <span class="monospace">strikeouts</span>, <span class="monospace">stolen_bases</span>, and <span class="monospace">wins</span>, are the <a href="https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics">traditionally used variables</a> for baseball statistics. The last three variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, are the suggested variables that the author of <em>Moneyball</em> claims were better predictors of the <span class="monospace">runs</span>&nbsp;variable.</p>
+<h2 id="variables-for-baseball-statistics">Variables for baseball&nbsp;statistics</h2>
+<p>The first seven variables, <span class="monospace">at_bats</span>, <span class="monospace">hits</span>, <span class="monospace">homeruns</span>, <span class="monospace">bat_avg</span>, <span class="monospace">strikeouts</span>, <span class="monospace">stolen_bases</span>, and <span class="monospace">wins</span>, are the <a href="https://en.wikipedia.org/wiki/Baseball_statistics#Commonly_used_statistics"><i class="fas fa-link"></i>traditionally used variables</a> for baseball statistics. The last three variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, are the suggested variables that the author of <em>Moneyball</em> claims were better predictors of the <span class="monospace">runs</span>&nbsp;variable.</p>
 <ol class="example" type="1">
 <li>What type of plot would you use to display the relationship between <span class="monospace">runs</span> and one of the other numerical variables? Plot this relationship using the variable <span class="monospace">at_bats</span> as the explanatory variable (horizontal axis). Does the relationship look linear? Explain what you’ve noticed in the plot that makes you think the relationship is linear (or not&nbsp;linear).</li>
 </ol>
@@ -139,7 +140,7 @@
 <p>R provides a straightforward way to build a least-squares linear regression model with the <code>lm()</code> function. The term “least-squares” refers to the method used to find the linear model, which is to minimize the sum of the squared residuals, and the <strong>residual</strong> is the leftover variation in the data after accounting for the model fit. As an example, to build a least-squares model of <span class="monospace">runs</span> using <span class="monospace">at_bats</span> as the explanatory variable, we&nbsp;write,</p>
 <pre class="r"><code>runs_at_bats_model &lt;- lm(runs ~ at_bats, data = mlb11)</code></pre>
 <p>The first argument in the function <span class="monospace">lm</span> is a formula that takes the form <span class="monospace">response ~ explanatory</span>. Here it can be read that we want to make a linear model of <span class="monospace">runs</span> as a function of <span class="monospace">at_bats</span>. The second argument specifies that R should look in the <span class="monospace">mlb11</span> data frame to find the <span class="monospace">runs</span> and <span class="monospace">at_bats</span>&nbsp;variables.</p>
-<p>Having assigned the model to <span class="monospace">runs_at_bats_model</span>, we can use a couple of convenience functions from the handy <span class="monospace">broom</span> package — this was installed when we installed <span class="monospace">tidyverse</span> — to get a basic overview of the model. To get a data frame summarizing the model parameters, we use the <code>tidy()</code> function,</p>
+<p>Having assigned the model to <span class="monospace">runs_at_bats_model</span>, we can use a couple of convenience functions from the handy <span class="monospace">broom</span> package to get a basic overview of the model. To get a data frame summarizing the model parameters, we use the <code>tidy()</code> function,</p>
 <pre class="r"><code>runs_at_bats_model %&gt;%
   tidy()</code></pre>
 <p>This table contains the model coefficients, with the first column pertaining to the linear model’s y-intercept and the coefficient (slope) of <span class="monospace">at_bats</span>. With this table, we can write down the formal expression for the least squares regression line for our linear model: <span class="math display">\[\text{runs}(\text{at\_bats})=-2789.2429+0.6305\times\text{at\_bats}\]</span></p>
@@ -164,7 +165,7 @@
   )</code></pre>
 <p>Although the <span class="monospace">pred</span> column in <span class="monospace">runs_at_bats_df</span> only corresponds to predictions for the input values of the <span class="monospace">at_bats</span> column, in general the model allows us to predict the value of <span class="monospace">runs</span> at <strong>any</strong> value of <span class="monospace">at_bats</span>, including values that are outside the range <span class="math inline">\([5417, 5710]\)</span>. Predictions beyond the range of the observed data is referred to as <em>extrapolation</em>, and making strong predictions based on extrapolation is not recommended. Predictions made within the range of the data are considered more&nbsp;reliable.</p>
 <p>You have a couple of options available if you want to make predictions at values of <span class="monospace">at_bats</span> not found in the <span class="monospace">mlb11</span> data frame. If you are interested in a few specific points, then you can build a data frame by hand and pipe it into <code>add_predictions()</code>,</p>
-<pre class="r"><code>runs_at_bats_more_pred &lt;- tibble(   (  # Creates a data frame with a column
+<pre class="r"><code>runs_at_bats_more_pred &lt;- tibble(      # Creates a data frame with a column
   at_bats = combine(5400, 5650)        # named at_bats with two values, 5400
 ) %&gt;%                                  # and 5650
   add_predictions(runs_at_bats_model)</code></pre>
@@ -205,13 +206,11 @@
 </ol>
 <h2 id="conditions-for-using-a-linear-model">Conditions for using a linear&nbsp;model</h2>
 <p>Three conditions must be met in order for a linear model built using <code>lm()</code> to be&nbsp;reliable:</p>
-<div class="additional-questions">
 <ul>
 <li><p><strong>Linearity:</strong> The relationship between the explanatory variable and the response variable must be&nbsp;linear</p></li>
 <li><p><strong>Nearly normal residuals:</strong> The residuals should be nearly normal (i.e. follow a bell curve&nbsp;shape)</p></li>
-<li><strong>Constant variability:</strong> The variability of the points around the model line should be roughly&nbsp;constant</li>
+<li><p><strong>Constant variability:</strong> The variability of the points around the model line should be roughly&nbsp;constant</p></li>
 </ul>
-</div>
 <p>Let’s walk through each of the three conditions and discuss what we can plot to help us assess whether the linear model is&nbsp;reliable.</p>
 <h3 id="linearity">Linearity</h3>
 <p>The plot we created at the beginning of the <a href="#prediction-and-prediction-errors">prediction and prediction errors</a> section already provides us with an approximate idea of whether the relationship between the explanatory and response variable is linear. However, there are two other types of plots that we can create that will help in our assessment, an <strong>observed versus predicted plot</strong> and a <strong>residual versus predicted plot</strong>. The code to make an observed versus predicted plot&nbsp;is,</p>
@@ -240,21 +239,29 @@
 <ol start="8" class="example" type="1">
 <li>Interpret the residual versus predicted plot from <strong>Exercise 6</strong> and conclude whether the constant variability condition is&nbsp;met.</li>
 </ol>
-<h2 id="additional-questions">Additional&nbsp;questions</h2>
-<div class="additional-questions">
-<ul>
+<h2 id="additional-exercises">Additional&nbsp;exercises</h2>
+<ol start="9" class="example" type="1">
 <li><p>Choose another traditional variable from <span class="monospace">mlb11</span> that you think might be a good predictor of <span class="monospace">runs</span>. Fit a linear model and create <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots (you do not need to check the conditions for using the linear model). Does your variable seem to predict <span class="monospace">runs</span> better than <span class="monospace">at_bats</span>? Determine this by comparing the <span class="math inline">\(R^2\)</span> values (obtained using <code>glance()</code>) for the two&nbsp;models.</p></li>
-<li>Now use one of the three newer variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, to build a linear model using the same method as before. These are the statistics used by the author of <em>Moneyball</em> to predict a teams success. After fitting the model you should create <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots (you do not need to check the conditions for using the linear model) and also compare the new model’s <span class="math inline">\(R^2\)</span> values (obtained using <code>glance()</code>) with the others. Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you&nbsp;investigated.</li>
-</ul>
-</div>
+<li><p>Now use one of the three newer variables, <span class="monospace">new_onbase</span>, <span class="monospace">new_slug</span>, and <span class="monospace">new_obs</span>, to build a linear model using the same method as before. These are the statistics used by the author of <em>Moneyball</em> to predict a teams success. After fitting the model you should create <strong>observed versus predicted</strong> and <strong>residual versus predicted</strong> plots (you do not need to check the conditions for using the linear model) and also compare the new model’s <span class="math inline">\(R^2\)</span> values (obtained using <code>glance()</code>) with the others. Based on what you find, conclude whether the new variable is more or less effective at predicting runs than the two older variables you&nbsp;investigated.</p></li>
+</ol>
 <h2 id="how-to-submit">How to&nbsp;submit</h2>
 <p>To submit your lab, follow the two steps below. Your lab will be graded for credit <strong>after</strong> you’ve completed both&nbsp;steps!</p>
 <ol type="1">
 <li><p>Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub. If you do this right, then you will be able to view your completed file on the GitHub&nbsp;website.</p></li>
 <li><p>Knit your R Markdown document to the <span class="caps">PDF</span> format, export (download) the <span class="caps">PDF</span> file from RStudio Server, and then upload it to <em>Lab 9</em> posting on&nbsp;Blackboard.</p></li>
 </ol>
+<h2 id="cheatsheets">Cheatsheets</h2>
+<p>You are encouraged to review and keep the following cheatsheets handy while working on this&nbsp;lab:</p>
+<ul>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">data import/tidyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown&nbsp;cheatsheet</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown&nbsp;reference</a></p></li>
+</ul>
 <h2 id="credits">Credits</h2>
-<p>This lab, <em>Moneyball</em>, is a derivative of <a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html">OpenIntro Lab 9 – Introduction to linear regression</a> by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of <span class="caps">UCLA</span> Statistics, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/"><span class="caps">CC</span> <span class="caps">BY</span>-<span class="caps">SA</span> 3.0</a>. <em>Moneyball</em> is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a> by James&nbsp;Glasbrenner.</p>
+<p>This lab is a derivative of <a href="https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/simple_regression/simple_regression.html">OpenIntro Lab 9 – Introduction to linear regression</a> by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by the faculty and TAs of <span class="caps">UCLA</span> Statistics, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/"><span class="caps">CC</span> <span class="caps">BY</span>-<span class="caps">SA</span> 3.0</a>. This lab is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Adapted by James Glasbrenner for <span class="caps">CDS</span>&nbsp;102.</p>
 
 </div>    </article>
     </div>
