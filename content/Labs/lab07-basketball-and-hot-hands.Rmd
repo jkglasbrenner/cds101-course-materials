@@ -6,7 +6,7 @@ Tags: lab
 Slug: lab-07-basketball-hot-hands
 Summary: Use randomized simulations to determine whether or not basketball players can have a "hot hand"
 Show_summary: true
-Show_link: false
+Show_link: true
 
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -18,3 +18,243 @@ icon_link_bullet <- '<i class="fas fa-link" data-fa-transform="grow-2"></i>&nbsp
 lab_name <- "Lab 7"
 starter_file <- "lab07.Rmd"
 ```
+
+## Instructions
+
+Obtain the GitHub repository you will use to complete the lab, which contains a starter file named [`r starter_file`]{.monospace}.
+This lab shows you how we can use randomized simulations to gain insight into whether or not basketball players can have a "hot hand".
+Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file [`r starter_file`]{.monospace}.
+Then, when you're ready to submit, follow the directions in the [`r icon_link`How to submit](#how-to-submit) section below.
+
+## The Hot Hand
+
+Basketball players who make several baskets in succession are described as having a _hot hand_.
+Fans and players have long believed in the hot hand phenomenon, which refutes the assumption that each shot is independent of the next.
+However, [`r icon_link`a 1985 paper][gilovich-paper] by Gilovich, Vallone, and Tversky collected evidence that contradicted this belief and showed that successive shots are independent events.
+This paper started a great controversy that continues to this day, as you can see by Googling _hot hand basketball_.
+
+We do not expect to resolve this controversy today.
+However, we'll apply one approach to answering questions like this, which will allow us to (1) think about the effects of independent and dependent events, (2) learn how to simulate shooting streaks in R, and (3) to compare a simulation to actual data in order to determine if the hot hand phenomenon appears to be real.
+
+## About the dataset
+
+Our investigation will focus on the performance of one player: [`r icon_link`Kobe Bryant][kobe-bryant-wiki] of the Los Angeles Lakers.
+His performance against the Orlando Magic in the [`r icon_link`2009 NBA Finals][2009-nba-finals-wiki] earned him the title *Most Valuable Player* and many spectators commented on how he appeared to show a hot hand.
+Accordingly, our dataset is taken from the five games the Los Angeles Lakers played against the Orlando Magic in the 2009 NBA finals.
+
+The table below provides descriptions of the dataset's 6 variables,
+
+| Variable                  | Description                                          |
+| -------------             | ---------------------------------------------------- |
+| [vs]{.monospace}          | ORL if the Los Angeles Lakers played against Orlando |
+| [game]{.monospace}        | game in the 2009 NBA finals                          |
+| [quarter]{.monospace}     | quarter in the game, OT stands for overtime          |
+| [time]{.monospace}        | time of game in seconds at which Kobe took a shot    |
+| [description]{.monospace} | description of the shot                              |
+| [shot]{.monospace}        | H if the shot was a hit, M if the shot was a miss    |
+
+## Defining a shooting streak
+
+If you inspect the [shot]{.monospace} column, you'll quickly find that inspecting a string of [H]{.monospace}'s and [M]{.monospace}'s by eye makes it be difficult to gauge whether or not it seems like Kobe was shooting with a hot hand.
+To make any progress we will need to define what we mean when we say a player has a hot hand. 
+For the purposes of our investigation, we will base our hot hand definition on the belief that hot hand shooters tend to go on shooting streaks, where the length of a shooting streak is defined as the _number of consecutive baskets a player makes until a miss occurs_.
+
+For example, in Game 1 Kobe Bryant had the following sequence of hits and misses from his nine shot attempts in the first quarter:
+
+    H M | M | H H M | M | M | M
+
+You can verify this by viewing the first 8 rows of the dataset using `View()`.
+Within these nine shot attempts there are six streaks, which are separated by a [|]{.monospace} above.
+The lengths of each streak are one, zero, two, zero, zero, zero (in order of occurrence).
+
+@.
+    What does a streak length of 1 mean, i.e. how many hits and misses are in a streak of 1?
+    What about a streak length of 0?
+
+Counting streak lengths manually for all 133 of Kobe's shots would get tedious, so we'll use the function `calc_streak()` to calculate them.
+This function has been loaded automatically for you in your R Markdown report file.
+
+@.
+    Run the following code to calculate the length of Kobe's shooting streaks,
+
+    ```r
+    kobe_streak <- calc_streak(kobe_basket)
+    ```
+
+    then visualize the distribution of the streak lengths.
+
+    ```r
+    ggplot(kobe_streak) +
+      geom_bar(
+        mapping = aes(x = length)
+      )
+    ```
+
+    Describe the distribution of Kobe's streak lengths from the 2009 NBA finals. 
+    What was his typical streak length?
+    How long was his longest streak of baskets?
+
+## Compared to what?
+
+We've shown that Kobe had some long shooting streaks, but are they long enough to support the belief that he had a hot hand?
+What can we compare them to?
+
+To address these questions we will need to make use of the concept of _independence_.
+Two processes are independent if the outcome of one process doesn't affect the outcome of the second.
+So if each shot that a player takes is an independent process, then that means that making or missing your first shot **will not** affect the probability that you will make or miss your second shot.
+Conversely, a shooter with a hot hand will have shots that are **not** independent of one another.
+Specifically, if the shooter makes his first shot, the hot hand model says he will have a _higher_ probability of making his second shot.
+
+Let's suppose for a moment that the hot hand model is valid for Kobe.
+During his career, the percentage of times that Kobe makes a basket (i.e. his shooting percentage) is about 45%, or in probability notation,
+$$P(\text{shot 1 = H}) = 0.45$$
+If he makes the first shot and has a hot hand (remember, this would mean that shots are **not** independent), then the probability that he makes his second shot would go up to, let's say, 60%,
+$$P(\text{shot 2 = H} \, | \, \text{shot 1 = H}) = 0.60$$
+As a result of these increased probabilites, you'd expect Kobe to have longer streaks.
+
+Compare this to the skeptical perspective where Kobe does *not* have a hot hand, where each shot is independent of the next.
+If he hit his first shot, the probability that he makes the second would still be 0.45,
+$$P(\text{shot 2 = H} \, | \, \text{shot 1 = H}) = 0.45$$
+In other words, making the first shot did nothing to affect the probability that he'd make his second shot.
+If Kobe's shots are independent, then he'd have the same probability of hitting every shot regardless of his past shots: 45%.
+
+Now that we've phrased the situation in terms of independent shots, let's return to the question: how do we tell if Kobe's shooting streaks are long enough to indicate that he has a hot hand?
+We can compare his streak lengths to someone without a hot hand: an independent shooter.
+
+## Simulations in R
+
+While we don't have any data from a shooter we know to have independent shots, this sort of data is easy to simulate in R using a package called [infer]{.monospace}.
+In a simulation, you set the ground rules of a random process and then the computer uses random numbers to generate an outcome that adheres to those rules.
+As a simple example let's simulate 100 flips of a fair coin, which has a 50% chance of coming up heads and a 50% chance of coming up tails.
+Our [infer]{.monospace} template for this simulation is as follows,
+
+```r
+probability_heads <- 0.5
+
+tibble(outcome = rep(combine("heads", "tails"), each = 50)) %>%
+  specify(outcome ~ NULL, success = "heads") %>%
+  hypothesize(null = "point", p = probability_heads) %>%
+  generate(reps = 1, type = "simulate") %>%
+  ungroup() %>%
+  count(outcome)
+```
+
+@sim-fair-coin.
+    Copy and paste all of the above template code into a single code block within your R Markdown notebook and run it.
+    This will simulate the flipping of a fair coin 100 times.
+    From inspecting the results table and seeing the number of times you flip a heads versus tails, does this seem to behave like a fair coin?
+    Why or why not?
+    
+    Next, re-run the same code block a couple more times and watch what happens to the results table.
+    Does it stay the same or does it change?
+    If it changes, why would your result be different each time you run the simulation?
+
+Now, imagine that we wanted to simulate an _unfair_ coin that only lands on heads 20% of the time.
+How could we do this?
+
+@.
+    Copy and paste the code block from **Exercise @sim-fair-coin** and adjust the value for [probability_heads]{.monospace} from [0.5]{.monospace} to [0.2]{.monospace}, which is how we tell R that we want the probability of flipping heads to be 20%.
+    Run the code block.
+    In your simulation of 100 flips of the unfair coin, how many flips came up heads?
+    
+    If you wanted the probability of **flipping tails** to be 45%, what should you set [probability_heads]{.monospace} equal to?
+
+## Simulating the Independent Shooter
+
+Simulating a basketball player who has independent shots uses the same mechanism that we use to simulate a coin flip.
+To simulate a single shot from an independent shooter with a shooting percentage of 50% we type,
+
+```r
+probability_hit <- 0.5
+
+sim_basket <- kobe_basket %>%
+  specify(shot ~ NULL, success = "H") %>%
+  hypothesize(null = "point", p = probability_hit) %>%
+  generate(reps = 1, type = "simulate") %>%
+  ungroup() %>%
+  transmute(shot = as.character(shot))
+```
+
+Notice here that the dataset [kobe_basket]{.monospace} is being piped into `specify()`.
+This does two things, (1) it will ensure that our shot outcomes will be labeled as either [H]{.monospace} or [M]{.monospace}, and (2) it will ensure that our simulated independent shooter will take 133 shots, the same number of shots that Kobe Bryant takes in this dataset.
+
+
+@.
+    To make a valid comparison between Kobe and our simulated independent shooter, we need to align their shooting percentages.
+    What change needs to be made to the code template so that it reflects a shooting percentage of 45%?
+    Make this adjustment, then run a simulation to sample 133 shots.
+    This will assign the output of this simulation to [sim_basket]{.monospace}.
+
+With the results of the simulation saved as [sim_basket]{.monospace}, we have the data necessary to compare Kobe to our independent shooter.
+Both datasets represent the results of 133 shot attempts, each with the same shooting percentage of 45%.
+We know that our simulated data is from a shooter that has independent shots.
+That is, we know the simulated shooter does not have a hot hand.
+
+## Additional exercises
+
+@.
+    Using `calc_streak()`, compute the streak lengths for the simulated independent shooter saved to [sim_basket]{.monospace}.
+    Assign the results of `calc_streak()` to a variable named [sim_streak]{.monospace}.
+
+@.
+    Visualize the distribution of simulated streak lengths and discuss it.
+    Based on your results, what is the typical streak length for this simulated independent shooter with a 45% shooting percentage?
+    How long is the player's longest streak of baskets in 133 shots?
+
+@.
+    If you were to run the simulation of the independent shooter a second time, how would you expect its streak distribution to compare to the distribution from the question above?
+    Exactly the same?
+    Somewhat similar?
+    Totally different?
+    Explain your reasoning.
+
+@.
+    How does Kobe Bryant's distribution of streak lengths compare to the distribution of streak lengths for the simulated shooter?
+    Using this comparison, do you have evidence that the hot hand model fits Kobe's shooting patterns?
+    Explain.
+
+## How to submit
+
+To submit your lab, follow the two steps below.
+Your lab will be graded for credit **after** you've completed both steps!
+
+1.  Save, commit, and push your completed R Markdown file so that everything is synchronized to GitHub.
+    If you do this right, then you will be able to view your completed file on the GitHub website.
+
+2.  Knit your R Markdown document to the PDF format, export (download) the PDF file from RStudio Server, and then upload it to *`r lab_name`* posting on Blackboard.
+
+## Cheatsheets
+
+You are encouraged to review and keep the following cheatsheets handy while working on this lab:
+
+*   [data import/tidyr cheatsheet][data-import-cheatsheet]
+
+*   [dplyr cheatsheet][dplyr-cheatsheet]
+
+*   [ggplot2 cheatsheet][ggplot2-cheatsheet]
+
+*   [RStudio cheatsheet][rstudio-cheatsheet]
+
+*   [R Markdown cheatsheet][rmarkdown-cheatsheet]
+
+*   [R Markdown reference][rmarkdown-reference]
+
+## Credits
+
+This lab is a derivative of [OpenIntro Lab 4 -- Probability][openintro-lab-4] by Andrew Bray and Mine Çetinkaya-Rundel, which was adapted from a lab written by Mark Hansen of UCLA Statistics, used under [CC BY-SA 3.0][cc-by-sa-3].
+This lab is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa-4].
+Adapted by James Glasbrenner for CDS 102.
+
+[cc-by-sa-3]:             https://creativecommons.org/licenses/by-sa/3.0/
+[cc-by-sa-4]:             https://creativecommons.org/licenses/by-sa/4.0/
+[gilovich-paper]:         https://drive.google.com/file/d/1NN8ZRmk7ZUc5KeJl7PJfeUF0PRqG6hdR
+[r-infer-github]:         https://infer.netlify.com/
+[openintro-lab-4]:        https://htmlpreview.github.io/?https://github.com/andrewpbray/oiLabs-base-R/blob/master/probability/probability.html
+[dplyr-cheatsheet]:       https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+[kobe-bryant-wiki]:       https://en.wikipedia.org/wiki/Kobe_Bryant
+[ggplot2-cheatsheet]:     https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf
+[rstudio-cheatsheet]:     https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+[rmarkdown-reference]:    https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf
+[2009-nba-finals-wiki]:   https://en.wikipedia.org/wiki/2009_NBA_Finals
+[rmarkdown-cheatsheet]:   https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
+[data-import-cheatsheet]: https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf 
