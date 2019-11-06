@@ -5,22 +5,22 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CDS 101: Introduction to Computational and Data Sciences</title>
-    <link rel="stylesheet" href="https://www.cds101.com/theme/css/cds101.min.css">
-    <link rel="stylesheet" href="https://www.cds101.com/theme/css/custom.css">
-      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/katex/katex.min.css">
-      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/highlightjs/default.css">
-      <link rel="stylesheet" href="https://www.cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
-      <link href="https://www.cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
+    <link rel="stylesheet" href="https://archive2019.cds101.com/theme/css/cds101.min.css">
+    <link rel="stylesheet" href="https://archive2019.cds101.com/theme/css/custom.css">
+      <link rel="stylesheet" href="https://archive2019.cds101.com/theme/css/vendor/katex/katex.min.css">
+      <link rel="stylesheet" href="https://archive2019.cds101.com/theme/css/vendor/highlightjs/default.css">
+      <link rel="stylesheet" href="https://archive2019.cds101.com/theme/css/vendor/fontawesome/fa-svg-with-js.css">
+      <link href="https://archive2019.cds101.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CDS 101: Introduction to Computational and Data Sciences Full Atom Feed" />
 </head>  <body>
     <div class="header-grid-container">
 <div class="banner-container">
   <header>
     <div class="banner">
       <div class="course-logo">
-        <a href="https://www.cds101.com/"><img src="https://www.cds101.com/theme/img/course-logo.svg"></a>
+        <a href="https://archive2019.cds101.com/"><img src="https://archive2019.cds101.com/theme/img/course-logo.svg"></a>
       </div>
       <div class="university-logo">
-        <a href="https://gmu.edu"><img src="https://www.cds101.com/theme/img/university-logo.svg"></a>
+        <a href="https://gmu.edu"><img src="https://archive2019.cds101.com/theme/img/university-logo.svg"></a>
       </div>
     </div>
   </header>
@@ -34,24 +34,21 @@
     <div class="navbar-menu" id="main-menu">
       <ul class="navbar-menu-list">
         <li>
-          <a class="navbar-home-item" href="https://www.cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
+          <a class="navbar-home-item" href="https://archive2019.cds101.com/"><i class="fas fa-home" data-fa-transform="grow-8"></i></a>
         </li>
             <li>
-              <a class="navbar-menu-item" href="https://www.cds101.com/materials.html">Materials</a>
+              <a class="navbar-menu-item" href="https://archive2019.cds101.com/materials.html">Materials</a>
             </li>
             <li>
-              <a class="navbar-menu-item" href="https://www.cds101.com/assignments.html">Assignments</a>
+              <a class="navbar-menu-item" href="https://archive2019.cds101.com/assignments.html">Assignments</a>
             </li>
             <li>
-              <a class="navbar-menu-item" href="https://www.cds101.com/labs.html">Labs</a>
+              <a class="navbar-menu-item" href="https://archive2019.cds101.com/labs.html">Labs</a>
             </li>
           <li class="navbar-social">
             <ul class="navbar-social-list">
                 <li>
                   <a class="navbar-social-item" href="https://github.com/jkglasbrenner/cds101-course-materials"><i class="fab fa-github" data-fa-transform="grow-8"></i></a>
-                </li>
-                <li>
-                  <a class="navbar-social-item" href="http://su19-masoncds101.slack.com"><i class="fab fa-slack" data-fa-transform="grow-8"></i></a>
                 </li>
                 <li>
                   <a class="navbar-social-item" href="feeds/all.atom.xml"><i class="fas fa-rss-square" data-fa-transform="grow-8"></i></a>
@@ -70,7 +67,7 @@
 <p>Obtain the GitHub repository you will use to complete the lab, which contains a starter file named <span class="monospace">lab03.Rmd</span>. This lab introduces you to data transformations using the <span class="monospace">dplyr</span> library, which is loaded as part of <span class="monospace">tidyverse</span>. Carefully read the lab instructions and complete the exercises using the provided spaces within your starter file <span class="monospace">lab03.Rmd</span>. Then, when you’re ready to submit, follow the directions in the <a href="#how-to-submit"><i class="fas fa-link"></i>How to submit</a> section&nbsp;below.</p>
 <h2 id="what-is-data-wrangling">What is data&nbsp;wrangling?</h2>
 <p><a href="/labs/lab-02-exploration-by-visualization-the-galton-dataset/"><i class="fas fa-link"></i>Lab 2</a> focused on constructing visualizations using the <span class="monospace">ggplot2</span> library. The dataset used for that lab, the <span class="monospace">galton</span> dataset, was selected because it was relatively small in size and could be visualized in interesting ways without the need for additional processing. It would certainly be nice if all datasets came in such a form! However, in reality, many datasets need to be cleaned, reshaped, and transformed before you can use them to create meaningful visualizations and answer interesting questions. Even datasets that have been preprocessed to be clean and tidy may still require you to apply transformations to help uncover the underlying trends in the data. The full pipeline for obtaining data, cleaning it up, and transforming it is informally referred to as <em>data wrangling</em>, which is summarized in the following figure from <a href="http://r4ds.had.co.nz/wrangle-intro.html"><i class="fas fa-link"></i><em>R for Data Science</em></a>:</p>
-<p><img src="https://www.cds101.com/img/r4ds_data_wrangling.png" title="plot of chunk data-wrangling-figure" alt="plot of chunk data-wrangling-figure" width="NA" style="display: block; margin: auto;" /></p>
+<p><img src="https://archive2019.cds101.com/img/r4ds_data_wrangling.png" title="plot of chunk data-wrangling-figure" alt="plot of chunk data-wrangling-figure" width="NA" style="display: block; margin: auto;" /></p>
 <p>This lab introduces you to functions from the <span class="monospace">dplyr</span> package that you can use to carry out the <em>transform</em> part of the data wrangling pipeline. If you have any prior experience with spreadsheeting software such as Microsoft Excel, you will probably find the functions in the <span class="monospace">dplyr</span> package to be&nbsp;familiar.</p>
 <h2 id="about-the-dataset">About the&nbsp;dataset</h2>
 <p>This is a synthetic dataset that contains sales data for office supplies sold to clients in different regions of the United&nbsp;States.</p>
@@ -261,12 +258,12 @@
         Creative Commons Attribution-ShareAlike 4.0 International License
       </a>.
     </div>
-</footer><script src="https://www.cds101.com/theme/js/cds101.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/katex/katex.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
-  <script src="https://www.cds101.com/theme/js/vendor/vendorInit.js"></script>
+</footer><script src="https://archive2019.cds101.com/theme/js/cds101.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/highlightjs/highlight.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/katex/katex.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/wookmark/wookmark.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/fontawesome/fontawesome-all.min.js"></script>
+  <script src="https://archive2019.cds101.com/theme/js/vendor/vendorInit.js"></script>
   </body>
 </html>
