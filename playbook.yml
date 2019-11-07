@@ -1,0 +1,95 @@
+---
+- hosts: all
+  vars:
+    anaconda_mirror: "https://repo.continuum.io/miniconda"
+    anaconda_timeout_seconds: 600
+    anaconda_python_ver: 3
+    anaconda_ver: latest
+    anaconda_name: "Miniconda{{ anaconda_python_ver }}-{{ anaconda_ver }}-Linux-x86_64"
+    anaconda_installer_sh: "{{ anaconda_name }}.sh"
+    anaconda_installer_url: "{{ anaconda_mirror }}/{{ anaconda_installer_sh }}"
+    anaconda_parent_dir: "/home/vagrant"
+    anaconda_dir: "{{ anaconda_parent_dir }}/miniconda"
+    anaconda_conda_bin: "{{ anaconda_dir }}/bin/conda"
+    cran_repo_key: E298A3A825C0D65DFD57CBB651716619E084DAB9
+    cran_repo_keyserver: keyserver.ubuntu.com
+    cran_repo_ppa: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+
+  pre_tasks:
+    # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
+    - name: Ensure 'man' directory exists.
+      become: yes
+      file:
+        path: /usr/share/man/man1
+        state: directory
+        recurse: yes
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_version == '18.04'
+    
+  tasks:
+    - name: Install basic packages
+      become: yes
+      apt:
+        name:
+          - bzip2
+          - libcurl4-openssl-dev
+          - libssl-dev
+          - libxml2-dev
+          - vim
+          - xzdec
+        update_cache: yes
+        state: present
+        install_recommends: no
+      when: ansible_os_family == "Debian"
+
+    - name: check for installation of anaconda
+      stat:
+        path: "{{ anaconda_conda_bin }}"
+      register: anaconda_conda_binary
+      changed_when: false
+
+    - name: download anaconda installer
+      get_url:
+        url: "{{ anaconda_installer_url }}"
+        dest: "/tmp/{{ anaconda_installer_sh }}"
+        timeout: "{{ anaconda_timeout_seconds }}"
+      when: not anaconda_conda_binary.stat.exists
+
+    - name: install anaconda
+      command: "bash /tmp/{{ anaconda_installer_sh }} -b -p {{ anaconda_dir }}"
+      when: not anaconda_conda_binary.stat.exists
+
+    - name: initialize anaconda
+      command: "{{ anaconda_dir }}/condabin/conda init"
+      when: not anaconda_conda_binary.stat.exists
+
+    - name: delete anaconda installer
+      file:
+        path: "/tmp/{{ anaconda_installer_sh }}"
+        state: absent
+    
+    - name: Add CRAN repository key
+      become: yes
+      apt_key:
+        keyserver: "{{ cran_repo_keyserver }}"
+        id: "{{ cran_repo_key }}"
+      when: ansible_os_family == "Debian"
+
+    - name: Add CRAN PPA
+      become: yes
+      apt_repository:
+        repo: "{{ cran_repo_ppa }}"
+        state: present 
+      when: ansible_os_family == "Debian"
+
+    - name: Install R
+      become: yes
+      apt:
+        name:
+          - r-base
+          - r-base-dev
+        update_cache: yes
+        state: present
+        install_recommends: no
+      when: ansible_os_family == "Debian"
