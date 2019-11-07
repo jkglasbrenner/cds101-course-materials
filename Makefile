@@ -38,7 +38,7 @@ CLOUDFILES_CONTAINER	=	my_cloudfiles_container
 DROPBOX_DIR				=	~/Dropbox/Public/
 
 GITHUB_PAGES_BRANCH		=	gh-pages
-CNAME_DOMAIN			=	www.cds101.com
+CNAME_DOMAIN			=	archive2019.cds101.com
 CNAME_OPT				=	-c $(CNAME_DOMAIN)
 
 CLEAN_FILES				=	*_cache cache/
