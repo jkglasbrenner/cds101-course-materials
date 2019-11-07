@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 AUTHOR = "Dr. Glasbrenner"
 SITENAME = "CDS 101: Introduction to Computational and Data Sciences"
 SITEURL = ""
-SLACK_URL = "http://su19-masoncds101.slack.com"
+SLACK_URL = ""
 GITHUB_URL = "https://github.com/jkglasbrenner/cds101-course-materials"
 UNIVERSITYURL = "https://gmu.edu"
 TIMEZONE = "America/New_York"
